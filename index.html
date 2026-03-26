@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Lume — svjetlo u trenutku koji je teži</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f6ff;min-height:100vh;display:flex;justify-content:center;padding:1rem}
+.app{max-width:430px;width:100%;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(24,95,165,.10);min-height:600px;align-self:flex-start}
+.screen{display:none}.screen.on{display:block}
+.sh{display:flex;align-items:center;gap:10px;padding:14px 16px 12px;border-bottom:1px solid #E6F1FB}
+.back{width:32px;height:32px;border-radius:50%;border:1.5px solid #B5D4F4;background:transparent;color:#185FA5;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sh-title{font-size:16px;font-weight:600;color:#0C447C}
+.nav{display:flex;gap:6px;padding:10px 16px;overflow-x:auto;border-bottom:1px solid #E6F1FB}
+.nb{flex-shrink:0;padding:6px 13px;border-radius:999px;border:1.5px solid #B5D4F4;background:transparent;font-size:12px;color:#185FA5;cursor:pointer;font-weight:600}
+.nb.act{background:#185FA5;color:#fff;border-color:#185FA5}
+.hw{padding:16px}
+.logo-row{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.logo-circle{width:44px;height:44px;border-radius:50%;background:#E6F1FB;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lume-n{font-size:22px;font-weight:700;color:#0C447C;letter-spacing:1px}
+.lume-s{font-size:12px;color:#378ADD}
+.pomozi{width:100%;padding:18px;border-radius:14px;background:#185FA5;border:none;color:#fff;font-size:17px;font-weight:700;cursor:pointer;margin-bottom:12px;letter-spacing:.3px}
+.pomozi:active{transform:scale(.98)}
+.micro-wrap{background:#E6F1FB;border-radius:12px;padding:13px 15px;margin-bottom:12px;min-height:56px}
+.micro-q{font-size:11px;font-weight:700;color:#378ADD;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.micro-t{font-size:13px;color:#0C447C;line-height:1.6;font-style:italic}
+.tip-card{background:#fff;border:1.5px solid #E6F1FB;border-radius:12px;padding:13px 15px;margin-bottom:10px}
+.tip-day-label{font-size:11px;font-weight:700;color:#3B6D11;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.tip-day-title{font-size:14px;font-weight:700;color:#222;margin-bottom:5px}
+.tip-day-text{font-size:13px;color:#555;line-height:1.6}
+.home-nav{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.hn-btn{padding:12px 10px;border-radius:12px;border:1.5px solid #B5D4F4;background:transparent;font-size:12px;color:#185FA5;cursor:pointer;font-weight:600;text-align:center;line-height:1.4}
+.hn-btn:hover{background:#E6F1FB}
+.sw{padding:14px 16px}
+.sl{font-size:13px;color:#666;margin-bottom:10px;font-weight:500}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
+.sc{padding:10px;border-radius:10px;border:1.5px solid #B5D4F4;background:#E6F1FB;color:#0C447C;font-size:12px;font-weight:600;cursor:pointer;text-align:center;line-height:1.4}
+.sc:hover{background:#B5D4F4}.sc.picked{background:#185FA5;color:#fff;border-color:#185FA5}
+.dob-row{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.db{padding:6px 13px;border-radius:999px;border:1.5px solid #B5D4F4;background:transparent;font-size:12px;color:#185FA5;cursor:pointer;font-weight:600}
+.db.act{background:#185FA5;color:#fff;border-color:#185FA5}
+.go{width:100%;padding:14px;border-radius:12px;background:#185FA5;border:none;color:#fff;font-size:15px;font-weight:700;cursor:pointer}
+.go:disabled{opacity:.4;cursor:default}
+.ow{padding:14px 16px}
+.ob{margin-bottom:11px;border-radius:12px;padding:13px 15px}
+.ob-sto{background:#E6F1FB;border-left:4px solid #378ADD;border-radius:0 12px 12px 0}
+.ob-reci{background:#EAF3DE;border-left:4px solid #639922;border-radius:0 12px 12px 0}
+.ob-izb{background:#FAEEDA;border-left:4px solid #BA7517;border-radius:0 12px 12px 0}
+.ob-pod{background:#EEEDFE;border-left:4px solid #534AB7;border-radius:0 12px 12px 0}
+.ob-lab{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.lab-sto{color:#185FA5}.lab-reci{color:#3B6D11}.lab-izb{color:#854F0B}.lab-pod{color:#3C3489}
+.ob-text{font-size:13px;line-height:1.65;color:#222}
+.ob-text li{margin-left:14px;margin-bottom:4px}
+.sim-open{width:100%;padding:12px;border-radius:10px;border:1.5px solid #AFA9EC;background:#EEEDFE;color:#3C3489;font-size:13px;font-weight:600;cursor:pointer;margin-top:4px}
+.vw{padding:14px 16px}
+.vcat{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.vcb{padding:6px 12px;border-radius:999px;border:1.5px solid #B5D4F4;background:transparent;font-size:12px;color:#185FA5;cursor:pointer;font-weight:600}
+.vcb.act{background:#185FA5;color:#fff;border-color:#185FA5}
+.vcard{background:#fff;border:1.5px solid #E6F1FB;border-radius:12px;margin-bottom:10px;overflow:hidden}
+.vcard-head{padding:13px 15px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.vcard-title{font-size:14px;font-weight:700;color:#0C447C}
+.vcard-tag{font-size:10px;padding:2px 8px;border-radius:999px;background:#E6F1FB;color:#185FA5;font-weight:700;margin-top:3px;display:inline-block}
+.vcard-arr{font-size:14px;color:#B5D4F4;transition:transform .2s}
+.vcard-arr.open{transform:rotate(90deg)}
+.vcard-body{display:none;padding:0 15px 14px;border-top:1px solid #E6F1FB}
+.vcard-body.open{display:block}
+.vstep{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid #f0f6ff}
+.vstep:last-child{border-bottom:none}
+.vstep-n{width:24px;height:24px;border-radius:50%;background:#185FA5;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.vstep-text{font-size:13px;color:#333;line-height:1.6;flex:1}
+.vstep-bold{font-weight:700;color:#0C447C}
+.vquote{background:#E6F1FB;border-radius:8px;padding:9px 12px;margin-top:8px;font-size:12px;color:#0C447C;font-style:italic;line-height:1.6}
+.rw{padding:14px 16px}
+.rdob{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.rcard{background:#fff;border:1.5px solid #E6F1FB;border-radius:12px;margin-bottom:10px;overflow:hidden}
+.rcard-head{padding:12px 15px;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start}
+.rcard-left{flex:1}
+.rcard-title{font-size:14px;font-weight:700;color:#222;margin-bottom:3px}
+.rcard-sub{font-size:11px;color:#666}
+.norm-tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:999px;background:#EAF3DE;color:#3B6D11;font-weight:700;margin-top:4px}
+.rcard-body{display:none;padding:0 15px 13px;border-top:1px solid #E6F1FB}
+.rcard-body.open{display:block}
+.rcard-section{margin-top:10px}
+.rcs-label{font-size:11px;font-weight:700;color:#185FA5;text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px}
+.rcs-text{font-size:13px;color:#444;line-height:1.65}
+.rcs-tip{background:#EAF3DE;border-radius:8px;padding:9px 12px;margin-top:6px;font-size:12px;color:#3B6D11;line-height:1.6}
+.rcs-warn{background:#FAEEDA;border-radius:8px;padding:9px 12px;margin-top:6px;font-size:12px;color:#854F0B;line-height:1.6}
+.simw{padding:14px 16px}
+.sim-ctx{background:#E6F1FB;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:#0C447C;line-height:1.5}
+.chat{background:#f5f9ff;border-radius:12px;padding:12px;min-height:220px;max-height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;margin-bottom:10px}
+.bub{max-width:88%;padding:10px 13px;border-radius:14px;font-size:13px;line-height:1.6}
+.bu{background:#185FA5;color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
+.bc{background:#F5C4B3;color:#4A1B0C;align-self:flex-start;border-bottom-left-radius:3px}
+.bt{background:#fff;color:#222;align-self:flex-start;border:1px solid #B5D4F4;border-bottom-left-radius:3px}
+.bl{font-size:10px;font-weight:700;margin-bottom:3px;text-transform:uppercase;letter-spacing:.4px}
+.bl-c{color:#993C1D}.bl-t{color:#185FA5}
+.sir{display:flex;gap:8px}
+.sir input{flex:1;font-size:13px;padding:10px 13px;border-radius:10px;border:1.5px solid #B5D4F4;outline:none;font-family:inherit;color:#222}
+.sir input:focus{border-color:#185FA5}
+.ss-btn{padding:10px 15px;border-radius:10px;background:#185FA5;border:none;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
+.ss-btn:disabled{opacity:.4;cursor:default}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div id="sh" class="screen on">
+<div class="hw">
+  <div class="logo-row">
+    <div class="logo-circle">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="10" r="5" fill="#378ADD"/>
+        <path d="M12 15v5" stroke="#378ADD" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M9 18h6" stroke="#B5D4F4" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M5.5 5.5l1.5 1.5M17 7l1.5-1.5M3 11h2M19 11h2" stroke="#B5D4F4" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div><div class="lume-n">Lume</div><div class="lume-s">svjetlo u trenutku koji je teži</div></div>
+  </div>
+  <button class="pomozi" onclick="go('ss')">Pomozi mi sada</button>
+  <div class="micro-wrap">
+    <div class="micro-q">Podsjetnik dana</div>
+    <div class="micro-t" id="microT"></div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-day-label">Savjet dana</div>
+    <div class="tip-day-title" id="tipTitle"></div>
+    <div class="tip-day-text" id="tipText"></div>
+  </div>
+  <div class="home-nav">
+    <button class="hn-btn" onclick="go('sv')">Vodiči i tehnike</button>
+    <button class="hn-btn" onclick="go('sr')">Razvoj djeteta</button>
+    <button class="hn-btn" onclick="go('ssim')">Simulacija razgovora</button>
+    <button class="hn-btn" onclick="rotateMicro()">Novi podsjetnik</button>
+  </div>
+</div>
+</div>
+
+<div id="ss" class="screen">
+  <div class="sh"><button class="back" onclick="go('sh')">&#8592;</button><div class="sh-title">Što se događa?</div></div>
+  <div class="sw">
+    <div class="sl">Odaberi situaciju:</div>
+    <div class="sgrid">
+      <div class="sc" onclick="pickS(this,'Dijete viče i buni se')">Dijete viče i buni se</div>
+      <div class="sc" onclick="pickS(this,'Dijete odbija spavati')">Odbija spavati</div>
+      <div class="sc" onclick="pickS(this,'Dijete ne sluša')">Dijete ne sluša</div>
+      <div class="sc" onclick="pickS(this,'Ispadi u javnosti')">Ispadi u javnosti</div>
+      <div class="sc" onclick="pickS(this,'Ružan rječnik')">Ružan rječnik</div>
+      <div class="sc" onclick="pickS(this,'Odbija hranu')">Odbija hranu</div>
+      <div class="sc" onclick="pickS(this,'Svađa između djece')">Svađa djece</div>
+      <div class="sc" onclick="pickS(this,'Ne želi u školu ili vrtić')">Ne želi u školu</div>
+      <div class="sc" onclick="pickS(this,'Dijete udara ili grize')">Udara ili grize</div>
+      <div class="sc" onclick="pickS(this,'Dijete laže')">Dijete laže</div>
+      <div class="sc" onclick="pickS(this,'Borba oko ekrana')">Borba oko ekrana</div>
+      <div class="sc" onclick="pickS(this,'Ljubomora na novorođenče')">Ljubomora na bebu</div>
+    </div>
+    <div class="sl" style="margin-bottom:7px">Dob djeteta:</div>
+    <div class="dob-row">
+      <button class="db act" onclick="pickD(this,'2-4')">2–4 god</button>
+      <button class="db" onclick="pickD(this,'5-7')">5–7 god</button>
+      <button class="db" onclick="pickD(this,'8-12')">8–12 god</button>
+    </div>
+    <button class="go" onclick="showOdg()">Daj mi savjet odmah</button>
+  </div>
+</div>
+
+<div id="so" class="screen">
+  <div class="sh"><button class="back" onclick="go('ss')">&#8592;</button><div class="sh-title">Savjet za tebe</div></div>
+  <div class="ow" id="odgW"></div>
+</div>
+
+<div id="sv" class="screen">
+  <div class="sh"><button class="back" onclick="go('sh')">&#8592;</button><div class="sh-title">Vodiči i tehnike</div></div>
+  <div class="vw">
+    <div class="vcat">
+      <button class="vcb act" onclick="filterV(this,'sve')">Sve</button>
+      <button class="vcb" onclick="filterV(this,'granice')">Granice</button>
+      <button class="vcb" onclick="filterV(this,'komunikacija')">Komunikacija</button>
+      <button class="vcb" onclick="filterV(this,'emocije')">Emocije</button>
+      <button class="vcb" onclick="filterV(this,'rutine')">Rutine</button>
+    </div>
+    <div id="vodiciList"></div>
+  </div>
+</div>
+
+<div id="sr" class="screen">
+  <div class="sh"><button class="back" onclick="go('sh')">&#8592;</button><div class="sh-title">Razvoj djeteta</div></div>
+  <div class="rw">
+    <div class="rdob">
+      <button class="db act" onclick="filterR(this,'2')">2–3 god</button>
+      <button class="db" onclick="filterR(this,'4')">4–5 god</button>
+      <button class="db" onclick="filterR(this,'6')">6–7 god</button>
+      <button class="db" onclick="filterR(this,'8')">8–10 god</button>
+      <button class="db" onclick="filterR(this,'11')">11–12 god</button>
+    </div>
+    <div id="razvojList"></div>
+  </div>
+</div>
+
+<div id="ssim" class="screen">
+  <div class="sh"><button class="back" onclick="go('sh')">&#8592;</button><div class="sh-title">Probaj razgovor</div></div>
+  <div class="simw">
+    <div class="sim-ctx" id="simCtx">Odaberi situaciju u "Pomozi mi sada" i klikni "Uvježbaj razgovor" — ili odaberi brzi start:</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px" id="simQuick">
+      <button class="db" onclick="startSim('Dijete viče i buni se','2-4')">Ispadi (2-4)</button>
+      <button class="db" onclick="startSim('Dijete ne sluša','5-7')">Ne sluša (5-7)</button>
+      <button class="db" onclick="startSim('Ružan rječnik','8-12')">Ružan rječnik (8-12)</button>
+      <button class="db" onclick="startSim('Dijete odbija spavati','2-4')">Spavanje (2-4)</button>
+    </div>
+    <div class="chat" id="simChat"></div>
+    <div class="sir">
+      <input type="text" id="simIn" placeholder="Što bi rekao/la djetetu?" onkeydown="if(event.key==='Enter')simSend()"/>
+      <button class="ss-btn" id="simBtn" onclick="simSend()">Šalji</button>
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+let sit='',dob='2-4',simSit='',simDob='',simTurn=0;
+
+const micros=[
+  '"Smiren roditelj ne znači popustljiv roditelj."',
+  '"Granica je dar — dijete se u njoj osjeća sigurno."',
+  '"Reci jednom. Djeluj odmah. Objasni kratko."',
+  '"Tvoja dosljednost je djetetova predvidivost."',
+  '"Nisi loš roditelj jer si postavio/la granicu."',
+  '"Dijete testira granicu jer treba znati da je čvrsta."',
+  '"Ljutnja je normalna. Ponašanje ima posljedice."',
+  '"Ne trebaš biti prijatelj. Trebaš biti roditelj."',
+  '"Jasno NE s toplim tonom — to je moguće."',
+  '"Dijete pamti tko je bio prisutan, ne tko je bio savršen."',
+  '"Smirivanje ne znači predaju."',
+  '"Svaki put kad reguliraš vlastitu emociju pred djetetom — učiš ga kako se to radi."',
+];
+
+const savjeti=[
+  {title:'Reci jednom, djeluj odmah',text:'Kad izgovoriš pravilo ili upozorenje, reci to jednom jasno i mirno. Ponavljanje slabi autoritet — dijete uči da te ne mora slušati odmah.'},
+  {title:'Posljedice, ne prijetnje',text:'Prijetnje koje ne provodiš uče dijete da granice nisu stvarne. Odaberi posljedicu koju možeš provesti i drži se toga dosljedno.'},
+  {title:'Kratko objasni — jednom',text:'Objašnjenje zašto postoji pravilo je korisno. Ali jednom, kratko. Dugačko objašnjavanje pred ispadom nagrađuje ispad pažnjom.'},
+  {title:'Smiren glas, ne tih glas',text:'Snižavanje glasa na miran, ozbiljan ton često djeluje snažnije od vikanja. Dijete zna kad si ozbiljan/na.'},
+  {title:'Predvidivost = sigurnost',text:'Djeca se bolje ponašaju kada znaju što ih čeka. Jasna rutina i dosljedne posljedice smanjuju broj konflikata.'},
+  {title:'Imenuj emociju, ali ne i ponašanje',text:'"Vidim da si ljut/ljuta" — OK. Ali ljutnja ne opravdava vikanje ili udaranje. Emocija ima pravo, ponašanje ima granicu.'},
+];
+
+const vodici=[
+  {kat:'granice',title:'Kako postaviti granicu u 3 koraka',tag:'Granice',koraci:[
+    {b:'Imenuj ponašanje, ne dijete',t:'"Vikanje nije prihvatljivo" — ne: "Ti si nepristojan/a". Dijete nije problem, ponašanje jest.'},
+    {b:'Jasno reci posljedicu',t:'Npr: "Ako nastaviš vikati, odlazimo iz parka." Kratko, konkretno, bez dugog objašnjavanja.'},
+    {b:'Provedi odmah — bez pregovaranja',t:'Ako dijete nastavi, provedi posljedicu mirno i bez drame. Dosljednost je ključ.'},
+  ],quote:'"Granica nije kazna. To je informacija o tome kako funkcionira stvarni svijet."'},
+  {kat:'granice',title:'Što kad dijete kaže "Mrzim te!"',tag:'Granice',koraci:[
+    {b:'Ne reagiraj emotivno na provokaciju',t:'Dijete testira hoće li ovim izazvati reakciju. Uzbuđenost roditelja daje mu moć.'},
+    {b:'Kratko i mirno prizni emociju',t:'Npr: "Razumijem da si jako ljut/ljuta." — pa stanka.'},
+    {b:'Zadrži granicu',t:'Ni pod kojim uvjetima ne popuštaj u pravilu zbog ove izjave. "Svejedno idemo kući."'},
+    {b:'Kad se smiri — razgovor',t:'Tek kad oboje budete mirni, kratko reci: "Kad smo ljuti, kažemo da smo ljuti — ne da mrzimo."'},
+  ],quote:'"Dosljednost u trenutku kad je najteža — to je pravi roditeljski rad."'},
+  {kat:'komunikacija',title:'Kako razgovarati s djetetom koje ne sluša',tag:'Komunikacija',koraci:[
+    {b:'Fizički se spusti na razinu djeteta',t:'Kleknuti ili sagnuti se i gledati u oči — ne vikati s visine. Kontakt prije poruke.'},
+    {b:'Jedna uputa odjednom',t:'Ne: "Obuj se, uzmi torbu i idi po kapu." Nego: "Obuj se." Pričekaj. Tek onda sljedeće.'},
+    {b:'Koristi "kada-onda"',t:'"Kada pospremis igračke, onda možemo gledati crtić." Nije prijetnja — to je redoslijed.'},
+    {b:'Pohvali suradnju odmah',t:'"Odlično, odmah si me poslušao/la." Kratko, konkretno. Djeca ponavljaju što dobiva pozornost.'},
+  ],quote:'"Jasnoća je ljubaznost. Zbunjeno dijete ne sluša — zbunjeno je."'},
+  {kat:'komunikacija',title:'Kako NE ulaziti u raspravu s djetetom',tag:'Komunikacija',koraci:[
+    {b:'Izbjegavaj "zašto" pitanja',t:'"Zašto si to napravio/la?" tjera dijete u obrambenu poziciju. Bolje: "Što se dogodilo?"'},
+    {b:'Ne ponavljaj argumente',t:'Ako si već jednom objasnio/la, ne ponavljaj. Kaži: "Rekao/la sam ti. Odluka ostaje."'},
+    {b:'Kratka rečenica, pa tišina',t:'"Razumijem da nisi zadovoljan/na. Odluka ostaje." — i onda šutnja. Ne popunjavaj tišinu.'},
+    {b:'Odgodi razgovor ako si ljut/ljuta',t:'"Sada sam previše ljut/ljuta za razgovor. Govorimo za 10 minuta."'},
+  ],quote:'"Pobjednička rasprava s djetetom uvijek je izgubljena rasprava."'},
+  {kat:'emocije',title:'Ispadi bijesa — kako proći kroz to',tag:'Emocije',koraci:[
+    {b:'Za djecu 2-5: ne pokušavaj razgovarati',t:'Mozak djeteta u ispadu ne može primati informacije. Budi fizički prisutan, miran, tih.'},
+    {b:'Za djecu 6+: kratko imenuj',t:'"Vidim da si jako ljut/ljuta." Pa stanka. Ne objašnjavaj, ne tješi pretjerano.'},
+    {b:'Zadrži sigurnost prostora',t:'Ako dijete udara ili baca, mirno premjesti: "Ne možeš udarati. Idem s tobom tamo gdje je sigurno."'},
+    {b:'Nakon što se smiri — kratki razgovor',t:'Tek tada: "Što se dogodilo?" i "Što ćemo sljedeći put?"'},
+  ],quote:'"Ispad je oluja. Tvoj posao nije zaustaviti oluju — nego biti luka."'},
+  {kat:'emocije',title:'Kad si ti ljut/ljuta — kako se smiriti',tag:'Emocije',koraci:[
+    {b:'Prepoznaj signal u tijelu',t:'Napetost u ramenima, ubrzan dah, stisnuti zubi — to su znakovi da trebaš pauzu.'},
+    {b:'Imenuj sebi naglas',t:'"Jako sam frustriran/a sada." Samo to. Imenovanje smanjuje intenzitet emocije.'},
+    {b:'Uzmi 30 sekundi',t:'"Trebam trenutak." i odi u drugu sobu. Djeca trebaju vidjeti da odrasli reguliraju emocije.'},
+    {b:'Vrati se smiren/smirena',t:'Kratko nastavi. Nema potrebe za dugim objašnjavanjima zašto si otišao/la.'},
+  ],quote:'"Svaki put kad reguliraš vlastitu emociju pred djetetom — učiš ga kako se to radi."'},
+  {kat:'rutine',title:'Večernja rutina koja stvarno funkcionira',tag:'Rutine',koraci:[
+    {b:'Ista rutina, isti redoslijed — svake večeri',t:'Predvidivost smanjuje otpor. Npr: večera → kupanje → zubi → priča → spavanje.'},
+    {b:'Najavi unaprijed',t:'"Za 10 minuta idemo u kupanje." Djeca ne podnose nagle prijelaze.'},
+    {b:'Ekrani isključi 30-60 min prije spavanja',t:'Ekran stimulira mozak — tijelo ne zna da je večer. Knjiga ili igra umjesto toga.'},
+    {b:'Priča = ritualni kraj dana',t:'Čak i kratka — 5 minuta. Dijete koje odlazi spavati uz priču odlazi bez borbe.'},
+  ],quote:'"Rutina nije rigidnost. To je dar predvidivosti koji djecu smiruje."'},
+  {kat:'rutine',title:'Jutarnja rutina bez kaosa',tag:'Rutine',koraci:[
+    {b:'Budi se 15 min ranije nego dijete',t:'Roditelj koji je već budan i miran postavlja ton za cijelo jutro.'},
+    {b:'Vizualni raspored za dijete 4+',t:'Crteži ili slike: ustaj → zubi → oblači se → doručak. Dijete samo prati, nema svađe.'},
+    {b:'Ne pregovaraj o doručku',t:'Stavi na stol, kratko reci što je. Pojede se ili ne. Nema scene.'},
+    {b:'Spremi stvari večer prije',t:'Torba, odjeća, doručak — večer. Jutro je za mirno buđenje, ne za traženje čarapa.'},
+  ],quote:'"Mirno jutro počinje večer prije."'},
+];
+
+const razvoj={
+  '2':[
+    {title:'Ispadi bijesa (tantrum)',sub:'Što se zapravo događa',tag:true,sto:'Mozak djeteta 2-3 god nema razvijenu prefrontalnu koru — ne može regulirati snažne emocije. Ispad nije manipulacija ni loše odgajanje.',tip:'Budi fizički prisutan, miran i tih. Ne tješi previše, ne kažnjavaš — čekaš da oluja prođe.',warn:'Ne pokušavaj razgovarati ili objašnjavati TIJEKOM ispada. Mozak u tom stanju ne prima informacije.'},
+    {title:'Govor "ne" i otpor',sub:'Zdrav znak razvoja autonomije',tag:true,sto:'Dijete od 2-3 god počinje shvaćati da je zasebna osoba s vlastitom voljom. "Ne" je proba slobode — i proba tebe.',tip:'Daj mu izbore unutar tvojih granica: "Hoćeš li plavu ili crvenu majicu?" — ne "Hoćeš li se obući?"',warn:'Nemoj ulaziti u bitku oko svake sitnice — odaberi bitke koje su važne i drži se njih.'},
+    {title:'Strah od odvajanja',sub:'Plakanje u vrtiću',tag:true,sto:'Separacijska anksioznost je razvojno normalna do 3-4 god. Dijete još nema potpun osjećaj trajnosti — kad odeš, ne zna hoćeš li se vratiti.',tip:'Kratki rituali rastanka (npr. 3 zagrljaja). Dosljednost rituala smanjuje strah.',warn:'Ne "ušuljuj" se bez rastanka — to pojačava strah od napuštanja.'},
+    {title:'Paralelna igra',sub:'Igraju se jedno pored drugog',tag:true,sto:'Djeca 2-3 god igraju se paralelno, ne zajedno. To nije znak da je dijete asocijalno — to je razvojna faza.',tip:'Nauči dijete redoslijedu: "Sada je Tomina igračka — za 5 minuta ti dolazi red."',warn:'Dijeljenje je složena socijalna vještina — ne možeš je zahtijevati od djeteta 2 god.'},
+  ],
+  '4':[
+    {title:'Postavljanje "zašto" pitanja',sub:'Kognitivni razvoj u punom jeku',tag:true,sto:'Djeca 4-5 god intenzivno istražuju uzroke i posljedice. "Zašto" pitanja su zdrav znak razvoja logičkog mišljenja.',tip:'Odgovaraj kratko i iskreno. Ako ne znaš — reci: "Ne znam, hajdemo zajedno saznati."',warn:'Ne frustriraj se ponavljanim pitanjima. Za dijete svako "zašto" je legitimno istraživanje.'},
+    {title:'Mašta i izmišljene priče',sub:'Razlika između mašte i laganja',tag:true,sto:'U ovoj dobi djeca miješaju maštu i stvarnost. Izmišljene priče nisu laganje — to je kognitivni razvoj i kreativnost.',tip:'Umjesto "ne laži", pitaj: "Je li to stvarno ili si to izmislio/la?" Poštuj razliku između mašte i namjernog laganja.',warn:'Pravo laganje počinje oko 5-6 god. Reagiraj na njega konzistentno, ali bez drame.'},
+    {title:'"Nije fer!" — pravila i pravednost',sub:'Razvoj moralnog rasuđivanja',tag:true,sto:'Djeca 4-5 god počinju intenzivno pratiti pravila i glasno reagiraju na nepravdu. To je zdrav razvoj moralne osjetljivosti.',tip:'Validiraj: "Razumijem da ti se čini nepravedno." Ali ne mijenjaj pravilo samo zato što se žali.',warn:'Nemoj uvijek "izravnavati" kad jedno dijete dobije nešto a drugo ne — to ne priprema za stvarni život.'},
+  ],
+  '6':[
+    {title:'Školska anksioznost',sub:'Strah od neuspjeha i ocjena',tag:true,sto:'Polazak u školu donosi prvi dodir s vanjskim vrednovanjem. Strah od pogreške ili neuspjeha je normalan u 6-7 god.',tip:'Fokusiraj se na trud, ne rezultat: "Vidim koliko si se trudio/la" vrijedi više od "bravo, petice!"',warn:'Ne uspoređuj s drugom djecom. Svaka usporedba povećava anksioznost.'},
+    {title:'Prijatelji i isključenost',sub:'Vršnjački odnosi postaju važni',tag:true,sto:'U ovoj dobi mišljenje vršnjaka počinje biti važno koliko i roditeljsko. Isključenost iz grupe boli jako.',tip:'Slušaj bez brzog rješavanja: "To zvuči teško. Što se točno dogodilo?" Validacija prije savjeta.',warn:'Ne staj automatski na stranu svog djeteta bez slušanja cijele priče.'},
+    {title:'Domaća zadaća — prve borbe',sub:'Otpor prema obavezama',tag:true,sto:'Dijete koje je cijeli dan u školi iscrpljeno je kad dođe kući. Otpor prema zadaći nije lijenost — često je iscrpljenost.',tip:'Odredi fiksno vrijeme (npr. 30 min odmora pa zadaća). Isti stol, ista rutina svaki dan.',warn:'Ne rješavaj zadaću umjesto djeteta. Bolje da pogriješi nego da nauči da ne mora sam.'},
+  ],
+  '8':[
+    {title:'Propitivanje roditeljskog autoriteta',sub:'Zdrav razvoj kritičkog mišljenja',tag:true,sto:'Djeca 8-10 god počinju propitivati roditeljske odluke i tražiti logiku iza pravila. To je zdrav korak prema razvoju autonomije.',tip:'Objasni kratko logiku pravila — jednom. Ali debata nije cilj — možeš saslušati bez promjene odluke.',warn:'Ne dopusti da propitivanje preraste u beskrajno pregovaranje. Jedno objašnjenje, pa odluka ostaje.'},
+    {title:'Ekrani i digitalni sadržaj',sub:'Ključna faza za digitalne navike',tag:true,sto:'Djeca 8-10 god postaju svjesna online prostora. Ovo je ključna faza za postavljanje zdravih digitalnih navika.',tip:'Dogovorite pravila zajedno — to povećava poštivanje. Npr: ekrani samo nakon zadaće, ne u spavaćoj sobi.',warn:'Zabrana bez objašnjenja i alternative ne funkcionira dugoročno. Budi prisutan u digitalnom životu djeteta.'},
+    {title:'Prijatelji vs. obitelj',sub:'Vršnjaci postaju prioritet',tag:true,sto:'U ovoj dobi vršnjaci dobivaju na važnosti nauštrb obiteljskog vremena. To je normalno — ne znači gubitak utjecaja.',tip:'Zadrži obiteljske rituale (obroci, aktivnosti) bez pregovaranja o njima.',warn:'Ne natječi se s prijateljima za pažnju — zadrži svoju ulogu roditelja, ne vršnjaka.'},
+  ],
+  '11':[
+    {title:'Emocionalna nestabilnost',sub:'Hormoni počinju djelovati',tag:true,sto:'Pred pubertetu hormoni počinju utjecati na raspoloženje. Intenzivne reakcije na "sitnice" nisu drskost — često je to biokemija.',tip:'Zadrži miran ton čak i kad ti se čini pretjerano. "Vidim da te to mnogo muči" otvara razgovor.',warn:'Ne normaliziraj grubost prema tebi: "Razumijem da si ljut/ljuta, ali neću dopustiti da me vrijeđaš."'},
+    {title:'Privatnost i tajne',sub:'Granice identiteta',tag:true,sto:'Djeca 11-12 god traže privatnost kao razvoj identiteta. Dnevnici, poruke, razgovori s prijateljima postaju "moje".',tip:'Poštuj privatnost, ali zadrži pravo na sigurnost: "Neću čitati tvoje poruke, ali ako si u nevolji — biti ću tu."',warn:'Špijuniranje bez razloga uništava povjerenje. Interveniraj samo ako postoji konkretan razlog za zabrinutost.'},
+    {title:'Akademski pritisak',sub:'Prve ozbiljne ocjene',tag:true,sto:'U 11-12 god djeca su svjesna rangova i usporedbi. Pritisak može dolaziti od škole, vršnjaka i od kuće.',tip:'Fokus na razvoj, ne rang: "Što si danas naučio/la? Što ti je teško?" — bolje od "kakvu si ocjenu dobio/la?"',warn:'Tvoja anksioznost oko ocjena prenosi se na dijete. Ako si sam/sama pod pritiskom — dijete to osjeća.'},
+  ],
+};
+
+const odgovori={
+  'Dijete viče i buni se':{
+    '2-4':{sto:'Dijete 2-4 god u ispadu je doslovno preplavljeno — prefrontalna kora nije razvijena i ne može regulirati emociju. Ovo nije manipulacija.',reci:['"Vidim da si jako ljut/ljuta. Ja sam ovdje."','"Kad se smiriš, možemo razgovarati."','"Ne viče se. Možeš biti ljut — ali ne vikaš."'],izb:['Vikanje natrag — pojačava spiralu','Dugo objašnjavanje tijekom ispada — mozak ne prima','Kapituliranje da bi ispad prestao'],pod:'Tvoja smirenost je jedino što sada pomaže. Budi luka, ne oluja.'},
+    '5-7':{sto:'Dijete 5-7 god već može razumjeti emocije, ali još ne kontrolira intenzitet dobro. Vikanje je najčešće znak preopterećenosti.',reci:['"Govoriš mi glasno. Smanji ton, slušam te."','"Kad mi govoriš normalnim glasom, odgovorit ću ti."','"Razumijem da si uzrujan/a. Vikanje ne pomaže."'],izb:['Ignoriranje bez objašnjenja','Ponavljanje istog upozorenja 5 puta','Ulazak u raspravu tko je u pravu'],pod:'Postavi standard jednom, jasno — i drži ga. Djeca poštuju konzistentnost.'},
+    '8-12':{sto:'Dijete 8-12 god zna da vikanje nije prihvatljivo, ali možda nema bolji alat za frustraciju. Trenutak za jasnu granicu I za učenje.',reci:['"Stani. Govori mi normalnim glasom ili razgovaramo kada se smiriš."','"Čujem da si jako frustriran/a. Vikanje me zatvara, ne otvara."','"Imam 30 sekundi. Smiri se i reci mi što je problem."'],izb:['Duga rasprava u trenutku bijesa','Uzimanje osobno','Zatvaranje razgovora bez rješenja'],pod:'Jasna granica s otvorenim prostorom za pravi razgovor — to je cilj.'},
+  },
+  'Dijete odbija spavati':{
+    '2-4':{sto:'Djeca 2-4 god opiru se spavanju jer im je teško odvojiti se od aktivnosti. To je razvojno normalno, ali rutina je jedino pravo rješenje.',reci:['"Rutina je: zubi, priča, spavanje. Svake večeri."','"Jedna priča, pa zaspi. Ostaje se u krevetu."','"Razumijem da ne želiš spavati. Svejedno je vrijeme."'],izb:['Beskrajno pregovaranje o još jednoj priči','Ostajanje dok ne zaspi svake večeri — kreira ovisnost','Ekran kao uspavanka'],pod:'Dosljedna rutina koja se ne pregovara — za tjedan dana promjena.'},
+    '5-7':{sto:'Djeca ove dobi počinju se bojati mraka ili biti sama. Otpor prema spavanju često je anksioznost, ne inat.',reci:['"Imaš 10 min za mirnu igru, pa krevet."','"U krevetu se čita ili miruje — nema ustajanja."','"Ako te nešto muči, reci mi sada — ne u 22h."'],izb:['Dijete u roditeljskom krevetu bez razloga svake noći','Vikanje da ide spavati','Nagrade za spavanje — šalje krivu poruku'],pod:'Noćna rutina je poput sidra — isti redoslijed, isti kraj.'},
+    '8-12':{sto:'Starija djeca kasno spavaju zbog ekrana ili anksioznosti. Nedostatak sna direktno utječe na ponašanje i koncentraciju.',reci:['"Ekrani isključeni u 20h. Ovo je pravilo, ne diskusija."','"U 21h si u krevetu — čitaš ili mirno se igraš, ali si u sobi."','"Znam da ti se ne spava. Tijelo treba odmor čak i ako um ne želi."'],izb:['Ostavljanje ekrana u sobi navečer','Pregovaranje o vremenu svake večeri','Ignoriranje znakova iscrpljenosti'],pod:'Postavi pravilo jednom, objasni zašto, drži se toga. Ne svake večeri iznova.'},
+  },
+  'Dijete ne sluša':{
+    '2-4':{sto:'Djeca 2-4 god imaju kratku pažnju i žive u sadašnjem trenutku. "Ne slušanje" je često razvojna nemogućnost, ne inat.',reci:['"Stani. Gledaj me. Obuj cipele — sada."','"Jedna stvar: obuj se. Ostalo čeka."','"Kada obučeš cipele, idemo van. Ne prije."'],izb:['Davanje 5 uputa odjednom','Pitanje "hoćeš li" kad nije stvarni izbor','Prijetnje koje ne provodiš'],pod:'Kontakt očima, jedna uputa, pa čekaš. Tolerancija na ignoriranje = vježba ignoriranja.'},
+    '5-7':{sto:'Dijete 5-7 god razumije uputu, ali je procijenilo da je ono što radi zanimljivije. To je test dosljednog roditelja.',reci:['"Rekao/la sam ti jednom. Ovo je zadnji put. Ako ne — (posljedica)."','"Kada završiš (uputa), onda možeš nastaviti s igrom."','"Gledam te. Čekam 10 sekundi."'],izb:['Ponavljanje iste upute 10 puta','Vikanje kao pojačalo','Zaboravljanje posljedice i nastavak normalno'],pod:'Jedno upozorenje, jedna posljedica, dosljednost. Ponavljanje uči dijete da čeka dok ne ponoviš 10 puta.'},
+    '8-12':{sto:'Dijete ove dobi testira autonomiju. "Ne slušanje" može biti aktivni otpor ili pasivno ignoriranje — oboje traži čvrst ali miran odgovor.',reci:['"Rekao/la sam ti. Očekujem da to napraviš do (konkretan rok)."','"Ako to ne napraviš, (konkretna posljedica)."','"Razumijemo se?"'],izb:['Rasprava o tome zašto uputa nije pravedna','Zaboravljanje posljedice jer je neugodno','Uspoređivanje s braćom/sestrama'],pod:'Kratko, konkretno, dosljedno. Rasprava je moguća tek nakon izvršene upute.'},
+  },
+  'Ispadi u javnosti':{
+    '2-4':{sto:'Javni ispadi su normalni za djecu 2-4 god. Dijete nema mehanizme kontrole i stimulacija javnog mjesta ga preopterećuje.',reci:['"Idemo van — možeš se smiriti tamo."','"Razumijem da si ljut. Idemo."','"Ne kupujemo to. Idemo."'],izb:['Kapituliranje zbog srama pred drugima','Duga objašnjenja na sredini trgovine','Vikanje i fizičko guranje'],pod:'Tuđe poglede ignoriraš. Tvoje dijete je jedino što je važno u tom trenutku.'},
+    '5-7':{sto:'Djeca 5-7 god već su svjesna javnosti i ponekad koriste to kao polugu za kapituliranje roditelja.',reci:['"Najavljivam: ako nastaviš, idemo odmah kući."','"Imam jednu minutu. Ako se ne smiriš, idemo."','"Biramo: smiriš se i nastavljamo — ili idemo."'],izb:['Pregovaranje pred publikom','Ispunjavanje zahtjeva "samo ovaj put"','Prazan zahtjev bez posljedice'],pod:'Provjeri s djetetom jednom pravila PRIJE ulaska u trgovinu ili restoran.'},
+    '8-12':{sto:'Starija djeca rijetko imaju klasične ispade — ali mogu biti drska ili dramatična u javnosti. Signal za privatni razgovor.',reci:['"Sada ne razgovaramo o tome. Govorimo kod kuće."','"Tvoje ponašanje trenutno nije prihvatljivo. Nastavljamo normalno."','"Vidim da si frustriran. Govorimo poslije."'],izb:['Javna scena ispred prijatelja djeteta','Ignoriranje problema do doma pa zaborav','Prijetnja bez posljedice'],pod:'Dignitet djeteta u javnosti čuvaš — disciplinu provodiš kod kuće.'},
+  },
+  'Ružan rječnik':{
+    '2-4':{sto:'Dijete ove dobi ponavlja riječi koje izazivaju reakciju odraslih. Reakcija roditelja je nagrada — što jača reakcija, to veće ponavljanje.',reci:['"Tu riječ ne koristimo."','"Reci mi to na drugi način."','"Vidim da si ljut/ljuta. Možeš reći: ljut sam."'],izb:['Smijanje ili pokazivanje da je smiješno','Pretjerana reakcija — to pojačava ponašanje','Ignoriranje bez jasnog stajališta'],pod:'Mirna, kratka reakcija. Bez drame. Dosljednost gasi ponašanje.'},
+    '5-7':{sto:'Dijete je čulo te riječi od vršnjaka i testira što će se dogoditi kod kuće. Testiranje je normalno — odgovor roditelja određuje nastavak.',reci:['"Ta riječ nije prihvatljiva u našoj obitelji."','"Znam da to čuješ od prijatelja. Kod nas to ne koristimo."','"Ako imaš snažan osjećaj, možemo pronaći bolju riječ zajedno."'],izb:['Dugačka predavanja o jeziku','Pretjerano uzbuđenje — privlači pažnju','Dvostruki standard (sam koristiš iste riječi)'],pod:'Kratka i jasna granica. Dvostruki standard djeca odmah vide.'},
+    '8-12':{sto:'U ovoj dobi ružan rječnik je često socijalni signal — dio identiteta grupe. Zabrana bez razgovora rijetko funkcionira dugoročno.',reci:['"Kod kuće i prema meni — ta pravila ostaju."','"Razumijem da svi tako pričaju. Ovdje ipak ne."','"Ako si frustriran, reci mi što se događa — ne psuj."'],izb:['Tretiranje kao moralni problem — to stvara otpor','Ignoriranje jer "svi tako pričaju"','Kazna bez razgovora'],pod:'Granica ostaje, ali razgovor o zašto je važan u ovoj dobi.'},
+  },
+  'Dijete laže':{
+    '2-4':{sto:'Djeca 2-4 god miješaju maštu i stvarnost. Ono što izgleda kao laž često je kreativno mišljenje ili strah od reakcije roditelja.',reci:['"Je li to stvarno se dogodilo ili si to izmislio/la?"','"Razumijem da si htio/la (nešto). Reci mi što stvarno jest."','"Bolje je uvijek reći istinu — i kad je teško."'],izb:['Tretiranje mašte kao namjerne laži','Pretjerana kazna koja povećava strah od istine','Postavljanje zamki — "je li to istina?" kad već znaš odgovor'],pod:'Kažnjavaj laganje manje od pogreške — to potiče iskrenost.'},
+    '5-7':{sto:'U ovoj dobi djeca počinju svjesno lagati da bi izbjegla posljedice ili dobile nešto. To je kognitivni napredak, ali treba jasnu granicu.',reci:['"Primijetio/la sam da to nije istina. Reci mi što se stvarno dogodilo."','"Laganje uvijek čini situaciju gorom — ne boljom."','"Pogreška ima jednu posljedicu. Laž ima dvije."'],izb:['Ignoriranje laganja "jer je malo"','Pretjerana kazna koja tjera u daljnje laganje','Postavljanje zamki umjesto otvorenih pitanja'],pod:'Pogreška + iskrenost = manja posljedica. Pogreška + laž = veća. Neka djeca to nauče kroz iskustvo.'},
+    '8-12':{sto:'Starija djeca lažu češće da bi zaštitila privatnost ili izbjegla sukob. Važno je razlučiti što stoji iza laži.',reci:['"Primijetio/la sam da nešto nije točno. Imam jednu minulu za pravu priču."','"Ako mi sada kažeš istinu, možemo riješiti ovo zajedno."','"Laž mi uzima povjerenje. Povjerenje se gradi polako — i lako gubi."'],izb:['Provjera svake detalja kao da je kriminalac','Ignoriranje uzorka laganja','Kazna bez razgovora o uzroku'],pod:'Razgovor o uzroku laži važniji je od kazne za laž.'},
+  },
+};
+
+const simScripti={
+  'Dijete viče i buni se':{
+    '2-4':[
+      {trigger:['daj','hoću','neću','ne','ne dam'],child:'NEĆU! NEĆU! NEEEE! (plače i viče)',coach:'Dijete je u punom ispadu. Ne pregovaraj sad. Probaj: "Vidim da si jako ljut. Ja sam ovdje." — kratko, mirno.'},
+      {trigger:['smiri','prestani','stani','dosta'],child:'(viče još glasnije) NEĆU SE SMIRITI!',coach:'Zapovijed "smiri se" rijetko funkcionira. Bolje: "Ne viče se. Možeš biti ljut — ali ne vikaš." — i tišina.'},
+      {trigger:['vidim','tu sam','ovdje','ljut','ljuta'],child:'(polako smiruje plač) ...neću... (šmrca)',coach:'Odlično! Imenovanje emocije bez pregovaranja funkcionira. Sad čekaš dok se potpuno smiri.'},
+    ],
+    '5-7':[
+      {trigger:['zašto','nije fer','hoću'],child:'Nije fer! Ti uvijek kažeš ne! Mrzim ovo!',coach:'Dijete traži reakciju. Ne ulazi u raspravu. Probaj: "Razumijem da nisi zadovoljan/na. Odluka ostaje."'},
+      {trigger:['normalan','glas','smanji','tiše'],child:'(stanka) ...pa nije fer...',coach:'Ton se snizio — napredak! "Hvala što si snizio/la glas. Slušam te." Otvori prostor za pravi razgovor.'},
+    ],
+  },
+  'Dijete ne sluša':{
+    '5-7':[
+      {trigger:['molim','hajde','idemo','ajde','dođi'],child:'(ignorira, nastavlja igrati)',coach:'Molba se ignorira jer nije praćena posljedicom. Probaj: "Rekao/la sam ti jednom. Ovo je zadnji put — ako ne, (konkretna posljedica)."'},
+      {trigger:['zadnji','jednom','posljednji','ako ne','posljedica'],child:'Okej okej, idem... (polako ustaje)',coach:'Jasna granica s posljedicom djeluje. Kad posluša — pohvali odmah: "Hvala, odmah si reagirao/la."'},
+    ],
+    '8-12':[
+      {trigger:['rekao','rekla','jednom','znaš'],child:'(ne odgovara, nastavljam s telefonom)',coach:'Pasivno ignoriranje traži konkretnu granicu. "Stavi telefon. Gledam te. Imam 10 sekundi." — pa čekaš.'},
+      {trigger:['telefon','stavi','ekran','gledam'],child:'(odlaže telefon) Pa što?',coach:'Kontakt ostvaren. Sad kratko i jasno: uputa + rok. Bez dugog objašnjavanja.'},
+    ],
+  },
+  'Dijete odbija spavati':{
+    '2-4':[
+      {trigger:['još','jedan','malo','ostani'],child:'Još jedna priča! Samo jedna! MOLIM TE!',coach:'Pregovaranje o pričama uči dijete da uvijek može dobiti još jednu. Probaj: "Jedna priča. Dogovorili smo se. Laku noć."'},
+      {trigger:['jedna','dogovor','laku','gotovo'],child:'(tiše) ...ali hoću vodu...',coach:'Klasičan odgađač. Mirno: "Voda je tu. Sad spavaj." Bez daljnjeg razgovora. Izađeš.'},
+    ],
+  },
+};
+
+function init(){
+  const mi=Math.floor(Math.random()*micros.length);
+  document.getElementById('microT').textContent=micros[mi];
+  const si=Math.floor(Math.random()*savjeti.length);
+  document.getElementById('tipTitle').textContent=savjeti[si].title;
+  document.getElementById('tipText').textContent=savjeti[si].text;
+}
+
+function rotateMicro(){
+  const m=document.getElementById('microT');
+  m.textContent=micros[Math.floor(Math.random()*micros.length)];
+}
+
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  if(id==='sv')renderVodici('sve');
+  if(id==='sr')renderRazvoj('2');
+  if(id==='sh'){
+    const s=savjeti[Math.floor(Math.random()*savjeti.length)];
+    document.getElementById('tipTitle').textContent=s.title;
+    document.getElementById('tipText').textContent=s.text;
+  }
+}
+
+function pickS(el,val){
+  document.querySelectorAll('.sc').forEach(c=>c.classList.remove('picked'));
+  el.classList.add('picked');sit=val;
+}
+
+function pickD(el,val){
+  document.querySelectorAll('#ss .db').forEach(b=>b.classList.remove('act'));
+  el.classList.add('act');dob=val;
+}
+
+function showOdg(){
+  if(!sit){alert('Odaberi situaciju.');return;}
+  const d=odgovori[sit]?.[dob];
+  let html='';
+  if(d){
+    const r=d.reci.map(x=>`<li>"${x}"</li>`).join('');
+    const iz=d.izb.map(x=>`<li>${x}</li>`).join('');
+    html=`<div class="ob ob-sto"><div class="ob-lab lab-sto">Što se događa</div><div class="ob-text">${d.sto}</div></div>
+<div class="ob ob-reci"><div class="ob-lab lab-reci">Što reći — konkretno</div><div class="ob-text"><ul>${r}</ul></div></div>
+<div class="ob ob-izb"><div class="ob-lab lab-izb">Što izbjegavati</div><div class="ob-text"><ul>${iz}</ul></div></div>
+<div class="ob ob-pod"><div class="ob-lab lab-pod">Podsjetnik</div><div class="ob-text" style="font-style:italic">${d.pod}</div></div>
+<button class="sim-open" onclick="startSim('${sit}','${dob}')">Uvježbaj ovaj razgovor u simulaciji →</button>`;
+  } else {
+    html=`<div style="padding:2rem;text-align:center;color:#378ADD;font-size:14px">Sadržaj za ovu situaciju se dodaje.<br><br><button class="go" style="max-width:200px;margin:1rem auto;display:block" onclick="go('sv')">Pogledaj vodiče</button></div>`;
+  }
+  document.getElementById('odgW').innerHTML=html;
+  go('so');
+}
+
+function renderVodici(kat){
+  const list=document.getElementById('vodiciList');
+  const f=kat==='sve'?vodici:vodici.filter(v=>v.kat===kat);
+  list.innerHTML=f.map(v=>`<div class="vcard">
+<div class="vcard-head" onclick="toggleV(this)">
+  <div><div class="vcard-title">${v.title}</div><span class="vcard-tag">${v.tag}</span></div>
+  <div class="vcard-arr">&#9654;</div>
+</div>
+<div class="vcard-body">
+  ${v.koraci.map((k,j)=>`<div class="vstep"><div class="vstep-n">${j+1}</div><div class="vstep-text"><span class="vstep-bold">${k.b}</span><br>${k.t}</div></div>`).join('')}
+  <div class="vquote">${v.quote}</div>
+</div></div>`).join('');
+}
+
+function toggleV(head){
+  const arr=head.querySelector('.vcard-arr');
+  const body=head.nextElementSibling;
+  const open=body.classList.contains('open');
+  document.querySelectorAll('.vcard-body').forEach(b=>b.classList.remove('open'));
+  document.querySelectorAll('.vcard-arr').forEach(a=>a.classList.remove('open'));
+  if(!open){body.classList.add('open');arr.classList.add('open');}
+}
+
+function filterV(el,kat){
+  document.querySelectorAll('.vcb').forEach(b=>b.classList.remove('act'));
+  el.classList.add('act');renderVodici(kat);
+}
+
+function renderRazvoj(d){
+  const list=document.getElementById('razvojList');
+  const items=razvoj[d]||[];
+  list.innerHTML=items.map(r=>`<div class="rcard">
+<div class="rcard-head" onclick="toggleR(this)">
+  <div class="rcard-left"><div class="rcard-title">${r.title}</div><div class="rcard-sub">${r.sub}</div>${r.tag?'<span class="norm-tag">razvojno normalno</span>':''}</div>
+  <div class="vcard-arr" style="margin-left:8px;flex-shrink:0">&#9654;</div>
+</div>
+<div class="rcard-body">
+  <div class="rcard-section"><div class="rcs-label">Što se događa</div><div class="rcs-text">${r.sto}</div></div>
+  <div class="rcs-tip">${r.tip}</div>
+  <div class="rcs-warn">${r.warn}</div>
+</div></div>`).join('');
+}
+
+function toggleR(head){
+  const arr=head.querySelector('.vcard-arr');
+  const body=head.nextElementSibling;
+  const open=body.classList.contains('open');
+  document.querySelectorAll('.rcard-body').forEach(b=>b.classList.remove('open'));
+  document.querySelectorAll('.rcard-head .vcard-arr').forEach(a=>a.classList.remove('open'));
+  if(!open){body.classList.add('open');arr.classList.add('open');}
+}
+
+function filterR(el,d){
+  document.querySelectorAll('.rdob .db').forEach(b=>b.classList.remove('act'));
+  el.classList.add('act');renderRazvoj(d);
+}
+
+function startSim(s,d){
+  simSit=s;simDob=d;simTurn=0;
+  document.getElementById('simCtx').textContent=`Situacija: ${s} · dijete ${d} god. Piši što bi rekao/la djetetu.`;
+  document.getElementById('simChat').innerHTML='<div class="bt"><div class="bl bl-t">Lume trener</div>Spreman/na? Napiši što bi rekao/la djetetu u ovoj situaciji.</div>';
+  document.getElementById('simQuick').style.display='none';
+  go('ssim');
+}
+
+function simSend(){
+  const inp=document.getElementById('simIn');
+  const btn=document.getElementById('simBtn');
+  const msg=inp.value.trim();if(!msg)return;
+  inp.value='';btn.disabled=true;
+  const chat=document.getElementById('simChat');
+  const ub=document.createElement('div');ub.className='bub bu';ub.textContent=msg;chat.appendChild(ub);
+
+  const script=simScripti[simSit]?.[simDob];
+  let resp=null;
+  if(script){const l=msg.toLowerCase();for(const s of script){if(s.trigger.some(t=>l.includes(t))){resp=s;break;}}}
+
+  if(!resp){
+    const gc=['(gleda te s izazovom)','(nastavlja se ponašati isto)','(kratka stanka, pa nastavljaju)'];
+    const gt=['Proba! Je li to bila granica ili molba? Dijete reagira samo na jasne granice s posljedicom.','Razmisli: ima li tvoja rečenica konkretnu posljedicu? Bez nje dijete nema razlog promijeniti ponašanje.','Dobra smirenost tona. Sad provjeri: je li uputa jasna i ima li rok?'];
+    resp={child:gc[simTurn%3],coach:gt[simTurn%3]};
+  }
+  simTurn++;
+
+  setTimeout(()=>{
+    const cb=document.createElement('div');cb.className='bub bc';
+    cb.innerHTML=`<div class="bl bl-c">Dijete</div>${resp.child}`;chat.appendChild(cb);
+    const tb=document.createElement('div');tb.className='bub bt';
+    tb.innerHTML=`<div class="bl bl-t">Lume trener</div>${resp.coach}`;chat.appendChild(tb);
+    chat.scrollTop=chat.scrollHeight;btn.disabled=false;
+  },500);
+  chat.scrollTop=chat.scrollHeight;
+}
+
+init();
+</script>
+</body>
+</html>
