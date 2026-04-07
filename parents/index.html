@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LUME Parents — Za roditelje koji žele biti prisutni</title>
+<title>LUME Parents</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
   --green-deep:  #1C3A2A;
@@ -16,14 +16,16 @@
   --green-ghost: #EDF7F1;
   --cream:       #F7F4EE;
   --cream-dark:  #EDE8DF;
-  --cream-mid:   #E8E2D8;
   --warm-white:  #FDFBF8;
   --text-dark:   #1A2E22;
   --text-mid:    #3D5C48;
   --text-light:  #6B8C77;
-  --text-ghost:  #9BB8A6;
-  --gold:        #8A6A3A;
-  --gold-italic: #C4954A;
+  --gold:        #C4954A;
+  --gold-light:  #E8D5A3;
+  /* Phase colors */
+  --phase-stanje:  #4A90B8;
+  --phase-obrazac: #8A7A5A;
+  --phase-sustav:  #3D7A52;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,831 +35,2048 @@ body {
   font-family: 'DM Sans', sans-serif;
   background: var(--cream);
   color: var(--text-dark);
-  overflow-x: hidden;
-}
-
-/* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 0 48px;
-  height: 56px;
-  display: flex; align-items: center; justify-content: space-between;
-  background: rgba(247,244,238,.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(200,230,212,.3);
-}
-
-.nav-logo {
-  display: flex; align-items: center; gap: 8px;
-  font-family: 'Fraunces', serif; font-size: 18px; font-weight: 300;
-  color: var(--green-deep); text-decoration: none; letter-spacing: .3px;
-}
-
-.nav-logo svg { width: 20px; height: 20px; }
-
-.nav-links {
-  display: flex; align-items: center; gap: 6px;
-  list-style: none;
-}
-
-.nav-links a {
-  font-size: 12px; font-weight: 400; color: var(--text-light);
-  text-decoration: none; padding: 5px 12px; border-radius: 999px;
-  transition: all .2s; letter-spacing: .2px;
-}
-
-.nav-links a:hover { color: var(--green-deep); background: var(--green-ghost); }
-.nav-links a.active { color: var(--green-deep); font-weight: 500; }
-
-.nav-right {
-  display: flex; align-items: center; gap: 10px;
-}
-
-.nav-lang {
-  padding: 5px 14px; border-radius: 999px;
-  border: 1px solid var(--cream-mid); background: transparent;
-  font-size: 11px; font-weight: 500; color: var(--text-light);
-  cursor: pointer; transition: all .2s; letter-spacing: .5px;
-  font-family: 'DM Sans', sans-serif;
-}
-.nav-lang:hover { border-color: var(--green-light); color: var(--green-deep); }
-
-/* ── HERO ── */
-.hero {
   min-height: 100vh;
-  padding: 120px 48px 80px;
-  display: flex; align-items: center;
-  position: relative; overflow: hidden;
 }
 
-.hero-bg {
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 50% 60% at 90% 30%, rgba(107,175,132,.08) 0%, transparent 60%),
-    radial-gradient(ellipse 30% 40% at 5% 70%, rgba(45,90,61,.05) 0%, transparent 50%);
-}
-
-.hero-inner {
-  max-width: 1100px; margin: 0 auto; width: 100%;
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 80px; align-items: center;
-  position: relative; z-index: 1;
-}
-
-.hero-eyebrow {
-  font-size: 10px; font-weight: 500; letter-spacing: 2.5px;
-  text-transform: uppercase; color: var(--green-warm);
-  margin-bottom: 20px;
-}
-
-.hero-title {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(42px, 5.5vw, 72px);
-  font-weight: 300; line-height: 1.05;
-  color: var(--green-deep); margin-bottom: 24px;
-  letter-spacing: -.5px;
-}
-
-.hero-title em {
-  font-style: italic; color: var(--gold-italic);
-}
-
-.hero-subtitle {
-  font-size: 15px; color: var(--text-mid);
-  line-height: 1.75; font-weight: 300;
-  max-width: 420px; margin-bottom: 40px;
-}
-
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 13px 28px; border-radius: 999px;
-  background: var(--green-deep); color: var(--cream);
-  font-size: 13px; font-weight: 400; letter-spacing: .3px;
-  text-decoration: none; border: none; cursor: pointer;
-  transition: all .25s; font-family: 'DM Sans', sans-serif;
-}
-.btn-primary:hover { background: var(--green-mid); transform: translateY(-1px); }
-
-.btn-ghost {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 13px 24px; border-radius: 999px;
-  background: transparent; color: var(--text-mid);
-  font-size: 13px; font-weight: 400;
-  text-decoration: none; border: 1px solid var(--cream-mid);
-  cursor: pointer; transition: all .25s;
-}
-.btn-ghost:hover { border-color: var(--green-light); color: var(--green-deep); }
-
-.hero-visual {
-  position: relative; display: flex; justify-content: center; align-items: center;
-}
-
-.hero-card {
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
   background: var(--warm-white);
-  border-radius: 20px; padding: 32px;
-  box-shadow: 0 8px 40px rgba(28,58,42,.08);
-  max-width: 340px; width: 100%;
   position: relative;
+  box-shadow: 0 0 40px rgba(28,58,42,.08);
 }
 
-.hero-card-label {
-  font-size: 10px; font-weight: 500; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--green-warm);
-  margin-bottom: 16px;
+/* ── SCREENS ── */
+.screen { display: none; }
+.screen.on { display: flex; flex-direction: column; min-height: 100vh; }
+
+/* ── PHASE INDICATOR ── */
+.phase-bar {
+  padding: 16px 24px 12px;
+  background: var(--warm-white);
+  border-bottom: 1px solid var(--cream-dark);
+  position: sticky; top: 0; z-index: 10;
 }
 
-.hero-card-title {
-  font-family: 'Fraunces', serif; font-size: 20px;
-  font-weight: 400; color: var(--green-deep);
-  margin-bottom: 12px; line-height: 1.3;
+.phase-steps {
+  display: flex; align-items: center; gap: 0;
 }
 
-.hero-card-text {
-  font-size: 13px; color: var(--text-mid);
-  line-height: 1.7; font-weight: 300; margin-bottom: 20px;
+.phase-step {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 6px; flex: 1; cursor: default;
 }
 
-.hero-card-quote {
-  padding: 14px 16px;
-  background: var(--green-ghost);
-  border-radius: 10px;
-  font-family: 'Fraunces', serif;
-  font-size: 14px; font-style: italic;
-  color: var(--green-deep); line-height: 1.6;
-}
-
-.hero-card-float {
-  position: absolute; top: -16px; right: -20px;
-  background: var(--warm-white); border-radius: 12px;
-  padding: 12px 16px;
-  box-shadow: 0 4px 20px rgba(28,58,42,.1);
-  font-size: 12px; color: var(--text-mid); font-weight: 400;
-  display: flex; align-items: center; gap: 8px;
-  white-space: nowrap;
-}
-
-.float-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--green-light);
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: .6; transform: scale(.85); }
-}
-
-/* ── SECTION COMMON ── */
-.section {
-  padding: 100px 48px;
-}
-
-.section-inner {
-  max-width: 1100px; margin: 0 auto;
-}
-
-.section-label {
-  font-size: 10px; font-weight: 500; letter-spacing: 2.5px;
-  text-transform: uppercase; color: var(--green-warm);
-  margin-bottom: 14px; text-align: center;
-}
-
-.section-title {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(32px, 4vw, 52px);
-  font-weight: 300; color: var(--green-deep);
-  line-height: 1.1; text-align: center;
-  margin-bottom: 16px;
-}
-
-.section-title em { font-style: italic; color: var(--gold-italic); }
-
-.section-subtitle {
-  font-size: 15px; color: var(--text-mid);
-  line-height: 1.7; font-weight: 300;
-  text-align: center; max-width: 540px;
-  margin: 0 auto 64px;
-}
-
-/* ── SITUATIONS ── */
-.situations-section {
+.phase-icon {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; transition: all .4s;
+  border: 2px solid var(--cream-dark);
   background: var(--warm-white);
 }
 
-.sit-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 16px;
+.phase-step.active .phase-icon {
+  background: var(--green-ghost);
+  border-color: var(--green-light);
+  box-shadow: 0 0 0 4px rgba(107,175,132,.15);
 }
 
-.sit-card {
-  background: var(--cream); border-radius: 16px;
-  padding: 28px 32px;
-  border: 1px solid transparent;
-  transition: all .3s; cursor: default;
-  position: relative; overflow: hidden;
-}
-
-.sit-card:hover {
-  border-color: var(--green-pale);
-  box-shadow: 0 4px 24px rgba(28,58,42,.06);
-  transform: translateY(-2px);
-}
-
-.sit-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0;
-  width: 3px; height: 100%;
+.phase-step.done .phase-icon {
   background: var(--green-pale);
-  transition: background .3s;
+  border-color: var(--green-light);
 }
 
-.sit-card:hover::before { background: var(--green-light); }
-
-.sit-num {
-  font-family: 'Fraunces', serif; font-size: 13px;
-  font-weight: 300; color: var(--green-light);
-  margin-bottom: 10px; font-style: italic;
+.phase-step.inactive .phase-icon {
+  opacity: .4;
 }
 
-.sit-title {
-  font-family: 'Fraunces', serif; font-size: 18px;
-  font-weight: 400; color: var(--green-deep);
-  margin-bottom: 10px;
+.phase-label {
+  font-size: 10px; font-weight: 500; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--text-light);
+  transition: color .4s;
 }
 
-.sit-text {
-  font-size: 13px; color: var(--text-mid);
-  line-height: 1.7; font-weight: 300;
+.phase-step.active .phase-label { color: var(--green-warm); }
+.phase-step.done .phase-label { color: var(--green-light); }
+
+.phase-connector {
+  flex: 1; height: 1px; background: var(--cream-dark);
+  margin: 0 4px; margin-bottom: 22px;
+  transition: background .4s;
 }
 
-/* ── MODEL ── */
-.model-section {
-  background: var(--cream);
+.phase-connector.done { background: var(--green-pale); }
+
+/* ── WELCOME SCREEN ── */
+.welcome-wrap {
+  flex: 1; display: flex; flex-direction: column;
+  padding: 48px 28px 32px;
 }
 
-.model-steps {
-  display: grid; grid-template-columns: 1fr 1fr 1fr;
-  gap: 2px; background: var(--cream-mid);
-  border-radius: 20px; overflow: hidden;
-  margin-top: 0;
-}
-
-.model-step {
-  background: var(--warm-white); padding: 44px 36px;
-  position: relative; transition: background .3s;
-}
-
-.model-step:hover { background: var(--green-ghost); }
-
-.step-num {
-  font-family: 'Fraunces', serif; font-size: 56px;
-  font-weight: 300; color: var(--green-pale);
-  line-height: 1; margin-bottom: 16px;
-  transition: color .3s;
-}
-
-.model-step:hover .step-num { color: var(--green-light); }
-
-.step-tag {
-  font-size: 9px; font-weight: 500; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--green-warm);
-  margin-bottom: 6px;
-}
-
-.step-title {
-  font-family: 'Fraunces', serif; font-size: 22px;
-  font-weight: 400; color: var(--green-deep);
-  margin-bottom: 12px;
-}
-
-.step-text {
-  font-size: 13px; color: var(--text-mid);
-  line-height: 1.75; font-weight: 300;
-}
-
-/* ── RAZLIKA ── */
-.diff-section {
-  background: var(--cream);
-  padding: 100px 48px;
-}
-
-.diff-inner {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 80px; align-items: center;
-}
-
-.diff-list {
-  list-style: none; display: flex; flex-direction: column; gap: 0;
-}
-
-.diff-item {
-  padding: 18px 0;
-  border-bottom: 1px solid var(--cream-dark);
-  display: flex; align-items: flex-start; gap: 16px;
-  font-size: 14px; color: var(--text-mid);
-  line-height: 1.6; font-weight: 300;
-  transition: color .2s;
-}
-
-.diff-item:first-child { padding-top: 0; }
-.diff-item:last-child { border-bottom: none; }
-.diff-item:hover { color: var(--text-dark); }
-
-.diff-check {
-  width: 20px; height: 20px; border-radius: 50%;
-  background: var(--green-ghost); flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 1px;
-}
-
-.diff-x {
-  width: 20px; height: 20px; border-radius: 50%;
-  background: #FFF0F0; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 1px;
-}
-
-.diff-quote-card {
-  background: var(--green-deep); border-radius: 20px;
-  padding: 44px 40px; position: relative; overflow: hidden;
-}
-
-.diff-quote-bg {
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 60% 60% at 80% 20%, rgba(107,175,132,.12) 0%, transparent 60%);
-}
-
-.diff-quote-text {
-  font-family: 'Fraunces', serif; font-size: 24px;
-  font-weight: 300; font-style: italic;
-  color: var(--cream); line-height: 1.5;
-  position: relative; z-index: 1; margin-bottom: 20px;
-}
-
-.diff-quote-text em { color: var(--green-pale); }
-
-.diff-quote-line {
-  width: 40px; height: 1px; background: var(--green-light);
-  position: relative; z-index: 1;
-}
-
-/* ── CTA ── */
-.cta-section {
-  background: var(--green-deep);
-  padding: 100px 48px; text-align: center;
-  position: relative; overflow: hidden;
-}
-
-.cta-bg {
-  position: absolute; inset: 0;
-  background: radial-gradient(circle 500px at 50% 50%, rgba(107,175,132,.1) 0%, transparent 70%);
-}
-
-.cta-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
-
-.cta-title {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(36px, 5vw, 60px);
-  font-weight: 300; color: var(--cream);
-  line-height: 1.15; margin-bottom: 16px;
-}
-
-.cta-title em { font-style: italic; color: var(--green-pale); }
-
-.cta-sub {
-  font-size: 15px; color: var(--green-pale);
-  line-height: 1.7; font-weight: 300;
+.lume-mark {
+  display: flex; align-items: center; gap: 10px;
   margin-bottom: 40px;
 }
 
-.btn-light {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 32px; border-radius: 999px;
-  background: var(--cream); color: var(--green-deep);
-  font-size: 13px; font-weight: 500;
-  text-decoration: none; border: none; cursor: pointer;
-  transition: all .25s;
+.lume-mark-icon {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--green-ghost); border: 1.5px solid var(--green-pale);
+  display: flex; align-items: center; justify-content: center;
 }
-.btn-light:hover { background: var(--warm-white); transform: translateY(-1px); }
 
-/* ── FOOTER ── */
-footer {
-  background: var(--green-deep);
-  border-top: 1px solid rgba(107,175,132,.12);
-  padding: 32px 48px;
+.lume-mark-name {
+  font-family: 'Fraunces', serif; font-size: 22px;
+  font-weight: 300; color: var(--green-deep); letter-spacing: .3px;
+}
+
+.welcome-title {
+  font-family: 'Fraunces', serif;
+  font-size: 36px; font-weight: 300;
+  color: var(--green-deep); line-height: 1.15;
+  margin-bottom: 16px; letter-spacing: -.3px;
+}
+
+.welcome-title em { font-style: italic; color: var(--gold); }
+
+.welcome-text {
+  font-size: 14px; color: var(--text-mid);
+  line-height: 1.8; font-weight: 300;
+  margin-bottom: 32px;
+}
+
+.safe-badge {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 16px; border-radius: 12px;
+  background: var(--green-ghost);
+  border-left: 3px solid var(--green-light);
+  margin-bottom: 40px;
+}
+
+.safe-badge-icon { font-size: 16px; margin-top: 1px; flex-shrink: 0; }
+
+.safe-badge-text {
+  font-size: 12px; color: var(--text-mid);
+  line-height: 1.7; font-weight: 300;
+}
+
+.safe-badge-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--green-warm);
+  margin-bottom: 4px;
+}
+
+.phase-preview {
+  display: flex; gap: 8px; margin-bottom: 40px;
+}
+
+.phase-preview-item {
+  flex: 1; padding: 14px 12px; border-radius: 12px;
+  background: var(--warm-white); border: 1px solid var(--cream-dark);
+  text-align: center;
+}
+
+.phase-preview-icon { font-size: 20px; margin-bottom: 6px; }
+.phase-preview-name {
+  font-size: 10px; font-weight: 600; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--text-light);
+  margin-bottom: 3px;
+}
+.phase-preview-desc {
+  font-size: 11px; color: var(--text-ghost); line-height: 1.4; font-weight: 300;
+}
+
+.btn-start {
+  width: 100%; padding: 16px;
+  border-radius: 14px; border: none;
+  background: var(--green-deep); color: var(--cream);
+  font-family: 'Fraunces', serif; font-size: 17px;
+  font-weight: 300; letter-spacing: .3px;
+  cursor: pointer; transition: all .25s;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.btn-start:hover { background: var(--green-mid); transform: translateY(-1px); }
+
+.btn-skip {
+  display: block; text-align: center; margin-top: 14px;
+  font-size: 12px; color: var(--text-ghost);
+  cursor: pointer; transition: color .2s;
+}
+.btn-skip:hover { color: var(--text-light); }
+
+/* ── ONBOARDING ── */
+.ob-wrap {
+  flex: 1; padding: 28px 24px 24px;
+  display: flex; flex-direction: column;
+}
+
+.ob-progress {
+  margin-bottom: 24px;
+}
+
+.ob-progress-top {
+  display: flex; justify-content: space-between;
+  align-items: center; margin-bottom: 8px;
+}
+
+.ob-progress-step {
+  font-size: 11px; font-weight: 500; color: var(--green-warm);
+  letter-spacing: .5px;
+}
+
+.ob-progress-ctx {
+  font-size: 11px; color: var(--text-ghost);
+  font-style: italic;
+}
+
+.ob-bar {
+  height: 3px; background: var(--cream-dark);
+  border-radius: 2px; overflow: hidden;
+}
+
+.ob-fill {
+  height: 100%; background: var(--green-light);
+  border-radius: 2px; transition: width .5s ease;
+}
+
+.ob-phase-hint {
+  font-size: 11px; color: var(--green-warm);
+  margin-top: 6px; font-style: italic;
+  min-height: 16px;
+}
+
+.ob-question {
+  font-family: 'Fraunces', serif;
+  font-size: 22px; font-weight: 300;
+  color: var(--green-deep); line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.ob-sub {
+  font-size: 13px; color: var(--text-light);
+  line-height: 1.6; font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.ob-multi-hint {
+  font-size: 11px; color: var(--text-ghost);
+  margin-bottom: 12px; font-style: italic;
+}
+
+.cards-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px; margin-bottom: 14px;
+}
+
+.cards-grid.single { grid-template-columns: 1fr; }
+
+.ob-card {
+  padding: 14px 12px; border-radius: 12px;
+  border: 1.5px solid var(--cream-dark);
+  background: var(--warm-white);
+  cursor: pointer; transition: all .2s;
+  text-align: left;
+}
+
+.ob-card:hover {
+  border-color: var(--green-pale);
+  background: var(--green-ghost);
+}
+
+.ob-card.sel {
+  border-color: var(--green-light);
+  background: var(--green-ghost);
+  border-width: 2px;
+}
+
+.ob-card-icon { font-size: 20px; margin-bottom: 6px; display: block; }
+.ob-card-title {
+  font-size: 13px; font-weight: 500; color: var(--green-deep);
+  margin-bottom: 3px; line-height: 1.3;
+}
+.ob-card-sub {
+  font-size: 11px; color: var(--text-light);
+  line-height: 1.4; font-weight: 300;
+}
+
+.dob-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 7px; margin-bottom: 14px;
+}
+
+.dob-btn {
+  padding: 12px 6px; border-radius: 10px;
+  border: 1.5px solid var(--cream-dark);
+  background: var(--warm-white);
+  cursor: pointer; text-align: center; transition: all .2s;
+}
+.dob-btn:hover { background: var(--green-ghost); border-color: var(--green-pale); }
+.dob-btn.sel { background: var(--green-ghost); border-color: var(--green-light); border-width: 2px; }
+.dob-age { font-size: 15px; font-weight: 500; color: var(--green-deep); }
+.dob-sub { font-size: 10px; color: var(--text-light); margin-top: 2px; }
+
+/* Inline feedback */
+.ob-feedback {
+  display: none; margin-bottom: 14px;
+  padding: 12px 14px; border-radius: 10px;
+  background: var(--warm-white);
+  border-left: 3px solid var(--cream-dark);
+  font-size: 12px; color: var(--text-mid);
+  line-height: 1.65; font-style: italic;
+  animation: fadeIn .4s ease;
+}
+.ob-feedback.show { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Open text */
+.ob-textarea {
+  width: 100%; padding: 14px 16px;
+  border-radius: 12px; border: 1.5px solid var(--cream-dark);
+  background: var(--warm-white);
+  font-size: 13px; font-family: 'DM Sans', sans-serif;
+  color: var(--text-dark); resize: none; min-height: 90px;
+  line-height: 1.6; outline: none; transition: border-color .2s;
+  margin-bottom: 8px;
+}
+.ob-textarea:focus { border-color: var(--green-light); }
+.ob-textarea::placeholder { color: var(--text-ghost); }
+.ob-char { font-size: 11px; color: var(--text-ghost); text-align: right; margin-bottom: 14px; }
+
+/* Nav row */
+.nav-row {
+  display: flex; gap: 10px; margin-top: auto; padding-top: 16px;
+}
+
+.btn-back {
+  width: 44px; height: 44px; border-radius: 12px;
+  border: 1.5px solid var(--cream-dark); background: transparent;
+  color: var(--green-mid); font-size: 16px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s; flex-shrink: 0;
+}
+.btn-back:hover { border-color: var(--green-light); background: var(--green-ghost); }
+
+.btn-next {
+  flex: 1; padding: 13px; border-radius: 12px;
+  background: var(--green-deep); border: none; color: var(--cream);
+  font-size: 14px; font-weight: 400; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; transition: all .2s;
+}
+.btn-next:hover { background: var(--green-mid); }
+.btn-next:disabled { opacity: .3; cursor: default; }
+
+.btn-skip-q {
+  display: block; text-align: center; margin-top: 10px;
+  font-size: 12px; color: var(--text-ghost); cursor: pointer;
+}
+
+/* ── BREATHING SCREEN ── */
+.breathing-wrap {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 32px 28px; text-align: center;
+}
+
+.breathing-phase-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--phase-stanje);
+  margin-bottom: 24px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.breathing-phase-label::before,
+.breathing-phase-label::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(74,144,184,.3));
+}
+.breathing-phase-label::after {
+  background: linear-gradient(to left, transparent, rgba(74,144,184,.3));
+}
+
+.breathing-title {
+  font-family: 'Fraunces', serif; font-size: 28px;
+  font-weight: 300; color: var(--green-deep);
+  margin-bottom: 10px; line-height: 1.3;
+}
+
+.breathing-sub {
+  font-size: 14px; color: var(--text-light);
+  line-height: 1.7; font-weight: 300;
+  margin-bottom: 48px; max-width: 300px;
+}
+
+.breathing-circle-wrap {
+  position: relative; width: 180px; height: 180px;
+  margin: 0 auto 40px;
+}
+
+.breathing-circle {
+  width: 120px; height: 120px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(107,175,132,.3) 0%, rgba(107,175,132,.1) 70%);
+  border: 2px solid rgba(107,175,132,.4);
+  display: flex; align-items: center; justify-content: center;
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 4s ease-in-out;
+}
+
+.breathing-circle.expand {
+  width: 160px; height: 160px;
+  background: radial-gradient(circle, rgba(107,175,132,.4) 0%, rgba(107,175,132,.15) 70%);
+  border-color: rgba(107,175,132,.6);
+}
+
+.breathing-ring {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px; height: 180px; border-radius: 50%;
+  border: 1px solid rgba(107,175,132,.2);
+  animation: breatheRing 8s ease-in-out infinite;
+}
+
+@keyframes breatheRing {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: .5; }
+  50% { transform: translate(-50%, -50%) scale(1.1); opacity: .2; }
+}
+
+.breathing-emoji { font-size: 28px; }
+
+.breathing-instruction {
+  font-family: 'Fraunces', serif; font-size: 20px;
+  font-weight: 300; font-style: italic;
+  color: var(--green-deep); margin-bottom: 8px;
+  min-height: 28px; transition: opacity .5s;
+  id: breatheInstr;
+}
+
+.breathing-count {
+  font-size: 13px; color: var(--text-light);
+  margin-bottom: 40px; min-height: 20px;
+}
+
+.breathing-progress {
+  width: 100%; height: 3px; background: var(--cream-dark);
+  border-radius: 2px; overflow: hidden; margin-bottom: 32px;
+}
+
+.breathing-fill {
+  height: 100%; background: var(--green-light);
+  border-radius: 2px; transition: width 1s linear; width: 0%;
+}
+
+.btn-breathing-done {
+  width: 100%; padding: 15px; border-radius: 14px;
+  background: var(--green-deep); border: none; color: var(--cream);
+  font-family: 'Fraunces', serif; font-size: 16px; font-weight: 300;
+  cursor: pointer; transition: all .25s; letter-spacing: .3px;
+}
+.btn-breathing-done:hover { background: var(--green-mid); }
+
+.breathing-skip {
+  display: block; margin-top: 12px; text-align: center;
+  font-size: 12px; color: var(--text-ghost); cursor: pointer;
+}
+
+/* ── AHA SCREEN ── */
+.aha-wrap {
+  flex: 1; padding: 32px 24px;
+  display: flex; flex-direction: column;
+}
+
+.aha-phase-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--phase-obrazac);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.aha-icon { font-size: 36px; margin-bottom: 16px; display: block; }
+
+.aha-title {
+  font-family: 'Fraunces', serif; font-size: 26px;
+  font-weight: 300; color: var(--green-deep);
+  line-height: 1.3; margin-bottom: 16px;
+}
+
+.aha-pattern-card {
+  background: var(--green-ghost); border-radius: 14px;
+  padding: 20px; margin-bottom: 14px;
+  border-left: 3px solid var(--green-light);
+}
+
+.aha-card-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--green-warm); margin-bottom: 8px;
+}
+
+.aha-card-text {
+  font-size: 14px; color: var(--text-mid);
+  line-height: 1.75; font-weight: 300;
+}
+
+.aha-tip-card {
+  background: var(--warm-white); border-radius: 14px;
+  padding: 20px; margin-bottom: 14px;
+  border: 1px solid var(--cream-dark);
+  border-left: 3px solid var(--gold-light);
+}
+
+.aha-quote {
+  background: var(--green-deep); border-radius: 14px;
+  padding: 20px; margin-bottom: 20px;
+  font-family: 'Fraunces', serif; font-size: 16px;
+  font-style: italic; color: var(--cream); line-height: 1.6;
+}
+
+.aha-next-options {
+  display: flex; flex-direction: column; gap: 8px; margin-top: auto;
+}
+
+.aha-opt-btn {
+  width: 100%; padding: 13px 16px; border-radius: 12px;
+  border: 1.5px solid var(--cream-dark); background: var(--warm-white);
+  font-size: 13px; font-weight: 400; color: var(--green-deep);
+  cursor: pointer; text-align: left; transition: all .2s;
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: 'DM Sans', sans-serif;
+}
+.aha-opt-btn:hover { border-color: var(--green-light); background: var(--green-ghost); }
+.aha-opt-btn.primary {
+  background: var(--green-deep); color: var(--cream);
+  border-color: var(--green-deep);
+  font-family: 'Fraunces', serif; font-size: 15px; font-weight: 300;
+}
+.aha-opt-btn.primary:hover { background: var(--green-mid); }
+
+/* ── HOME ── */
+.home-wrap {
+  flex: 1; display: flex; flex-direction: column;
+}
+
+.home-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--cream-dark);
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+.home-logo {
+  display: flex; align-items: center; gap: 8px;
+}
+
+.home-logo-name {
+  font-family: 'Fraunces', serif; font-size: 18px;
+  font-weight: 300; color: var(--green-deep); letter-spacing: .3px;
+}
+
+.home-logo-tag {
+  font-size: 11px; color: var(--text-ghost); font-style: italic;
+}
+
+.lang-toggle {
+  padding: 4px 12px; border-radius: 999px;
+  border: 1px solid var(--cream-dark); background: transparent;
+  font-size: 11px; font-weight: 500; color: var(--text-light);
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+  transition: all .2s;
+}
+.lang-toggle:hover { border-color: var(--green-light); color: var(--green-deep); }
+
+.home-body { padding: 24px; flex: 1; }
+
+/* Phase status card */
+.phase-status {
+  background: var(--green-ghost); border-radius: 16px;
+  padding: 20px; margin-bottom: 20px;
+  border: 1px solid var(--green-pale);
+}
+
+.phase-status-header {
+  display: flex; justify-content: space-between;
+  align-items: center; margin-bottom: 12px;
+}
+
+.phase-status-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--green-warm);
+}
+
+.phase-status-indicator {
+  display: flex; gap: 6px; align-items: center;
+}
+
+.phase-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--cream-dark); transition: background .3s;
+}
+.phase-dot.done { background: var(--green-light); }
+.phase-dot.active {
+  background: var(--green-warm);
+  box-shadow: 0 0 0 3px rgba(61,122,82,.2);
+  animation: pulseDot 2s infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.phase-status-text {
+  font-family: 'Fraunces', serif; font-size: 18px;
+  font-weight: 300; color: var(--green-deep);
+  line-height: 1.3;
+}
+
+/* Main action button */
+.btn-main-action {
+  width: 100%; padding: 20px;
+  border-radius: 16px; border: none;
+  background: var(--green-deep); color: var(--cream);
+  font-family: 'Fraunces', serif; font-size: 18px;
+  font-weight: 300; letter-spacing: .3px;
+  cursor: pointer; transition: all .25s;
+  margin-bottom: 14px; text-align: left;
   display: flex; align-items: center; justify-content: space-between;
 }
+.btn-main-action:hover { background: var(--green-mid); }
+.btn-main-action:active { transform: scale(.99); }
+.btn-main-arrow { font-size: 20px; opacity: .6; }
 
-.footer-logo {
-  font-family: 'Fraunces', serif; font-size: 18px;
-  font-weight: 300; color: var(--cream); opacity: .6;
-  letter-spacing: .3px;
+/* Today card */
+.today-card {
+  background: var(--warm-white); border-radius: 16px;
+  padding: 20px; margin-bottom: 14px;
+  border: 1px solid var(--cream-dark);
 }
 
-.footer-links {
-  display: flex; gap: 24px; list-style: none;
+.today-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 10px;
 }
 
-.footer-links a {
-  font-size: 12px; color: var(--green-light);
-  text-decoration: none; transition: color .2s;
+.today-reminder {
+  font-family: 'Fraunces', serif; font-size: 15px;
+  font-weight: 300; font-style: italic;
+  color: var(--green-deep); line-height: 1.6;
+  margin-bottom: 10px;
 }
-.footer-links a:hover { color: var(--cream); }
 
-/* ── ANIMATIONS ── */
-.fade-up {
-  opacity: 0; transform: translateY(24px);
-  transition: opacity .6s ease, transform .6s ease;
+.today-tip-title {
+  font-size: 14px; font-weight: 500; color: var(--green-deep);
+  margin-bottom: 6px;
 }
-.fade-up.visible { opacity: 1; transform: translateY(0); }
-.fade-up:nth-child(2) { transition-delay: .1s; }
-.fade-up:nth-child(3) { transition-delay: .2s; }
-.fade-up:nth-child(4) { transition-delay: .3s; }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 900px) {
-  nav { padding: 0 20px; }
-  .nav-links { display: none; }
-  .hero, .section, .diff-section, .cta-section { padding: 80px 20px; }
-  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
-  .hero-visual { display: none; }
-  .sit-grid { grid-template-columns: 1fr; }
-  .model-steps { grid-template-columns: 1fr; }
-  .diff-inner { grid-template-columns: 1fr; gap: 48px; }
-  footer { flex-direction: column; gap: 20px; padding: 28px 20px; text-align: center; }
+.today-tip-text {
+  font-size: 13px; color: var(--text-mid);
+  line-height: 1.65; font-weight: 300;
 }
+
+/* Nav grid */
+.nav-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  margin-bottom: 8px;
+}
+
+.nav-btn {
+  padding: 14px 12px; border-radius: 12px;
+  border: 1px solid var(--cream-dark); background: var(--warm-white);
+  font-size: 12px; font-weight: 500; color: var(--green-deep);
+  cursor: pointer; text-align: center; transition: all .2s;
+  font-family: 'DM Sans', sans-serif;
+}
+.nav-btn:hover { background: var(--green-ghost); border-color: var(--green-pale); }
+
+.nav-btn-full {
+  width: 100%; padding: 12px; border-radius: 12px;
+  border: 1px solid var(--cream-dark); background: var(--warm-white);
+  font-size: 12px; font-weight: 500; color: var(--green-deep);
+  cursor: pointer; text-align: center; transition: all .2s;
+  font-family: 'DM Sans', sans-serif; margin-bottom: 8px;
+}
+.nav-btn-full:hover { background: var(--green-ghost); }
+
+/* ── PLANT GROWTH ── */
+.plant-wrap {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; padding: 40px 28px 32px;
+  text-align: center;
+}
+
+.plant-phase-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--phase-sustav);
+  margin-bottom: 24px;
+}
+
+.plant-title {
+  font-family: 'Fraunces', serif; font-size: 26px;
+  font-weight: 300; color: var(--green-deep);
+  margin-bottom: 10px; line-height: 1.3;
+}
+
+.plant-sub {
+  font-size: 13px; color: var(--text-light);
+  line-height: 1.7; font-weight: 300;
+  margin-bottom: 40px; max-width: 280px;
+}
+
+/* SVG Plant */
+.plant-svg-wrap {
+  position: relative; width: 160px; height: 180px;
+  margin: 0 auto 32px;
+}
+
+.plant-svg-wrap svg {
+  width: 100%; height: 100%;
+}
+
+/* Plant stem grows */
+.plant-stem {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  transition: stroke-dashoffset 2s ease;
+}
+.plant-stem.grow { stroke-dashoffset: 0; }
+
+/* Leaves appear */
+.plant-leaf {
+  opacity: 0; transform-origin: bottom center;
+  transition: opacity 1s ease, transform 1s ease;
+  transform: scale(0);
+}
+.plant-leaf.show { opacity: 1; transform: scale(1); }
+
+.plant-task {
+  width: 100%; background: var(--warm-white); border-radius: 14px;
+  padding: 18px 16px; margin-bottom: 10px;
+  border: 1px solid var(--cream-dark); text-align: left;
+  display: flex; align-items: center; gap: 14px;
+  cursor: pointer; transition: all .2s;
+}
+.plant-task:hover { border-color: var(--green-pale); background: var(--green-ghost); }
+.plant-task.done { border-color: var(--green-light); background: var(--green-ghost); }
+
+.task-check {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid var(--cream-dark); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .3s;
+}
+.plant-task.done .task-check {
+  background: var(--green-light); border-color: var(--green-light);
+}
+.task-text {
+  font-size: 13px; color: var(--text-mid); line-height: 1.5;
+  font-weight: 300;
+}
+.plant-task.done .task-text { color: var(--green-warm); }
+
+.plant-done-msg {
+  display: none; margin-top: 20px;
+  padding: 16px 20px; border-radius: 14px;
+  background: var(--green-ghost); border: 1px solid var(--green-pale);
+  font-family: 'Fraunces', serif; font-size: 15px;
+  font-style: italic; color: var(--green-deep); line-height: 1.6;
+  text-align: center; animation: fadeIn .5s ease;
+}
+
+.btn-plant-next {
+  width: 100%; padding: 15px; border-radius: 14px;
+  background: var(--green-deep); border: none; color: var(--cream);
+  font-family: 'Fraunces', serif; font-size: 16px; font-weight: 300;
+  cursor: pointer; margin-top: auto; letter-spacing: .3px;
+  transition: all .25s;
+}
+.btn-plant-next:hover { background: var(--green-mid); }
+
+/* ── BACK LINK ── */
+.back-link {
+  text-align: center; padding: 12px 0 20px;
+  font-size: 11px; color: var(--text-ghost);
+  letter-spacing: .5px;
+}
+.back-link a { color: inherit; text-decoration: none; }
+.back-link a:hover { color: var(--text-light); }
 </style>
 </head>
 <body>
+<div class="app">
 
-<!-- NAV -->
-<nav>
-  <a href="../" class="nav-logo">
-    <svg viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="9" r="5" fill="#2D5A3D"/>
-      <path d="M12 14v6" stroke="#2D5A3D" stroke-width="1.6" stroke-linecap="round"/>
-      <path d="M9 18h6" stroke="#6BAF84" stroke-width="1.4" stroke-linecap="round"/>
-    </svg>
-    LUME
-  </a>
-  <ul class="nav-links">
-    <li><a href="../" id="navPocetna">Početna</a></li>
-    <li><a href="../#model" id="navCore">LUME Core</a></li>
-    <li><a href="#" class="active" id="navParents">LUME Parents</a></li>
-    <li><a href="../#proizvodi" id="navLife">LUME Life</a></li>
-    <li><a href="#" id="navDnevnik">Dnevnik</a></li>
-  </ul>
-  <div class="nav-right">
-    <button class="nav-lang" onclick="toggleLang()" id="langBtn">EN</button>
-  </div>
-</nav>
+<!-- ══ WELCOME ══ -->
+<div id="sw" class="screen on">
+  <div class="welcome-wrap">
+    <div class="lume-mark">
+      <div class="lume-mark-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="9" r="5" fill="#2D5A3D"/>
+          <path d="M12 14v6" stroke="#2D5A3D" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M9 18h6" stroke="#6BAF84" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="lume-mark-name">Lume</div>
+      </div>
+      <button class="lang-toggle" onclick="toggleLang()" id="welcomeLang" style="margin-left:auto">EN</button>
+    </div>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-inner">
-    <div>
-      <div class="hero-eyebrow fade-up visible" id="heroEyebrow">LUME Parents</div>
-      <h1 class="hero-title fade-up visible" id="heroTitle">
-        Za roditelje koji<br>
-        <em>žele biti prisutni</em><br>
-        — a ne savršeni
-      </h1>
-      <p class="hero-subtitle fade-up" id="heroSubtitle">
-        LUME Parents nije vodič kako biti bolji roditelj.
-        To je podrška da budeš stabilan/na, svjestan/na
-        i manje sam u trenucima koji su zahtjevni.
-      </p>
-      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap" class="fade-up">
-        <a href="#app" class="btn-primary" id="heroCta">
-          Počni danas
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a href="#situacije" class="btn-ghost" id="heroCtaGhost">Saznaj više</a>
+    <h1 class="welcome-title" id="wTitle">
+      Za roditelje koji<br>
+      <em>žele biti prisutni</em><br>
+      — a ne savršeni
+    </h1>
+
+    <p class="welcome-text" id="wText">
+      LUME te vodi kroz tri koraka — od smirivanja,
+      do razumijevanja, do jedne konkretne promjene.
+      Korak po korak. Bez pritiska.
+    </p>
+
+    <div class="safe-badge">
+      <div class="safe-badge-icon">🌿</div>
+      <div>
+        <div class="safe-badge-label" id="wSafeLabel">Sigurna zona</div>
+        <div class="safe-badge-text" id="wSafeText">Nema krivih odgovora, nema osude. Svi koji traže pomoć već rade nešto hrabro.</div>
       </div>
     </div>
-    <div class="hero-visual fade-up">
-      <div class="hero-card">
-        <div class="hero-card-float">
-          <div class="float-dot"></div>
-          <span id="floatText">Personalizirani profil</span>
+
+    <div class="phase-preview">
+      <div class="phase-preview-item">
+        <div class="phase-preview-icon">🌊</div>
+        <div class="phase-preview-name" id="ppS">Stanje</div>
+        <div class="phase-preview-desc" id="ppSd">Smiri se ti</div>
+      </div>
+      <div class="phase-preview-item">
+        <div class="phase-preview-icon">💡</div>
+        <div class="phase-preview-name" id="ppO">Obrazac</div>
+        <div class="phase-preview-desc" id="ppOd">Razumij što se ponavlja</div>
+      </div>
+      <div class="phase-preview-item">
+        <div class="phase-preview-icon">🌱</div>
+        <div class="phase-preview-name" id="ppSu">Sustav</div>
+        <div class="phase-preview-desc" id="ppSud">Jedan mali korak</div>
+      </div>
+    </div>
+
+    <button class="btn-start" onclick="startFlow()">
+      <span id="wStartBtn">Počni s LUME</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+    <span class="btn-skip" onclick="goHome()" id="wSkip">Idi ravno u aplikaciju →</span>
+  </div>
+  <div class="back-link"><a href="../">← LUME platforma</a></div>
+</div>
+
+<!-- ══ ONBOARDING Q1 ══ -->
+<div id="ob1" class="screen">
+  <div class="phase-bar" id="pb1"><!-- rendered by JS --></div>
+  <div class="ob-wrap">
+    <div class="ob-progress">
+      <div class="ob-progress-top">
+        <span class="ob-progress-step" id="ob1step">1 / 6</span>
+        <span class="ob-progress-ctx" id="ob1ctx">O tebi</span>
+      </div>
+      <div class="ob-bar"><div class="ob-fill" id="ob1fill" style="width:0%"></div></div>
+      <div class="ob-phase-hint" id="ob1hint">🌊 Stanje — upoznajemo tebe</div>
+    </div>
+
+    <div class="ob-question" id="ob1q">Kad situacija eskalira — što se dogodi s tobom?</div>
+    <div class="ob-sub" id="ob1s">Budi iskren/a. Nema krivih odgovora.</div>
+
+    <div class="cards-grid" id="ob1grid">
+      <div class="ob-card" onclick="obPick('reakcija','eksplodira',this,'ob1fb','ob1next')">
+        <span class="ob-card-icon">🔥</span>
+        <div class="ob-card-title" id="r1">Eksplodiram</div>
+        <div class="ob-card-sub" id="r1s">Podigne se glas, kažem stvari koje mi žao</div>
+      </div>
+      <div class="ob-card" onclick="obPick('reakcija','zamrzne',this,'ob1fb','ob1next')">
+        <span class="ob-card-icon">🧊</span>
+        <div class="ob-card-title" id="r2">Zamrznem se</div>
+        <div class="ob-card-sub" id="r2s">Ne znam što reći, povučem se</div>
+      </div>
+      <div class="ob-card" onclick="obPick('reakcija','pregovara',this,'ob1fb','ob1next')">
+        <span class="ob-card-icon">🗣</span>
+        <div class="ob-card-title" id="r3">Pregovaram</div>
+        <div class="ob-card-sub" id="r3s">Ulazim u rasprave, pokušavam uvjeriti</div>
+      </div>
+      <div class="ob-card" onclick="obPick('reakcija','popusta',this,'ob1fb','ob1next')">
+        <span class="ob-card-icon">🏳</span>
+        <div class="ob-card-title" id="r4">Popuštam</div>
+        <div class="ob-card-sub" id="r4s">Samo da prestane — i onda se osjećam loše</div>
+      </div>
+      <div class="ob-card" onclick="obPick('reakcija','razlicito',this,'ob1fb','ob1next')">
+        <span class="ob-card-icon">🌤</span>
+        <div class="ob-card-title" id="r5">Ovisi o danu</div>
+        <div class="ob-card-sub" id="r5s">Nekad dobro, nekad loše</div>
+      </div>
+      <div class="ob-card" onclick="obPick('reakcija','smiren',this,'ob1fb','ob1next')">
+        <span class="ob-card-icon">⚓</span>
+        <div class="ob-card-title" id="r6">Ostam smiren/a</div>
+        <div class="ob-card-sub" id="r6s">Uglavnom uspijeva, tražim bolje alate</div>
+      </div>
+    </div>
+
+    <div class="ob-feedback" id="ob1fb"></div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo('sw')">←</button>
+      <button class="btn-next" id="ob1next" disabled onclick="goTo('ob2')">
+        <span id="ob1nextTxt">Dalje</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ONBOARDING Q2 ══ -->
+<div id="ob2" class="screen">
+  <div class="phase-bar" id="pb2"></div>
+  <div class="ob-wrap">
+    <div class="ob-progress">
+      <div class="ob-progress-top">
+        <span class="ob-progress-step" id="ob2step">2 / 6</span>
+        <span class="ob-progress-ctx" id="ob2ctx">O tebi</span>
+      </div>
+      <div class="ob-bar"><div class="ob-fill" id="ob2fill" style="width:16%"></div></div>
+      <div class="ob-phase-hint" id="ob2hint">🌊 Stanje — tvoji izazovi</div>
+    </div>
+    <div class="ob-question" id="ob2q">Što te trenutno najviše iscrpljuje?</div>
+    <div class="ob-sub" id="ob2s">Možeš odabrati više odgovora.</div>
+    <div class="ob-multi-hint" id="ob2hint2">Odaberi sve što vrijedi</div>
+    <div class="cards-grid" id="ob2grid">
+      <div class="ob-card" onclick="obMulti('izazovi','granice',this,'ob2next')">
+        <span class="ob-card-icon">🔲</span>
+        <div class="ob-card-title" id="iz1">Borba oko granica</div>
+        <div class="ob-card-sub" id="iz1s">Svaki dan isti konflikti</div>
+      </div>
+      <div class="ob-card" onclick="obMulti('izazovi','emocije',this,'ob2next')">
+        <span class="ob-card-icon">💢</span>
+        <div class="ob-card-title" id="iz2">Emocionalni ispadi</div>
+        <div class="ob-card-sub" id="iz2s">Vikanje, plakanje, intenzitet</div>
+      </div>
+      <div class="ob-card" onclick="obMulti('izazovi','rutine',this,'ob2next')">
+        <span class="ob-card-icon">🔄</span>
+        <div class="ob-card-title" id="iz3">Svakodnevne rutine</div>
+        <div class="ob-card-sub" id="iz3s">Jutro, večera, spavanje</div>
+      </div>
+      <div class="ob-card" onclick="obMulti('izazovi','komunikacija',this,'ob2next')">
+        <span class="ob-card-icon">💬</span>
+        <div class="ob-card-title" id="iz4">Komunikacija</div>
+        <div class="ob-card-sub" id="iz4s">Dijete ne sluša, ignorira</div>
+      </div>
+      <div class="ob-card" onclick="obMulti('izazovi','umor',this,'ob2next')">
+        <span class="ob-card-icon">🪫</span>
+        <div class="ob-card-title" id="iz5">Jednostavno sam umoran/a</div>
+        <div class="ob-card-sub" id="iz5s">Sve je teže kad si ispražnjen/a</div>
+      </div>
+      <div class="ob-card" onclick="obMulti('izazovi','neznanje',this,'ob2next')">
+        <span class="ob-card-icon">🔍</span>
+        <div class="ob-card-title" id="iz6">Nedostaje mi alata</div>
+        <div class="ob-card-sub" id="iz6s">Dobra volja, ali ne znam kako</div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo('ob1')">←</button>
+      <button class="btn-next" id="ob2next" disabled onclick="goTo('ob3')">
+        <span id="ob2nextTxt">Dalje</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ONBOARDING Q3 — Energija ══ -->
+<div id="ob3" class="screen">
+  <div class="phase-bar" id="pb3"></div>
+  <div class="ob-wrap">
+    <div class="ob-progress">
+      <div class="ob-progress-top">
+        <span class="ob-progress-step" id="ob3step">3 / 6</span>
+        <span class="ob-progress-ctx" id="ob3ctx">O tebi</span>
+      </div>
+      <div class="ob-bar"><div class="ob-fill" id="ob3fill" style="width:32%"></div></div>
+      <div class="ob-phase-hint" id="ob3hint">🌊 Stanje — tvoja energija</div>
+    </div>
+    <div class="ob-question" id="ob3q">Kako si ti — ne kao roditelj, nego kao osoba?</div>
+    <div class="ob-sub" id="ob3s">Roditeljstvo se odvija iz onoga što imamo unutra.</div>
+    <div class="cards-grid single" id="ob3grid">
+      <div class="ob-card" onclick="obPick('energija','prazno',this,'ob3fb','ob3next')">
+        <span class="ob-card-icon">🪫</span>
+        <div class="ob-card-title" id="en1">Prazna baterija</div>
+        <div class="ob-card-sub" id="en1s">Nema prostora za sebe. Sve ide djeci i obavezama.</div>
+      </div>
+      <div class="ob-card" onclick="obPick('energija','pola',this,'ob3fb','ob3next')">
+        <span class="ob-card-icon">🔋</span>
+        <div class="ob-card-title" id="en2">Na pola puta</div>
+        <div class="ob-card-sub" id="en2s">Imam neke resurse, ali ne dovoljno. Često na rubu.</div>
+      </div>
+      <div class="ob-card" onclick="obPick('energija','solidno',this,'ob3fb','ob3next')">
+        <span class="ob-card-icon">✅</span>
+        <div class="ob-card-title" id="en3">Solidno</div>
+        <div class="ob-card-sub" id="en3s">Uglavnom dobro — tražim alate za specifične situacije.</div>
+      </div>
+    </div>
+    <div class="ob-feedback" id="ob3fb"></div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo('ob2')">←</button>
+      <button class="btn-next" id="ob3next" disabled onclick="goTo('ob4')">
+        <span id="ob3nextTxt">Dalje</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ONBOARDING Q4 — Dob djeteta ══ -->
+<div id="ob4" class="screen">
+  <div class="phase-bar" id="pb4"></div>
+  <div class="ob-wrap">
+    <div class="ob-progress">
+      <div class="ob-progress-top">
+        <span class="ob-progress-step" id="ob4step">4 / 6</span>
+        <span class="ob-progress-ctx" id="ob4ctx">O djetetu</span>
+      </div>
+      <div class="ob-bar"><div class="ob-fill" id="ob4fill" style="width:50%"></div></div>
+      <div class="ob-phase-hint" id="ob4hint">💡 Obrazac — upoznajemo dijete</div>
+    </div>
+    <div class="ob-question" id="ob4q">Koliko ima godina tvoje dijete?</div>
+    <div class="ob-sub" id="ob4s">Ako imaš više djece, misli na ono s kojim imaš najviše izazova.</div>
+    <div class="dob-grid">
+      <div class="dob-btn" onclick="obDob(this,'1-2')"><div class="dob-age">1–2</div><div class="dob-sub" id="d1">hodač</div></div>
+      <div class="dob-btn" onclick="obDob(this,'2-4')"><div class="dob-age">2–4</div><div class="dob-sub" id="d2">istraživač</div></div>
+      <div class="dob-btn" onclick="obDob(this,'4-6')"><div class="dob-age">4–6</div><div class="dob-sub" id="d3">pitač</div></div>
+      <div class="dob-btn" onclick="obDob(this,'6-9')"><div class="dob-age">6–9</div><div class="dob-sub" id="d4">znatiželjan/a</div></div>
+      <div class="dob-btn" onclick="obDob(this,'9-12')"><div class="dob-age">9–12</div><div class="dob-sub" id="d5">tražitelj</div></div>
+      <div class="dob-btn" onclick="obDob(this,'12+')"><div class="dob-age">12+</div><div class="dob-sub" id="d6">tinejdžer</div></div>
+    </div>
+    <div class="ob-feedback" id="ob4fb"></div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo('ob3')">←</button>
+      <button class="btn-next" id="ob4next" disabled onclick="goTo('ob5')">
+        <span id="ob4nextTxt">Dalje</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ONBOARDING Q5 — Temperament ══ -->
+<div id="ob5" class="screen">
+  <div class="phase-bar" id="pb5"></div>
+  <div class="ob-wrap">
+    <div class="ob-progress">
+      <div class="ob-progress-top">
+        <span class="ob-progress-step" id="ob5step">5 / 6</span>
+        <span class="ob-progress-ctx" id="ob5ctx">O djetetu</span>
+      </div>
+      <div class="ob-bar"><div class="ob-fill" id="ob5fill" style="width:66%"></div></div>
+      <div class="ob-phase-hint" id="ob5hint">💡 Obrazac — temperament djeteta</div>
+    </div>
+    <div class="ob-question" id="ob5q">Kako bi opisao/la svoje dijete?</div>
+    <div class="ob-sub" id="ob5s">Djeca su kompleksna — odaberi sve što prepoznaješ.</div>
+    <div class="ob-multi-hint" id="ob5hint2">Odaberi sve što vrijedi</div>
+    <div class="cards-grid" id="ob5grid">
+      <div class="ob-card" onclick="obMulti('temp','intenzivno',this,'ob5next')">
+        <span class="ob-card-icon">🌋</span>
+        <div class="ob-card-title" id="t1">Intenzivno</div>
+        <div class="ob-card-sub" id="t1s">Snažne emocije, brze reakcije</div>
+      </div>
+      <div class="ob-card" onclick="obMulti('temp','osjetljivo',this,'ob5next')">
+        <span class="ob-card-icon">🌸</span>
+        <div class="ob-card-title" id="t2">Osjetljivo</div>
+        <div class="ob-card-sub" id="t2s">Duboko doživljava, lako se povrijedi</div>
+      </div>
+      <div class="ob-card" onclick="obMulti('temp','tvrdoglavo',this,'ob5next')">
+        <span class="ob-card-icon">🪨</span>
+        <div class="ob-card-title" id="t3">Tvrdoglavo</div>
+        <div class="ob-card-sub" id="t3s">Zna što hoće, teško popušta</div>
+      </div>
+      <div class="ob-card" onclick="obMulti('temp','mirno',this,'ob5next')">
+        <span class="ob-card-icon">🌊</span>
+        <div class="ob-card-title" id="t4">Mirno</div>
+        <div class="ob-card-sub" id="t4s">Uglavnom staloženo, rijetki ispadi</div>
+      </div>
+      <div class="ob-card" onclick="obMulti('temp','energicno',this,'ob5next')">
+        <span class="ob-card-icon">⚡</span>
+        <div class="ob-card-title" id="t5">Energično</div>
+        <div class="ob-card-sub" id="t5s">Uvijek u pokretu, teško se smiruje</div>
+      </div>
+      <div class="ob-card" onclick="obMulti('temp','anksiozno',this,'ob5next')">
+        <span class="ob-card-icon">🌀</span>
+        <div class="ob-card-title" id="t6">Anksiozno</div>
+        <div class="ob-card-sub" id="t6s">Strahovi, brige, treba sigurnost</div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo('ob4')">←</button>
+      <button class="btn-next" id="ob5next" disabled onclick="goTo('ob6')">
+        <span id="ob5nextTxt">Dalje</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ONBOARDING Q6 — Granice ══ -->
+<div id="ob6" class="screen">
+  <div class="phase-bar" id="pb6"></div>
+  <div class="ob-wrap">
+    <div class="ob-progress">
+      <div class="ob-progress-top">
+        <span class="ob-progress-step" id="ob6step">6 / 6</span>
+        <span class="ob-progress-ctx" id="ob6ctx">O djetetu</span>
+      </div>
+      <div class="ob-bar"><div class="ob-fill" id="ob6fill" style="width:83%"></div></div>
+      <div class="ob-phase-hint" id="ob6hint">💡 Obrazac — reakcija na granice</div>
+    </div>
+    <div class="ob-question" id="ob6q">Kad postaviš granicu — što se najčešće dogodi?</div>
+    <div class="ob-sub" id="ob6s">Pomisli na zadnji put kad si rekao/la NE.</div>
+    <div class="cards-grid" id="ob6grid">
+      <div class="ob-card" onclick="obPick('child_gr','eksplodira',this,'ob6fb','ob6next')">
+        <span class="ob-card-icon">🌋</span>
+        <div class="ob-card-title" id="g1">Eksplodira</div>
+        <div class="ob-card-sub" id="g1s">Vikanje, plakanje, ispad</div>
+      </div>
+      <div class="ob-card" onclick="obPick('child_gr','pregovara',this,'ob6fb','ob6next')">
+        <span class="ob-card-icon">🗣</span>
+        <div class="ob-card-title" id="g2">Pregovara</div>
+        <div class="ob-card-sub" id="g2s">Argumentira, pita, pokušava opet</div>
+      </div>
+      <div class="ob-card" onclick="obPick('child_gr','ignorira',this,'ob6fb','ob6next')">
+        <span class="ob-card-icon">🙉</span>
+        <div class="ob-card-title" id="g3">Ignorira</div>
+        <div class="ob-card-sub" id="g3s">Pravi se da nije čulo, nastavlja</div>
+      </div>
+      <div class="ob-card" onclick="obPick('child_gr','povlaci',this,'ob6fb','ob6next')">
+        <span class="ob-card-icon">🐚</span>
+        <div class="ob-card-title" id="g4">Povlači se</div>
+        <div class="ob-card-sub" id="g4s">Šuti, zatvori se, ide u sobu</div>
+      </div>
+      <div class="ob-card" onclick="obPick('child_gr','prihvaca',this,'ob6fb','ob6next')">
+        <span class="ob-card-icon">✅</span>
+        <div class="ob-card-title" id="g5">Uglavnom prihvaća</div>
+        <div class="ob-card-sub" id="g5s">S malo gunđanja, ali ide dalje</div>
+      </div>
+      <div class="ob-card" onclick="obPick('child_gr','ovisi',this,'ob6fb','ob6next')">
+        <span class="ob-card-icon">🎲</span>
+        <div class="ob-card-title" id="g6">Ovisi</div>
+        <div class="ob-card-sub" id="g6s">Nepredvidivo — nikad ne znam</div>
+      </div>
+    </div>
+    <div class="ob-feedback" id="ob6fb"></div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo('ob5')">←</button>
+      <button class="btn-next" id="ob6next" disabled onclick="goBreathing()">
+        <span id="ob6nextTxt">Nastavi</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BREATHING ══ -->
+<div id="sbreathe" class="screen">
+  <div class="breathing-wrap">
+    <div class="breathing-phase-label" id="bphaseLabel">🌊 Stanje — regulacija</div>
+    <h2 class="breathing-title" id="bTitle">Stani na trenutak</h2>
+    <p class="breathing-sub" id="bSub">Prije nego nastavimo — jedan kratki dah. Tri ciklusa disanja aktiviraju parasimpatički živčani sustav.</p>
+
+    <div class="breathing-circle-wrap">
+      <div class="breathing-ring"></div>
+      <div class="breathing-circle" id="breatheCircle">
+        <div class="breathing-emoji">🌊</div>
+      </div>
+    </div>
+
+    <div class="breathing-instruction" id="breatheInstr">Udahni...</div>
+    <div class="breathing-count" id="breatheCount">Ciklus 1 od 3</div>
+
+    <div class="breathing-progress">
+      <div class="breathing-fill" id="breatheFill"></div>
+    </div>
+
+    <button class="btn-breathing-done" id="breatheBtn" onclick="goToAha()" style="display:none">
+      <span id="breatheDoneText">Osjećam mir — nastavljam 🌿</span>
+    </button>
+    <span class="breathing-skip" onclick="goToAha()" id="breatheSkip">Preskoči →</span>
+  </div>
+</div>
+
+<!-- ══ AHA MOMENT ══ -->
+<div id="saha" class="screen">
+  <div class="phase-bar" id="pbAha"></div>
+  <div class="aha-wrap">
+    <div class="aha-phase-label" id="ahaPhaseLabel">💡 Obrazac — tvoj uvid</div>
+    <span class="aha-icon" id="ahaIcon">💡</span>
+    <h2 class="aha-title" id="ahaTitle">Vidimo te</h2>
+
+    <div class="aha-pattern-card">
+      <div class="aha-card-label" id="ahaPatternLabel">Tvoj obrazac</div>
+      <div class="aha-card-text" id="ahaPattern"></div>
+    </div>
+
+    <div class="aha-tip-card">
+      <div class="aha-card-label" id="ahaTipLabel">Za tebe danas</div>
+      <div class="aha-card-text" id="ahaTip"></div>
+    </div>
+
+    <div class="aha-quote" id="ahaQuote"></div>
+
+    <div class="aha-next-options">
+      <button class="aha-opt-btn primary" onclick="goPlant()">
+        <span id="ahaBtn1">Nastavi do Sustav faze 🌱</span>
+        <span>→</span>
+      </button>
+      <button class="aha-opt-btn" onclick="goHome()">
+        <span id="ahaBtn2">Uđi u LUME odmah</span>
+        <span>→</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PLANT / SUSTAV ══ -->
+<div id="splant" class="screen">
+  <div class="phase-bar" id="pbPlant"></div>
+  <div class="plant-wrap">
+    <div class="plant-phase-label" id="plantPhaseLabel">🌱 Sustav — jedan mali korak</div>
+    <h2 class="plant-title" id="plantTitle">Tvoj mali korak danas</h2>
+    <p class="plant-sub" id="plantSub">Ne velika promjena. Jedna konkretna stvar koja gradi dugoročnu stabilnost.</p>
+
+    <!-- SVG Plant that grows as tasks complete -->
+    <div class="plant-svg-wrap">
+      <svg viewBox="0 0 160 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Soil -->
+        <ellipse cx="80" cy="165" rx="50" ry="8" fill="#EDE8DF"/>
+        <!-- Stem -->
+        <path id="plantStem" class="plant-stem"
+          d="M80 160 C80 140 75 120 80 100 C85 80 78 60 80 40"
+          stroke="#6BAF84" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <!-- Leaf 1 -->
+        <path id="leaf1" class="plant-leaf"
+          d="M80 130 C65 125 55 115 60 105 C65 95 80 100 80 110"
+          fill="#C8E6D4" stroke="#6BAF84" stroke-width="1"/>
+        <!-- Leaf 2 -->
+        <path id="leaf2" class="plant-leaf"
+          d="M80 110 C95 105 105 95 100 85 C95 75 80 80 80 90"
+          fill="#A8D4B8" stroke="#6BAF84" stroke-width="1"/>
+        <!-- Leaf 3 -->
+        <path id="leaf3" class="plant-leaf"
+          d="M80 85 C65 78 58 65 65 58 C72 51 82 60 80 72"
+          fill="#8BC4A0" stroke="#6BAF84" stroke-width="1"/>
+        <!-- Flower -->
+        <circle id="plantFlower" class="plant-leaf"
+          cx="80" cy="38" r="8" fill="#C4954A" opacity=".8"/>
+        <circle cx="80" cy="38" r="4" fill="#E8D5A3" id="plantFlowerInner" class="plant-leaf"/>
+      </svg>
+    </div>
+
+    <div id="plantTasks" style="width:100%"></div>
+    <div class="plant-done-msg" id="plantDoneMsg"></div>
+
+    <button class="btn-plant-next" onclick="goHome()" id="plantNextBtn" style="margin-top:20px">
+      <span id="plantNextTxt">Uđi u LUME 🌿</span>
+    </button>
+  </div>
+</div>
+
+<!-- ══ HOME ══ -->
+<div id="sh" class="screen">
+  <div class="home-header">
+    <div class="home-logo">
+      <div class="lume-mark-icon" style="width:32px;height:32px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="9" r="5" fill="#2D5A3D"/>
+          <path d="M12 14v6" stroke="#2D5A3D" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M9 18h6" stroke="#6BAF84" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="home-logo-name">Lume</div>
+        <div class="home-logo-tag" id="homeTag">svjetlo u trenutku koji je teži</div>
+      </div>
+    </div>
+    <button class="lang-toggle" onclick="toggleLang()" id="homeLang">EN</button>
+  </div>
+
+  <div class="home-body">
+    <!-- Phase status -->
+    <div class="phase-status">
+      <div class="phase-status-header">
+        <div class="phase-status-label" id="phaseStatusLabel">Gdje si sada</div>
+        <div class="phase-status-indicator">
+          <div class="phase-dot done"></div>
+          <div class="phase-dot done"></div>
+          <div class="phase-dot active"></div>
         </div>
-        <div class="hero-card-label" id="cardLabel">Savjet za tebe danas</div>
-        <div class="hero-card-title" id="cardTitle">Smirivanje ne znači predaju</div>
-        <p class="hero-card-text" id="cardText">
-          Kad ostaneš miran/mirna dok dijete ispadne —
-          ne popuštaš. Pokazuješ kako se regulira emocija.
-          To je najtočniji odgovor koji možeš dati.
-        </p>
-        <div class="hero-card-quote" id="cardQuote">
-          "Roditelj koji razumije sebe — razumije i dijete."
-        </div>
+      </div>
+      <div class="phase-status-text" id="phaseStatusText">
+        Sustav — gradiš dugoročnu stabilnost
       </div>
     </div>
-  </div>
-</section>
 
-<!-- SITUATIONS -->
-<section class="section situations-section" id="situacije">
-  <div class="section-inner">
-    <div class="section-label fade-up" id="sitLabel">Prepoznaješ li se?</div>
-    <h2 class="section-title fade-up" id="sitTitle">Situacije u kojima<br>LUME pomaže</h2>
-    <p class="section-subtitle fade-up" id="sitSubtitle">
-      Ne trebaju ti savjeti koje već znaš. Trebaš nekoga
-      tko te prati u trenutku — i vodi dalje.
-    </p>
-    <div class="sit-grid">
-      <div class="sit-card fade-up">
-        <div class="sit-num">01</div>
-        <div class="sit-title" id="sit1title">Dijete je u ispadima</div>
-        <p class="sit-text" id="sit1text">Plač, vikanje, odbijanje. Radiš sve što bi LUME. I ne znaš dalje. LUME te prati do prve stabilizacije — pa ne ostaješ uvijek.</p>
-      </div>
-      <div class="sit-card fade-up">
-        <div class="sit-num">02</div>
-        <div class="sit-title" id="sit2title">Komunikacija s djetetom</div>
-        <p class="sit-text" id="sit2text">Razgovaraš ali ne dospijevaš. LUME pomaže prepoznati obrasce i promijeniti pristup, ne dijete.</p>
-      </div>
-      <div class="sit-card fade-up">
-        <div class="sit-num">03</div>
-        <div class="sit-title" id="sit3title">Granice bez agresije</div>
-        <p class="sit-text" id="sit3text">Postavljaš granice koje dijete ruši — bez vikanja, bez predaje, koristeći pristup koji funkcionira.</p>
-      </div>
-      <div class="sit-card fade-up">
-        <div class="sit-num">04</div>
-        <div class="sit-title" id="sit4title">Vlastito punjenje</div>
-        <p class="sit-text" id="sit4text">Roditelj koji se brine ne može dati ono što nema. Tvoja stabilnost nije sebičnost — to je osnova.</p>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- Main action -->
+    <button class="btn-main-action" onclick="goTo('ss')">
+      <span id="homeBtnMain">Pomozi mi sada</span>
+      <span class="btn-main-arrow">→</span>
+    </button>
 
-<!-- MODEL -->
-<section class="section model-section" id="model">
-  <div class="section-inner">
-    <div class="section-label fade-up" id="modelLabel">Model u praksi</div>
-    <h2 class="section-title fade-up" id="modelTitle">Kako to izgleda<br>za roditelja?</h2>
-    <p class="section-subtitle fade-up" id="modelSubtitle">
-      Tri koraka. Svaki konkretan. Svaki u pravo vrijeme.
-    </p>
-    <div class="model-steps">
-      <div class="model-step fade-up">
-        <div class="step-num">01</div>
-        <div class="step-tag" id="step1tag">Stanje — regulacija</div>
-        <div class="step-title" id="step1title">Smiri se ti</div>
-        <p class="step-text" id="step1text">Prije nego reagiraš na dijete — stani. LUME te prati kroz konkretne načine da se stabiliziraš u zahtjevnim trenucima.</p>
-      </div>
-      <div class="model-step fade-up">
-        <div class="step-num">02</div>
-        <div class="step-tag" id="step2tag">Obrazac — razumijevanje</div>
-        <div class="step-title" id="step2title">Što se zapravo događa?</div>
-        <p class="step-text" id="step2text">Vidiš što dijete traži ispod površine i vidiš što tvoje reakcije govore o tebi — bez osude, bez teorije, s razumijevanjem.</p>
-      </div>
-      <div class="model-step fade-up">
-        <div class="step-num">03</div>
-        <div class="step-tag" id="step3tag">Sustav — promjena</div>
-        <div class="step-title" id="step3title">Jedan mali korak</div>
-        <p class="step-text" id="step3text">Ne velika transformacija. Jedna konkretna stvar koja se mijenja — u komunikaciji, u rutini, u načinu reagiranja.</p>
-      </div>
+    <!-- Today card -->
+    <div class="today-card">
+      <div class="today-label" id="todayLabel">Tvoj podsjetnik</div>
+      <div class="today-reminder" id="todayReminder">"Smiren ton nije tih ton. To je snaga."</div>
+      <div class="today-tip-title" id="todayTipTitle">Savjet za danas</div>
+      <div class="today-tip-text" id="todayTipText">Sljedeći put kad osjetiš da eksplodiraš — napravi fizički korak unazad. Tijelo šalje mozgu signal da se situacija promijenila.</div>
     </div>
-  </div>
-</section>
 
-<!-- RAZLIKA -->
-<section class="diff-section" id="razlika">
-  <div class="diff-inner">
-    <div>
-      <div class="section-label fade-up" id="diffLabel">Razlika</div>
-      <h2 class="section-title fade-up" style="text-align:left;margin-bottom:20px" id="diffTitle">
-        Nismo još jedna<br>parenting aplikacija
-      </h2>
-      <p class="section-subtitle fade-up" style="text-align:left;margin-bottom:36px;max-width:none" id="diffSubtitle">
-        LUME ne govori kako biti savršen roditelj.
-      </p>
-      <ul class="diff-list fade-up">
-        <li class="diff-item">
-          <div class="diff-x">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#DC6B6B" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
-          </div>
-          <span id="diff1">Ne govori ti kako bi trebao/la biti kao roditelj</span>
-        </li>
-        <li class="diff-item">
-          <div class="diff-x">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#DC6B6B" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
-          </div>
-          <span id="diff2">Ne procjenjuje tko si kao roditelj</span>
-        </li>
-        <li class="diff-item">
-          <div class="diff-check">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#3D7A52" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          </div>
-          <span id="diff3">Ne nudi gotove odgovore — radi na uzroku, ne simptomu</span>
-        </li>
-        <li class="diff-item">
-          <div class="diff-check">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#3D7A52" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          </div>
-          <span id="diff4">Radi uz tebe — ne umjesto tebe</span>
-        </li>
-        <li class="diff-item">
-          <div class="diff-check">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#3D7A52" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          </div>
-          <span id="diff5">Prati te u situaciji, ne samo u trenutku situacije</span>
-        </li>
-      </ul>
+    <!-- Nav -->
+    <div class="nav-grid">
+      <button class="nav-btn" onclick="goTo('sv')" id="btnVodici">Vodiči i tehnike</button>
+      <button class="nav-btn" onclick="goTo('sr')" id="btnRazvoj">Razvoj djeteta</button>
+      <button class="nav-btn" onclick="goTo('ssim')" id="btnSim">Simulacija razgovora</button>
+      <button class="nav-btn" onclick="rotateMicro()" id="btnRotate">Novi podsjetnik</button>
     </div>
-    <div class="diff-quote-card fade-up">
-      <div class="diff-quote-bg"></div>
-      <p class="diff-quote-text" id="diffQuote">
-        "Roditelj koji razumije sebe —<br>
-        <em>razumije i dijete."</em>
-      </p>
-      <div class="diff-quote-line"></div>
-    </div>
+    <button class="nav-btn-full" onclick="goTo('sprofil')" id="btnProfil">Moj profil</button>
+    <button class="nav-btn-full" onclick="goTo('ssigurna')" id="btnSigurna" style="background:var(--green-ghost);border-color:var(--green-pale);color:var(--green-deep)">Sigurna zona</button>
   </div>
-</section>
+  <div class="back-link"><a href="../">← LUME platforma</a></div>
+</div>
 
-<!-- CTA / APP -->
-<section class="cta-section" id="app">
-  <div class="cta-bg"></div>
-  <div class="cta-inner">
-    <h2 class="cta-title fade-up" id="ctaTitle">
-      Počni s jednim<br><em>trenutkom</em>
-    </h2>
-    <p class="cta-sub fade-up" id="ctaSub">
-      Otvori dnevnik, ispuni gdje si — i LUME je tu od odmah.
-    </p>
-    <div class="fade-up" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <a href="app.html" class="btn-light" id="ctaBtn">
-        Otvori dnevnik →
-      </a>
-    </div>
+<!-- Placeholder screens -->
+<div id="ss" class="screen">
+  <div style="padding:80px 24px;text-align:center;flex:1;display:flex;flex-direction:column;justify-content:center">
+    <div style="font-size:40px;margin-bottom:16px">🌊</div>
+    <div style="font-family:'Fraunces',serif;font-size:24px;color:var(--green-deep);margin-bottom:12px" id="sitPlaceholderTitle">Pomozi mi sada</div>
+    <div style="font-size:14px;color:var(--text-light);line-height:1.7;margin-bottom:32px" id="sitPlaceholderText">Ova sekcija sadrži 12 situacija × 3 dobne skupine s konkretnim savjetima, feedbackom i simulacijom razgovora.</div>
+    <button onclick="goTo('sh')" style="padding:12px 24px;border-radius:12px;border:1.5px solid var(--cream-dark);background:transparent;color:var(--green-deep);cursor:pointer;font-family:'DM Sans',sans-serif" id="backHomeBtn">← Natrag</button>
   </div>
-</section>
+</div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">LUME</div>
-  <ul class="footer-links">
-    <li><a href="../" id="footerHome">Početna</a></li>
-    <li><a href="../#model" id="footerCore">LUME Core</a></li>
-    <li><a href="../#proizvodi" id="footerLife">LUME Life</a></li>
-  </ul>
-  <div style="font-size:11px;color:var(--green-light);letter-spacing:.5px" id="footerCopy">
-    Regenerativni model razvoja · 2025
+<div id="sv" class="screen">
+  <div style="padding:80px 24px;text-align:center;flex:1;display:flex;flex-direction:column;justify-content:center">
+    <div style="font-size:40px;margin-bottom:16px">📖</div>
+    <div style="font-family:'Fraunces',serif;font-size:24px;color:var(--green-deep);margin-bottom:12px" id="vodPlaceholderTitle">Vodiči i tehnike</div>
+    <div style="font-size:14px;color:var(--text-light);line-height:1.7;margin-bottom:32px" id="vodPlaceholderText">8 vodiča u 4 kategorije: Granice, Komunikacija, Emocije, Rutine.</div>
+    <button onclick="goTo('sh')" style="padding:12px 24px;border-radius:12px;border:1.5px solid var(--cream-dark);background:transparent;color:var(--green-deep);cursor:pointer;font-family:'DM Sans',sans-serif" id="backHomeBtn2">← Natrag</button>
   </div>
-</footer>
+</div>
+
+<div id="sr" class="screen">
+  <div style="padding:80px 24px;text-align:center;flex:1;display:flex;flex-direction:column;justify-content:center">
+    <div style="font-size:40px;margin-bottom:16px">🌱</div>
+    <div style="font-family:'Fraunces',serif;font-size:24px;color:var(--green-deep);margin-bottom:12px" id="razPlaceholderTitle">Razvoj djeteta</div>
+    <div style="font-size:14px;color:var(--text-light);line-height:1.7;margin-bottom:32px" id="razPlaceholderText">5 dobnih skupina s razvojnim kontekstom i konkretnim savjetima.</div>
+    <button onclick="goTo('sh')" style="padding:12px 24px;border-radius:12px;border:1.5px solid var(--cream-dark);background:transparent;color:var(--green-deep);cursor:pointer;font-family:'DM Sans',sans-serif" id="backHomeBtn3">← Natrag</button>
+  </div>
+</div>
+
+<div id="ssim" class="screen">
+  <div style="padding:80px 24px;text-align:center;flex:1;display:flex;flex-direction:column;justify-content:center">
+    <div style="font-size:40px;margin-bottom:16px">💬</div>
+    <div style="font-family:'Fraunces',serif;font-size:24px;color:var(--green-deep);margin-bottom:12px" id="simPlaceholderTitle">Simulacija razgovora</div>
+    <div style="font-size:14px;color:var(--text-light);line-height:1.7;margin-bottom:32px" id="simPlaceholderText">Uvježbaj razgovor s djetetom — uz AI podršku (dolazi uskoro).</div>
+    <button onclick="goTo('sh')" style="padding:12px 24px;border-radius:12px;border:1.5px solid var(--cream-dark);background:transparent;color:var(--green-deep);cursor:pointer;font-family:'DM Sans',sans-serif" id="backHomeBtn4">← Natrag</button>
+  </div>
+</div>
+
+<div id="sprofil" class="screen">
+  <div style="padding:80px 24px;text-align:center;flex:1;display:flex;flex-direction:column;justify-content:center">
+    <div style="font-size:40px;margin-bottom:16px">👤</div>
+    <div style="font-family:'Fraunces',serif;font-size:24px;color:var(--green-deep);margin-bottom:12px" id="profPlaceholderTitle">Moj profil</div>
+    <div style="font-size:14px;color:var(--text-light);line-height:1.7;margin-bottom:32px" id="profPlaceholderText">Profil roditelja i djeteta s personaliziranim uvidima.</div>
+    <button onclick="goTo('sh')" style="padding:12px 24px;border-radius:12px;border:1.5px solid var(--cream-dark);background:transparent;color:var(--green-deep);cursor:pointer;font-family:'DM Sans',sans-serif">← Natrag</button>
+  </div>
+</div>
+
+<div id="ssigurna" class="screen">
+  <div style="padding:60px 24px;flex:1">
+    <div style="font-family:'Fraunces',serif;font-size:24px;color:var(--green-deep);margin-bottom:24px" id="sigTitle">Sigurna zona</div>
+    <div style="background:var(--green-ghost);border-left:3px solid var(--green-light);border-radius:0 12px 12px 0;padding:16px;margin-bottom:14px">
+      <div style="font-size:10px;font-weight:700;color:var(--green-warm);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px" id="sig1lbl">Korak 1 — Ono što napišeš ostaje ovdje</div>
+      <div style="font-size:13px;color:var(--text-mid);line-height:1.7;font-weight:300" id="sig1txt">Ono što napišeš ovdje ostaje između tebe i Lume. Nema krivih odgovora, nema osude.</div>
+    </div>
+    <div style="background:#E8F0F8;border-left:3px solid #4A90B8;border-radius:0 12px 12px 0;padding:16px;margin-bottom:14px">
+      <div style="font-size:10px;font-weight:700;color:#4A90B8;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px" id="sig2lbl">Korak 2 — Lume je za svakodnevne izazove</div>
+      <div style="font-size:13px;color:var(--text-mid);line-height:1.7;font-weight:300" id="sig2txt">Ako prolazite kroz nešto teže — niste sami. Tražiti pomoć nije slabost, to je snaga.</div>
+    </div>
+    <div style="background:#FEF3E2;border-left:3px solid #C4954A;border-radius:0 12px 12px 0;padding:16px;margin-bottom:20px">
+      <div style="font-size:10px;font-weight:700;color:#C4954A;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px" id="sig3lbl">Korak 3 — Ako ti treba više podrške</div>
+      <div style="font-size:13px;color:var(--text-mid);line-height:1.7;font-weight:300;margin-bottom:12px" id="sig3txt">Razgovor sa stručnjakom nije znak slabosti, nego briga o sebi i svom djetetu.</div>
+      <a href="https://www.hrabritelefon.hr" target="_blank" style="display:block;padding:10px 14px;border-radius:10px;background:white;border:1px solid #E8D5A3;font-size:12px;font-weight:600;color:#8A6A3A;text-decoration:none;margin-bottom:6px">Hrabri telefon — 116 111 →</a>
+    </div>
+    <button onclick="goTo('sh')" style="width:100%;padding:12px;border-radius:12px;border:1.5px solid var(--cream-dark);background:transparent;color:var(--green-deep);cursor:pointer;font-family:'DM Sans',sans-serif" id="sigBackBtn">← Natrag</button>
+  </div>
+</div>
+
+</div><!-- end .app -->
 
 <script>
-// ── LANG ──
+// ── STATE ──
+const OB = { reakcija:null, izazovi:[], energija:null, dob:null, temp:[], child_gr:null };
 let lang = 'hr';
+let breatheTimer = null;
 
-const T = {
+// ── NAVIGATION ──
+function goTo(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
+  const el = document.getElementById(id);
+  if(el) {
+    el.classList.add('on');
+    renderPhaseBar(id);
+    window.scrollTo(0,0);
+  }
+}
+
+function startFlow() { goTo('ob1'); }
+function goHome() { renderHome(); goTo('sh'); }
+
+// ── PHASE BAR ──
+const phaseMap = {
+  ob1:'stanje', ob2:'stanje', ob3:'stanje',
+  ob4:'obrazac', ob5:'obrazac', ob6:'obrazac',
+  sbreathe:'stanje', saha:'obrazac', splant:'sustav',
+  sh:'sustav', ss:'sustav', sv:'sustav', sr:'sustav', ssim:'sustav'
+};
+
+function renderPhaseBar(screenId) {
+  const phase = phaseMap[screenId] || 'stanje';
+  const bars = ['pb1','pb2','pb3','pb4','pb5','pb6','pbAha','pbPlant'];
+  const t = lang === 'en';
+
+  const html = `
+    <div class="phase-steps">
+      <div class="phase-step ${phase==='stanje'?'active':(phase==='obrazac'||phase==='sustav'?'done':'inactive')}">
+        <div class="phase-icon">🌊</div>
+        <div class="phase-label">${t?'State':'Stanje'}</div>
+      </div>
+      <div class="phase-connector ${phase==='obrazac'||phase==='sustav'?'done':''}"></div>
+      <div class="phase-step ${phase==='obrazac'?'active':(phase==='sustav'?'done':'inactive')}">
+        <div class="phase-icon">💡</div>
+        <div class="phase-label">${t?'Pattern':'Obrazac'}</div>
+      </div>
+      <div class="phase-connector ${phase==='sustav'?'done':''}"></div>
+      <div class="phase-step ${phase==='sustav'?'active':'inactive'}">
+        <div class="phase-icon">🌱</div>
+        <div class="phase-label">${t?'System':'Sustav'}</div>
+      </div>
+    </div>`;
+
+  bars.forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.innerHTML = html;
+  });
+}
+
+// ── ONBOARDING ──
+const obFeedbacks = {
   hr: {
-    langBtn: 'EN',
-    navPocetna: 'Početna', navCore: 'LUME Core', navParents: 'LUME Parents',
-    navLife: 'LUME Life', navDnevnik: 'Dnevnik',
-    heroEyebrow: 'LUME Parents',
-    heroTitle: 'Za roditelje koji<br><em>žele biti prisutni</em><br>— a ne savršeni',
-    heroSubtitle: 'LUME Parents nije vodič kako biti bolji roditelj. To je podrška da budeš stabilan/na, svjestan/na i manje sam u trenucima koji su zahtjevni.',
-    heroCta: 'Počni danas', heroCtaGhost: 'Saznaj više',
-    floatText: 'Personalizirani profil',
-    cardLabel: 'Savjet za tebe danas',
-    cardTitle: 'Smirivanje ne znači predaju',
-    cardText: 'Kad ostaneš miran/mirna dok dijete ispadne — ne popuštaš. Pokazuješ kako se regulira emocija. To je najtočniji odgovor koji možeš dati.',
-    cardQuote: '"Roditelj koji razumije sebe — razumije i dijete."',
-    sitLabel: 'Prepoznaješ li se?',
-    sitTitle: 'Situacije u kojima<br>LUME pomaže',
-    sitSubtitle: 'Ne trebaju ti savjeti koje već znaš. Trebaš nekoga tko te prati u trenutku — i vodi dalje.',
-    sit1title: 'Dijete je u ispadima', sit1text: 'Plač, vikanje, odbijanje. Radiš sve što znaš. I ne znaš dalje. LUME te prati do prve stabilizacije — i vodi dalje.',
-    sit2title: 'Komunikacija s djetetom', sit2text: 'Razgovaraš ali ne dospijevaš. LUME pomaže prepoznati obrasce i promijeniti pristup, ne dijete.',
-    sit3title: 'Granice bez agresije', sit3text: 'Postavljaš granice koje dijete ruši — bez vikanja, bez predaje, koristeći pristup koji funkcionira.',
-    sit4title: 'Vlastito punjenje', sit4text: 'Roditelj koji se brine ne može dati ono što nema. Tvoja stabilnost nije sebičnost — to je osnova.',
-    modelLabel: 'Model u praksi',
-    modelTitle: 'Kako to izgleda<br>za roditelja?',
-    modelSubtitle: 'Tri koraka. Svaki konkretan. Svaki u pravo vrijeme.',
-    step1tag: 'Stanje — regulacija', step1title: 'Smiri se ti',
-    step1text: 'Prije nego reagiraš na dijete — stani. LUME te prati kroz konkretne načine da se stabiliziraš u zahtjevnim trenucima.',
-    step2tag: 'Obrazac — razumijevanje', step2title: 'Što se zapravo događa?',
-    step2text: 'Vidiš što dijete traži ispod površine i vidiš što tvoje reakcije govore o tebi — bez osude, bez teorije, s razumijevanjem.',
-    step3tag: 'Sustav — promjena', step3title: 'Jedan mali korak',
-    step3text: 'Ne velika transformacija. Jedna konkretna stvar koja se mijenja — u komunikaciji, u rutini, u načinu reagiranja.',
-    diffLabel: 'Razlika',
-    diffTitle: 'Nismo još jedna<br>parenting aplikacija',
-    diffSubtitle: 'LUME ne govori kako biti savršen roditelj.',
-    diff1: 'Ne govori ti kako bi trebao/la biti kao roditelj',
-    diff2: 'Ne procjenjuje tko si kao roditelj',
-    diff3: 'Ne nudi gotove odgovore — radi na uzroku, ne simptomu',
-    diff4: 'Radi uz tebe — ne umjesto tebe',
-    diff5: 'Prati te u situaciji, ne samo u trenutku situacije',
-    diffQuote: '"Roditelj koji razumije sebe —<br><em>razumije i dijete."</em>',
-    ctaTitle: 'Počni s jednim<br><em>trenutkom</em>',
-    ctaSub: 'Otvori dnevnik, ispuni gdje si — i LUME je tu od odmah.',
-    ctaBtn: 'Otvori dnevnik →',
-    footerHome: 'Početna', footerCore: 'LUME Core', footerLife: 'LUME Life',
-    footerCopy: 'Regenerativni model razvoja · 2025',
+    reakcija: {
+      eksplodira: 'Eksplozija dolazi iz mjesta brige i ljubavi — samo preplavljuje. Nisi loš/a roditelj. Trebaš prostor između poticaja i reakcije.',
+      zamrzne: 'Zamrzavanje je tijelo koje kaže "ne znam što da radim". To nije slabost — to je signal da trebaš konkretne alate.',
+      pregovara: 'Pregovaranje dolazi iz vjere da dijete može razumjeti — to je lijepo. Lume ti pomaže pretvoriti tu namjeru u učinkovitu komunikaciju.',
+      popusta: 'Popuštanje dolazi iz ljubavi i umora. Nisi zakazao/la — tražiš mir. Lume ti pomaže naći ga na drukčiji način.',
+      razlicito: 'Varijabilnost je normalna kod umora. Stabilnost se gradi postupno.',
+      smiren: 'Već si na dobrom putu. Lume će ti ponuditi alate za fine-tuning.',
+    },
+    energija: {
+      prazno: 'Prepoznajemo to. Lume će ti davati samo ono što trebaš — kratko i konkretno. Briga o sebi nije sebičnost.',
+      pola: 'Na pola puta, ali tu si. To je dovoljno za početak.',
+      solidno: 'Dobro. Lume će te pratiti s preciznijim alatima.',
+    },
+    dob: {
+      '1-2': 'Ova dob je intenzivna — dijete otkriva sebe i svijet istovremeno. Tvoja prisutnost je najvažniji alat.',
+      '2-4': 'Zlatno doba testiranja granica. Dijete traži strukturu — i sigurnost u tvojoj dosljednosti.',
+      '4-6': 'Doba pitanja i mašte. Dijete uči kako funkcionira svijet — kroz tebe.',
+      '6-9': 'Škola mijenja sve. Prijatelji postaju važni, ali roditelj ostaje sidro.',
+      '9-12': 'Počinje gradnja identiteta. Dijete se povlači — ali treba znati da si tu.',
+      '12+': 'Tinejdžerske vode. Manje kontrole, više povjerenja.',
+    },
+    child_gr: {
+      eksplodira: 'Intenzivna reakcija na granice najčešće je kod djece koja duboko osjećaju.',
+      pregovara: 'Dijete koje pregovara razvija kritičko mišljenje. Tvoj posao je biti dosljedan/na.',
+      ignorira: 'Ignoriranje granica je test — dijete provjerava jesu li granice stvarne.',
+      povlaci: 'Povlačenje je tiho — ali govori puno.',
+      prihvaca: 'Uglavnom prihvaća — odlična osnova za izgradnju.',
+      ovisi: 'Nepredvidivost u djetetu često odražava nepredvidivost u okolini.',
+    }
   },
   en: {
-    langBtn: 'HR',
-    navPocetna: 'Home', navCore: 'LUME Core', navParents: 'LUME Parents',
-    navLife: 'LUME Life', navDnevnik: 'Journal',
-    heroEyebrow: 'LUME Parents',
-    heroTitle: 'For parents who want<br><em>to be present</em><br>— not perfect',
-    heroSubtitle: 'LUME Parents is not a guide to being a better parent. It is support to help you stay grounded, aware, and less alone in the moments that are demanding.',
-    heroCta: 'Start today', heroCtaGhost: 'Learn more',
-    floatText: 'Personalised profile',
-    cardLabel: 'For you today',
-    cardTitle: 'Staying calm is not giving in',
-    cardText: 'When you stay steady while your child melts down — you are not backing down. You are showing them how to regulate an emotion. That is the most accurate response you can give.',
-    cardQuote: '"A parent who understands themselves — understands their child."',
-    sitLabel: 'Does this sound familiar?',
-    sitTitle: 'Situations where<br>LUME helps',
-    sitSubtitle: 'You do not need advice you already know. You need someone to walk with you in the moment — and beyond.',
-    sit1title: 'Your child is in meltdown', sit1text: 'Crying, shouting, refusing. You are doing everything you know. And you do not know what is next. LUME walks you through the first stabilisation — and further.',
-    sit2title: 'Communication with your child', sit2text: 'You talk but you do not reach them. LUME helps you recognise the patterns and shift the approach — not the child.',
-    sit3title: 'Limits without aggression', sit3text: 'You set limits your child keeps pushing — without shouting, without giving in, using an approach that actually works.',
-    sit4title: 'Filling your own tank', sit4text: 'A depleted parent cannot give what they do not have. Your stability is not selfishness — it is the foundation.',
-    modelLabel: 'The model in practice',
-    modelTitle: 'What does this look<br>like for a parent?',
-    modelSubtitle: 'Three steps. Each concrete. Each at the right time.',
-    step1tag: 'State — regulation', step1title: 'Settle yourself first',
-    step1text: 'Before you react to your child — pause. LUME walks you through concrete ways to stabilise yourself in demanding moments.',
-    step2tag: 'Pattern — understanding', step2title: 'What is actually happening?',
-    step2text: 'See what your child is asking for beneath the surface — and what your reactions say about you. Without judgment, without theory. With understanding.',
-    step3tag: 'System — change', step3title: 'One small step',
-    step3text: 'Not a big transformation. One concrete thing that shifts — in communication, in routine, in how you respond.',
-    diffLabel: 'The difference',
-    diffTitle: 'We are not another<br>parenting app',
-    diffSubtitle: 'LUME does not tell you how to be a perfect parent.',
-    diff1: 'Does not tell you how you should be as a parent',
-    diff2: 'Does not judge who you are as a parent',
-    diff3: 'Does not offer ready-made answers — works on the cause, not the symptom',
-    diff4: 'Works alongside you — not instead of you',
-    diff5: 'Stays with you in the situation, not just in the moment of it',
-    diffQuote: '"A parent who understands themselves —<br><em>understands their child."</em>',
-    ctaTitle: 'Start with one<br><em>moment</em>',
-    ctaSub: 'Open the journal, share where you are — and LUME is there from the start.',
-    ctaBtn: 'Open the journal →',
-    footerHome: 'Home', footerCore: 'LUME Core', footerLife: 'LUME Life',
-    footerCopy: 'Regenerative development model · 2025',
+    reakcija: {
+      eksplodira: 'Explosions come from care and love — they just overflow. You are not a bad parent. You need space between the trigger and the reaction.',
+      zamrzne: 'Freezing is your body saying "I do not know what to do." That is not weakness — it is a signal you need concrete tools.',
+      pregovara: 'Negotiating comes from believing your child can understand — that is a good instinct. Lume helps you make it land more effectively.',
+      popusta: 'Giving in comes from love and exhaustion. You have not failed — you are looking for peace. Lume helps you find it differently.',
+      razlicito: 'Variability is normal with exhaustion. Stability builds gradually.',
+      smiren: 'You are already on the right path. Lume will offer fine-tuning tools.',
+    },
+    energija: {
+      prazno: 'We hear you. Lume will give you only what you need — brief and concrete. Taking care of yourself is not selfish.',
+      pola: 'Half a tank, but you are here. That is enough to start.',
+      solidno: 'Good. Lume will support you with more precise tools.',
+    },
+    dob: {
+      '1-2': 'This age is intense — your child is discovering themselves and the world at the same time. Your presence is the most important tool.',
+      '2-4': 'The golden age of boundary testing. Your child needs structure — and safety in your consistency.',
+      '4-6': 'The age of questions and imagination. Your child is learning how the world works — through you.',
+      '6-9': 'School changes everything. Friends become important, but the parent remains the anchor.',
+      '9-12': 'Identity formation begins. Your child pulls away — but needs to know you are there.',
+      '12+': 'Teenage territory. Less control, more trust.',
+    },
+    child_gr: {
+      eksplodira: 'Intense reactions to limits are most common in children who feel deeply.',
+      pregovara: 'A child who negotiates is developing critical thinking. Your job is to be consistent.',
+      ignorira: 'Ignoring limits is a test — the child is checking whether the boundary is real.',
+      povlaci: 'Withdrawal is quiet — but says a lot.',
+      prihvaca: 'Mostly accepts — an excellent foundation to build on.',
+      ovisi: 'Unpredictability in a child often reflects unpredictability in the environment.',
+    }
   }
 };
 
+function obPick(key, val, el, fbId, nextId) {
+  el.parentElement.querySelectorAll('.ob-card').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+  OB[key] = val;
+  const btn = document.getElementById(nextId);
+  if(btn) btn.disabled = false;
+  // Show feedback
+  const fb = document.getElementById(fbId);
+  const msg = obFeedbacks[lang][key]?.[val];
+  if(fb && msg) { fb.textContent = msg; fb.classList.add('show'); }
+}
+
+function obMulti(key, val, el, nextId) {
+  el.classList.toggle('sel');
+  if(!Array.isArray(OB[key])) OB[key] = [];
+  if(el.classList.contains('sel')) {
+    if(!OB[key].includes(val)) OB[key].push(val);
+  } else {
+    OB[key] = OB[key].filter(v => v !== val);
+  }
+  const btn = document.getElementById(nextId);
+  if(btn) btn.disabled = OB[key].length === 0;
+}
+
+function obDob(el, val) {
+  document.querySelectorAll('.dob-btn').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+  OB.dob = val;
+  document.getElementById('ob4next').disabled = false;
+  const fb = document.getElementById('ob4fb');
+  const msg = obFeedbacks[lang].dob?.[val];
+  if(fb && msg) { fb.textContent = msg; fb.classList.add('show'); }
+}
+
+// ── BREATHING ──
+function goBreathing() {
+  goTo('sbreathe');
+  startBreathing();
+}
+
+let breatheCycle = 0;
+let breathePhase = 'in';
+let breatheInterval = null;
+let breatheSeconds = 0;
+const TOTAL_CYCLES = 3;
+const CYCLE_DURATION = 8; // seconds per cycle
+
+function startBreathing() {
+  breatheCycle = 0;
+  breatheSeconds = 0;
+  breathePhase = 'in';
+  const fill = document.getElementById('breatheFill');
+  if(fill) fill.style.width = '0%';
+  runBreatheCycle();
+}
+
+function runBreatheCycle() {
+  if(breatheInterval) clearInterval(breatheInterval);
+  const circle = document.getElementById('breatheCircle');
+  const instr = document.getElementById('breatheInstr');
+  const count = document.getElementById('breatheCount');
+  const fill = document.getElementById('breatheFill');
+  const btn = document.getElementById('breatheBtn');
+
+  const t = lang === 'en';
+  let phase = 0; // 0=in, 1=hold, 2=out
+
+  const phases = t
+    ? ['Breathe in...', 'Hold...', 'Breathe out...']
+    : ['Udahni...', 'Zadrži...', 'Izdahni...'];
+
+  const durations = [4, 1, 3]; // seconds
+  let phaseIdx = 0;
+  let elapsed = 0;
+  let phaseElapsed = 0;
+
+  if(instr) instr.textContent = phases[0];
+  if(count) count.textContent = `${t?'Cycle':'Ciklus'} ${breatheCycle + 1} ${t?'of':'od'} ${TOTAL_CYCLES}`;
+  if(circle) circle.classList.remove('expand');
+
+  breatheInterval = setInterval(() => {
+    elapsed++;
+    phaseElapsed++;
+
+    // Update fill
+    const totalProg = (breatheCycle * CYCLE_DURATION + elapsed) / (TOTAL_CYCLES * CYCLE_DURATION) * 100;
+    if(fill) fill.style.width = Math.min(totalProg, 100) + '%';
+
+    // Phase transitions
+    if(phaseElapsed >= durations[phaseIdx]) {
+      phaseElapsed = 0;
+      phaseIdx = (phaseIdx + 1) % 3;
+      if(instr) instr.textContent = phases[phaseIdx];
+      if(circle) {
+        if(phaseIdx === 0) circle.classList.add('expand');
+        else circle.classList.remove('expand');
+      }
+    }
+
+    if(elapsed >= CYCLE_DURATION) {
+      clearInterval(breatheInterval);
+      breatheCycle++;
+      if(breatheCycle < TOTAL_CYCLES) {
+        setTimeout(runBreatheCycle, 500);
+      } else {
+        // Done!
+        if(fill) fill.style.width = '100%';
+        if(instr) {
+          instr.textContent = t ? 'Well done 🌿' : 'Odlično 🌿';
+        }
+        if(count) count.textContent = '';
+        if(btn) btn.style.display = 'block';
+        // Auto message
+        setTimeout(() => {
+          if(instr) instr.textContent = t
+            ? 'Calm activated. Ready for pattern recognition.'
+            : 'Osjećaj mira aktiviran. Spreman/na za razumijevanje obrazaca.';
+        }, 500);
+      }
+    }
+  }, 1000);
+}
+
+function goToAha() {
+  if(breatheInterval) clearInterval(breatheInterval);
+  renderAha();
+  goTo('saha');
+}
+
+// ── AHA MOMENT ──
+const ahaData = {
+  hr: {
+    eksplodira: {
+      pattern: 'Eksplozija dolazi iz mjesta brige — ne iz loše namjere. Prepoznati taj obrazac je prvi korak. Intenzitet nije problem, on je energija. Pitanje je samo kamo ide.',
+      tip: 'Sljedeći put kad osjetiš da eksplodiraš — napravi jedan fizički korak unazad. Tijelo šalje mozgu signal da se situacija promijenila. Zatim reci jednu kratku rečenicu.',
+      quote: '"Između poticaja i odgovora postoji prostor. U tom prostoru je tvoja sloboda."'
+    },
+    zamrzne: {
+      pattern: 'Zamrzavanje je tiho i teško. Nisi jedini/a. Postoje konkretni alati koji pomažu — i sve počinje od jedne rečenice koju imaš unaprijed pripremljenu.',
+      tip: 'Tvoja rečenica za sljedeći put: "Trebam trenutak." — i odlaziš. Kratko, mirno. Dijete vidi model regulacije.',
+      quote: '"Jasna rečenica u pravo vrijeme vrijedi više od savršenog odgovora koji nikad ne dođe."'
+    },
+    pregovara: {
+      pattern: 'Vjeruješ da dijete može razumjeti — i to je lijepa namjera. Problem je što se razgovor pretvori u raspravu, a ti ostaneš iscrpljen/a.',
+      tip: 'Probaj: postavi granicu jednom, kratko. Pa tišina. Bez objašnjenja. Dijete čuje jasnoću bolje bez rasprave oko nje.',
+      quote: '"Jedno jasno NE vrijedi više od deset objašnjenja zašto ne."'
+    },
+    popusta: {
+      pattern: 'Popuštaš da prestane — i odmah se osjećaš loše. To nije slabost, to je umor koji traži izlaz. Dijete uči da čekanje donosi rezultat.',
+      tip: '"Odluka ostaje." — jednom, mirno. Svaki put kad izdržiš, sljedeći je lakši. To je kako se gradi dosljednost.',
+      quote: '"Granica koja se drži jednom postaje lakša drugi put. I treći. I deseti."'
+    },
+    razlicito: {
+      pattern: 'Nekad idealno, nekad kaos. Ta varijabilnost zbunjuje i tebe i dijete. Odaberi jednu granicu koja je uvijek ista — bez obzira na dan.',
+      tip: 'Jedna dosljedna granica vrijedi više od deset nestalnih. Počni od jutarnje rutine — istu sekvencu, svaki dan.',
+      quote: '"Dosljednost nije savršenstvo. To je isti odgovor danas i sutra — dovoljno često."'
+    },
+    smiren: {
+      pattern: 'Uglavnom si na dobrom putu. Tražiš fine-tuning — i to je točno na što se Lume fokusira kod tebe.',
+      tip: 'Provjeri: jesu li tvoje granice iste i kad si umoran/a? Tu je prostor za rast.',
+      quote: '"Roditelj koji je svjestan sebe regulira i dijete — bez da to svjesno pokušava."'
+    }
+  },
+  en: {
+    eksplodira: {
+      pattern: 'The explosion comes from caring — not from bad intent. Recognising that pattern is the first step. The intensity is not the problem, it is energy. The question is only where it goes.',
+      tip: 'Next time you feel it rising — take one physical step back. Your body tells your brain the situation has shifted. Then say one short sentence.',
+      quote: '"Between the trigger and your reaction is a space. That space is where you grow."'
+    },
+    zamrzne: {
+      pattern: 'Freezing is quiet and hard. You are not alone. There are concrete tools that help — and it all starts from one sentence you have ready in advance.',
+      tip: 'Your sentence for next time: "I need a moment." — and you step away. Brief, calm. Your child sees a model of regulation.',
+      quote: '"The right words at the right time are worth more than the perfect response that never comes."'
+    },
+    pregovara: {
+      pattern: 'You believe your child can understand — that is a good instinct. The problem is the conversation turns into a debate and you end up depleted.',
+      tip: 'Try: set the limit once, briefly. Then quiet. No explanation. Your child hears clarity better without the debate around it.',
+      quote: '"One clear no is worth more than ten explanations of why not."'
+    },
+    popusta: {
+      pattern: 'You give in to make it stop — and immediately feel bad. That is not weakness, it is exhaustion looking for an exit. Your child learns that waiting gets results.',
+      tip: '"The answer stays no." — once, calmly. Every time you hold it, the next time gets easier. That is how consistency is built.',
+      quote: '"A limit held once becomes easier to hold twice. And ten times. Then it is just normal."'
+    },
+    razlicito: {
+      pattern: 'Sometimes ideal, sometimes chaos. That variability confuses you and your child. Choose one boundary that is always the same — regardless of the day.',
+      tip: 'One consistent boundary is worth more than ten shifting ones. Start with the morning routine — same sequence, every day.',
+      quote: '"Consistency is not perfection. It is the same answer today and tomorrow — often enough."'
+    },
+    smiren: {
+      pattern: 'You are mostly on the right path. You are looking for fine-tuning — and that is exactly what Lume focuses on for you.',
+      tip: 'Check: do your boundaries hold even when you are exhausted? That is where the growth space is.',
+      quote: '"A parent who sees themselves clearly — shapes their child without trying."'
+    }
+  }
+};
+
+function renderAha() {
+  const r = OB.reakcija || 'razlicito';
+  const d = ahaData[lang][r] || ahaData[lang].razlicito;
+  const t = lang === 'en';
+  const el = (id, txt) => { const e = document.getElementById(id); if(e) e.textContent = txt; };
+  const inel = (id, html) => { const e = document.getElementById(id); if(e) e.innerHTML = html; };
+
+  el('ahaPhaseLabel', t ? '💡 Pattern — your insight' : '💡 Obrazac — tvoj uvid');
+  el('ahaTitle', t ? 'We see you.' : 'Vidimo te');
+  el('ahaPatternLabel', t ? 'Your pattern' : 'Tvoj obrazac');
+  el('ahaPattern', d.pattern);
+  el('ahaTipLabel', t ? 'For you today' : 'Za tebe danas');
+  el('ahaTip', d.tip);
+  el('ahaQuote', d.quote);
+  el('ahaBtn1', t ? 'Continue to System phase 🌱' : 'Nastavi do Sustav faze 🌱');
+  el('ahaBtn2', t ? 'Go straight into LUME' : 'Uđi u LUME odmah');
+}
+
+// ── PLANT / SUSTAV ──
+const plantTasks = {
+  hr: {
+    eksplodira: [
+      'Danas, jedan fizički korak unazad prije reakcije.',
+      'Pripremi jednu kratku rečenicu za sljedeći ispad.',
+      'Uočiti jedan trenutak kad si zastao/la — i to je dovoljno.'
+    ],
+    zamrzne: [
+      'Uvježbaj rečenicu: "Trebam trenutak." — izgovori je naglas.',
+      'Primijetiti jedan signal u tijelu koji prethodi zamrzavanju.',
+      'Jedanput danas — reagiraj, pa i ako nije savršeno.'
+    ],
+    pregovara: [
+      'Reci granicu jednom. Zatim šuti. Vidi što se dogodi.',
+      'Primijetiti koliko puta ponoviš istu uputu danas.',
+      'Umjesto objašnjenja — jedna kratka rečenica i odlaziš.'
+    ],
+    popusta: [
+      '"Odluka ostaje." — vježbaj reći to sebi.',
+      'Odaberi jednu malu granicu danas i drži je.',
+      'Primijetiti trenutak kad osjećaš da ćeš popustiti — i zastati.'
+    ],
+    razlicito: [
+      'Odaberi jednu jutarnju rutinu koja je uvijek ista.',
+      'Primijetiti koji sat dana donosi najviše tenzije.',
+      'Jedan isti odgovor na jednu situaciju — cijeli tjedan.'
+    ],
+    smiren: [
+      'Provjeri: drže li tvoje granice i kad si umoran/a?',
+      'Primijetiti koji okidač se ponavlja ovaj tjedan.',
+      'Jedno "čujem te" bez savjeta — samo slušaš.'
+    ]
+  },
+  en: {
+    eksplodira: [
+      'Today: one physical step back before reacting.',
+      'Prepare one short sentence for the next meltdown.',
+      'Notice one moment when you paused — that is enough.'
+    ],
+    zamrzne: [
+      'Practice the sentence: "I need a moment." Say it out loud.',
+      'Notice one body signal that comes before the freeze.',
+      'Once today — respond, even if it is not perfect.'
+    ],
+    pregovara: [
+      'Say the limit once. Then go quiet. See what happens.',
+      'Notice how many times you repeat the same instruction today.',
+      'Instead of explaining — one short sentence and you leave.'
+    ],
+    popusta: [
+      '"The answer stays no." — practice saying it to yourself.',
+      'Choose one small limit today and hold it.',
+      'Notice the moment you feel yourself about to give in — and pause.'
+    ],
+    razlicito: [
+      'Choose one morning routine that is always the same.',
+      'Notice what time of day brings the most tension.',
+      'One same response to one situation — all week.'
+    ],
+    smiren: [
+      'Check: do your limits hold when you are exhausted?',
+      'Notice which trigger repeats this week.',
+      'One "I hear you" without advice — just listening.'
+    ]
+  }
+};
+
+let completedTasks = 0;
+
+function goPlant() {
+  completedTasks = 0;
+  renderPlant();
+  goTo('splant');
+  // Animate plant stem
+  setTimeout(() => {
+    const stem = document.getElementById('plantStem');
+    if(stem) stem.classList.add('grow');
+  }, 300);
+}
+
+function renderPlant() {
+  const r = OB.reakcija || 'razlicito';
+  const tasks = plantTasks[lang][r] || plantTasks[lang].razlicito;
+  const t = lang === 'en';
+
+  const el = document.getElementById('plantTasks');
+  if(el) {
+    el.innerHTML = tasks.map((task, i) => `
+      <div class="plant-task" id="ptask${i}" onclick="completeTask(${i}, ${tasks.length})">
+        <div class="task-check" id="pcheck${i}">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" style="display:none" id="psvg${i}"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <div class="task-text">${task}</div>
+      </div>
+    `).join('');
+  }
+
+  const el2 = (id, txt) => { const e = document.getElementById(id); if(e) e.textContent = txt; };
+  el2('plantPhaseLabel', t ? '🌱 System — one small step' : '🌱 Sustav — jedan mali korak');
+  el2('plantTitle', t ? 'Your small step today' : 'Tvoj mali korak danas');
+  el2('plantSub', t ? 'Not a big change. One concrete thing that builds long-term stability.' : 'Ne velika promjena. Jedna konkretna stvar koja gradi dugoročnu stabilnost.');
+  el2('plantNextTxt', t ? 'Enter LUME 🌿' : 'Uđi u LUME 🌿');
+}
+
+function completeTask(idx, total) {
+  const task = document.getElementById(`ptask${idx}`);
+  const check = document.getElementById(`pcheck${idx}`);
+  const svg = document.getElementById(`psvg${idx}`);
+
+  if(task && !task.classList.contains('done')) {
+    task.classList.add('done');
+    if(svg) svg.style.display = 'block';
+    completedTasks++;
+
+    // Grow leaves
+    const leaves = ['leaf1','leaf2','leaf3','plantFlower','plantFlowerInner'];
+    const leafIdx = completedTasks - 1;
+    if(leafIdx < leaves.length) {
+      setTimeout(() => {
+        const leaf = document.getElementById(leaves[leafIdx]);
+        if(leaf) leaf.classList.add('show');
+      }, 300);
+    }
+
+    // Show done message
+    if(completedTasks === total) {
+      setTimeout(() => {
+        const msg = document.getElementById('plantDoneMsg');
+        const t = lang === 'en';
+        if(msg) {
+          msg.textContent = t
+            ? 'You have taken the first step towards your system. Every small step today — tomorrow is easier. 🌱'
+            : 'Napravio/la si prvi korak prema svom sustavu. Svaki mali korak danas — sutra je lakše. 🌱';
+          msg.style.display = 'block';
+        }
+      }, 500);
+    }
+  }
+}
+
+// ── HOME ──
+const micros = {
+  hr: {
+    eksplodira: ['"Između poticaja i odgovora postoji prostor. Ti ga gradiš."','"Smiren ton nije tih ton. To je snaga."','"Svaki put kad zastaneš — učiš i dijete."'],
+    zamrzne: ['"Jasna rečenica u pravo vrijeme."','"Konkretnost je dar koji možeš naučiti."','"Prisutnost govori i kad šutiš."'],
+    pregovara: ['"Manje riječi — više učinka."','"Tišina nakon granice je dosljednost."','"Dijete sluša bolje kad ima manje za čuti."'],
+    popusta: ['"Granica koja se drži jednom — sljedeći put je lakša."','"Tvoja dosljednost je djetetova sigurnost."','"Mir koji dolazi od jasnoće traje duže."'],
+    razlicito: ['"Dosljednost nije savršenstvo. Dovoljno često."','"Jedan isti odgovor danas i sutra."','"Predvidivost smiruje i tebe i dijete."'],
+    smiren: ['"Svjesnost sebe regulira i dijete."','"Mali pomaci — velike promjene."','"Ti si već na putu. Lume te prati."'],
+    default: ['"Pomažemo ti u trenutku — ali te ne ostavljamo tamo."','"Smiren roditelj ne znači popustljiv roditelj."','"Granica je dar — dijete se u njoj osjeća sigurno."']
+  },
+  en: {
+    eksplodira: ['"Between the trigger and your reaction is a space. You are building it."','"Calm is not quiet. It is steady."','"Every time you pause — your child learns to pause too."'],
+    zamrzne: ['"The right words at the right time."','"Clarity is a skill. You can learn it."','"Your presence speaks even when you cannot find words."'],
+    pregovara: ['"Less said — more heard."','"Silence after a limit is follow-through."','"They listen better when there is less to tune out."'],
+    popusta: ['"A limit held once is easier to hold twice."','"Your consistency is your child\'s security."','"The peace that comes from clarity lasts longer."'],
+    razlicito: ['"Consistency is not perfection. Often enough."','"The same answer today and tomorrow."','"Predictability calms you both."'],
+    smiren: ['"Awareness of yourself regulates your child."','"Small shifts — big changes."','"You are already on the path. Lume walks with you."'],
+    default: ['"We meet you in the moment — and we do not leave you there."','"Calm does not mean permissive."','"A boundary is a gift — children feel safe within it."']
+  }
+};
+
+let microIdx = 0;
+
+function renderHome() {
+  const t = lang === 'en';
+  const r = OB.reakcija || 'default';
+  const ms = micros[lang][r] || micros[lang].default;
+  const micro = ms[microIdx % ms.length];
+
+  const el = (id, txt) => { const e = document.getElementById(id); if(e) e.textContent = txt; };
+  const inel = (id, html) => { const e = document.getElementById(id); if(e) e.innerHTML = html; };
+
+  el('homeTag', t ? 'we meet you in the moment — and stay with you' : 'svjetlo u trenutku koji je teži');
+  el('homeLang', t ? 'HR' : 'EN');
+  el('phaseStatusLabel', t ? 'Where you are now' : 'Gdje si sada');
+  el('phaseStatusText', t ? 'System — building long-term stability' : 'Sustav — gradiš dugoročnu stabilnost');
+  el('homeBtnMain', t ? 'I need help right now' : 'Pomozi mi sada');
+  el('todayLabel', t ? 'Your reminder' : 'Tvoj podsjetnik');
+  el('todayReminder', micro);
+  el('todayTipTitle', t ? 'Focus for today' : 'Savjet za danas');
+  el('btnVodici', t ? 'Guides & tools' : 'Vodiči i tehnike');
+  el('btnRazvoj', t ? 'Child development' : 'Razvoj djeteta');
+  el('btnSim', t ? 'Practice conversation' : 'Simulacija razgovora');
+  el('btnRotate', t ? 'New reminder' : 'Novi podsjetnik');
+  el('btnProfil', t ? 'My profile' : 'Moj profil');
+  el('btnSigurna', t ? 'Safe zone' : 'Sigurna zona');
+
+  // Placeholder screens
+  el('sitPlaceholderTitle', t ? 'Help me right now' : 'Pomozi mi sada');
+  el('sitPlaceholderText', t ? 'This section contains 12 situations × 3 age groups with concrete advice, feedback and conversation simulation.' : 'Ova sekcija sadrži 12 situacija × 3 dobne skupine s konkretnim savjetima, feedbackom i simulacijom razgovora.');
+  el('vodPlaceholderTitle', t ? 'Guides & tools' : 'Vodiči i tehnike');
+  el('vodPlaceholderText', t ? '8 guides in 4 categories: Boundaries, Communication, Emotions, Routines.' : '8 vodiča u 4 kategorije: Granice, Komunikacija, Emocije, Rutine.');
+  el('razPlaceholderTitle', t ? 'Child development' : 'Razvoj djeteta');
+  el('razPlaceholderText', t ? '5 age groups with developmental context and concrete advice.' : '5 dobnih skupina s razvojnim kontekstom i konkretnim savjetima.');
+  el('simPlaceholderTitle', t ? 'Practice conversation' : 'Simulacija razgovora');
+  el('simPlaceholderText', t ? 'Practice a conversation with your child — with AI support (coming soon).' : 'Uvježbaj razgovor s djetetom — uz AI podršku (dolazi uskoro).');
+  el('profPlaceholderTitle', t ? 'My profile' : 'Moj profil');
+  el('profPlaceholderText', t ? 'Parent and child profile with personalised insights.' : 'Profil roditelja i djeteta s personaliziranim uvidima.');
+  el('sigTitle', t ? 'Safe zone' : 'Sigurna zona');
+  el('sig1lbl', t ? 'Step 1 — What you share stays here' : 'Korak 1 — Ono što napišeš ostaje ovdje');
+  el('sig1txt', t ? 'What you write here stays between you and Lume. No right or wrong answers, no judgment.' : 'Ono što napišeš ovdje ostaje između tebe i Lume. Nema krivih odgovora, nema osude.');
+  el('sig2lbl', t ? 'Step 2 — Lume is here for the everyday' : 'Korak 2 — Lume je za svakodnevne izazove');
+  el('sig2txt', t ? 'If you are going through something harder — you are not alone. Asking for help is not weakness.' : 'Ako prolazite kroz nešto teže — niste sami. Tražiti pomoć nije slabost, to je snaga.');
+  el('sig3lbl', t ? 'Step 3 — If you need more support' : 'Korak 3 — Ako ti treba više podrške');
+  el('sig3txt', t ? 'Talking to a professional is not weakness — it is taking care of yourself and your child.' : 'Razgovor sa stručnjakom nije znak slabosti, nego briga o sebi i svom djetetu.');
+  el('sigBackBtn', t ? '← Back' : '← Natrag');
+  ['backHomeBtn','backHomeBtn2','backHomeBtn3','backHomeBtn4'].forEach(id => el(id, t ? '← Back' : '← Natrag'));
+}
+
+function rotateMicro() {
+  microIdx++;
+  renderHome();
+}
+
+// ── LANGUAGE ──
 function toggleLang() {
   lang = lang === 'hr' ? 'en' : 'hr';
-  applyLang();
+  applyLangAll();
 }
 
-function applyLang() {
-  const t = T[lang];
-  const set = (id, html) => { const el = document.getElementById(id); if(el) el.innerHTML = html; };
-  const setT = (id, text) => { const el = document.getElementById(id); if(el) el.textContent = text; };
+function applyLangAll() {
+  const t = lang === 'en';
+  const el = (id, txt) => { const e = document.getElementById(id); if(e) e.textContent = txt; };
+  const inel = (id, html) => { const e = document.getElementById(id); if(e) e.innerHTML = html; };
 
-  setT('langBtn', t.langBtn);
-  setT('navPocetna', t.navPocetna); setT('navCore', t.navCore);
-  setT('navParents', t.navParents); setT('navLife', t.navLife); setT('navDnevnik', t.navDnevnik);
-  setT('heroEyebrow', t.heroEyebrow);
-  set('heroTitle', t.heroTitle);
-  setT('heroSubtitle', t.heroSubtitle);
-  setT('heroCta', t.heroCta); setT('heroCtaGhost', t.heroCtaGhost);
-  setT('floatText', t.floatText);
-  setT('cardLabel', t.cardLabel); setT('cardTitle', t.cardTitle);
-  setT('cardText', t.cardText); setT('cardQuote', t.cardQuote);
-  setT('sitLabel', t.sitLabel); set('sitTitle', t.sitTitle); setT('sitSubtitle', t.sitSubtitle);
-  setT('sit1title', t.sit1title); setT('sit1text', t.sit1text);
-  setT('sit2title', t.sit2title); setT('sit2text', t.sit2text);
-  setT('sit3title', t.sit3title); setT('sit3text', t.sit3text);
-  setT('sit4title', t.sit4title); setT('sit4text', t.sit4text);
-  setT('modelLabel', t.modelLabel); set('modelTitle', t.modelTitle); setT('modelSubtitle', t.modelSubtitle);
-  setT('step1tag', t.step1tag); setT('step1title', t.step1title); setT('step1text', t.step1text);
-  setT('step2tag', t.step2tag); setT('step2title', t.step2title); setT('step2text', t.step2text);
-  setT('step3tag', t.step3tag); setT('step3title', t.step3title); setT('step3text', t.step3text);
-  setT('diffLabel', t.diffLabel); set('diffTitle', t.diffTitle); setT('diffSubtitle', t.diffSubtitle);
-  setT('diff1', t.diff1); setT('diff2', t.diff2); setT('diff3', t.diff3);
-  setT('diff4', t.diff4); setT('diff5', t.diff5);
-  set('diffQuote', t.diffQuote);
-  set('ctaTitle', t.ctaTitle); setT('ctaSub', t.ctaSub); setT('ctaBtn', t.ctaBtn);
-  setT('footerHome', t.footerHome); setT('footerCore', t.footerCore); setT('footerLife', t.footerLife);
-  setT('footerCopy', t.footerCopy);
+  // Welcome
+  el('welcomeLang', t ? 'HR' : 'EN');
+  inel('wTitle', t ? 'For parents who want<br><em>to be present</em><br>— not perfect' : 'Za roditelje koji<br><em>žele biti prisutni</em><br>— a ne savršeni');
+  el('wText', t ? 'LUME guides you through three steps — from calming, to understanding, to one concrete change. Step by step. Without pressure.' : 'LUME te vodi kroz tri koraka — od smirivanja, do razumijevanja, do jedne konkretne promjene. Korak po korak. Bez pritiska.');
+  el('wSafeLabel', t ? 'Safe space' : 'Sigurna zona');
+  el('wSafeText', t ? 'No right or wrong answers, no judgment. Everyone who asks for help is already doing something brave.' : 'Nema krivih odgovora, nema osude. Svi koji traže pomoć već rade nešto hrabro.');
+  el('ppS', t ? 'State' : 'Stanje'); el('ppSd', t ? 'Settle yourself' : 'Smiri se ti');
+  el('ppO', t ? 'Pattern' : 'Obrazac'); el('ppOd', t ? 'Understand what repeats' : 'Razumij što se ponavlja');
+  el('ppSu', t ? 'System' : 'Sustav'); el('ppSud', t ? 'One small step' : 'Jedan mali korak');
+  el('wStartBtn', t ? 'Start with LUME' : 'Počni s LUME');
+  el('wSkip', t ? 'Jump straight in →' : 'Idi ravno u aplikaciju →');
+
+  // Breathing
+  el('bphaseLabel', t ? '🌊 State — regulation' : '🌊 Stanje — regulacija');
+  el('bTitle', t ? 'Take a moment' : 'Stani na trenutak');
+  el('bSub', t ? 'Before we continue — one short breath. Three breathing cycles activate the parasympathetic nervous system.' : 'Prije nego nastavimo — jedan kratki dah. Tri ciklusa disanja aktiviraju parasimpatički živčani sustav.');
+  el('breatheDoneText', t ? 'I feel calm — continuing 🌿' : 'Osjećam mir — nastavljam 🌿');
+  el('breatheSkip', t ? 'Skip →' : 'Preskoči →');
+
+  // Onboarding labels
+  const obHints = [
+    ['ob1hint', t?'🌊 State — getting to know you':'🌊 Stanje — upoznajemo tebe'],
+    ['ob2hint', t?'🌊 State — your challenges':'🌊 Stanje — tvoji izazovi'],
+    ['ob3hint', t?'🌊 State — your energy':'🌊 Stanje — tvoja energija'],
+    ['ob4hint', t?'💡 Pattern — getting to know your child':'💡 Obrazac — upoznajemo dijete'],
+    ['ob5hint', t?'💡 Pattern — child\'s temperament':'💡 Obrazac — temperament djeteta'],
+    ['ob6hint', t?'💡 Pattern — reaction to limits':'💡 Obrazac — reakcija na granice'],
+  ];
+  obHints.forEach(([id, txt]) => el(id, txt));
+
+  const obNexts = ['ob1nextTxt','ob2nextTxt','ob3nextTxt','ob4nextTxt','ob5nextTxt','ob6nextTxt'];
+  obNexts.forEach(id => el(id, t ? 'Next' : 'Dalje'));
+  el('ob6nextTxt', t ? 'Continue' : 'Nastavi');
+
+  const obCtx = [
+    ['ob1ctx', t?'About you':'O tebi'],
+    ['ob2ctx', t?'About you':'O tebi'],
+    ['ob3ctx', t?'About you':'O tebi'],
+    ['ob4ctx', t?'About your child':'O djetetu'],
+    ['ob5ctx', t?'About your child':'O djetetu'],
+    ['ob6ctx', t?'About your child':'O djetetu'],
+  ];
+  obCtx.forEach(([id, txt]) => el(id, txt));
+
+  // Questions
+  el('ob1q', t?'When things escalate — what happens to you?':'Kad situacija eskalira — što se dogodi s tobom?');
+  el('ob1s', t?'Be honest. No wrong answers.':'Budi iskren/a. Nema krivih odgovora.');
+  el('ob2q', t?'What is wearing you down most right now?':'Što te trenutno najviše iscrpljuje?');
+  el('ob2s', t?'You can choose more than one.':'Možeš odabrati više odgovora.');
+  el('ob2hint2', t?'Select all that apply':'Odaberi sve što vrijedi');
+  el('ob3q', t?'How are you — as a person, not just a parent?':'Kako si ti — ne kao roditelj, nego kao osoba?');
+  el('ob3s', t?'Parenting happens from what we have inside.':'Roditeljstvo se odvija iz onoga što imamo unutra.');
+  el('ob4q', t?'How old is your child?':'Koliko ima godina tvoje dijete?');
+  el('ob4s', t?'If you have more than one child, think of the one you have the most challenges with.':'Ako imaš više djece, misli na ono s kojim imaš najviše izazova.');
+  el('ob5q', t?'How would you describe your child?':'Kako bi opisao/la svoje dijete?');
+  el('ob5s', t?'Children are complex — select all you recognise.':'Djeca su kompleksna — odaberi sve što prepoznaješ.');
+  el('ob5hint2', t?'Select all that apply':'Odaberi sve što vrijedi');
+  el('ob6q', t?'When you set a limit — what usually happens?':'Kad postaviš granicu — što se najčešće dogodi?');
+  el('ob6s', t?'Think of the last time you said NO.':'Pomisli na zadnji put kad si rekao/la NE.');
+
+  // Card texts
+  const cards = [
+    ['r1', t?'I explode':'Eksplodiram'], ['r1s', t?'Voice rises, I say things I regret':'Podigne se glas, kažem stvari koje mi žao'],
+    ['r2', t?'I shut down':'Zamrznem se'], ['r2s', t?'I do not know what to say, I withdraw':'Ne znam što reći, povučem se'],
+    ['r3', t?'I negotiate':'Pregovaram'], ['r3s', t?'I get into debates, try to convince':'Ulazim u rasprave, pokušavam uvjeriti'],
+    ['r4', t?'I give in':'Popuštam'], ['r4s', t?'Just to make it stop — and then I feel bad':'Samo da prestane — i onda se osjećam loše'],
+    ['r5', t?'Depends on the day':'Ovisi o danu'], ['r5s', t?'Sometimes good, sometimes not':'Nekad dobro, nekad loše'],
+    ['r6', t?'I stay calm':'Ostam smiren/a'], ['r6s', t?'Mostly works, looking for better tools':'Uglavnom uspijeva, tražim bolje alate'],
+    ['iz1', t?'Boundary battles':'Borba oko granica'], ['iz1s', t?'Same conflicts every day':'Svaki dan isti konflikti'],
+    ['iz2', t?'Emotional meltdowns':'Emocionalni ispadi'], ['iz2s', t?'Shouting, crying, intensity':'Vikanje, plakanje, intenzitet'],
+    ['iz3', t?'Daily routines':'Svakodnevne rutine'], ['iz3s', t?'Morning, dinner, sleep':'Jutro, večera, spavanje'],
+    ['iz4', t?'Communication':'Komunikacija'], ['iz4s', t?'Child does not listen, ignores':'Dijete ne sluša, ignorira'],
+    ['iz5', t?'I am simply exhausted':'Jednostavno sam umoran/a'], ['iz5s', t?'Everything is harder when you are depleted':'Sve je teže kad si ispražnjen/a'],
+    ['iz6', t?'I lack tools':'Nedostaje mi alata'], ['iz6s', t?'Good intentions, but I do not know how':'Dobra volja, ali ne znam kako'],
+    ['en1', t?'Empty tank':'Prazna baterija'], ['en1s', t?'No space for myself. Everything goes to the children.':'Nema prostora za sebe. Sve ide djeci i obavezama.'],
+    ['en2', t?'Half way':'Na pola puta'], ['en2s', t?'Some resources, but not enough. Often on the edge.':'Imam neke resurse, ali ne dovoljno. Često na rubu.'],
+    ['en3', t?'Solid':'Solidno'], ['en3s', t?'Mostly good — looking for tools for specific situations.':'Uglavnom dobro — tražim alate za specifične situacije.'],
+    ['d1', t?'toddler':'hodač'], ['d2', t?'explorer':'istraživač'], ['d3', t?'questioner':'pitač'],
+    ['d4', t?'curious':'znatiželjan/a'], ['d5', t?'seeker':'tražitelj'], ['d6', t?'teenager':'tinejdžer'],
+    ['t1', t?'Intense':'Intenzivno'], ['t1s', t?'Strong emotions, quick reactions':'Snažne emocije, brze reakcije'],
+    ['t2', t?'Sensitive':'Osjetljivo'], ['t2s', t?'Feels deeply, easily hurt':'Duboko doživljava, lako se povrijedi'],
+    ['t3', t?'Stubborn':'Tvrdoglavo'], ['t3s', t?'Knows what they want, hard to budge':'Zna što hoće, teško popušta'],
+    ['t4', t?'Calm':'Mirno'], ['t4s', t?'Mostly steady, rare outbursts':'Uglavnom staloženo, rijetki ispadi'],
+    ['t5', t?'Energetic':'Energično'], ['t5s', t?'Always moving, hard to settle':'Uvijek u pokretu, teško se smiruje'],
+    ['t6', t?'Anxious':'Anksiozno'], ['t6s', t?'Fears, worries, needs safety':'Strahovi, brige, treba sigurnost'],
+    ['g1', t?'Explodes':'Eksplodira'], ['g1s', t?'Shouting, crying, meltdown':'Vikanje, plakanje, ispad'],
+    ['g2', t?'Negotiates':'Pregovara'], ['g2s', t?'Argues, questions, tries again':'Argumentira, pita, pokušava opet'],
+    ['g3', t?'Ignores':'Ignorira'], ['g3s', t?'Acts like they did not hear, continues':'Pravi se da nije čulo, nastavlja'],
+    ['g4', t?'Withdraws':'Povlači se'], ['g4s', t?'Goes quiet, closes off, leaves the room':'Šuti, zatvori se, ide u sobu'],
+    ['g5', t?'Usually accepts':'Uglavnom prihvaća'], ['g5s', t?'With a little grumbling, but moves on':'S malo gunđanja, ali ide dalje'],
+    ['g6', t?'Depends':'Ovisi'], ['g6s', t?'Unpredictable — I never know':'Nepredvidivo — nikad ne znam'],
+  ];
+  cards.forEach(([id, txt]) => el(id, txt));
+
+  renderHome();
+  // Re-render aha if on that screen
+  const ahaEl = document.getElementById('saha');
+  if(ahaEl && ahaEl.classList.contains('on')) renderAha();
+  // Re-render plant if on that screen
+  const plantEl = document.getElementById('splant');
+  if(plantEl && plantEl.classList.contains('on')) renderPlant();
 }
 
-// ── SCROLL ANIMATIONS ──
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
-  });
-}, { threshold: 0.08 });
-
-document.querySelectorAll('.fade-up:not(.visible)').forEach(el => observer.observe(el));
-
-// ── NAV SCROLL ──
-window.addEventListener('scroll', () => {
-  const nav = document.querySelector('nav');
-  nav.style.boxShadow = window.scrollY > 40
-    ? '0 1px 20px rgba(28,58,42,.07)'
-    : 'none';
-});
+// ── INIT ──
+renderPhaseBar('sw');
 </script>
 </body>
 </html>
+
