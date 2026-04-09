@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUME Posao — Uskoro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green-deep:  #1C3A2A;
+  --green-mid:   #2D5A3D;
+  --green-warm:  #3D7A52;
+  --green-light: #6BAF84;
+  --green-pale:  #C8E6D4;
+  --green-ghost: #EDF7F1;
+  --cream:       #F7F4EE;
+  --cream-dark:  #EDE8DF;
+  --cream-mid:   #E8E2D8;
+  --warm-white:  #FDFBF8;
+  --text-dark:   #1A2E22;
+  --text-mid:    #3D5C48;
+  --text-light:  #6B8C77;
+  --text-ghost:  #9BB8A6;
+  --gold:        #C4954A;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  min-height: 100vh;
+}
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 48px; height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(247,244,238,.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(200,230,212,.3);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Fraunces', serif; font-size: 18px; font-weight: 300;
+  color: var(--green-deep); text-decoration: none;
+}
+.nav-logo svg { width: 20px; height: 20px; }
+.nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
+.nav-links a {
+  font-size: 12px; color: var(--text-light);
+  text-decoration: none; padding: 5px 12px; border-radius: 999px;
+  transition: all .2s;
+}
+.nav-links a:hover { color: var(--green-deep); background: var(--green-ghost); }
+.nav-lang {
+  padding: 5px 14px; border-radius: 999px;
+  border: 1px solid var(--cream-mid); background: transparent;
+  font-size: 11px; font-weight: 500; color: var(--text-light);
+  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .2s;
+}
+.nav-lang:hover { border-color: var(--green-light); color: var(--green-deep); }
+
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 80px 48px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 70% 30%, rgba(107,175,132,.08) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 50% at 20% 70%, rgba(45,90,61,.05) 0%, transparent 50%);
+}
+.hero-inner {
+  position: relative; z-index: 1;
+  max-width: 640px; margin: 0 auto;
+}
+
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 16px; border-radius: 999px;
+  background: var(--green-ghost); border: 1px solid var(--green-pale);
+  font-size: 11px; font-weight: 500; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--green-warm);
+  margin-bottom: 32px;
+}
+.badge-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green-light);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
+
+.hero-eyebrow {
+  font-size: 10px; font-weight: 500; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--green-warm);
+  margin-bottom: 20px;
+}
+
+.hero-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(44px, 7vw, 88px);
+  font-weight: 300; line-height: 1.05;
+  color: var(--green-deep); letter-spacing: -.5px;
+  margin-bottom: 24px;
+}
+.hero-title em { font-style: italic; color: var(--gold); }
+
+.hero-subtitle {
+  font-size: 16px; color: var(--text-mid);
+  line-height: 1.8; font-weight: 300;
+  margin-bottom: 48px;
+}
+
+.teaser-cards {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px; margin-bottom: 48px; text-align: left;
+}
+.teaser-card {
+  background: var(--warm-white); border-radius: 14px;
+  padding: 20px; border: 1px solid var(--cream-dark);
+}
+.teaser-icon { font-size: 22px; margin-bottom: 10px; display: block; }
+.teaser-title {
+  font-family: 'Fraunces', serif; font-size: 15px;
+  font-weight: 400; color: var(--green-deep); margin-bottom: 6px;
+}
+.teaser-text {
+  font-size: 12px; color: var(--text-light);
+  line-height: 1.6; font-weight: 300;
+}
+
+.notify-form {
+  display: flex; gap: 8px; max-width: 400px; margin: 0 auto 24px;
+}
+.notify-input {
+  flex: 1; padding: 12px 16px; border-radius: 999px;
+  border: 1.5px solid var(--cream-dark); background: var(--warm-white);
+  font-size: 13px; font-family: 'DM Sans', sans-serif;
+  color: var(--text-dark); outline: none; transition: border-color .2s;
+}
+.notify-input:focus { border-color: var(--green-light); }
+.notify-input::placeholder { color: var(--text-ghost); }
+.notify-btn {
+  padding: 12px 20px; border-radius: 999px;
+  background: var(--green-deep); color: var(--cream);
+  font-size: 13px; font-weight: 400; border: none;
+  cursor: pointer; transition: all .25s; white-space: nowrap;
+  font-family: 'DM Sans', sans-serif;
+}
+.notify-btn:hover { background: var(--green-mid); }
+
+.notify-success {
+  display: none; font-size: 13px; color: var(--green-warm);
+  font-style: italic; margin-bottom: 24px;
+}
+
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; color: var(--text-light);
+  text-decoration: none; transition: color .2s;
+}
+.back-link:hover { color: var(--green-deep); }
+
+footer {
+  background: var(--green-deep);
+  border-top: 1px solid rgba(107,175,132,.12);
+  padding: 28px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-logo { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 300; color: var(--cream); opacity: .6; }
+.footer-copy { font-size: 11px; color: var(--green-light); }
+
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hero { padding: 80px 20px; }
+  .teaser-cards { grid-template-columns: 1fr; }
+  .notify-form { flex-direction: column; }
+  footer { flex-direction: column; gap: 12px; padding: 24px 20px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../" class="nav-logo">
+    <svg viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="9" r="5" fill="#2D5A3D"/>
+      <path d="M12 14v6" stroke="#2D5A3D" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M9 18h6" stroke="#6BAF84" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+    LUME
+  </a>
+  <ul class="nav-links">
+    <li><a href="../../" id="navHome">Početna</a></li>
+    <li><a href="../../core/" id="navCore">Core</a></li>
+    <li><a href="../" id="navLife">Life</a></li>
+    <li><a href="../../dnevnik/" id="navDnevnik">Dnevnik</a></li>
+    <li><a href="../../pregled/" id="navPregled">Pregled</a></li>
+  </ul>
+  <button class="nav-lang" onclick="toggleLang()" id="langBtn">EN</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="badge">
+      <div class="badge-dot"></div>
+      <span id="badgeText">U razvoju</span>
+    </div>
+    <div class="hero-eyebrow" id="heroEyebrow">LUME Posao</div>
+    <h1 class="hero-title" id="heroTitle">
+      Halo,<br><em>gdje si ti<br>u svemu ovome?</em>
+    </h1>
+    <p class="hero-subtitle" id="heroSubtitle">
+      Danas to zovemo burnout. Danas to zovemo trčanjem za moranjem.
+      Moderan život nameće nova pravila — izbombardiran/a si slikama
+      o tome što je uspješno, koji je trend, što moraš raditi.
+      A rijetko zaviris u sebe da vidiš za što ti imaš talente.
+      Nije cilj samo "radi što voliš" — to je jeftina poštapalica
+      koju lovimo kao nevidljivu vjetrenjaču.
+      Nema univerzalnog instant lijeka — ali prvi korak je odvojiti se
+      od vanjskih očekivanja i zapitati se:
+      Halo, gdje sam ja u svemu ovome?
+    </p>
+
+    <div class="teaser-cards">
+      <div class="teaser-card">
+        <span class="teaser-icon">🪫</span>
+        <div class="teaser-title" id="t1title">Iscrpljenost</div>
+        <p class="teaser-text" id="t1text">Nije stvar u ljenosti ili nedostatku motivacije. Stvar je u tome da se praznimo iz pogrešnih izvora — i ne znamo kako se obnoviti.</p>
+      </div>
+      <div class="teaser-card">
+        <span class="teaser-icon">🔄</span>
+        <div class="teaser-title" id="t2title">Obrasci na poslu</div>
+        <p class="teaser-text" id="t2text">Prokrastinacija, perfekcionizam, nemogućnost delegiranja — sve su to obrasci koji štite nešto dublje. LUME pomaže vidjeti što.</p>
+      </div>
+      <div class="teaser-card">
+        <span class="teaser-icon">🌱</span>
+        <div class="teaser-title" id="t3title">Uvjeti, ne volja</div>
+        <p class="teaser-text" id="t3text">Nije pitanje volje — pitanje je uvjeta. Kao što biljka ne cvjeta u pogrešnom tlu, ni mi ne možemo dati maksimum u pogrešnim uvjetima.</p>
+      </div>
+    </div>
+
+    <a href="../" class="back-link" id="backLink">← LUME Life</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">LUME</div>
+  <div class="footer-copy" id="footerCopy">Regenerativni model razvoja · 2025</div>
+</footer>
+
+<script>
+let lang = 'hr';
+
+const T = {
+  hr: {
+    langBtn:'EN', navHome:'Početna', navCore:'Core', navLife:'Life', navDnevnik:'Dnevnik', navPregled:'Pregled',
+    badgeText:'U razvoju', heroEyebrow:'LUME Posao',
+    heroTitle:'Halo,<br><em>gdje si ti<br>u svemu ovome?</em>',
+    heroSubtitle:'Danas to zovemo burnout. Danas to zovemo trčanjem za moranjem. Moderan život nameće nova pravila — izbombardiran/a si slikama o tome što je uspješno, koji je trend, što moraš raditi. A rijetko zaviris u sebe da vidiš za što ti imaš talente. Nije cilj samo radi što voliš — to je jeftina poštapalica koju lovimo kao nevidljivu vjetrenjaču. Nema univerzalnog instant lijeka — ali prvi korak je odvojiti se od vanjskih očekivanja i zapitati se: Halo, gdje sam ja u svemu ovome? LUME Posao dolazi uskoro — s istim regenerativnim pristupom, primijenjenim na uvjete u kojima radiš.',
+    t1title:'Iscrpljenost', t1text:'Nije stvar u ljenosti ili nedostatku motivacije. Stvar je u tome da se praznimo iz pogrešnih izvora — i ne znamo kako se obnoviti.',
+    t2title:'Obrasci na poslu', t2text:'Prokrastinacija, perfekcionizam, nemogućnost delegiranja — sve su to obrasci koji štite nešto dublje. LUME pomaže vidjeti što.',
+    t3title:'Uvjeti, ne volja', t3text:'Nije pitanje volje — pitanje je uvjeta. Kao što biljka ne cvjeta u pogrešnom tlu, ni mi ne možemo dati maksimum u pogrešnim uvjetima.',
+    notifyPlaceholder:'tvoj@email.com', notifyBtn:'Obavijesti me',
+    notifySuccess:'✓ Javit ćemo ti kad LUME Posao bude spreman. 🌿',
+    backLink:'← LUME Life', footerCopy:'Regenerativni model razvoja · 2025',
+  },
+  en: {
+    langBtn:'HR', navHome:'Home', navCore:'Core', navLife:'Life', navDnevnik:'Journal', navPregled:'Overview',
+    badgeText:'In development', heroEyebrow:'LUME Work',
+    heroTitle:'Hey,<br><em>where are you<br>in all of this?</em>',
+    heroSubtitle:'Exhaustion, procrastination, the feeling of doing a lot but achieving little. LUME Work is coming soon — with the same regenerative approach, applied to the conditions you work in.',
+    t1title:'Exhaustion', t1text:'Not "how to do more" — but "why we deplete and how to restore."',
+    t2title:'Patterns at work', t2text:'Procrastination, perfectionism, inability to delegate — the pattern behind the behaviour.',
+    t3title:'Conditions, not willpower', t3text:'Change does not come through more discipline — but through changing the conditions you work in.',
+    notifyPlaceholder:'your@email.com', notifyBtn:'Notify me',
+    notifySuccess:'✓ We will let you know when LUME Work is ready. 🌿',
+    backLink:'← LUME Life', footerCopy:'Regenerative development model · 2025',
+  }
+};
+
+function notify() {
+  const email = document.getElementById('notifyEmail').value.trim();
+  if(!email || !email.includes('@')) return;
+  document.getElementById('notifyEmail').style.display = 'none';
+  document.getElementById('notifyBtn').style.display = 'none';
+  document.getElementById('notifySuccess').style.display = 'block';
+  try { localStorage.setItem('lume_notify_posao', email); } catch {}
+}
+
+function toggleLang() {
+  lang = lang === 'hr' ? 'en' : 'hr';
+  applyLang();
+}
+
+function applyLang() {
+  const t = T[lang];
+  const set = (id, v) => { const e = document.getElementById(id); if(e) e.textContent = v; };
+  const setH = (id, v) => { const e = document.getElementById(id); if(e) e.innerHTML = v; };
+
+  set('langBtn', t.langBtn);
+  set('navHome', t.navHome); set('navCore', t.navCore); set('navLife', t.navLife);
+  set('navDnevnik', t.navDnevnik); set('navPregled', t.navPregled);
+  set('badgeText', t.badgeText); set('heroEyebrow', t.heroEyebrow);
+  setH('heroTitle', t.heroTitle); set('heroSubtitle', t.heroSubtitle);
+  set('t1title', t.t1title); set('t1text', t.t1text);
+  set('t2title', t.t2title); set('t2text', t.t2text);
+  set('t3title', t.t3title); set('t3text', t.t3text);
+  document.getElementById('notifyEmail')?.setAttribute('placeholder', t.notifyPlaceholder);
+  set('notifyBtn', t.notifyBtn); set('notifySuccess', t.notifySuccess);
+  set('backLink', t.backLink); set('footerCopy', t.footerCopy);
+}
+
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.boxShadow =
+    window.scrollY > 40 ? '0 1px 20px rgba(28,58,42,.07)' : 'none';
+});
+</script>
+</body>
+</html>
