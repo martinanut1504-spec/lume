@@ -577,6 +577,184 @@ footer {
   .philosophy-inner { grid-template-columns: 1fr; gap: 48px; }
   footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 20px; }
 }
+
+/* ── DEMO SECTION ── */
+.demo-section {
+  padding: 100px 48px;
+  background: var(--warm-white);
+}
+.demo-inner {
+  max-width: 760px; margin: 0 auto;
+}
+.demo-steps {
+  display: flex; gap: 0; margin-bottom: 40px;
+  position: relative;
+}
+.demo-steps::before {
+  content: ''; position: absolute;
+  top: 20px; left: 20px; right: 20px; height: 1px;
+  background: var(--cream-dark); z-index: 0;
+}
+.demo-step-indicator {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 8px; flex: 1; position: relative; z-index: 1;
+}
+.demo-step-circle {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--warm-white); border: 2px solid var(--cream-dark);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; transition: all .4s;
+}
+.demo-step-indicator.active .demo-step-circle {
+  border-color: var(--green-light);
+  background: var(--green-ghost);
+  box-shadow: 0 0 0 4px rgba(107,175,132,.15);
+}
+.demo-step-indicator.done .demo-step-circle {
+  border-color: var(--green-light);
+  background: var(--green-pale);
+}
+.demo-step-label {
+  font-size: 10px; font-weight: 500; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--text-ghost);
+  transition: color .4s;
+}
+.demo-step-indicator.active .demo-step-label { color: var(--green-warm); }
+.demo-step-indicator.done .demo-step-label { color: var(--green-light); }
+
+.demo-card {
+  background: var(--warm-white); border-radius: 20px;
+  border: 1px solid var(--cream-dark);
+  overflow: hidden;
+}
+.demo-q {
+  display: none; padding: 36px 40px;
+  animation: fadeInUp .4s ease;
+}
+.demo-q.active { display: block; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.demo-q-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--green-warm);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.demo-q-text {
+  font-family: 'Fraunces', serif; font-size: 24px;
+  font-weight: 300; color: var(--green-deep);
+  line-height: 1.4; margin-bottom: 8px;
+}
+.demo-q-sub {
+  font-size: 13px; color: var(--text-light);
+  margin-bottom: 24px; font-weight: 300; line-height: 1.6;
+}
+.demo-options {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.demo-opt {
+  padding: 14px 18px; border-radius: 12px;
+  border: 1.5px solid var(--cream-dark);
+  background: var(--warm-white);
+  cursor: pointer; text-align: left; transition: all .2s;
+  font-size: 14px; color: var(--text-mid);
+  font-family: 'DM Sans', sans-serif; font-weight: 300;
+  display: flex; align-items: center; gap: 12px;
+  line-height: 1.4;
+}
+.demo-opt:hover { border-color: var(--green-pale); background: var(--green-ghost); color: var(--green-deep); }
+.demo-opt.sel { border-color: var(--green-light); background: var(--green-ghost); color: var(--green-deep); border-width: 2px; }
+.demo-opt-icon { font-size: 20px; flex-shrink: 0; }
+
+/* Result */
+.demo-result {
+  display: none; padding: 40px;
+  animation: fadeInUp .5s ease;
+}
+.demo-result.show { display: block; }
+
+.demo-result-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 24px;
+}
+.demo-result-icon { font-size: 32px; }
+.demo-result-title {
+  font-family: 'Fraunces', serif; font-size: 24px;
+  font-weight: 300; color: var(--green-deep);
+}
+.demo-result-sub {
+  font-size: 13px; color: var(--text-light);
+  font-style: italic;
+}
+
+.demo-model-row {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px; margin-bottom: 24px;
+}
+.demo-model-card {
+  border-radius: 14px; padding: 20px 16px;
+  position: relative;
+}
+.demo-model-card.stanje { background: rgba(74,144,184,.08); border: 1px solid rgba(74,144,184,.2); }
+.demo-model-card.obrazac { background: rgba(196,149,74,.08); border: 1px solid rgba(196,149,74,.2); }
+.demo-model-card.sustav { background: var(--green-ghost); border: 1px solid var(--green-pale); }
+
+.demo-model-phase {
+  font-size: 9px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.stanje .demo-model-phase { color: #4A90B8; }
+.obrazac .demo-model-phase { color: var(--gold); }
+.sustav .demo-model-phase { color: var(--green-warm); }
+
+.demo-model-icon { font-size: 20px; margin-bottom: 8px; display: block; }
+.demo-model-text {
+  font-size: 13px; color: var(--text-mid);
+  line-height: 1.65; font-weight: 300;
+}
+
+.demo-result-cta {
+  display: flex; gap: 10px; flex-wrap: wrap;
+}
+.demo-btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px; border-radius: 999px;
+  background: var(--green-deep); color: var(--cream);
+  font-size: 13px; font-weight: 400;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: all .25s; font-family: 'DM Sans', sans-serif;
+}
+.demo-btn-primary:hover { background: var(--green-mid); }
+.demo-btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 20px; border-radius: 999px;
+  background: transparent; color: var(--text-mid);
+  font-size: 13px; border: 1px solid var(--cream-dark);
+  cursor: pointer; transition: all .25s; font-family: 'DM Sans', sans-serif;
+  text-decoration: none;
+}
+.demo-btn-ghost:hover { border-color: var(--green-light); color: var(--green-deep); }
+
+.demo-restart {
+  display: flex; justify-content: center; margin-top: 16px;
+}
+.demo-restart-btn {
+  font-size: 12px; color: var(--text-ghost);
+  cursor: pointer; background: none; border: none;
+  font-family: 'DM Sans', sans-serif; transition: color .2s;
+}
+.demo-restart-btn:hover { color: var(--text-light); }
+
+@media (max-width: 900px) {
+  .demo-section { padding: 80px 20px; }
+  .demo-q, .demo-result { padding: 28px 20px; }
+  .demo-model-row { grid-template-columns: 1fr; }
+  .demo-steps::before { display: none; }
+}
+
 </style>
 </head>
 <body>
@@ -636,6 +814,148 @@ footer {
     <span id="scrollText">Skrolaj</span>
   </div>
 </section>
+
+<!-- DEMO -->
+<section class="demo-section">
+  <div class="demo-inner">
+    <div style="text-align:center;margin-bottom:40px">
+      <div class="section-label fade-up" id="demoLabel" style="justify-content:center">Isproba LUME</div>
+      <h2 style="font-family:Fraunces,serif;font-size:clamp(28px,4vw,48px);font-weight:300;color:var(--green-deep);line-height:1.15;margin-bottom:12px" class="fade-up" id="demoTitle">
+        Tri pitanja.<br>Jedan uvid.
+      </h2>
+      <p style="font-size:15px;color:var(--text-mid);font-weight:300;line-height:1.7" class="fade-up" id="demoSubtitle">
+        Bez registracije. Samo okusi kako LUME razmišlja.
+      </p>
+    </div>
+
+    <!-- Progress indicators -->
+    <div class="demo-steps fade-up" id="demoSteps">
+      <div class="demo-step-indicator active" id="dsi1">
+        <div class="demo-step-circle">🌊</div>
+        <div class="demo-step-label" id="dsl1">Stanje</div>
+      </div>
+      <div class="demo-step-indicator" id="dsi2">
+        <div class="demo-step-circle">💡</div>
+        <div class="demo-step-label" id="dsl2">Obrazac</div>
+      </div>
+      <div class="demo-step-indicator" id="dsi3">
+        <div class="demo-step-circle">🌱</div>
+        <div class="demo-step-label" id="dsl3">Sustav</div>
+      </div>
+    </div>
+
+    <div class="demo-card fade-up">
+
+      <!-- Q1: Stanje -->
+      <div class="demo-q active" id="dq1">
+        <div class="demo-q-label">🌊 <span id="dq1phase">Stanje — Regulacija</span></div>
+        <div class="demo-q-text" id="dq1text">Kako si ti sada — kao osoba, ne kao roditelj/radnik?</div>
+        <div class="demo-q-sub" id="dq1sub">Budi iskren/a. Nema krivih odgovora.</div>
+        <div class="demo-options">
+          <div class="demo-opt" onclick="demoPickQ1('prazno', this)">
+            <span class="demo-opt-icon">🪫</span>
+            <span id="dq1o1">Prazna baterija — nema prostora za sebe</span>
+          </div>
+          <div class="demo-opt" onclick="demoPickQ1('pola', this)">
+            <span class="demo-opt-icon">🔋</span>
+            <span id="dq1o2">Na pola — imam nešto, ali nije dovoljno</span>
+          </div>
+          <div class="demo-opt" onclick="demoPickQ1('solidno', this)">
+            <span class="demo-opt-icon">✅</span>
+            <span id="dq1o3">Solidno — tražim alate za konkretne situacije</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2: Obrazac -->
+      <div class="demo-q" id="dq2">
+        <div class="demo-q-label">💡 <span id="dq2phase">Obrazac — Razumijevanje</span></div>
+        <div class="demo-q-text" id="dq2text">Što se najčešće ponavlja?</div>
+        <div class="demo-q-sub" id="dq2sub">Odaberi ono što najčešće prepoznaješ u sebi.</div>
+        <div class="demo-options">
+          <div class="demo-opt" onclick="demoPickQ2('eksplodira', this)">
+            <span class="demo-opt-icon">🔥</span>
+            <span id="dq2o1">Eksplodiram — a onda se osjećam loše zbog toga</span>
+          </div>
+          <div class="demo-opt" onclick="demoPickQ2('zamrzne', this)">
+            <span class="demo-opt-icon">🧊</span>
+            <span id="dq2o2">Zamrznem se — ne znam što reći ni napraviti</span>
+          </div>
+          <div class="demo-opt" onclick="demoPickQ2('povlaci', this)">
+            <span class="demo-opt-icon">🐚</span>
+            <span id="dq2o3">Povlačim se — zatvaram se dok ne prođe</span>
+          </div>
+          <div class="demo-opt" onclick="demoPickQ2('kontrolira', this)">
+            <span class="demo-opt-icon">🎯</span>
+            <span id="dq2o4">Preuzimam kontrolu — radim sve sam/a da bude kako treba</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3: Sustav -->
+      <div class="demo-q" id="dq3">
+        <div class="demo-q-label">🌱 <span id="dq3phase">Sustav — Promjena</span></div>
+        <div class="demo-q-text" id="dq3text">Što bi ti najviše pomoglo sada?</div>
+        <div class="demo-q-sub" id="dq3sub">Nema savršenog odgovora — samo tvoj odgovor.</div>
+        <div class="demo-options">
+          <div class="demo-opt" onclick="demoPickQ3('alat', this)">
+            <span class="demo-opt-icon">🔧</span>
+            <span id="dq3o1">Konkretan alat za sljedeći put kad eskalira</span>
+          </div>
+          <div class="demo-opt" onclick="demoPickQ3('razumjeti', this)">
+            <span class="demo-opt-icon">🔍</span>
+            <span id="dq3o2">Razumjeti zašto se ovaj obrazac ponavlja</span>
+          </div>
+          <div class="demo-opt" onclick="demoPickQ3('mir', this)">
+            <span class="demo-opt-icon">🌊</span>
+            <span id="dq3o3">Malo mira i prostora samo za sebe</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div class="demo-result" id="demoResult">
+        <div class="demo-result-header">
+          <div class="demo-result-icon">🌿</div>
+          <div>
+            <div class="demo-result-title" id="drTitle">Vidimo te</div>
+            <div class="demo-result-sub" id="drSub">Tvoj LUME uvid</div>
+          </div>
+        </div>
+        <div class="demo-model-row">
+          <div class="demo-model-card stanje">
+            <div class="demo-model-phase" id="drPhase1">🌊 Stanje</div>
+            <span class="demo-model-icon">🌊</span>
+            <div class="demo-model-text" id="drStanje"></div>
+          </div>
+          <div class="demo-model-card obrazac">
+            <div class="demo-model-phase" id="drPhase2">💡 Obrazac</div>
+            <span class="demo-model-icon">💡</span>
+            <div class="demo-model-text" id="drObrazac"></div>
+          </div>
+          <div class="demo-model-card sustav">
+            <div class="demo-model-phase" id="drPhase3">🌱 Sustav</div>
+            <span class="demo-model-icon">🌱</span>
+            <div class="demo-model-text" id="drSustav"></div>
+          </div>
+        </div>
+        <div class="demo-result-cta">
+          <a href="life/" class="demo-btn-primary" id="drCta1">
+            Uđi u LUME →
+          </a>
+          <a href="dnevnik/" class="demo-btn-ghost" id="drCta2">
+            Zapiši u dnevnik
+          </a>
+        </div>
+        <div class="demo-restart">
+          <button class="demo-restart-btn" onclick="demoRestart()" id="drRestart">↺ Počni iznova</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 
 <!-- MANTRA -->
 <section class="mantra-section">
@@ -852,6 +1172,7 @@ footer {
   </div>
 </section>
 
+
 <!-- CTA -->
 <section class="cta-section">
   <div class="cta-bg"></div>
@@ -885,6 +1206,156 @@ footer {
 </footer>
 
 <script>
+
+// ── DEMO ──
+const demoState = { energija: null, obrazac: null, potreba: null };
+
+const demoContent = {
+  hr: {
+    stanje: {
+      prazno: 'Prepoznajemo tu praznoću. Kada smo iscrpljeni, reagiramo iz ostataka — ne iz snage. Regeneracija počinje ovdje.',
+      pola: 'Na pola puta — ali tu si. To je dovoljno za početak. LUME radi s onim što imaš.',
+      solidno: 'Imaš resurse. Sada ih možemo usmjeriti na konkretne obrasce koji te ometaju.'
+    },
+    obrazac: {
+      eksplodira: 'Eksplozija dolazi iz mjesta brige — ne loše namjere. Intenzitet nije problem, on je energija. Pitanje je samo gdje ide.',
+      zamrzne: 'Zamrzavanje je tijelo koje kaže "ne znam što da radim." To nije slabost — to je signal da trebaš konkretan alat.',
+      povlaci: 'Povlačenje je stara zaštita. Funkcionirala je nekad — ali sada te izolira upravo kad trebaš kontakt.',
+      kontrolira: 'Preuzimanje kontrole dolazi iz straha da će bez tebe sve propasti. To iscrpljuje — i sprečava druge da rastu.'
+    },
+    sustav: {
+      alat: 'Jedan konkretan korak: sljedeći put kad osjetiš da eskalira — napravi fizički korak unazad. Tijelo šalje mozgu signal da se situacija promijenila.',
+      razumjeti: 'Obrazac se ponavlja jer ga nismo razumjeli. LUME te vodi kroz to razumijevanje — korak po korak, bez pritiska.',
+      mir: 'Mir nije luksuz — on je preduvjet. Bez prostora za sebe, ne možeš dati ono što hoćeš dati drugima.'
+    }
+  },
+  en: {
+    stanje: {
+      prazno: 'We recognise that emptiness. When we are depleted, we react from what is left — not from strength. Regeneration starts here.',
+      pola: 'Running on half a tank — but you are here. That is enough to start. LUME works with what you have.',
+      solidno: 'You have resources. Now we can direct them toward the specific patterns that get in your way.'
+    },
+    obrazac: {
+      eksplodira: 'The explosion comes from a place of care — not bad intent. The intensity is not the problem, it is energy. The question is only where it goes.',
+      zamrzne: 'Freezing is your body saying "I do not know what to do." That is not weakness — it is a signal that you need a concrete tool.',
+      povlaci: 'Withdrawal is an old protection. It worked once — but now it isolates you at exactly the moment you need connection.',
+      kontrolira: 'Taking control comes from fear that things will fall apart without you. That depletes — and prevents others from growing.'
+    },
+    sustav: {
+      alat: 'One concrete step: next time you feel it escalating — take one physical step back. Your body sends your brain a signal that the situation has shifted.',
+      razumjeti: 'The pattern repeats because we have not understood it. LUME guides you through that understanding — step by step, without pressure.',
+      mir: 'Peace is not a luxury — it is a prerequisite. Without space for yourself, you cannot give what you want to give to others.'
+    }
+  }
+};
+
+function demoPickQ1(val, el) {
+  document.querySelectorAll('#dq1 .demo-opt').forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+  demoState.energija = val;
+  setTimeout(() => {
+    document.getElementById('dq1').classList.remove('active');
+    document.getElementById('dq2').classList.add('active');
+    document.getElementById('dsi1').classList.remove('active');
+    document.getElementById('dsi1').classList.add('done');
+    document.getElementById('dsi2').classList.add('active');
+  }, 400);
+}
+
+function demoPickQ2(val, el) {
+  document.querySelectorAll('#dq2 .demo-opt').forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+  demoState.obrazac = val;
+  setTimeout(() => {
+    document.getElementById('dq2').classList.remove('active');
+    document.getElementById('dq3').classList.add('active');
+    document.getElementById('dsi2').classList.remove('active');
+    document.getElementById('dsi2').classList.add('done');
+    document.getElementById('dsi3').classList.add('active');
+  }, 400);
+}
+
+function demoPickQ3(val, el) {
+  document.querySelectorAll('#dq3 .demo-opt').forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+  demoState.potreba = val;
+  setTimeout(() => {
+    document.getElementById('dq3').classList.remove('active');
+    document.getElementById('dsi3').classList.remove('active');
+    document.getElementById('dsi3').classList.add('done');
+    showDemoResult();
+  }, 400);
+}
+
+function showDemoResult() {
+  const t = currentLang === 'en' ? 'en' : 'hr';
+  const c = demoContent[t];
+  const isEN = currentLang === 'en';
+
+  document.getElementById('drStanje').textContent = c.stanje[demoState.energija] || '';
+  document.getElementById('drObrazac').textContent = c.obrazac[demoState.obrazac] || '';
+  document.getElementById('drSustav').textContent = c.sustav[demoState.potreba] || '';
+
+  document.getElementById('drTitle').textContent = isEN ? 'We see you.' : 'Vidimo te';
+  document.getElementById('drSub').textContent = isEN ? 'Your LUME insight' : 'Tvoj LUME uvid';
+  document.getElementById('drPhase1').textContent = isEN ? '🌊 State' : '🌊 Stanje';
+  document.getElementById('drPhase2').textContent = isEN ? '💡 Pattern' : '💡 Obrazac';
+  document.getElementById('drPhase3').textContent = isEN ? '🌱 System' : '🌱 Sustav';
+  document.getElementById('drCta1').textContent = isEN ? 'Enter LUME →' : 'Uđi u LUME →';
+  document.getElementById('drCta2').textContent = isEN ? 'Write in journal' : 'Zapiši u dnevnik';
+  document.getElementById('drRestart').textContent = isEN ? '↺ Start again' : '↺ Počni iznova';
+
+  document.getElementById('demoResult').classList.add('show');
+}
+
+function demoRestart() {
+  demoState.energija = null; demoState.obrazac = null; demoState.potreba = null;
+  document.querySelectorAll('.demo-q').forEach(q => q.classList.remove('active'));
+  document.getElementById('dq1').classList.add('active');
+  document.getElementById('demoResult').classList.remove('show');
+  ['dsi1','dsi2','dsi3'].forEach(id => {
+    document.getElementById(id).classList.remove('active','done');
+  });
+  document.getElementById('dsi1').classList.add('active');
+  document.querySelectorAll('.demo-opt').forEach(o => o.classList.remove('sel'));
+}
+
+function translateDemo() {
+  const t = currentLang === 'en';
+  const set = (id, v) => { const e = document.getElementById(id); if(e) e.textContent = v; };
+
+  set('demoLabel', t ? 'Try LUME' : 'Isproba LUME');
+  set('demoTitle', t ? 'Three questions.\nOne insight.' : 'Tri pitanja.\nJedan uvid.');
+  document.getElementById('demoTitle').innerHTML = t ? 'Three questions.<br>One insight.' : 'Tri pitanja.<br>Jedan uvid.';
+  set('demoSubtitle', t ? 'No registration. Just feel how LUME thinks.' : 'Bez registracije. Samo okusi kako LUME razmišlja.');
+
+  set('dsl1', t ? 'State' : 'Stanje');
+  set('dsl2', t ? 'Pattern' : 'Obrazac');
+  set('dsl3', t ? 'System' : 'Sustav');
+
+  set('dq1phase', t ? 'State — Regulation' : 'Stanje — Regulacija');
+  set('dq1text', t ? 'How are you right now — as a person, not a parent/worker?' : 'Kako si ti sada — kao osoba, ne kao roditelj/radnik?');
+  set('dq1sub', t ? 'Be honest. No wrong answers.' : 'Budi iskren/a. Nema krivih odgovora.');
+  set('dq1o1', t ? 'Empty tank — no space for myself' : 'Prazna baterija — nema prostora za sebe');
+  set('dq1o2', t ? 'Half tank — something there, but not enough' : 'Na pola — imam nešto, ali nije dovoljno');
+  set('dq1o3', t ? 'Solid — looking for tools for specific situations' : 'Solidno — tražim alate za konkretne situacije');
+
+  set('dq2phase', t ? 'Pattern — Understanding' : 'Obrazac — Razumijevanje');
+  set('dq2text', t ? 'What keeps repeating most often?' : 'Što se najčešće ponavlja?');
+  set('dq2sub', t ? 'Choose what you most often recognise in yourself.' : 'Odaberi ono što najčešće prepoznaješ u sebi.');
+  set('dq2o1', t ? 'I explode — and then feel bad about it' : 'Eksplodiram — a onda se osjećam loše zbog toga');
+  set('dq2o2', t ? 'I freeze — I do not know what to say or do' : 'Zamrznem se — ne znam što reći ni napraviti');
+  set('dq2o3', t ? 'I withdraw — I close off until it passes' : 'Povlačim se — zatvaram se dok ne prođe');
+  set('dq2o4', t ? 'I take control — I do everything myself so it goes right' : 'Preuzimam kontrolu — radim sve sam/a da bude kako treba');
+
+  set('dq3phase', t ? 'System — Change' : 'Sustav — Promjena');
+  set('dq3text', t ? 'What would help you most right now?' : 'Što bi ti najviše pomoglo sada?');
+  set('dq3sub', t ? 'No perfect answer — just your answer.' : 'Nema savršenog odgovora — samo tvoj odgovor.');
+  set('dq3o1', t ? 'A concrete tool for next time it escalates' : 'Konkretan alat za sljedeći put kad eskalira');
+  set('dq3o2', t ? 'To understand why this pattern keeps repeating' : 'Razumjeti zašto se ovaj obrazac ponavlja');
+  set('dq3o3', t ? 'A little peace and space just for myself' : 'Malo mira i prostora samo za sebe');
+}
+
 // Scroll animations
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -1006,6 +1477,7 @@ function toggleLang() {
 }
 
 function applyLang() {
+  translateDemo();
   const t = content[currentLang];
   const set = (id, html) => { const el = document.getElementById(id); if(el) el.innerHTML = html; };
   const setT = (id, text) => { const el = document.getElementById(id); if(el) el.textContent = text; };
