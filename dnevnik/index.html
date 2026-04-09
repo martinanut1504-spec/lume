@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUME Dnevnik — Tvoji zapisi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green-deep:  #1C3A2A;
+  --green-mid:   #2D5A3D;
+  --green-warm:  #3D7A52;
+  --green-light: #6BAF84;
+  --green-pale:  #C8E6D4;
+  --green-ghost: #EDF7F1;
+  --cream:       #F7F4EE;
+  --cream-dark:  #EDE8DF;
+  --cream-mid:   #E8E2D8;
+  --warm-white:  #FDFBF8;
+  --text-dark:   #1A2E22;
+  --text-mid:    #3D5C48;
+  --text-light:  #6B8C77;
+  --text-ghost:  #9BB8A6;
+  --gold:        #C4954A;
+  --gold-light:  #E8D5A3;
+  /* Emotions */
+  --e-overwhelmed: #C0726B;
+  --e-frustrated:  #C4954A;
+  --e-anxious:     #8A7AB0;
+  --e-sad:         #6B8CB0;
+  --e-confused:    #8A9E8A;
+  --e-calm:        #6BAF84;
+  --e-hopeful:     #B0A06B;
+  --e-stable:      #3D7A52;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  min-height: 100vh;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 48px; height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(247,244,238,.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(200,230,212,.3);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Fraunces', serif; font-size: 18px; font-weight: 300;
+  color: var(--green-deep); text-decoration: none;
+}
+.nav-logo svg { width: 20px; height: 20px; }
+.nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
+.nav-links a {
+  font-size: 12px; color: var(--text-light);
+  text-decoration: none; padding: 5px 12px; border-radius: 999px;
+  transition: all .2s;
+}
+.nav-links a:hover { color: var(--green-deep); background: var(--green-ghost); }
+.nav-links a.active { color: var(--green-deep); font-weight: 500; background: var(--green-ghost); }
+.nav-lang {
+  padding: 5px 14px; border-radius: 999px;
+  border: 1px solid var(--cream-mid); background: transparent;
+  font-size: 11px; font-weight: 500; color: var(--text-light);
+  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .2s;
+}
+.nav-lang:hover { border-color: var(--green-light); color: var(--green-deep); }
+
+/* ── DAILY MOMENT BANNER ── */
+.daily-banner {
+  display: none;
+  position: fixed; top: 56px; left: 0; right: 0; z-index: 90;
+  background: var(--green-deep);
+  padding: 12px 48px;
+  border-bottom: 1px solid rgba(107,175,132,.2);
+  animation: slideDown .4s ease;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.daily-banner-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; gap: 16px;
+}
+
+.daily-banner-icon { font-size: 18px; flex-shrink: 0; }
+
+.daily-banner-text {
+  flex: 1; font-size: 13px; color: var(--green-pale);
+  line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif;
+  font-weight: 300;
+}
+
+.daily-banner-dismiss {
+  background: none; border: 1px solid rgba(107,175,132,.3);
+  color: var(--green-light); font-size: 11px; padding: 4px 12px;
+  border-radius: 999px; cursor: pointer; flex-shrink: 0;
+  font-family: 'DM Sans', sans-serif; transition: all .2s;
+}
+.daily-banner-dismiss:hover { border-color: var(--green-light); color: var(--cream); }
+
+/* ── PAGE LAYOUT ── */
+.page {
+  max-width: 1100px; margin: 0 auto;
+  padding: 96px 48px 80px;
+}
+
+/* ── PAGE HEADER ── */
+.page-header {
+  margin-bottom: 56px;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 24px; align-items: end;
+}
+
+.page-eyebrow {
+  font-size: 10px; font-weight: 500; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--green-warm);
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 10px;
+}
+.page-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--green-warm); }
+
+.page-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 300; color: var(--green-deep);
+  line-height: 1.1; letter-spacing: -.5px;
+}
+.page-title em { font-style: italic; color: var(--gold); }
+
+.page-subtitle {
+  font-size: 15px; color: var(--text-mid);
+  line-height: 1.7; font-weight: 300;
+  max-width: 480px; margin-top: 12px;
+}
+
+.btn-new-entry {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 24px; border-radius: 999px;
+  background: var(--green-deep); color: var(--cream);
+  font-size: 13px; font-weight: 400; letter-spacing: .3px;
+  border: none; cursor: pointer; transition: all .25s;
+  white-space: nowrap; font-family: 'DM Sans', sans-serif;
+}
+.btn-new-entry:hover { background: var(--green-mid); transform: translateY(-1px); }
+
+/* ── STATS ROW ── */
+.stats-row {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 12px; margin-bottom: 48px;
+}
+
+.stat-card {
+  background: var(--warm-white); border-radius: 16px;
+  padding: 20px 20px 16px;
+  border: 1px solid var(--cream-dark);
+  transition: all .2s;
+}
+.stat-card:hover { border-color: var(--green-pale); }
+
+.stat-num {
+  font-family: 'Fraunces', serif; font-size: 36px;
+  font-weight: 300; color: var(--green-deep);
+  line-height: 1; margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 11px; color: var(--text-light);
+  font-weight: 400; letter-spacing: .3px;
+}
+
+.stat-emotion {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 500; color: var(--green-deep);
+  margin-top: 4px;
+}
+
+.emotion-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+}
+
+/* ── LAYOUT ── */
+.main-grid {
+  display: grid; grid-template-columns: 1fr 380px;
+  gap: 32px; align-items: start;
+}
+
+/* ── ENTRIES LIST ── */
+.entries-section { }
+
+.entries-filter {
+  display: flex; gap: 6px; margin-bottom: 24px; flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 6px 16px; border-radius: 999px;
+  border: 1px solid var(--cream-dark); background: var(--warm-white);
+  font-size: 12px; font-weight: 400; color: var(--text-light);
+  cursor: pointer; transition: all .2s; font-family: 'DM Sans', sans-serif;
+}
+.filter-btn:hover { border-color: var(--green-pale); color: var(--green-deep); }
+.filter-btn.active {
+  background: var(--green-deep); color: var(--cream);
+  border-color: var(--green-deep);
+}
+
+.entries-list {
+  display: flex; flex-direction: column; gap: 10px;
+}
+
+.entry-card {
+  background: var(--warm-white); border-radius: 16px;
+  border: 1px solid var(--cream-dark);
+  overflow: hidden; transition: all .2s;
+}
+.entry-card:hover { border-color: var(--green-pale); }
+
+.entry-header {
+  padding: 18px 20px; cursor: pointer;
+  display: flex; align-items: center; gap: 14px;
+}
+
+.entry-emotion-badge {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+
+.entry-meta { flex: 1; min-width: 0; }
+
+.entry-date {
+  font-size: 11px; color: var(--text-ghost);
+  letter-spacing: .3px; margin-bottom: 3px;
+}
+
+.entry-title {
+  font-family: 'Fraunces', serif; font-size: 15px;
+  font-weight: 400; color: var(--green-deep);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.entry-tags {
+  display: flex; gap: 5px; margin-top: 5px; flex-wrap: wrap;
+}
+
+.entry-tag {
+  font-size: 10px; padding: 2px 8px; border-radius: 999px;
+  background: var(--green-ghost); color: var(--green-warm);
+  font-weight: 500; letter-spacing: .5px; text-transform: uppercase;
+}
+
+.entry-intensity {
+  display: flex; align-items: center; gap: 4px;
+  flex-shrink: 0;
+}
+
+.intensity-bar {
+  width: 32px; height: 4px; border-radius: 2px;
+  background: var(--cream-dark); overflow: hidden;
+}
+.intensity-fill {
+  height: 100%; border-radius: 2px;
+  background: var(--green-light); transition: width .3s;
+}
+
+.entry-toggle {
+  font-size: 14px; color: var(--text-ghost);
+  transition: transform .3s; flex-shrink: 0;
+}
+.entry-card.open .entry-toggle { transform: rotate(180deg); }
+
+.entry-body {
+  display: none; padding: 0 20px 20px;
+  border-top: 1px solid var(--cream-dark);
+  margin-top: 0;
+}
+.entry-card.open .entry-body { display: block; }
+
+.entry-field {
+  margin-top: 16px;
+}
+.entry-field-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--green-warm); margin-bottom: 5px;
+}
+.entry-field-text {
+  font-size: 13px; color: var(--text-mid);
+  line-height: 1.7; font-weight: 300;
+}
+
+.entry-ai-insight {
+  margin-top: 16px; padding: 14px 16px;
+  background: var(--green-ghost); border-radius: 10px;
+  border-left: 3px solid var(--green-light);
+}
+.entry-ai-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--green-warm); margin-bottom: 6px;
+}
+.entry-ai-text {
+  font-family: 'Fraunces', serif; font-size: 13px;
+  font-style: italic; color: var(--green-deep); line-height: 1.7;
+}
+
+.empty-state {
+  text-align: center; padding: 60px 20px;
+  color: var(--text-ghost);
+}
+.empty-state-icon { font-size: 40px; margin-bottom: 16px; }
+.empty-state-title {
+  font-family: 'Fraunces', serif; font-size: 22px;
+  font-weight: 300; color: var(--text-light); margin-bottom: 8px;
+}
+.empty-state-text { font-size: 13px; line-height: 1.7; }
+
+/* ── NEW ENTRY FORM ── */
+.form-panel {
+  position: sticky; top: 80px;
+  background: var(--warm-white); border-radius: 20px;
+  border: 1px solid var(--cream-dark);
+  overflow: hidden;
+}
+
+.form-header {
+  padding: 24px 24px 20px;
+  border-bottom: 1px solid var(--cream-dark);
+}
+
+.form-title {
+  font-family: 'Fraunces', serif; font-size: 22px;
+  font-weight: 300; color: var(--green-deep); margin-bottom: 4px;
+}
+
+.form-subtitle {
+  font-size: 12px; color: var(--text-light);
+  font-weight: 300; line-height: 1.5;
+}
+
+.form-body { padding: 20px 24px; }
+
+/* Segment selector */
+.segment-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px; margin-bottom: 16px;
+}
+
+.seg-btn {
+  padding: 10px 6px; border-radius: 10px;
+  border: 1.5px solid var(--cream-dark); background: var(--warm-white);
+  cursor: pointer; text-align: center; transition: all .2s;
+  font-family: 'DM Sans', sans-serif;
+}
+.seg-btn:hover { background: var(--green-ghost); border-color: var(--green-pale); }
+.seg-btn.sel { background: var(--green-ghost); border-color: var(--green-light); border-width: 2px; }
+.seg-icon { font-size: 18px; margin-bottom: 4px; }
+.seg-name { font-size: 11px; font-weight: 500; color: var(--green-deep); }
+
+/* Step selector */
+.step-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px; margin-bottom: 16px;
+}
+
+.step-btn {
+  padding: 10px 6px; border-radius: 10px;
+  border: 1.5px solid var(--cream-dark); background: var(--warm-white);
+  cursor: pointer; text-align: center; transition: all .2s;
+  font-family: 'DM Sans', sans-serif;
+}
+.step-btn:hover { background: var(--green-ghost); border-color: var(--green-pale); }
+.step-btn.sel { background: var(--green-ghost); border-color: var(--green-light); border-width: 2px; }
+.step-icon { font-size: 16px; margin-bottom: 4px; }
+.step-name { font-size: 11px; font-weight: 500; color: var(--green-deep); }
+.step-sub { font-size: 10px; color: var(--text-light); margin-top: 2px; }
+
+/* Emotion selector */
+.form-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--green-warm);
+  margin-bottom: 8px; display: block;
+}
+
+.emotion-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 5px; margin-bottom: 16px;
+}
+
+.emo-btn {
+  padding: 8px 4px; border-radius: 8px;
+  border: 1.5px solid var(--cream-dark); background: var(--warm-white);
+  cursor: pointer; text-align: center; transition: all .2s;
+  font-family: 'DM Sans', sans-serif;
+}
+.emo-btn:hover { border-color: var(--green-pale); }
+.emo-btn.sel { border-width: 2px; }
+.emo-icon { font-size: 16px; display: block; margin-bottom: 3px; }
+.emo-name { font-size: 9px; color: var(--text-light); font-weight: 400; }
+
+/* Intensity slider */
+.intensity-wrap { margin-bottom: 16px; }
+.intensity-header {
+  display: flex; justify-content: space-between;
+  align-items: center; margin-bottom: 8px;
+}
+.intensity-val {
+  font-family: 'Fraunces', serif; font-size: 20px;
+  font-weight: 300; color: var(--green-deep);
+}
+
+input[type=range] {
+  width: 100%; height: 4px; border-radius: 2px;
+  background: var(--cream-dark); outline: none;
+  -webkit-appearance: none; cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--green-deep);
+  box-shadow: 0 2px 8px rgba(28,58,42,.2);
+  transition: transform .2s;
+}
+input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+/* Textareas */
+.form-textarea {
+  width: 100%; padding: 12px 14px;
+  border-radius: 10px; border: 1.5px solid var(--cream-dark);
+  background: var(--warm-white);
+  font-size: 13px; font-family: 'DM Sans', sans-serif;
+  color: var(--text-dark); resize: none;
+  line-height: 1.6; outline: none; transition: border-color .2s;
+  margin-bottom: 10px;
+}
+.form-textarea:focus { border-color: var(--green-light); }
+.form-textarea::placeholder { color: var(--text-ghost); }
+
+/* Submit */
+.btn-save {
+  width: 100%; padding: 14px;
+  border-radius: 12px; border: none;
+  background: var(--green-deep); color: var(--cream);
+  font-family: 'Fraunces', serif; font-size: 16px;
+  font-weight: 300; letter-spacing: .3px;
+  cursor: pointer; transition: all .25s; margin-top: 4px;
+}
+.btn-save:hover { background: var(--green-mid); }
+.btn-save:disabled { opacity: .4; cursor: default; }
+
+/* AI Response */
+.ai-response {
+  display: none; margin-top: 16px;
+  padding: 18px; border-radius: 14px;
+  background: var(--green-ghost);
+  border: 1px solid var(--green-pale);
+  animation: fadeIn .5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ai-response-header {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 12px;
+}
+.ai-response-icon { font-size: 18px; }
+.ai-response-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--green-warm);
+}
+
+.ai-response-text {
+  font-family: 'Fraunces', serif; font-size: 14px;
+  font-style: italic; color: var(--green-deep);
+  line-height: 1.75; margin-bottom: 12px;
+}
+
+.ai-response-action {
+  font-size: 13px; color: var(--text-mid);
+  line-height: 1.65; font-weight: 300;
+  padding-top: 10px;
+  border-top: 1px solid var(--green-pale);
+}
+
+.ai-loading {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; color: var(--text-light); font-style: italic;
+}
+.ai-dots { display: flex; gap: 4px; }
+.ai-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--green-light);
+  animation: dotBounce 1.4s infinite ease-in-out;
+}
+.ai-dot:nth-child(2) { animation-delay: .2s; }
+.ai-dot:nth-child(3) { animation-delay: .4s; }
+
+@keyframes dotBounce {
+  0%, 80%, 100% { transform: scale(0.8); opacity: .5; }
+  40% { transform: scale(1.2); opacity: 1; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .page { padding: 80px 20px 60px; }
+  .page-header { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .main-grid { grid-template-columns: 1fr; }
+  .form-panel { position: static; }
+  .daily-banner { padding: 12px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- DAILY MOMENT BANNER -->
+<div class="daily-banner" id="dailyBanner">
+  <div class="daily-banner-inner">
+    <div class="daily-banner-icon">🌿</div>
+    <div class="daily-banner-text" id="dailyBannerText"></div>
+    <button class="daily-banner-dismiss" onclick="dismissBanner()" id="dismissBtn">Zatvori</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="../" class="nav-logo">
+    <svg viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="9" r="5" fill="#2D5A3D"/>
+      <path d="M12 14v6" stroke="#2D5A3D" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M9 18h6" stroke="#6BAF84" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+    LUME
+  </a>
+  <ul class="nav-links">
+    <li><a href="../" id="navHome">Početna</a></li>
+    <li><a href="../core/" id="navCore">Core</a></li>
+    <li><a href="../parents/" id="navParents">Parents</a></li>
+    <li><a href="../life/" id="navLife">Life</a></li>
+    <li><a href="#" class="active" id="navDnevnik">Dnevnik</a></li>
+    <li><a href="../pregled/" id="navPregled">Pregled</a></li>
+  </ul>
+  <button class="nav-lang" onclick="toggleLang()" id="langBtn">EN</button>
+</nav>
+
+<div class="page">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div>
+      <div class="page-eyebrow" id="pageEyebrow">Tvoj prostor</div>
+      <h1 class="page-title" id="pageTitle">
+        Dnevnik<br><em>svjesnosti</em>
+      </h1>
+      <p class="page-subtitle" id="pageSubtitle">
+        Svaki zapis je korak prema razumijevanju.
+        Ne trebaš imati odgovore — trebaš samo početi pisati.
+      </p>
+    </div>
+    <button class="btn-new-entry" onclick="scrollToForm()" id="btnNewEntry">
+      + <span id="btnNewEntryTxt">Novi zapis</span>
+    </button>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row" id="statsRow">
+    <div class="stat-card">
+      <div class="stat-num" id="statTotal">0</div>
+      <div class="stat-label" id="statTotalLbl">Ukupno zapisa</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statAvgInt">—</div>
+      <div class="stat-label" id="statAvgIntLbl">Prosječni intenzitet</div>
+    </div>
+    <div class="stat-card">
+      <div id="statTopEmoContent">
+        <div class="stat-num" style="font-size:28px">—</div>
+        <div class="stat-label" id="statTopEmoLbl">Najčešća emocija</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statStreak">0</div>
+      <div class="stat-label" id="statStreakLbl">Dana zaredom</div>
+    </div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="main-grid">
+
+    <!-- ENTRIES -->
+    <div class="entries-section">
+      <div class="entries-filter" id="filterRow">
+        <button class="filter-btn active" onclick="filterEntries('sve',this)" id="filterAll">Sve</button>
+        <button class="filter-btn" onclick="filterEntries('core',this)" id="filterCore">Core</button>
+        <button class="filter-btn" onclick="filterEntries('parents',this)" id="filterParents">Parents</button>
+        <button class="filter-btn" onclick="filterEntries('life',this)" id="filterLife">Life</button>
+      </div>
+      <div class="entries-list" id="entriesList">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="form-panel" id="entryForm">
+      <div class="form-header">
+        <div class="form-title" id="formTitle">Novi zapis</div>
+        <div class="form-subtitle" id="formSubtitle">
+          Nekoliko minuta refleksije — za tebe, ne za nikoga drugog.
+        </div>
+      </div>
+      <div class="form-body">
+
+        <!-- Segment -->
+        <label class="form-label" id="segLabel">Segment</label>
+        <div class="segment-grid">
+          <div class="seg-btn" onclick="pickSeg('core',this)">
+            <div class="seg-icon">🌿</div>
+            <div class="seg-name" id="segCore">Core</div>
+          </div>
+          <div class="seg-btn sel" onclick="pickSeg('parents',this)">
+            <div class="seg-icon">👨‍👩‍👧</div>
+            <div class="seg-name" id="segParents">Parents</div>
+          </div>
+          <div class="seg-btn" onclick="pickSeg('life',this)">
+            <div class="seg-icon">✨</div>
+            <div class="seg-name" id="segLife">Life</div>
+          </div>
+        </div>
+
+        <!-- Step -->
+        <label class="form-label" id="stepLabel">Korak</label>
+        <div class="step-grid">
+          <div class="step-btn sel" onclick="pickStep('stanje',this)">
+            <div class="step-icon">🌊</div>
+            <div class="step-name" id="stepStanje">Stanje</div>
+            <div class="step-sub" id="stepStanjeSub">Regulacija</div>
+          </div>
+          <div class="step-btn" onclick="pickStep('obrazac',this)">
+            <div class="step-icon">💡</div>
+            <div class="step-name" id="stepObrazac">Obrazac</div>
+            <div class="step-sub" id="stepObrazacSub">Razumijevanje</div>
+          </div>
+          <div class="step-btn" onclick="pickStep('sustav',this)">
+            <div class="step-icon">🌱</div>
+            <div class="step-name" id="stepSustav">Sustav</div>
+            <div class="step-sub" id="stepSustavSub">Promjena</div>
+          </div>
+        </div>
+
+        <!-- Emotion -->
+        <label class="form-label" id="emoLabel">Kako se osjećaš?</label>
+        <div class="emotion-grid">
+          <div class="emo-btn" onclick="pickEmo('overwhelmed',this)" style="--ec:#C0726B">
+            <span class="emo-icon">😮‍💨</span>
+            <span class="emo-name" id="e1">Preplavljeno</span>
+          </div>
+          <div class="emo-btn" onclick="pickEmo('frustrated',this)" style="--ec:#C4954A">
+            <span class="emo-icon">😤</span>
+            <span class="emo-name" id="e2">Frustrirano</span>
+          </div>
+          <div class="emo-btn" onclick="pickEmo('anxious',this)" style="--ec:#8A7AB0">
+            <span class="emo-icon">😰</span>
+            <span class="emo-name" id="e3">Tjeskobno</span>
+          </div>
+          <div class="emo-btn" onclick="pickEmo('sad',this)" style="--ec:#6B8CB0">
+            <span class="emo-icon">😔</span>
+            <span class="emo-name" id="e4">Tužno</span>
+          </div>
+          <div class="emo-btn" onclick="pickEmo('confused',this)" style="--ec:#8A9E8A">
+            <span class="emo-icon">😕</span>
+            <span class="emo-name" id="e5">Zbunjeno</span>
+          </div>
+          <div class="emo-btn" onclick="pickEmo('calm',this)" style="--ec:#6BAF84">
+            <span class="emo-icon">😌</span>
+            <span class="emo-name" id="e6">Smireno</span>
+          </div>
+          <div class="emo-btn" onclick="pickEmo('hopeful',this)" style="--ec:#B0A06B">
+            <span class="emo-icon">🌱</span>
+            <span class="emo-name" id="e7">Nadajuće</span>
+          </div>
+          <div class="emo-btn" onclick="pickEmo('stable',this)" style="--ec:#3D7A52">
+            <span class="emo-icon">⚓</span>
+            <span class="emo-name" id="e8">Stabilno</span>
+          </div>
+        </div>
+
+        <!-- Intensity -->
+        <div class="intensity-wrap">
+          <div class="intensity-header">
+            <label class="form-label" style="margin:0" id="intLabel">Intenzitet</label>
+            <span class="intensity-val" id="intVal">5</span>
+          </div>
+          <input type="range" min="1" max="10" value="5" id="intSlider"
+            oninput="document.getElementById('intVal').textContent=this.value">
+          <div style="display:flex;justify-content:space-between;margin-top:4px">
+            <span style="font-size:10px;color:var(--text-ghost)" id="intLow">Blago</span>
+            <span style="font-size:10px;color:var(--text-ghost)" id="intHigh">Intenzivno</span>
+          </div>
+        </div>
+
+        <!-- Text fields -->
+        <label class="form-label" id="triggerLabel">Što te pokrenulo?</label>
+        <textarea class="form-textarea" id="triggerField" rows="2"
+          placeholder="Situacija, osoba, misao..."></textarea>
+
+        <label class="form-label" id="patternLabel">Što primjećuješ?</label>
+        <textarea class="form-textarea" id="patternField" rows="2"
+          placeholder="Obrazac koji se ponavlja, uvid..."></textarea>
+
+        <label class="form-label" id="actionLabel">Mali korak</label>
+        <textarea class="form-textarea" id="actionField" rows="2"
+          placeholder="Jedna konkretna stvar koju možeš napraviti..."></textarea>
+
+        <label class="form-label" id="notesLabel">Bilješke <span style="font-weight:300;text-transform:none;letter-spacing:0;color:var(--text-ghost)">(neobavezno)</span></label>
+        <textarea class="form-textarea" id="notesField" rows="2"
+          placeholder="Slobodne misli..."></textarea>
+
+        <button class="btn-save" id="saveBtn" onclick="saveEntry()">
+          <span id="saveBtnTxt">Spremi i analiziraj</span>
+        </button>
+
+        <!-- AI Response -->
+        <div class="ai-response" id="aiResponse">
+          <div class="ai-response-header">
+            <span class="ai-response-icon">🌿</span>
+            <span class="ai-response-label" id="aiRespLabel">LUME uvid</span>
+          </div>
+          <div class="ai-response-text" id="aiRespText"></div>
+          <div class="ai-response-action" id="aiRespAction"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── STATE ──
+let lang = 'hr';
+let currentFilter = 'sve';
+let formState = {
+  segment: 'parents',
+  step: 'stanje',
+  emotion: null,
+  intensity: 5
+};
+
+// ── EMOTIONS ──
+const emotions = {
+  overwhelmed: { hr: 'Preplavljeno', en: 'Overwhelmed', icon: '😮‍💨', color: '#C0726B' },
+  frustrated:  { hr: 'Frustrirano',  en: 'Frustrated',  icon: '😤', color: '#C4954A' },
+  anxious:     { hr: 'Tjeskobno',    en: 'Anxious',     icon: '😰', color: '#8A7AB0' },
+  sad:         { hr: 'Tužno',        en: 'Sad',         icon: '😔', color: '#6B8CB0' },
+  confused:    { hr: 'Zbunjeno',     en: 'Confused',    icon: '😕', color: '#8A9E8A' },
+  calm:        { hr: 'Smireno',      en: 'Calm',        icon: '😌', color: '#6BAF84' },
+  hopeful:     { hr: 'Nadajuće',     en: 'Hopeful',     icon: '🌱', color: '#B0A06B' },
+  stable:      { hr: 'Stabilno',     en: 'Stable',      icon: '⚓', color: '#3D7A52' },
+};
+
+const steps = {
+  stanje:  { hr: 'Stanje',  en: 'State',   sub_hr: 'Regulacija',    sub_en: 'Regulation',   icon: '🌊' },
+  obrazac: { hr: 'Obrazac', en: 'Pattern', sub_hr: 'Razumijevanje', sub_en: 'Understanding', icon: '💡' },
+  sustav:  { hr: 'Sustav',  en: 'System',  sub_hr: 'Promjena',      sub_en: 'Change',        icon: '🌱' },
+};
+
+const segments = {
+  core:    { hr: 'Core',    en: 'Core',    icon: '🌿' },
+  parents: { hr: 'Parents', en: 'Parents', icon: '👨‍👩‍👧' },
+  life:    { hr: 'Life',    en: 'Life',    icon: '✨' },
+};
+
+// ── STORAGE ──
+function getEntries() {
+  try {
+    return JSON.parse(localStorage.getItem('lume_entries') || '[]');
+  } catch { return []; }
+}
+
+function saveEntries(entries) {
+  try { localStorage.setItem('lume_entries', JSON.stringify(entries)); } catch {}
+}
+
+function getDailyMoment() {
+  try {
+    return JSON.parse(localStorage.getItem('lume_daily_moment') || 'null');
+  } catch { return null; }
+}
+
+function saveDailyMoment(moment) {
+  try { localStorage.setItem('lume_daily_moment', JSON.stringify(moment)); } catch {}
+}
+
+// ── DAILY BANNER ──
+function checkDailyBanner() {
+  const moment = getDailyMoment();
+  if(!moment) return;
+  const today = new Date().toDateString();
+  if(moment.shown_date === today && !moment.dismissed) {
+    const banner = document.getElementById('dailyBanner');
+    const text = document.getElementById('dailyBannerText');
+    if(banner && text) {
+      text.textContent = moment.message;
+      banner.style.display = 'block';
+      // Adjust page padding
+      document.querySelector('.page').style.paddingTop = '136px';
+    }
+  }
+}
+
+function dismissBanner() {
+  const moment = getDailyMoment();
+  if(moment) { moment.dismissed = true; saveDailyMoment(moment); }
+  const banner = document.getElementById('dailyBanner');
+  if(banner) banner.style.display = 'none';
+  document.querySelector('.page').style.paddingTop = '96px';
+}
+
+// ── FORM INTERACTIONS ──
+function pickSeg(val, el) {
+  document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+  formState.segment = val;
+}
+
+function pickStep(val, el) {
+  document.querySelectorAll('.step-btn').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+  formState.step = val;
+}
+
+function pickEmo(val, el) {
+  document.querySelectorAll('.emo-btn').forEach(b => {
+    b.classList.remove('sel');
+    b.style.background = '';
+    b.style.borderColor = '';
+  });
+  el.classList.add('sel');
+  const color = el.style.getPropertyValue('--ec') || emotions[val]?.color || '#6BAF84';
+  el.style.background = color + '18';
+  el.style.borderColor = color + '80';
+  formState.emotion = val;
+}
+
+function scrollToForm() {
+  document.getElementById('entryForm')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── SAVE ENTRY ──
+async function saveEntry() {
+  const trigger = document.getElementById('triggerField').value.trim();
+  const pattern = document.getElementById('patternField').value.trim();
+  const action = document.getElementById('actionField').value.trim();
+  const notes = document.getElementById('notesField').value.trim();
+  const intensity = parseInt(document.getElementById('intSlider').value);
+
+  if(!formState.emotion) {
+    alert(lang === 'hr' ? 'Odaberi kako se osjećaš.' : 'Please select how you feel.');
+    return;
+  }
+  if(!trigger && !pattern) {
+    alert(lang === 'hr' ? 'Napiši barem jedno polje.' : 'Please fill in at least one field.');
+    return;
+  }
+
+  const t = lang === 'en';
+  const entry = {
+    id: Date.now(),
+    date: new Date().toISOString(),
+    segment: formState.segment,
+    step: formState.step,
+    emotional_state: formState.emotion,
+    intensity,
+    trigger,
+    pattern_noted: pattern,
+    action_taken: action,
+    notes,
+    ai_insight: null,
+    lang
+  };
+
+  // Show loading
+  const saveBtn = document.getElementById('saveBtn');
+  const aiResp = document.getElementById('aiResponse');
+  saveBtn.disabled = true;
+  saveBtn.innerHTML = `<div class="ai-loading"><div class="ai-dots"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div>${t ? 'LUME is reading...' : 'LUME čita...'}</div>`;
+  aiResp.style.display = 'block';
+  aiResp.innerHTML = `<div class="ai-loading"><div class="ai-dots"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div><span>${t ? 'Analysing your entry...' : 'Analiziram tvoj zapis...'}</span></div>`;
+
+  // Get AI insight
+  const insight = await getAIInsight(entry);
+  entry.ai_insight = insight.text;
+
+  // Save
+  const entries = getEntries();
+  entries.unshift(entry);
+  saveEntries(entries);
+
+  // Generate DailyMoment for tomorrow
+  generateDailyMoment(entry, insight.tomorrow);
+
+  // Show AI response
+  aiResp.innerHTML = `
+    <div class="ai-response-header">
+      <span class="ai-response-icon">🌿</span>
+      <span class="ai-response-label">${t ? 'LUME insight' : 'LUME uvid'}</span>
+    </div>
+    <div class="ai-response-text">${insight.text}</div>
+    <div class="ai-response-action">${insight.action}</div>
+  `;
+
+  // Reset form
+  saveBtn.disabled = false;
+  saveBtn.innerHTML = `<span id="saveBtnTxt">${t ? 'Save and analyse' : 'Spremi i analiziraj'}</span>`;
+
+  // Clear fields
+  ['triggerField','patternField','actionField','notesField'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.value = '';
+  });
+  document.querySelectorAll('.emo-btn').forEach(b => {
+    b.classList.remove('sel'); b.style.background = ''; b.style.borderColor = '';
+  });
+  formState.emotion = null;
+  document.getElementById('intSlider').value = 5;
+  document.getElementById('intVal').textContent = '5';
+
+  // Refresh list and stats
+  renderEntries();
+  renderStats();
+}
+
+// ── AI INSIGHT ──
+async function getAIInsight(entry) {
+  const t = entry.lang === 'en';
+  const emoName = emotions[entry.emotional_state]?.[entry.lang === 'en' ? 'en' : 'hr'] || entry.emotional_state;
+  const stepName = steps[entry.step]?.[entry.lang === 'en' ? 'en' : 'hr'] || entry.step;
+  const segName = segments[entry.segment]?.[entry.lang === 'en' ? 'en' : 'hr'] || entry.segment;
+
+  const prompt = t ? `
+You are LUME, a warm and grounded regenerative development guide. The user has written a journal entry. Respond with a short, personalised insight (2-3 sentences) and a concrete small action for today. Be human, not clinical. Avoid toxic positivity. Do not tell them how they feel.
+
+Entry:
+- Segment: ${segName}
+- Step: ${stepName} (Regulation → Understanding → Change)
+- Emotion: ${emoName} (intensity: ${entry.intensity}/10)
+- Trigger: ${entry.trigger || '—'}
+- Pattern noticed: ${entry.pattern_noted || '—'}
+- Small step: ${entry.action_taken || '—'}
+- Notes: ${entry.notes || '—'}
+
+Respond in JSON format only:
+{
+  "insight": "2-3 sentence insight in italic-worthy prose",
+  "action": "One concrete small action for today",
+  "tomorrow": "Short personalised message for tomorrow's banner (max 1 sentence)"
+}
+` : `
+Ti si LUME, topao i uzemljen vodič kroz regenerativni razvoj. Korisnik je napisao zapis u dnevnik. Odgovori kratkim, personaliziranim uvidom (2-3 rečenice) i konkretnim malim korakom za danas. Budi human, ne klinički. Izbjegavaj nametanje pozitivnih osjećaja. Ne govori korisniku kako se osjeća.
+
+Zapis:
+- Segment: ${segName}
+- Korak: ${stepName} (Regulacija → Razumijevanje → Promjena)
+- Emocija: ${emoName} (intenzitet: ${entry.intensity}/10)
+- Okidač: ${entry.trigger || '—'}
+- Primijećeni obrazac: ${entry.pattern_noted || '—'}
+- Mali korak: ${entry.action_taken || '—'}
+- Bilješke: ${entry.notes || '—'}
+
+Odgovori SAMO u JSON formatu:
+{
+  "insight": "Uvid od 2-3 rečenice u elegantnoj prozi",
+  "action": "Jedan konkretan mali korak za danas",
+  "tomorrow": "Kratka personalizirana poruka za sutrašnji banner (max 1 rečenica)"
+}
+`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    const data = await response.json();
+    const text = data.content?.map(c => c.text || '').join('') || '';
+    const clean = text.replace(/```json|```/g, '').trim();
+    const parsed = JSON.parse(clean);
+    return {
+      text: parsed.insight || (t ? 'Your reflection has been received.' : 'Tvoja refleksija je primljena.'),
+      action: parsed.action || '',
+      tomorrow: parsed.tomorrow || ''
+    };
+  } catch(e) {
+    // Fallback
+    const fallbacks = {
+      hr: {
+        overwhelmed: { text: 'Prepoznajemo tu težinu. Preplavljenost nije znak slabosti — ona je signal da nešto traži pažnju.', action: 'Jedna stvar za danas: napiši jednu rečenicu koja opisuje što ti treba.' },
+        frustrated: { text: 'Frustracija dolazi iz mjesta gdje naša očekivanja susreću stvarnost. To nije loše — to je informacija.', action: 'Identificiraj jednu stvar na koju imaš utjecaj u ovoj situaciji.' },
+        anxious: { text: 'Tjeskoba govori da nam je do nečega stalo. Pitanje je samo — što je ispod te tjeskobe?', action: 'Tri daha. Polako. I jedna konkretna stvar koju možeš napraviti sada.' },
+        default: { text: 'Svaki zapis je korak prema razumijevanju. Zahvaljujemo na iskrenosti.', action: 'Nastavi pratiti — obrasci postaju vidljivi tek kroz vrijeme.' }
+      },
+      en: {
+        overwhelmed: { text: 'We acknowledge that heaviness. Feeling overwhelmed is not weakness — it is a signal that something needs attention.', action: 'One thing for today: write one sentence describing what you need.' },
+        frustrated: { text: 'Frustration lives where our expectations meet reality. That is not bad — it is information.', action: 'Identify one thing you have influence over in this situation.' },
+        default: { text: 'Every entry is a step toward understanding. Thank you for your honesty.', action: 'Keep tracking — patterns only become visible over time.' }
+      }
+    };
+    const fb = fallbacks[entry.lang === 'en' ? 'en' : 'hr'];
+    const specific = fb[entry.emotional_state] || fb.default;
+    return { text: specific.text, action: specific.action, tomorrow: '' };
+  }
+}
+
+// ── DAILY MOMENT ──
+function generateDailyMoment(entry, tomorrowMsg) {
+  if(!tomorrowMsg) return;
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const moment = {
+    message: tomorrowMsg,
+    emotion_context: entry.emotional_state,
+    shown_date: tomorrow.toDateString(),
+    dismissed: false
+  };
+  saveDailyMoment(moment);
+}
+
+// ── RENDER ENTRIES ──
+function renderEntries() {
+  const entries = getEntries();
+  const list = document.getElementById('entriesList');
+  if(!list) return;
+
+  const filtered = currentFilter === 'sve'
+    ? entries
+    : entries.filter(e => e.segment === currentFilter);
+
+  if(filtered.length === 0) {
+    const t = lang === 'en';
+    list.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">📖</div>
+        <div class="empty-state-title">${t ? 'No entries yet' : 'Još nema zapisa'}</div>
+        <div class="empty-state-text">${t ? 'Your first entry is the most important one.' : 'Tvoj prvi zapis je najvažniji.'}</div>
+      </div>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map(entry => {
+    const emo = emotions[entry.emotional_state] || { icon: '💚', color: '#6BAF84', hr: entry.emotional_state, en: entry.emotional_state };
+    const emoName = lang === 'en' ? emo.en : emo.hr;
+    const step = steps[entry.step] || { hr: entry.step, en: entry.step };
+    const stepName = lang === 'en' ? step.en : step.hr;
+    const seg = segments[entry.segment] || { hr: entry.segment, en: entry.segment };
+    const segName = lang === 'en' ? seg.en : seg.hr;
+    const date = new Date(entry.date);
+    const dateStr = date.toLocaleDateString(lang === 'en' ? 'en-GB' : 'hr-HR', {
+      day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
+    });
+    const t = lang === 'en';
+
+    const intPct = (entry.intensity / 10) * 100;
+
+    return `
+    <div class="entry-card" id="ec${entry.id}">
+      <div class="entry-header" onclick="toggleEntry('ec${entry.id}')">
+        <div class="entry-emotion-badge" style="background:${emo.color}18;border:1px solid ${emo.color}40">
+          ${emo.icon}
+        </div>
+        <div class="entry-meta">
+          <div class="entry-date">${dateStr}</div>
+          <div class="entry-title">${entry.trigger || entry.pattern_noted || (t ? 'Reflection' : 'Refleksija')}</div>
+          <div class="entry-tags">
+            <span class="entry-tag">${segName}</span>
+            <span class="entry-tag">${stepName}</span>
+            <span class="entry-tag" style="background:${emo.color}18;color:${emo.color}">${emoName}</span>
+          </div>
+        </div>
+        <div class="entry-intensity" title="${t ? 'Intensity' : 'Intenzitet'}: ${entry.intensity}/10">
+          <div class="intensity-bar">
+            <div class="intensity-fill" style="width:${intPct}%;background:${emo.color}"></div>
+          </div>
+          <span style="font-size:11px;color:var(--text-ghost)">${entry.intensity}</span>
+        </div>
+        <div class="entry-toggle">▾</div>
+      </div>
+      <div class="entry-body">
+        ${entry.trigger ? `
+          <div class="entry-field">
+            <div class="entry-field-label">${t ? 'Trigger' : 'Okidač'}</div>
+            <div class="entry-field-text">${entry.trigger}</div>
+          </div>` : ''}
+        ${entry.pattern_noted ? `
+          <div class="entry-field">
+            <div class="entry-field-label">${t ? 'Pattern noticed' : 'Primijećeni obrazac'}</div>
+            <div class="entry-field-text">${entry.pattern_noted}</div>
+          </div>` : ''}
+        ${entry.action_taken ? `
+          <div class="entry-field">
+            <div class="entry-field-label">${t ? 'Small step' : 'Mali korak'}</div>
+            <div class="entry-field-text">${entry.action_taken}</div>
+          </div>` : ''}
+        ${entry.notes ? `
+          <div class="entry-field">
+            <div class="entry-field-label">${t ? 'Notes' : 'Bilješke'}</div>
+            <div class="entry-field-text">${entry.notes}</div>
+          </div>` : ''}
+        ${entry.ai_insight ? `
+          <div class="entry-ai-insight">
+            <div class="entry-ai-label">${t ? 'LUME insight' : 'LUME uvid'}</div>
+            <div class="entry-ai-text">${entry.ai_insight}</div>
+          </div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleEntry(id) {
+  document.getElementById(id)?.classList.toggle('open');
+}
+
+function filterEntries(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderEntries();
+}
+
+// ── RENDER STATS ──
+function renderStats() {
+  const entries = getEntries();
+  const t = lang === 'en';
+
+  // Total
+  const statTotal = document.getElementById('statTotal');
+  if(statTotal) statTotal.textContent = entries.length;
+
+  // Avg intensity
+  const statAvg = document.getElementById('statAvgInt');
+  if(statAvg) {
+    if(entries.length > 0) {
+      const avg = entries.reduce((s, e) => s + (e.intensity || 5), 0) / entries.length;
+      statAvg.textContent = avg.toFixed(1);
+    } else {
+      statAvg.textContent = '—';
+    }
+  }
+
+  // Top emotion
+  const statEmo = document.getElementById('statTopEmoContent');
+  if(statEmo && entries.length > 0) {
+    const counts = {};
+    entries.forEach(e => { counts[e.emotional_state] = (counts[e.emotional_state] || 0) + 1; });
+    const top = Object.entries(counts).sort((a,b) => b[1]-a[1])[0];
+    if(top) {
+      const emo = emotions[top[0]];
+      statEmo.innerHTML = `
+        <div style="font-size:28px;margin-bottom:4px">${emo?.icon || '💚'}</div>
+        <div class="stat-emotion">
+          <span class="emotion-dot" style="background:${emo?.color || '#6BAF84'}"></span>
+          ${lang === 'en' ? emo?.en : emo?.hr}
+        </div>`;
+    }
+  }
+
+  // Streak
+  const statStreak = document.getElementById('statStreak');
+  if(statStreak) statStreak.textContent = calcStreak(entries);
+}
+
+function calcStreak(entries) {
+  if(entries.length === 0) return 0;
+  const dates = [...new Set(entries.map(e => new Date(e.date).toDateString()))];
+  const today = new Date().toDateString();
+  let streak = 0;
+  let check = new Date();
+  while(true) {
+    if(dates.includes(check.toDateString())) {
+      streak++;
+      check.setDate(check.getDate() - 1);
+    } else break;
+  }
+  return streak;
+}
+
+// ── LANGUAGE ──
+let currentLang = 'hr';
+
+function toggleLang() {
+  lang = lang === 'hr' ? 'en' : 'hr';
+  applyLang();
+}
+
+function applyLang() {
+  const t = lang === 'en';
+  const set = (id, txt) => { const el = document.getElementById(id); if(el) el.textContent = txt; };
+  const setH = (id, html) => { const el = document.getElementById(id); if(el) el.innerHTML = html; };
+
+  set('langBtn', t ? 'HR' : 'EN');
+  set('navHome', t ? 'Home' : 'Početna');
+  set('navCore', 'Core');
+  set('navParents', 'Parents');
+  set('navLife', 'Life');
+  set('navDnevnik', t ? 'Journal' : 'Dnevnik');
+  set('navPregled', t ? 'Overview' : 'Pregled');
+
+  set('pageEyebrow', t ? 'Your space' : 'Tvoj prostor');
+  setH('pageTitle', t ? 'Awareness<br><em>journal</em>' : 'Dnevnik<br><em>svjesnosti</em>');
+  set('pageSubtitle', t ? 'Every entry is a step toward understanding. You do not need answers — you just need to start writing.' : 'Svaki zapis je korak prema razumijevanju. Ne trebaš imati odgovore — trebaš samo početi pisati.');
+  set('btnNewEntryTxt', t ? 'New entry' : 'Novi zapis');
+
+  set('statTotalLbl', t ? 'Total entries' : 'Ukupno zapisa');
+  set('statAvgIntLbl', t ? 'Average intensity' : 'Prosječni intenzitet');
+  set('statTopEmoLbl', t ? 'Most frequent emotion' : 'Najčešća emocija');
+  set('statStreakLbl', t ? 'Days in a row' : 'Dana zaredom');
+
+  set('filterAll', t ? 'All' : 'Sve');
+  set('filterCore', 'Core'); set('filterParents', 'Parents'); set('filterLife', 'Life');
+
+  set('formTitle', t ? 'New entry' : 'Novi zapis');
+  set('formSubtitle', t ? 'A few minutes of reflection — for you, no one else.' : 'Nekoliko minuta refleksije — za tebe, ne za nikoga drugog.');
+
+  set('segLabel', t ? 'Segment' : 'Segment');
+  set('segCore', 'Core'); set('segParents', 'Parents'); set('segLife', 'Life');
+
+  set('stepLabel', t ? 'Step' : 'Korak');
+  set('stepStanje', t ? 'State' : 'Stanje');
+  set('stepStanjeSub', t ? 'Regulation' : 'Regulacija');
+  set('stepObrazac', t ? 'Pattern' : 'Obrazac');
+  set('stepObrazacSub', t ? 'Understanding' : 'Razumijevanje');
+  set('stepSustav', t ? 'System' : 'Sustav');
+  set('stepSustavSub', t ? 'Change' : 'Promjena');
+
+  set('emoLabel', t ? 'How do you feel?' : 'Kako se osjećaš?');
+  set('e1', t ? 'Overwhelmed' : 'Preplavljeno');
+  set('e2', t ? 'Frustrated' : 'Frustrirano');
+  set('e3', t ? 'Anxious' : 'Tjeskobno');
+  set('e4', t ? 'Sad' : 'Tužno');
+  set('e5', t ? 'Confused' : 'Zbunjeno');
+  set('e6', t ? 'Calm' : 'Smireno');
+  set('e7', t ? 'Hopeful' : 'Nadajuće');
+  set('e8', t ? 'Stable' : 'Stabilno');
+
+  set('intLabel', t ? 'Intensity' : 'Intenzitet');
+  set('intLow', t ? 'Mild' : 'Blago');
+  set('intHigh', t ? 'Intense' : 'Intenzivno');
+
+  set('triggerLabel', t ? 'What triggered this?' : 'Što te pokrenulo?');
+  document.getElementById('triggerField')?.setAttribute('placeholder', t ? 'Situation, person, thought...' : 'Situacija, osoba, misao...');
+
+  set('patternLabel', t ? 'What do you notice?' : 'Što primjećuješ?');
+  document.getElementById('patternField')?.setAttribute('placeholder', t ? 'A pattern that repeats, an insight...' : 'Obrazac koji se ponavlja, uvid...');
+
+  set('actionLabel', t ? 'Small step' : 'Mali korak');
+  document.getElementById('actionField')?.setAttribute('placeholder', t ? 'One concrete thing you can do...' : 'Jedna konkretna stvar koju možeš napraviti...');
+
+  set('notesLabel', t ? 'Notes' : 'Bilješke');
+  document.getElementById('notesField')?.setAttribute('placeholder', t ? 'Free thoughts...' : 'Slobodne misli...');
+
+  set('saveBtnTxt', t ? 'Save and analyse' : 'Spremi i analiziraj');
+  set('dismissBtn', t ? 'Dismiss' : 'Zatvori');
+  set('aiRespLabel', t ? 'LUME insight' : 'LUME uvid');
+
+  renderEntries();
+  renderStats();
+}
+
+// ── SCROLL ANIMATIONS ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.boxShadow =
+    window.scrollY > 40 ? '0 1px 20px rgba(28,58,42,.07)' : 'none';
+});
+
+// ── INIT ──
+renderEntries();
+renderStats();
+checkDailyBanner();
+</script>
+</body>
+</html>
