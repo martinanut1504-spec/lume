@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUME Parents — Za roditelje koji žele biti prisutni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green-deep:  #1C3A2A;
+  --green-mid:   #2D5A3D;
+  --green-warm:  #3D7A52;
+  --green-light: #6BAF84;
+  --green-pale:  #C8E6D4;
+  --green-ghost: #EDF7F1;
+  --cream:       #F7F4EE;
+  --cream-dark:  #EDE8DF;
+  --cream-mid:   #E8E2D8;
+  --warm-white:  #FDFBF8;
+  --text-dark:   #1A2E22;
+  --text-mid:    #3D5C48;
+  --text-light:  #6B8C77;
+  --text-ghost:  #9BB8A6;
+  --gold:        #8A6A3A;
+  --gold-italic: #C4954A;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 48px;
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(247,244,238,.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(200,230,212,.3);
+}
+
+.nav-logo {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Fraunces', serif; font-size: 18px; font-weight: 300;
+  color: var(--green-deep); text-decoration: none; letter-spacing: .3px;
+}
+
+.nav-logo svg { width: 20px; height: 20px; }
+
+.nav-links {
+  display: flex; align-items: center; gap: 6px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 12px; font-weight: 400; color: var(--text-light);
+  text-decoration: none; padding: 5px 12px; border-radius: 999px;
+  transition: all .2s; letter-spacing: .2px;
+}
+
+.nav-links a:hover { color: var(--green-deep); background: var(--green-ghost); }
+.nav-links a.active { color: var(--green-deep); font-weight: 500; }
+
+.nav-right {
+  display: flex; align-items: center; gap: 10px;
+}
+
+.nav-lang {
+  padding: 5px 14px; border-radius: 999px;
+  border: 1px solid var(--cream-mid); background: transparent;
+  font-size: 11px; font-weight: 500; color: var(--text-light);
+  cursor: pointer; transition: all .2s; letter-spacing: .5px;
+  font-family: 'DM Sans', sans-serif;
+}
+.nav-lang:hover { border-color: var(--green-light); color: var(--green-deep); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  padding: 120px 48px 80px;
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 50% 60% at 90% 30%, rgba(107,175,132,.08) 0%, transparent 60%),
+    radial-gradient(ellipse 30% 40% at 5% 70%, rgba(45,90,61,.05) 0%, transparent 50%);
+}
+
+.hero-inner {
+  max-width: 1100px; margin: 0 auto; width: 100%;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+  position: relative; z-index: 1;
+}
+
+.hero-eyebrow {
+  font-size: 10px; font-weight: 500; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--green-warm);
+  margin-bottom: 20px;
+}
+
+.hero-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(42px, 5.5vw, 72px);
+  font-weight: 300; line-height: 1.05;
+  color: var(--green-deep); margin-bottom: 24px;
+  letter-spacing: -.5px;
+}
+
+.hero-title em {
+  font-style: italic; color: var(--gold-italic);
+}
+
+.hero-subtitle {
+  font-size: 15px; color: var(--text-mid);
+  line-height: 1.75; font-weight: 300;
+  max-width: 420px; margin-bottom: 40px;
+}
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 28px; border-radius: 999px;
+  background: var(--green-deep); color: var(--cream);
+  font-size: 13px; font-weight: 400; letter-spacing: .3px;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: all .25s; font-family: 'DM Sans', sans-serif;
+}
+.btn-primary:hover { background: var(--green-mid); transform: translateY(-1px); }
+
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 24px; border-radius: 999px;
+  background: transparent; color: var(--text-mid);
+  font-size: 13px; font-weight: 400;
+  text-decoration: none; border: 1px solid var(--cream-mid);
+  cursor: pointer; transition: all .25s;
+}
+.btn-ghost:hover { border-color: var(--green-light); color: var(--green-deep); }
+
+.hero-visual {
+  position: relative; display: flex; justify-content: center; align-items: center;
+}
+
+.hero-card {
+  background: var(--warm-white);
+  border-radius: 20px; padding: 32px;
+  box-shadow: 0 8px 40px rgba(28,58,42,.08);
+  max-width: 340px; width: 100%;
+  position: relative;
+}
+
+.hero-card-label {
+  font-size: 10px; font-weight: 500; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--green-warm);
+  margin-bottom: 16px;
+}
+
+.hero-card-title {
+  font-family: 'Fraunces', serif; font-size: 20px;
+  font-weight: 400; color: var(--green-deep);
+  margin-bottom: 12px; line-height: 1.3;
+}
+
+.hero-card-text {
+  font-size: 13px; color: var(--text-mid);
+  line-height: 1.7; font-weight: 300; margin-bottom: 20px;
+}
+
+.hero-card-quote {
+  padding: 14px 16px;
+  background: var(--green-ghost);
+  border-radius: 10px;
+  font-family: 'Fraunces', serif;
+  font-size: 14px; font-style: italic;
+  color: var(--green-deep); line-height: 1.6;
+}
+
+.hero-card-float {
+  position: absolute; top: -16px; right: -20px;
+  background: var(--warm-white); border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: 0 4px 20px rgba(28,58,42,.1);
+  font-size: 12px; color: var(--text-mid); font-weight: 400;
+  display: flex; align-items: center; gap: 8px;
+  white-space: nowrap;
+}
+
+.float-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--green-light);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .6; transform: scale(.85); }
+}
+
+/* ── SECTION COMMON ── */
+.section {
+  padding: 100px 48px;
+}
+
+.section-inner {
+  max-width: 1100px; margin: 0 auto;
+}
+
+.section-label {
+  font-size: 10px; font-weight: 500; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--green-warm);
+  margin-bottom: 14px; text-align: center;
+}
+
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 300; color: var(--green-deep);
+  line-height: 1.1; text-align: center;
+  margin-bottom: 16px;
+}
+
+.section-title em { font-style: italic; color: var(--gold-italic); }
+
+.section-subtitle {
+  font-size: 15px; color: var(--text-mid);
+  line-height: 1.7; font-weight: 300;
+  text-align: center; max-width: 540px;
+  margin: 0 auto 64px;
+}
+
+/* ── SITUATIONS ── */
+.situations-section {
+  background: var(--warm-white);
+}
+
+.sit-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.sit-card {
+  background: var(--cream); border-radius: 16px;
+  padding: 28px 32px;
+  border: 1px solid transparent;
+  transition: all .3s; cursor: default;
+  position: relative; overflow: hidden;
+}
+
+.sit-card:hover {
+  border-color: var(--green-pale);
+  box-shadow: 0 4px 24px rgba(28,58,42,.06);
+  transform: translateY(-2px);
+}
+
+.sit-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--green-pale);
+  transition: background .3s;
+}
+
+.sit-card:hover::before { background: var(--green-light); }
+
+.sit-num {
+  font-family: 'Fraunces', serif; font-size: 13px;
+  font-weight: 300; color: var(--green-light);
+  margin-bottom: 10px; font-style: italic;
+}
+
+.sit-title {
+  font-family: 'Fraunces', serif; font-size: 18px;
+  font-weight: 400; color: var(--green-deep);
+  margin-bottom: 10px;
+}
+
+.sit-text {
+  font-size: 13px; color: var(--text-mid);
+  line-height: 1.7; font-weight: 300;
+}
+
+/* ── MODEL ── */
+.model-section {
+  background: var(--cream);
+}
+
+.model-steps {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 2px; background: var(--cream-mid);
+  border-radius: 20px; overflow: hidden;
+  margin-top: 0;
+}
+
+.model-step {
+  background: var(--warm-white); padding: 44px 36px;
+  position: relative; transition: background .3s;
+}
+
+.model-step:hover { background: var(--green-ghost); }
+
+.step-num {
+  font-family: 'Fraunces', serif; font-size: 56px;
+  font-weight: 300; color: var(--green-pale);
+  line-height: 1; margin-bottom: 16px;
+  transition: color .3s;
+}
+
+.model-step:hover .step-num { color: var(--green-light); }
+
+.step-tag {
+  font-size: 9px; font-weight: 500; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--green-warm);
+  margin-bottom: 6px;
+}
+
+.step-title {
+  font-family: 'Fraunces', serif; font-size: 22px;
+  font-weight: 400; color: var(--green-deep);
+  margin-bottom: 12px;
+}
+
+.step-text {
+  font-size: 13px; color: var(--text-mid);
+  line-height: 1.75; font-weight: 300;
+}
+
+/* ── RAZLIKA ── */
+.diff-section {
+  background: var(--cream);
+  padding: 100px 48px;
+}
+
+.diff-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+}
+
+.diff-list {
+  list-style: none; display: flex; flex-direction: column; gap: 0;
+}
+
+.diff-item {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--cream-dark);
+  display: flex; align-items: flex-start; gap: 16px;
+  font-size: 14px; color: var(--text-mid);
+  line-height: 1.6; font-weight: 300;
+  transition: color .2s;
+}
+
+.diff-item:first-child { padding-top: 0; }
+.diff-item:last-child { border-bottom: none; }
+.diff-item:hover { color: var(--text-dark); }
+
+.diff-check {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--green-ghost); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+}
+
+.diff-x {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: #FFF0F0; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+}
+
+.diff-quote-card {
+  background: var(--green-deep); border-radius: 20px;
+  padding: 44px 40px; position: relative; overflow: hidden;
+}
+
+.diff-quote-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 80% 20%, rgba(107,175,132,.12) 0%, transparent 60%);
+}
+
+.diff-quote-text {
+  font-family: 'Fraunces', serif; font-size: 24px;
+  font-weight: 300; font-style: italic;
+  color: var(--cream); line-height: 1.5;
+  position: relative; z-index: 1; margin-bottom: 20px;
+}
+
+.diff-quote-text em { color: var(--green-pale); }
+
+.diff-quote-line {
+  width: 40px; height: 1px; background: var(--green-light);
+  position: relative; z-index: 1;
+}
+
+/* ── CTA ── */
+.cta-section {
+  background: var(--green-deep);
+  padding: 100px 48px; text-align: center;
+  position: relative; overflow: hidden;
+}
+
+.cta-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle 500px at 50% 50%, rgba(107,175,132,.1) 0%, transparent 70%);
+}
+
+.cta-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+
+.cta-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 300; color: var(--cream);
+  line-height: 1.15; margin-bottom: 16px;
+}
+
+.cta-title em { font-style: italic; color: var(--green-pale); }
+
+.cta-sub {
+  font-size: 15px; color: var(--green-pale);
+  line-height: 1.7; font-weight: 300;
+  margin-bottom: 40px;
+}
+
+.btn-light {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 32px; border-radius: 999px;
+  background: var(--cream); color: var(--green-deep);
+  font-size: 13px; font-weight: 500;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: all .25s;
+}
+.btn-light:hover { background: var(--warm-white); transform: translateY(-1px); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--green-deep);
+  border-top: 1px solid rgba(107,175,132,.12);
+  padding: 32px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.footer-logo {
+  font-family: 'Fraunces', serif; font-size: 18px;
+  font-weight: 300; color: var(--cream); opacity: .6;
+  letter-spacing: .3px;
+}
+
+.footer-links {
+  display: flex; gap: 24px; list-style: none;
+}
+
+.footer-links a {
+  font-size: 12px; color: var(--green-light);
+  text-decoration: none; transition: color .2s;
+}
+.footer-links a:hover { color: var(--cream); }
+
+/* ── ANIMATIONS ── */
+.fade-up {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.fade-up:nth-child(2) { transition-delay: .1s; }
+.fade-up:nth-child(3) { transition-delay: .2s; }
+.fade-up:nth-child(4) { transition-delay: .3s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hero, .section, .diff-section, .cta-section { padding: 80px 20px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .hero-visual { display: none; }
+  .sit-grid { grid-template-columns: 1fr; }
+  .model-steps { grid-template-columns: 1fr; }
+  .diff-inner { grid-template-columns: 1fr; gap: 48px; }
+  footer { flex-direction: column; gap: 20px; padding: 28px 20px; text-align: center; }
+}
+
+/* ── ODNOS SLIDER ── */
+.odnos-section {
+  padding: 100px 48px;
+  background: var(--cream);
+}
+
+.slider-dots {
+  display: flex; gap: 8px; justify-content: center;
+  margin-bottom: 32px;
+}
+
+.slider-dot {
+  width: 28px; height: 4px; border-radius: 999px;
+  background: var(--cream-dark); cursor: pointer;
+  transition: all .3s;
+}
+
+.slider-dot.active {
+  background: var(--green-warm); width: 36px;
+}
+
+.slider-wrap {
+  max-width: 760px; margin: 0 auto;
+  position: relative; overflow: hidden;
+}
+
+.slider-track {
+  display: flex;
+  transition: transform .5s cubic-bezier(.4,0,.2,1);
+}
+
+.slider-card {
+  min-width: 100%; padding: 40px 44px;
+  background: var(--warm-white);
+  border-radius: 20px;
+  border: 1px solid var(--cream-dark);
+}
+
+.slider-card-tag {
+  font-size: 10px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--green-warm);
+  margin-bottom: 16px;
+}
+
+.slider-card-quote {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 300; font-style: italic;
+  color: var(--green-deep); line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+.slider-card-text {
+  font-size: 14px; color: var(--text-mid);
+  line-height: 1.8; font-weight: 300;
+  margin-bottom: 24px;
+}
+
+.slider-card-cta {
+  font-size: 13px; font-weight: 500;
+  color: var(--green-warm); cursor: pointer;
+  text-decoration: none; display: inline-flex;
+  align-items: center; gap: 6px;
+  transition: gap .2s;
+}
+
+.slider-card-cta:hover { gap: 10px; }
+
+.slider-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 24px; max-width: 760px; margin-left: auto; margin-right: auto;
+}
+
+.slider-nav-btn {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; color: var(--text-light);
+  cursor: pointer; background: none; border: none;
+  padding: 8px 16px; border-radius: 999px;
+  transition: all .2s; font-family: 'DM Sans', sans-serif;
+}
+
+.slider-nav-btn:hover { color: var(--green-deep); background: var(--green-ghost); }
+.slider-nav-btn:disabled { opacity: .3; cursor: default; }
+.slider-nav-btn:disabled:hover { background: none; color: var(--text-light); }
+
+.slider-counter {
+  font-size: 12px; color: var(--text-ghost); letter-spacing: .5px;
+}
+
+@media (max-width: 900px) {
+  .odnos-section { padding: 80px 20px; }
+  .slider-card { padding: 28px 24px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../../" class="nav-logo">
+    <svg viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="9" r="5" fill="#2D5A3D"/>
+      <path d="M12 14v6" stroke="#2D5A3D" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M9 18h6" stroke="#6BAF84" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+    LUME
+  </a>
+  <ul class="nav-links">
+    <li><a href="../../" id="navPocetna">Početna</a></li>
+    <li><a href="../../core/" id="navCore">LUME Core</a></li>
+    <li><a href="#" class="active" id="navParents">LUME Parents</a></li>
+    <li><a href="index.html#proizvodi" id="navLife">LUME Life</a></li>
+    <li><a href="#" id="navDnevnik">Dnevnik</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-lang" onclick="toggleLang()" id="langBtn">EN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow fade-up visible" id="heroEyebrow">LUME Parents</div>
+      <h1 class="hero-title fade-up visible" id="heroTitle">
+        Za roditelje koji<br>
+        <em>žele biti prisutni</em><br>
+        — a ne savršeni
+      </h1>
+      <p class="hero-subtitle fade-up" id="heroSubtitle">
+        LUME Parents nije vodič kako biti bolji roditelj.
+        To je podrška da budeš stabilan/na, svjestan/na
+        i manje sam u trenucima koji su zahtjevni.
+      </p>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap" class="fade-up">
+        <a href="#app" class="btn-primary" id="heroCta">
+          Počni danas
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#situacije" class="btn-ghost" id="heroCtaGhost">Saznaj više</a>
+      </div>
+    </div>
+    <div class="hero-visual fade-up">
+      <div class="hero-card">
+        <div class="hero-card-float">
+          <div class="float-dot"></div>
+          <span id="floatText">Personalizirani profil</span>
+        </div>
+        <div class="hero-card-label" id="cardLabel">Savjet za tebe danas</div>
+        <div class="hero-card-title" id="cardTitle">Smirivanje ne znači predaju</div>
+        <p class="hero-card-text" id="cardText">
+          Kad ostaneš miran/mirna dok dijete ispadne —
+          ne popuštaš. Pokazuješ kako se regulira emocija.
+          To je najtočniji odgovor koji možeš dati.
+        </p>
+        <div class="hero-card-quote" id="cardQuote">
+          "Roditelj koji razumije sebe — razumije i dijete."
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SITUATIONS -->
+<section class="section situations-section" id="situacije">
+  <div class="section-inner">
+    <div class="section-label fade-up" id="sitLabel">Prepoznaješ li se?</div>
+    <h2 class="section-title fade-up" id="sitTitle">Situacije u kojima<br>LUME pomaže</h2>
+    <p class="section-subtitle fade-up" id="sitSubtitle">
+      Ne trebaju ti savjeti koje već znaš. Trebaš nekoga
+      tko te prati u trenutku — i vodi dalje.
+    </p>
+    <div class="sit-grid">
+      <div class="sit-card fade-up">
+        <div class="sit-num">01</div>
+        <div class="sit-title" id="sit1title">Dijete je u ispadima</div>
+        <p class="sit-text" id="sit1text">Plač, vikanje, odbijanje. Radiš sve što bi LUME. I ne znaš dalje. LUME te prati do prve stabilizacije — pa ne ostaješ uvijek.</p>
+      </div>
+      <div class="sit-card fade-up">
+        <div class="sit-num">02</div>
+        <div class="sit-title" id="sit2title">Komunikacija s djetetom</div>
+        <p class="sit-text" id="sit2text">Razgovaraš ali ne dospijevaš. LUME pomaže prepoznati obrasce i promijeniti pristup, ne dijete.</p>
+      </div>
+      <div class="sit-card fade-up">
+        <div class="sit-num">03</div>
+        <div class="sit-title" id="sit3title">Granice bez agresije</div>
+        <p class="sit-text" id="sit3text">Postavljaš granice koje dijete ruši — bez vikanja, bez predaje, koristeći pristup koji funkcionira.</p>
+      </div>
+      <div class="sit-card fade-up">
+        <div class="sit-num">04</div>
+        <div class="sit-title" id="sit4title">Vlastito punjenje</div>
+        <p class="sit-text" id="sit4text">Roditelj koji se brine ne može dati ono što nema. Tvoja stabilnost nije sebičnost — to je osnova.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ODNOS / DIJETE KAO ZRCALO -->
+<section class="odnos-section" id="odnos">
+  <div class="section-inner">
+    <div class="section-label fade-up" id="odnosLabel">Filozofija odnosa</div>
+    <h2 class="section-title fade-up" id="odnosTitle">Dijete kao zrcalo</h2>
+    <p class="section-subtitle fade-up" id="odnosSubtitle">
+      Iza svakog ponašanja postoji odnos.<br>
+      Iza svakog odnosa — naša percepcija.
+    </p>
+
+    <div class="slider-dots fade-up" id="sliderDots">
+      <div class="slider-dot active" onclick="goSlide(0)"></div>
+      <div class="slider-dot" onclick="goSlide(1)"></div>
+      <div class="slider-dot" onclick="goSlide(2)"></div>
+      <div class="slider-dot" onclick="goSlide(3)"></div>
+    </div>
+
+    <div class="slider-wrap fade-up">
+      <div class="slider-track" id="sliderTrack">
+
+        <!-- Card 1 -->
+        <div class="slider-card">
+          <div class="slider-card-tag" id="sc1tag">Zrcalo</div>
+          <div class="slider-card-quote" id="sc1quote">"Dijete je naše zrcalo."</div>
+          <p class="slider-card-text" id="sc1text">
+            Dijete ne reagira na ono što namjeravamo — reagira na ono što jesmo.
+            Svaka naša emocija, napetost, nesigurnost — sve to dijete upija,
+            često prije nego što mi sami to svjesno primijetimo.
+          </p>
+          <a class="slider-card-cta" href="app.html" id="sc1cta">
+            Reflektiraj za sebe →
+          </a>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="slider-card">
+          <div class="slider-card-tag" id="sc2tag">Nesvjesni obrasci</div>
+          <div class="slider-card-quote" id="sc2quote">"Naši nesvjesni obrasci imaju često veći utjecaj nego svjesni."</div>
+          <p class="slider-card-text" id="sc2text">
+            Možemo naučiti sve tehnike, čitati sve knjige —
+            ali ako naše tijelo i živčani sustav nose staru napetost,
+            dijete to osjeća. Ne krivimo sebe za to —
+            nego to vidimo kao polazišnu točku.
+          </p>
+          <a class="slider-card-cta" href="app.html" id="sc2cta">
+            Reflektiraj za sebe →
+          </a>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="slider-card">
+          <div class="slider-card-tag" id="sc3tag">Djetetov karakter</div>
+          <div class="slider-card-quote" id="sc3quote">"Svako dijete ima svoj svojstven karakter."</div>
+          <p class="slider-card-text" id="sc3text">
+            Dijete nije prazna ploča. Dolazi s temperamentom,
+            osjetljivošću, načinom doživljavanja svijeta koji je jedinstven.
+            Naša uloga nije oblikovati — nego razumjeti i pratiti.
+          </p>
+          <a class="slider-card-cta" href="app.html" id="sc3cta">
+            Reflektiraj za sebe →
+          </a>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="slider-card">
+          <div class="slider-card-tag" id="sc4tag">Percepcija</div>
+          <div class="slider-card-quote" id="sc4quote">"Kako percipiramo — tako reagiramo."</div>
+          <p class="slider-card-text" id="sc4text">
+            Naš odnos prema djetetu nije samo o djetetu —
+            nego o tome kako mi vidimo tu situaciju.
+            Ista scena, dva roditelja — potpuno različite reakcije.
+            Jer percipiramo kroz vlastitu historiju, stres, očekivanja.
+          </p>
+          <a class="slider-card-cta" href="app.html" id="sc4cta">
+            Reflektiraj za sebe →
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="slider-nav fade-up">
+      <button class="slider-nav-btn" id="sliderPrev" onclick="prevSlide()" disabled>
+        ‹ <span id="sliderPrevTxt">Prethodno</span>
+      </button>
+      <span class="slider-counter" id="sliderCounter">1 / 4</span>
+      <button class="slider-nav-btn" id="sliderNext" onclick="nextSlide()">
+        <span id="sliderNextTxt">Sljedeće</span> ›
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<!-- MODEL -->
+<section class="section model-section" id="model">
+  <div class="section-inner">
+    <div class="section-label fade-up" id="modelLabel">Model u praksi</div>
+    <h2 class="section-title fade-up" id="modelTitle">Kako to izgleda<br>za roditelja?</h2>
+    <p class="section-subtitle fade-up" id="modelSubtitle">
+      Tri koraka. Svaki konkretan. Svaki u pravo vrijeme.
+    </p>
+    <div class="model-steps">
+      <div class="model-step fade-up">
+        <div class="step-num">01</div>
+        <div class="step-tag" id="step1tag">Stanje — regulacija</div>
+        <div class="step-title" id="step1title">Smiri se ti</div>
+        <p class="step-text" id="step1text">Prije nego reagiraš na dijete — stani. LUME te prati kroz konkretne načine da se stabiliziraš u zahtjevnim trenucima.</p>
+      </div>
+      <div class="model-step fade-up">
+        <div class="step-num">02</div>
+        <div class="step-tag" id="step2tag">Obrazac — razumijevanje</div>
+        <div class="step-title" id="step2title">Što se zapravo događa?</div>
+        <p class="step-text" id="step2text">Vidiš što dijete traži ispod površine i vidiš što tvoje reakcije govore o tebi — bez osude, bez teorije, s razumijevanjem.</p>
+      </div>
+      <div class="model-step fade-up">
+        <div class="step-num">03</div>
+        <div class="step-tag" id="step3tag">Sustav — promjena</div>
+        <div class="step-title" id="step3title">Jedan mali korak</div>
+        <p class="step-text" id="step3text">Ne velika transformacija. Jedna konkretna stvar koja se mijenja — u komunikaciji, u rutini, u načinu reagiranja.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RAZLIKA -->
+<section class="diff-section" id="razlika">
+  <div class="diff-inner">
+    <div>
+      <div class="section-label fade-up" id="diffLabel">Razlika</div>
+      <h2 class="section-title fade-up" style="text-align:left;margin-bottom:20px" id="diffTitle">
+        Nismo još jedna<br>parenting aplikacija
+      </h2>
+      <p class="section-subtitle fade-up" style="text-align:left;margin-bottom:36px;max-width:none" id="diffSubtitle">
+        LUME ne govori kako biti savršen roditelj.
+      </p>
+      <ul class="diff-list fade-up">
+        <li class="diff-item">
+          <div class="diff-x">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#DC6B6B" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </div>
+          <span id="diff1">Ne govori ti kako bi trebao/la biti kao roditelj</span>
+        </li>
+        <li class="diff-item">
+          <div class="diff-x">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#DC6B6B" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </div>
+          <span id="diff2">Ne procjenjuje tko si kao roditelj</span>
+        </li>
+        <li class="diff-item">
+          <div class="diff-check">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#3D7A52" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <span id="diff3">Ne nudi gotove odgovore — radi na uzroku, ne simptomu</span>
+        </li>
+        <li class="diff-item">
+          <div class="diff-check">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#3D7A52" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <span id="diff4">Radi uz tebe — ne umjesto tebe</span>
+        </li>
+        <li class="diff-item">
+          <div class="diff-check">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#3D7A52" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <span id="diff5">Prati te u situaciji, ne samo u trenutku situacije</span>
+        </li>
+      </ul>
+    </div>
+    <div class="diff-quote-card fade-up">
+      <div class="diff-quote-bg"></div>
+      <p class="diff-quote-text" id="diffQuote">
+        "Roditelj koji razumije sebe —<br>
+        <em>razumije i dijete."</em>
+      </p>
+      <div class="diff-quote-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / APP -->
+<section class="cta-section" id="app">
+  <div class="cta-bg"></div>
+  <div class="cta-inner">
+    <h2 class="cta-title fade-up" id="ctaTitle">
+      Počni s jednim<br><em>trenutkom</em>
+    </h2>
+    <p class="cta-sub fade-up" id="ctaSub">
+      Otvori dnevnik, ispuni gdje si — i LUME je tu od odmah.
+    </p>
+    <div class="fade-up" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="parents.html" class="btn-light" id="ctaBtn">
+        Otvori dnevnik →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">LUME</div>
+  <ul class="footer-links">
+    <li><a href="../../" id="footerHome">Početna</a></li>
+    <li><a href="../../core/" id="footerCore">LUME Core</a></li>
+    <li><a href="index.html#proizvodi" id="footerLife">LUME Life</a></li>
+  </ul>
+  <div style="font-size:11px;color:var(--green-light);letter-spacing:.5px" id="footerCopy">
+    Regenerativni model razvoja · 2025
+  </div>
+</footer>
+
+<script>
+// ── LANG ──
+let lang = 'hr';
+
+const T = {
+  hr: {
+    langBtn: 'EN',
+    navPocetna: 'Početna', navCore: 'LUME Core', navParents: 'LUME Parents',
+    navLife: 'LUME Life', navDnevnik: 'Dnevnik',
+    heroEyebrow: 'LUME Parents',
+    heroTitle: 'Za roditelje koji<br><em>žele biti prisutni</em><br>— a ne savršeni',
+    heroSubtitle: 'LUME Parents nije vodič kako biti bolji roditelj. To je podrška da budeš stabilan/na, svjestan/na i manje sam u trenucima koji su zahtjevni.',
+    heroCta: 'Počni danas', heroCtaGhost: 'Saznaj više',
+    floatText: 'Personalizirani profil',
+    cardLabel: 'Savjet za tebe danas',
+    cardTitle: 'Smirivanje ne znači predaju',
+    cardText: 'Kad ostaneš miran/mirna dok dijete ispadne — ne popuštaš. Pokazuješ kako se regulira emocija. To je najtočniji odgovor koji možeš dati.',
+    cardQuote: '"Roditelj koji razumije sebe — razumije i dijete."',
+    sitLabel: 'Prepoznaješ li se?',
+    sitTitle: 'Situacije u kojima<br>LUME pomaže',
+    sitSubtitle: 'Ne trebaju ti savjeti koje već znaš. Trebaš nekoga tko te prati u trenutku — i vodi dalje.',
+    sit1title: 'Dijete je u ispadima', sit1text: 'Plač, vikanje, odbijanje. Radiš sve što znaš. I ne znaš dalje. LUME te prati do prve stabilizacije — i vodi dalje.',
+    sit2title: 'Komunikacija s djetetom', sit2text: 'Razgovaraš ali ne dospijevaš. LUME pomaže prepoznati obrasce i promijeniti pristup, ne dijete.',
+    sit3title: 'Granice bez agresije', sit3text: 'Postavljaš granice koje dijete ruši — bez vikanja, bez predaje, koristeći pristup koji funkcionira.',
+    sit4title: 'Vlastito punjenje', sit4text: 'Roditelj koji se brine ne može dati ono što nema. Tvoja stabilnost nije sebičnost — to je osnova.',
+    modelLabel: 'Model u praksi',
+    modelTitle: 'Kako to izgleda<br>za roditelja?',
+    modelSubtitle: 'Tri koraka. Svaki konkretan. Svaki u pravo vrijeme.',
+    step1tag: 'Stanje — regulacija', step1title: 'Smiri se ti',
+    step1text: 'Prije nego reagiraš na dijete — stani. LUME te prati kroz konkretne načine da se stabiliziraš u zahtjevnim trenucima.',
+    step2tag: 'Obrazac — razumijevanje', step2title: 'Što se zapravo događa?',
+    step2text: 'Vidiš što dijete traži ispod površine i vidiš što tvoje reakcije govore o tebi — bez osude, bez teorije, s razumijevanjem.',
+    step3tag: 'Sustav — promjena', step3title: 'Jedan mali korak',
+    step3text: 'Ne velika transformacija. Jedna konkretna stvar koja se mijenja — u komunikaciji, u rutini, u načinu reagiranja.',
+    diffLabel: 'Razlika',
+    diffTitle: 'Nismo još jedna<br>parenting aplikacija',
+    diffSubtitle: 'LUME ne govori kako biti savršen roditelj.',
+    diff1: 'Ne govori ti kako bi trebao/la biti kao roditelj',
+    diff2: 'Ne procjenjuje tko si kao roditelj',
+    diff3: 'Ne nudi gotove odgovore — radi na uzroku, ne simptomu',
+    diff4: 'Radi uz tebe — ne umjesto tebe',
+    diff5: 'Prati te u situaciji, ne samo u trenutku situacije',
+    diffQuote: '"Roditelj koji razumije sebe —<br><em>razumije i dijete."</em>',
+    ctaTitle: 'Počni s jednim<br><em>trenutkom</em>',
+    ctaSub: 'Otvori dnevnik, ispuni gdje si — i LUME je tu od odmah.',
+    ctaBtn: 'Otvori dnevnik →',
+    footerHome: 'Početna', footerCore: 'LUME Core', footerLife: 'LUME Life',
+    footerCopy: 'Regenerativni model razvoja · 2025',
+  },
+  en: {
+    langBtn: 'HR',
+    navPocetna: 'Home', navCore: 'LUME Core', navParents: 'LUME Parents',
+    navLife: 'LUME Life', navDnevnik: 'Journal',
+    heroEyebrow: 'LUME Parents',
+    heroTitle: 'For parents who want<br><em>to be present</em><br>— not perfect',
+    heroSubtitle: 'LUME Parents is not a guide to being a better parent. It is support to help you stay grounded, aware, and less alone in the moments that are demanding.',
+    heroCta: 'Start today', heroCtaGhost: 'Learn more',
+    floatText: 'Personalised profile',
+    cardLabel: 'For you today',
+    cardTitle: 'Staying calm is not giving in',
+    cardText: 'When you stay steady while your child melts down — you are not backing down. You are showing them how to regulate an emotion. That is the most accurate response you can give.',
+    cardQuote: '"A parent who understands themselves — understands their child."',
+    sitLabel: 'Does this sound familiar?',
+    sitTitle: 'Situations where<br>LUME helps',
+    sitSubtitle: 'You do not need advice you already know. You need someone to walk with you in the moment — and beyond.',
+    sit1title: 'Your child is in meltdown', sit1text: 'Crying, shouting, refusing. You are doing everything you know. And you do not know what is next. LUME walks you through the first stabilisation — and further.',
+    sit2title: 'Communication with your child', sit2text: 'You talk but you do not reach them. LUME helps you recognise the patterns and shift the approach — not the child.',
+    sit3title: 'Limits without aggression', sit3text: 'You set limits your child keeps pushing — without shouting, without giving in, using an approach that actually works.',
+    sit4title: 'Filling your own tank', sit4text: 'A depleted parent cannot give what they do not have. Your stability is not selfishness — it is the foundation.',
+    modelLabel: 'The model in practice',
+    modelTitle: 'What does this look<br>like for a parent?',
+    modelSubtitle: 'Three steps. Each concrete. Each at the right time.',
+    step1tag: 'State — regulation', step1title: 'Settle yourself first',
+    step1text: 'Before you react to your child — pause. LUME walks you through concrete ways to stabilise yourself in demanding moments.',
+    step2tag: 'Pattern — understanding', step2title: 'What is actually happening?',
+    step2text: 'See what your child is asking for beneath the surface — and what your reactions say about you. Without judgment, without theory. With understanding.',
+    step3tag: 'System — change', step3title: 'One small step',
+    step3text: 'Not a big transformation. One concrete thing that shifts — in communication, in routine, in how you respond.',
+    diffLabel: 'The difference',
+    diffTitle: 'We are not another<br>parenting app',
+    diffSubtitle: 'LUME does not tell you how to be a perfect parent.',
+    diff1: 'Does not tell you how you should be as a parent',
+    diff2: 'Does not judge who you are as a parent',
+    diff3: 'Does not offer ready-made answers — works on the cause, not the symptom',
+    diff4: 'Works alongside you — not instead of you',
+    diff5: 'Stays with you in the situation, not just in the moment of it',
+    diffQuote: '"A parent who understands themselves —<br><em>understands their child."</em>',
+    ctaTitle: 'Start with one<br><em>moment</em>',
+    ctaSub: 'Open the journal, share where you are — and LUME is there from the start.',
+    ctaBtn: 'Open the journal →',
+    footerHome: 'Home', footerCore: 'LUME Core', footerLife: 'LUME Life',
+    footerCopy: 'Regenerative development model · 2025',
+  }
+};
+
+function toggleLang() {
+  lang = lang === 'hr' ? 'en' : 'hr';
+  applyLang();
+}
+
+function applyLang() {
+  translateSlider();
+  const t = T[lang];
+  const set = (id, html) => { const el = document.getElementById(id); if(el) el.innerHTML = html; };
+  const setT = (id, text) => { const el = document.getElementById(id); if(el) el.textContent = text; };
+
+  setT('langBtn', t.langBtn);
+  setT('navPocetna', t.navPocetna); setT('navCore', t.navCore);
+  setT('navParents', t.navParents); setT('navLife', t.navLife); setT('navDnevnik', t.navDnevnik);
+  setT('heroEyebrow', t.heroEyebrow);
+  set('heroTitle', t.heroTitle);
+  setT('heroSubtitle', t.heroSubtitle);
+  setT('heroCta', t.heroCta); setT('heroCtaGhost', t.heroCtaGhost);
+  setT('floatText', t.floatText);
+  setT('cardLabel', t.cardLabel); setT('cardTitle', t.cardTitle);
+  setT('cardText', t.cardText); setT('cardQuote', t.cardQuote);
+  setT('sitLabel', t.sitLabel); set('sitTitle', t.sitTitle); setT('sitSubtitle', t.sitSubtitle);
+  setT('sit1title', t.sit1title); setT('sit1text', t.sit1text);
+  setT('sit2title', t.sit2title); setT('sit2text', t.sit2text);
+  setT('sit3title', t.sit3title); setT('sit3text', t.sit3text);
+  setT('sit4title', t.sit4title); setT('sit4text', t.sit4text);
+  setT('modelLabel', t.modelLabel); set('modelTitle', t.modelTitle); setT('modelSubtitle', t.modelSubtitle);
+  setT('step1tag', t.step1tag); setT('step1title', t.step1title); setT('step1text', t.step1text);
+  setT('step2tag', t.step2tag); setT('step2title', t.step2title); setT('step2text', t.step2text);
+  setT('step3tag', t.step3tag); setT('step3title', t.step3title); setT('step3text', t.step3text);
+  setT('diffLabel', t.diffLabel); set('diffTitle', t.diffTitle); setT('diffSubtitle', t.diffSubtitle);
+  setT('diff1', t.diff1); setT('diff2', t.diff2); setT('diff3', t.diff3);
+  setT('diff4', t.diff4); setT('diff5', t.diff5);
+  set('diffQuote', t.diffQuote);
+  set('ctaTitle', t.ctaTitle); setT('ctaSub', t.ctaSub); setT('ctaBtn', t.ctaBtn);
+  setT('footerHome', t.footerHome); setT('footerCore', t.footerCore); setT('footerLife', t.footerLife);
+  setT('footerCopy', t.footerCopy);
+}
+
+
+// ── SLIDER ──
+let slideIdx = 0;
+const TOTAL_SLIDES = 4;
+
+function goSlide(n) {
+  slideIdx = n;
+  updateSlider();
+}
+
+function nextSlide() {
+  if(slideIdx < TOTAL_SLIDES - 1) { slideIdx++; updateSlider(); }
+}
+
+function prevSlide() {
+  if(slideIdx > 0) { slideIdx--; updateSlider(); }
+}
+
+function updateSlider() {
+  const track = document.getElementById('sliderTrack');
+  if(track) track.style.transform = `translateX(-${slideIdx * 100}%)`;
+
+  // Dots
+  document.querySelectorAll('.slider-dot').forEach((d, i) => {
+    d.classList.toggle('active', i === slideIdx);
+  });
+
+  // Counter
+  const counter = document.getElementById('sliderCounter');
+  if(counter) counter.textContent = `${slideIdx + 1} / ${TOTAL_SLIDES}`;
+
+  // Buttons
+  const prev = document.getElementById('sliderPrev');
+  const next = document.getElementById('sliderNext');
+  if(prev) prev.disabled = slideIdx === 0;
+  if(next) next.disabled = slideIdx === TOTAL_SLIDES - 1;
+}
+
+function translateSlider() {
+  const t = lang === 'en';
+  const set = (id, txt) => { const el = document.getElementById(id); if(el) el.textContent = txt; };
+  const setH = (id, html) => { const el = document.getElementById(id); if(el) el.innerHTML = html; };
+
+  set('odnosLabel', t ? 'Philosophy of relationship' : 'Filozofija odnosa');
+  setH('odnosTitle', t ? 'The child as mirror' : 'Dijete kao zrcalo');
+  set('odnosSubtitle', t ? 'Behind every behaviour is a relationship.\nBehind every relationship — our perception.' : 'Iza svakog ponašanja postoji odnos.\nIza svakog odnosa — naša percepcija.');
+
+  // Cards
+  set('sc1tag', t ? 'Mirror' : 'Zrcalo');
+  set('sc1quote', t ? '"The child is our mirror."' : '"Dijete je naše zrcalo."');
+  set('sc1text', t ? 'A child does not react to what we intend — it reacts to what we are. Every emotion, tension, insecurity we carry — our child absorbs it, often before we consciously notice it ourselves.' : 'Dijete ne reagira na ono što namjeravamo — reagira na ono što jesmo. Svaka naša emocija, napetost, nesigurnost — sve to dijete upija, često prije nego što mi sami to svjesno primijetimo.');
+  set('sc1cta', t ? 'Reflect for yourself →' : 'Reflektiraj za sebe →');
+
+  set('sc2tag', t ? 'Unconscious patterns' : 'Nesvjesni obrasci');
+  set('sc2quote', t ? '"Our unconscious patterns often have a greater impact than conscious ones."' : '"Naši nesvjesni obrasci imaju često veći utjecaj nego svjesni."');
+  set('sc2text', t ? 'We can learn every technique, read every book — but if our body and nervous system still carry old tension, our child feels it. We do not blame ourselves for this — we see it as a starting point.' : 'Možemo naučiti sve tehnike, čitati sve knjige — ali ako naše tijelo i živčani sustav nose staru napetost, dijete to osjeća. Ne krivimo sebe za to — nego to vidimo kao polazišnu točku.');
+  set('sc2cta', t ? 'Reflect for yourself →' : 'Reflektiraj za sebe →');
+
+  set('sc3tag', t ? "The child's character" : 'Djetetov karakter');
+  set('sc3quote', t ? '"Every child has their own distinct character."' : '"Svako dijete ima svoj svojstven karakter."');
+  set('sc3text', t ? 'A child is not a blank slate. They arrive with a temperament, a sensitivity, a way of experiencing the world that is uniquely their own. Our role is not to shape — but to understand and accompany.' : 'Dijete nije prazna ploča. Dolazi s temperamentom, osjetljivošću, načinom doživljavanja svijeta koji je jedinstven. Naša uloga nije oblikovati — nego razumjeti i pratiti.');
+  set('sc3cta', t ? 'Reflect for yourself →' : 'Reflektiraj za sebe →');
+
+  set('sc4tag', t ? 'Perception' : 'Percepcija');
+  set('sc4quote', t ? '"How we perceive — is how we react."' : '"Kako percipiramo — tako reagiramo."');
+  set('sc4text', t ? 'Our relationship with our child is not only about the child — it is about how we see the situation. The same scene, two parents — completely different reactions. Because we perceive through our own history, stress and expectations.' : 'Naš odnos prema djetetu nije samo o djetetu — nego o tome kako mi vidimo tu situaciju. Ista scena, dva roditelja — potpuno različite reakcije. Jer percipiramo kroz vlastitu historiju, stres, očekivanja.');
+  set('sc4cta', t ? 'Reflect for yourself →' : 'Reflektiraj za sebe →');
+
+  set('sliderPrevTxt', t ? 'Previous' : 'Prethodno');
+  set('sliderNextTxt', t ? 'Next' : 'Sljedeće');
+  const counter = document.getElementById('sliderCounter');
+  if(counter) counter.textContent = `${slideIdx + 1} / ${TOTAL_SLIDES}`;
+}
+
+// ── SCROLL ANIMATIONS ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.fade-up:not(.visible)').forEach(el => observer.observe(el));
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  nav.style.boxShadow = window.scrollY > 40
+    ? '0 1px 20px rgba(28,58,42,.07)'
+    : 'none';
+});
+</script>
+</body>
+</html>
