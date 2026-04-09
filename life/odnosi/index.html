@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUME Odnosi — Razumjeti veze koje gradimo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green-deep:  #1C3A2A;
+  --green-mid:   #2D5A3D;
+  --green-warm:  #3D7A52;
+  --green-light: #6BAF84;
+  --green-pale:  #C8E6D4;
+  --green-ghost: #EDF7F1;
+  --cream:       #F7F4EE;
+  --cream-dark:  #EDE8DF;
+  --cream-mid:   #E8E2D8;
+  --warm-white:  #FDFBF8;
+  --text-dark:   #1A2E22;
+  --text-mid:    #3D5C48;
+  --text-light:  #6B8C77;
+  --text-ghost:  #9BB8A6;
+  --gold:        #C4954A;
+  --gold-light:  #E8D5A3;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 48px; height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(247,244,238,.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(200,230,212,.3);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Fraunces', serif; font-size: 18px; font-weight: 300;
+  color: var(--green-deep); text-decoration: none;
+}
+.nav-logo svg { width: 20px; height: 20px; }
+.nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
+.nav-links a {
+  font-size: 12px; color: var(--text-light);
+  text-decoration: none; padding: 5px 12px; border-radius: 999px;
+  transition: all .2s;
+}
+.nav-links a:hover { color: var(--green-deep); background: var(--green-ghost); }
+.nav-links a.active { color: var(--green-deep); font-weight: 500; background: var(--green-ghost); }
+.nav-lang {
+  padding: 5px 14px; border-radius: 999px;
+  border: 1px solid var(--cream-mid); background: transparent;
+  font-size: 11px; font-weight: 500; color: var(--text-light);
+  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .2s;
+}
+.nav-lang:hover { border-color: var(--green-light); color: var(--green-deep); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh; padding: 120px 48px 80px;
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  background: var(--green-deep);
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 30%, rgba(107,175,132,.12) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 10% 70%, rgba(200,230,212,.06) 0%, transparent 50%);
+  animation: shimmer 14s ease-in-out infinite alternate;
+}
+@keyframes shimmer {
+  0%,100% { opacity: 1; }
+  50% { opacity: .6; }
+}
+.hero-inner {
+  max-width: 1100px; margin: 0 auto; width: 100%;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+  position: relative; z-index: 1;
+}
+.hero-eyebrow {
+  font-size: 10px; font-weight: 500; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--green-light);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--green-light); }
+.hero-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(44px, 6vw, 80px);
+  font-weight: 300; line-height: 1.05;
+  color: var(--cream); letter-spacing: -.5px; margin-bottom: 24px;
+}
+.hero-title em { font-style: italic; color: var(--green-pale); }
+.hero-subtitle {
+  font-size: 15px; color: var(--green-pale);
+  line-height: 1.8; font-weight: 300;
+  max-width: 440px; margin-bottom: 40px;
+}
+.btn-light {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 32px; border-radius: 999px;
+  background: var(--cream); color: var(--green-deep);
+  font-size: 13px; font-weight: 500;
+  text-decoration: none; transition: all .25s;
+}
+.btn-light:hover { background: var(--warm-white); transform: translateY(-1px); }
+
+/* Hero visual */
+.hero-visual { }
+.dialogue-card {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(200,230,212,.15);
+  border-radius: 20px; padding: 32px;
+}
+.dialogue-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--green-light);
+  margin-bottom: 20px;
+}
+.msg {
+  margin-bottom: 12px; display: flex; flex-direction: column;
+}
+.msg.right { align-items: flex-end; }
+.msg-bubble {
+  max-width: 80%; padding: 12px 16px; border-radius: 16px;
+  font-size: 13px; line-height: 1.6; font-weight: 300;
+}
+.msg.left .msg-bubble {
+  background: rgba(200,230,212,.15); color: var(--cream);
+  border-radius: 4px 16px 16px 16px;
+}
+.msg.right .msg-bubble {
+  background: rgba(107,175,132,.25); color: var(--green-pale);
+  border-radius: 16px 4px 16px 16px;
+}
+.msg-name {
+  font-size: 10px; color: var(--text-ghost);
+  margin-top: 4px; letter-spacing: .5px;
+}
+.dialogue-insight {
+  margin-top: 20px; padding: 14px 16px;
+  background: rgba(200,230,212,.1);
+  border-left: 2px solid var(--green-light);
+  border-radius: 0 10px 10px 0;
+  font-family: 'Fraunces', serif; font-size: 13px;
+  font-style: italic; color: var(--green-pale); line-height: 1.6;
+}
+
+/* ── SECTION COMMON ── */
+.section { padding: 100px 48px; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-label {
+  font-size: 10px; font-weight: 500; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--green-warm);
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-label::before { content: ''; width: 24px; height: 1px; background: var(--green-warm); }
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 300; color: var(--green-deep);
+  line-height: 1.1; margin-bottom: 20px;
+}
+.section-title em { font-style: italic; color: var(--gold); }
+.section-subtitle {
+  font-size: 15px; color: var(--text-mid);
+  line-height: 1.7; font-weight: 300;
+  max-width: 540px; margin-bottom: 64px;
+}
+
+/* ── SITUATIONS ── */
+.sit-section { background: var(--warm-white); }
+.sit-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.sit-card {
+  background: var(--cream); border-radius: 16px;
+  padding: 28px 32px; border: 1px solid transparent;
+  transition: all .3s; position: relative; overflow: hidden;
+}
+.sit-card:hover { border-color: var(--green-pale); transform: translateY(-2px); }
+.sit-card::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 3px; height: 100%; background: var(--green-pale);
+  transition: background .3s;
+}
+.sit-card:hover::before { background: var(--green-light); }
+.sit-num {
+  font-family: 'Fraunces', serif; font-size: 13px;
+  font-weight: 300; color: var(--green-light);
+  margin-bottom: 10px; font-style: italic;
+}
+.sit-title {
+  font-family: 'Fraunces', serif; font-size: 18px;
+  font-weight: 400; color: var(--green-deep); margin-bottom: 10px;
+}
+.sit-text {
+  font-size: 13px; color: var(--text-mid);
+  line-height: 1.75; font-weight: 300;
+}
+
+/* ── MIRROR PHILOSOPHY ── */
+.mirror-section { background: var(--cream); }
+.mirror-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+}
+.mirror-text { }
+.mirror-visual {
+  background: var(--green-deep); border-radius: 24px;
+  padding: 44px 40px; position: relative; overflow: hidden;
+}
+.mirror-visual-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle 300px at 50% 50%, rgba(107,175,132,.1) 0%, transparent 70%);
+}
+.mirror-quote {
+  font-family: 'Fraunces', serif; font-size: 22px;
+  font-weight: 300; font-style: italic;
+  color: var(--cream); line-height: 1.5;
+  margin-bottom: 20px; position: relative; z-index: 1;
+}
+.mirror-quote em { color: var(--green-pale); }
+.mirror-line {
+  width: 40px; height: 1px; background: var(--green-light);
+  position: relative; z-index: 1; margin-bottom: 20px;
+}
+.mirror-sub {
+  font-size: 13px; color: var(--green-pale);
+  line-height: 1.7; font-weight: 300;
+  position: relative; z-index: 1;
+}
+
+/* ── PRINCIPLES ── */
+.principles-section { background: var(--warm-white); }
+.principles-list {
+  display: flex; flex-direction: column; gap: 0;
+  border: 1px solid var(--cream-dark); border-radius: 20px; overflow: hidden;
+}
+.principle-item {
+  padding: 36px 44px; border-bottom: 1px solid var(--cream-dark);
+  display: grid; grid-template-columns: 60px 1fr;
+  gap: 28px; align-items: start;
+  background: var(--warm-white); transition: background .3s;
+}
+.principle-item:last-child { border-bottom: none; }
+.principle-item:hover { background: var(--green-ghost); }
+.principle-n {
+  font-family: 'Fraunces', serif; font-size: 44px;
+  font-weight: 300; color: var(--green-pale); line-height: 1;
+  transition: color .3s;
+}
+.principle-item:hover .principle-n { color: var(--green-light); }
+.principle-tag {
+  font-size: 10px; font-weight: 500; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--green-warm); margin-bottom: 6px;
+}
+.principle-title {
+  font-family: 'Fraunces', serif; font-size: 24px;
+  font-weight: 400; color: var(--green-deep); margin-bottom: 10px;
+}
+.principle-text {
+  font-size: 14px; color: var(--text-mid);
+  line-height: 1.8; font-weight: 300;
+}
+
+/* ── REPAIR ── */
+.repair-section { background: var(--cream); }
+.repair-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+}
+.repair-steps {
+  display: flex; flex-direction: column; gap: 16px;
+}
+.repair-step {
+  background: var(--warm-white); border-radius: 14px;
+  padding: 20px 24px; border: 1px solid var(--cream-dark);
+  display: flex; gap: 16px; align-items: flex-start;
+  transition: all .2s;
+}
+.repair-step:hover { border-color: var(--green-pale); }
+.repair-step-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--green-ghost); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif; font-size: 14px;
+  font-weight: 400; color: var(--green-warm);
+}
+.repair-step-title {
+  font-size: 14px; font-weight: 500; color: var(--green-deep);
+  margin-bottom: 4px;
+}
+.repair-step-text {
+  font-size: 12px; color: var(--text-light);
+  line-height: 1.6; font-weight: 300;
+}
+
+/* ── QUOTE ── */
+.quote-section {
+  background: var(--green-deep); padding: 100px 48px;
+  text-align: center; position: relative; overflow: hidden;
+}
+.quote-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle 500px at 50% 50%, rgba(107,175,132,.1) 0%, transparent 70%);
+}
+.quote-inner { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+.quote-text {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(24px, 4vw, 44px);
+  font-weight: 300; font-style: italic;
+  color: var(--cream); line-height: 1.4; margin-bottom: 20px;
+}
+.quote-text em { color: var(--green-pale); }
+.quote-attr { font-size: 12px; color: var(--green-light); letter-spacing: 1.5px; text-transform: uppercase; }
+
+/* ── CTA ── */
+.cta-section { padding: 100px 48px; background: var(--cream); text-align: center; }
+.cta-inner { max-width: 560px; margin: 0 auto; }
+.cta-title {
+  font-family: 'Fraunces', serif; font-size: clamp(32px, 4vw, 52px);
+  font-weight: 300; color: var(--green-deep); line-height: 1.15; margin-bottom: 16px;
+}
+.cta-title em { font-style: italic; color: var(--gold); }
+.cta-sub { font-size: 15px; color: var(--text-mid); line-height: 1.7; font-weight: 300; margin-bottom: 40px; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 32px; border-radius: 999px;
+  background: var(--green-deep); color: var(--cream);
+  font-size: 13px; font-weight: 400;
+  text-decoration: none; transition: all .25s;
+}
+.btn-primary:hover { background: var(--green-mid); transform: translateY(-1px); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--green-deep); border-top: 1px solid rgba(107,175,132,.12);
+  padding: 32px 48px; display: flex; align-items: center; justify-content: space-between;
+}
+.footer-logo { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 300; color: var(--cream); opacity: .6; }
+.footer-links { display: flex; gap: 24px; list-style: none; }
+.footer-links a { font-size: 12px; color: var(--green-light); text-decoration: none; transition: color .2s; }
+.footer-links a:hover { color: var(--cream); }
+
+/* ── ANIMATIONS ── */
+.fade-up { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.fade-up:nth-child(2) { transition-delay: .1s; }
+.fade-up:nth-child(3) { transition-delay: .2s; }
+.fade-up:nth-child(4) { transition-delay: .3s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hero, .section, .quote-section, .cta-section { padding: 80px 20px; }
+  .hero-inner, .mirror-inner, .repair-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero-visual { display: none; }
+  .sit-grid { grid-template-columns: 1fr; }
+  .principle-item { grid-template-columns: 1fr; gap: 8px; padding: 28px 20px; }
+  footer { flex-direction: column; gap: 20px; padding: 28px 20px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../../" class="nav-logo">
+    <svg viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="9" r="5" fill="#2D5A3D"/>
+      <path d="M12 14v6" stroke="#2D5A3D" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M9 18h6" stroke="#6BAF84" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+    LUME
+  </a>
+  <ul class="nav-links">
+    <li><a href="../../" id="navHome">Početna</a></li>
+    <li><a href="../../core/" id="navCore">Core</a></li>
+    <li><a href="../" id="navLife">Life</a></li>
+    <li><a href="../../dnevnik/" id="navDnevnik">Dnevnik</a></li>
+    <li><a href="../../pregled/" id="navPregled">Pregled</a></li>
+  </ul>
+  <button class="nav-lang" onclick="toggleLang()" id="langBtn">EN</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow fade-up visible" id="heroEyebrow">LUME Odnosi</div>
+      <h1 class="hero-title fade-up visible" id="heroTitle">
+        Veze koje<br>
+        <em>gradimo</em> —<br>
+        i one koje nas<br>grade.
+      </h1>
+      <p class="hero-subtitle fade-up" id="heroSubtitle">
+        Ponavljajući konflikti, povlačenje, nemogućnost da se čuješ.
+        U partnerskim odnosima često se sudaraju naša percepcija osobe s kojom smo — i stvarna osoba koja stoji ispred nas.
+        Nedostatak otvorene komunikacije budi još dublje nerazumijevanje.
+        I kompleksno je — jer često ne znamo koliko je razumijevanje s druge strane.
+        Samo smo mi ti koji našim odnosima dajemo smisao.
+        LUME pomaže razumjeti obrasce koji vladaju tvojim bliskim vezama — i graditi odnose koji zaista hrane.
+      </p>
+      <a href="../../dnevnik/" class="btn-light fade-up" id="heroCta">
+        Počni refleksiju →
+      </a>
+    </div>
+    <div class="hero-visual fade-up">
+      <div class="dialogue-card">
+        <div class="dialogue-label" id="dialogueLabel">Tipičan obrazac</div>
+        <div class="msg left">
+          <div class="msg-bubble" id="msg1">"Nikad me ne slušaš — ne poštuješ me nimalo."</div>
+          <div class="msg-name" id="msg1name">Ona/On</div>
+        </div>
+        <div class="msg right">
+          <div class="msg-bubble" id="msg2">"Uvijek pretjeruješ — ne uvažavaš me."</div>
+          <div class="msg-name" id="msg2name">Partner/ica</div>
+        </div>
+        <div class="msg left">
+          <div class="msg-bubble" id="msg3">"Zaboravi, nema smisla — ti ionako mene ne doživljavaš."</div>
+        </div>
+        <div class="dialogue-insight" id="dialogueInsight">
+          Isti krug. Ista rečenica. Isti osjećaj. —
+          LUME pomaže izaći iz kruga.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SITUATIONS -->
+<section class="section sit-section">
+  <div class="section-inner">
+    <div class="section-label fade-up" id="sitLabel">Prepoznaješ li se?</div>
+    <h2 class="section-title fade-up" id="sitTitle">
+      Situacije u kojima<br><em>LUME Odnosi pomaže</em>
+    </h2>
+    <p class="section-subtitle fade-up" id="sitSubtitle">
+      Nije stvar u tome da nemaš dobre namjere.
+      Stvar je u obrascima koji se aktiviraju i vode umjesto tebe.
+    </p>
+    <div class="sit-grid">
+      <div class="sit-card fade-up">
+        <div class="sit-num">01</div>
+        <div class="sit-title" id="sit1title">Isti konflikti u krug</div>
+        <p class="sit-text" id="sit1text">Razgovarate o istoj temi iznova — i uvijek završi na istom mjestu. Netko se zatvori, netko napadne, netko popusti. Krug se ponavlja.</p>
+      </div>
+      <div class="sit-card fade-up">
+        <div class="sit-num">02</div>
+        <div class="sit-title" id="sit2title">Nemogućnost da se čuješ</div>
+        <p class="sit-text" id="sit2text">Govoriš — ali ne dolaziš. Osjećaš da te druga osoba ne razumije, ili da moraš stalno objašnjavati ono što bi trebalo biti očito.</p>
+      </div>
+      <div class="sit-card fade-up">
+        <div class="sit-num">03</div>
+        <div class="sit-title" id="sit3title">Povlačenje i distanca</div>
+        <p class="sit-text" id="sit3text">U konfliktu se jedna ili obje strane zatvore. Tišina koja traje predugo. Osjećaj da se udaljavate — i da ne znate kako to prekinuti.</p>
+      </div>
+      <div class="sit-card fade-up">
+        <div class="sit-num">04</div>
+        <div class="sit-title" id="sit4title">Obrasci iz prošlosti</div>
+        <p class="sit-text" id="sit4text">Reagiraš na partnera/icu — ali odgovaraš na nekoga drugog iz prošlosti. Stari obrasci aktiviraju se u sadašnjim vezama.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MIRROR -->
+<section class="section mirror-section">
+  <div class="mirror-inner">
+    <div class="mirror-text">
+      <div class="section-label fade-up" id="mirrorLabel">Filozofija odnosa</div>
+      <h2 class="section-title fade-up" id="mirrorTitle">
+        Odnos je<br><em>ogledalo</em> —<br>
+        oboje.
+      </h2>
+      <p class="section-subtitle fade-up" style="margin-bottom:24px" id="mirrorText1">
+        U svakom odnosu postoje dva ogledala.
+        Ono što vidimo u drugoj osobi — često govori
+        o nama. Ono što nas na njoj smeta — ponekad
+        je ono što ne vidimo u sebi.
+      </p>
+      <p style="font-size:15px;color:var(--text-mid);line-height:1.7;font-weight:300" class="fade-up" id="mirrorText2">
+        Ali i obrnuto — druga osoba donosi svoje obrasce,
+        svoju historiju, svoju percepciju. Razumjeti
+        to razlikovanje — tko je čiji obrazac —
+        je početak promjene.
+      </p>
+    </div>
+    <div class="mirror-visual fade-up">
+      <div class="mirror-visual-bg"></div>
+      <div class="mirror-quote" id="mirrorQuote">
+        "U konfliktu ne sudjeluju dvije osobe —
+        <em>sudjeluju dvije historije."</em>
+      </div>
+      <div class="mirror-line"></div>
+      <p class="mirror-sub" id="mirrorSub">
+        Svaki konflikt nosi u sebi dva sloja:
+        ono što se događa sada — i ono što je
+        aktivirano iz prošlosti. LUME pomaže
+        razlikovati jedno od drugog.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPLES -->
+<section class="section principles-section">
+  <div class="section-inner">
+    <div class="section-label fade-up" id="princLabel">Tri principa</div>
+    <h2 class="section-title fade-up" id="princTitle">
+      Na čemu LUME Odnosi<br><em>radi</em>
+    </h2>
+    <p class="section-subtitle fade-up" id="princSubtitle">
+      Ne na tehnikama komunikacije —
+      nego na razumijevanju što se ispod komunikacije događa.
+    </p>
+    <div class="principles-list fade-up">
+      <div class="principle-item">
+        <div class="principle-n">01</div>
+        <div>
+          <div class="principle-tag" id="pr1tag">Svjesnost</div>
+          <div class="principle-title" id="pr1title">Prepoznaj svoj obrazac u odnosu</div>
+          <p class="principle-text" id="pr1text">
+            Svaki od nas donosi obrazac u vezu — iz djetinjstva,
+            iz prošlih iskustava, iz načina kako smo naučili
+            da se nosimo s bliskošću i konfliktom.
+            Prepoznati taj obrazac je prvi korak prema slobodi izbora.
+          </p>
+        </div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-n">02</div>
+        <div>
+          <div class="principle-tag" id="pr2tag">Razumijevanje</div>
+          <div class="principle-title" id="pr2title">Vidi drugu osobu — ne svoju projekciju</div>
+          <p class="principle-text" id="pr2text">
+            Kako vidimo drugu osobu — tako reagiramo na nju.
+            Ako je vidimo kao protivnika, reagiramo obrambeno.
+            Ako je vidimo kao osobu koja nešto traži —
+            reagiramo s razumijevanjem. Percepcija vodi sve.
+          </p>
+        </div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-n">03</div>
+        <div>
+          <div class="principle-tag" id="pr3tag">Repair</div>
+          <div class="principle-title" id="pr3title">Što radimo nakon sukoba gradi odnos</div>
+          <p class="principle-text" id="pr3text">
+            Nije stvar u savršenoj komunikaciji —
+            nego u tome što radimo nakon što pogriješimo.
+            Repair je sposobnost vraćanja u kontakt
+            nakon prekida. To je ono što gradi povjerenje,
+            ne izostanak konflikta.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REPAIR -->
+<section class="section repair-section">
+  <div class="repair-inner">
+    <div>
+      <div class="section-label fade-up" id="repairLabel">Repair</div>
+      <h2 class="section-title fade-up" id="repairTitle">
+        Ono što dolazi<br><em>nakon</em> konflikta
+      </h2>
+      <p style="font-size:15px;color:var(--text-mid);line-height:1.7;font-weight:300;max-width:420px;margin-bottom:0" class="fade-up" id="repairText">
+        Svi griješimo u odnosima. Svi kažemo nešto
+        što ne bismo trebali, reagiramo iz obrasca,
+        povučemo se kad bi trebalo ostati.
+        Ono što razlikuje zdrave odnose nije izostanak
+        tih trenutaka — nego što radimo s njima.
+      </p>
+    </div>
+    <div class="repair-steps fade-up">
+      <div class="repair-step">
+        <div class="repair-step-num">1</div>
+        <div>
+          <div class="repair-step-title" id="rs1title">Primijetiti — bez obrane</div>
+          <div class="repair-step-text" id="rs1text">Prepoznati što se dogodilo — bez opravdavanja i bez samobičevanja.</div>
+        </div>
+      </div>
+      <div class="repair-step">
+        <div class="repair-step-num">2</div>
+        <div>
+          <div class="repair-step-title" id="rs2title">Ime onome što se dogodilo</div>
+          <div class="repair-step-text" id="rs2text">"Reagirao/la sam iz straha, ne iz tebe." — jedna rečenica koja vraća kontakt.</div>
+        </div>
+      </div>
+      <div class="repair-step">
+        <div class="repair-step-num">3</div>
+        <div>
+          <div class="repair-step-title" id="rs3title">Isprika kao snaga</div>
+          <div class="repair-step-text" id="rs3text">Isprika nije slabost — ona uči drugu osobu da se odnosi mogu popraviti. To gradi sigurnost.</div>
+        </div>
+      </div>
+      <div class="repair-step">
+        <div class="repair-step-num">4</div>
+        <div>
+          <div class="repair-step-title" id="rs4title">Povratak u kontakt</div>
+          <div class="repair-step-text" id="rs4text">Ne zaboraviti i nastaviti — nego svjesno se vratiti. Mali gest, jedna rečenica, jedna gesta blizine.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote-section">
+  <div class="quote-bg"></div>
+  <div class="quote-inner fade-up">
+    <p class="quote-text" id="quoteText">
+      "Zdrav odnos nije onaj bez konflikta —<br>
+      <em>nego onaj koji zna kako se vratiti."</em>
+    </p>
+    <div class="quote-attr" id="quoteAttr">LUME Odnosi — temeljna misao</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2 class="cta-title fade-up" id="ctaTitle">
+      Počni s<br><em>jednom</em> refleksijom.
+    </h2>
+    <p class="cta-sub fade-up" id="ctaSub">
+      Zapiši gdje si u odnosima sada — i LUME te vodi dalje.
+    </p>
+    <div class="fade-up" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="../../dnevnik/" class="btn-primary" id="ctaBtn1">Otvori dnevnik →</a>
+      <a href="../" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;border:1.5px solid var(--cream-dark);color:var(--text-mid);text-decoration:none;font-size:13px;transition:all .25s" id="ctaBtn2">← LUME Life</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">LUME</div>
+  <ul class="footer-links">
+    <li><a href="../../" id="footerHome">Početna</a></li>
+    <li><a href="../" id="footerLife">Life</a></li>
+    <li><a href="../../dnevnik/" id="footerDnevnik">Dnevnik</a></li>
+    <li><a href="../../pregled/" id="footerPregled">Pregled</a></li>
+  </ul>
+  <div style="font-size:11px;color:var(--green-light)" id="footerCopy">Regenerativni model razvoja · 2025</div>
+</footer>
+
+<script>
+let lang = 'hr';
+
+const T = {
+  hr: {
+    langBtn:'EN', navHome:'Početna', navCore:'Core', navLife:'Life', navDnevnik:'Dnevnik', navPregled:'Pregled',
+    heroEyebrow:'LUME Odnosi',
+    heroTitle:'Veze koje<br><em>gradimo</em> —<br>i one koje nas<br>grade.',
+    heroSubtitle:'Ponavljajući konflikti, povlačenje, nemogućnost da se čuješ. U partnerskim odnosima često se sudaraju naša percepcija osobe s kojom smo — i stvarna osoba koja stoji ispred nas. Nedostatak otvorene komunikacije budi još dublje nerazumijevanje. I kompleksno je — jer često ne znamo koliko je razumijevanje s druge strane. Samo smo mi ti koji našim odnosima dajemo smisao. LUME pomaže razumjeti obrasce koji vladaju tvojim bliskim vezama — i graditi odnose koji zaista hrane.',
+    heroCta:'Počni refleksiju →',
+    dialogueLabel:'Tipičan obrazac',
+    msg1:'"Nikad me ne slušaš — ne poštuješ me nimalo."', msg1name:'Ona/On',
+    msg2:'"Uvijek pretjeruješ — ne uvažavaš me."', msg2name:'Partner/ica',
+    msg3:'"Zaboravi, nema smisla razgovarati — ti ionako mene ne doživljavaš."',
+    dialogueInsight:'Isti krug. Ista rečenica. Isti osjećaj. — LUME pomaže izaći iz kruga.',
+    sitLabel:'Prepoznaješ li se?',
+    sitTitle:'Situacije u kojima<br><em>LUME Odnosi pomaže</em>',
+    sitSubtitle:'Nije stvar u tome da nemaš dobre namjere. Stvar je u obrascima koji se aktiviraju i vode umjesto tebe.',
+    sit1title:'Isti konflikti u krug', sit1text:'Razgovarate o istoj temi iznova — i uvijek završi na istom mjestu. Netko se zatvori, netko napadne, netko popusti. Krug se ponavlja.',
+    sit2title:'Nemogućnost da se čuješ', sit2text:'Govoriš — ali ne dolaziš. Osjećaš da te druga osoba ne razumije, ili da moraš stalno objašnjavati ono što bi trebalo biti očito.',
+    sit3title:'Povlačenje i distanca', sit3text:'U konfliktu se jedna ili obje strane zatvore. Tišina koja traje predugo. Osjećaj da se udaljavate — i da ne znate kako to prekinuti.',
+    sit4title:'Obrasci iz prošlosti', sit4text:'Reagiraš na partnera/icu — ali odgovaraš na nekoga drugog iz prošlosti. Stari obrasci aktiviraju se u sadašnjim vezama.',
+    mirrorLabel:'Filozofija odnosa',
+    mirrorTitle:'Odnos je<br><em>ogledalo</em> —<br>oboje.',
+    mirrorText1:'U svakom odnosu postoje dva ogledala. Ono što vidimo u drugoj osobi — često govori o nama. Ono što nas na njoj smeta — ponekad je ono što ne vidimo u sebi.',
+    mirrorText2:'Ali i obrnuto — druga osoba donosi svoje obrasce, svoju historiju, svoju percepciju. Razumjeti to razlikovanje — tko je čiji obrazac — je početak promjene.',
+    mirrorQuote:'"U konfliktu ne sudjeluju dvije osobe —<br><em>sudjeluju dvije historije."</em>',
+    mirrorSub:'Svaki konflikt nosi u sebi dva sloja: ono što se događa sada — i ono što je aktivirano iz prošlosti. LUME pomaže razlikovati jedno od drugog.',
+    princLabel:'Tri principa', princTitle:'Na čemu LUME Odnosi<br><em>radi</em>',
+    princSubtitle:'Ne na tehnikama komunikacije — nego na razumijevanju što se ispod komunikacije događa.',
+    pr1tag:'Svjesnost', pr1title:'Prepoznaj svoj obrazac u odnosu',
+    pr1text:'Svaki od nas donosi obrazac u vezu — iz djetinjstva, iz prošlih iskustava, iz načina kako smo naučili da se nosimo s bliskošću i konfliktom. Prepoznati taj obrazac je prvi korak prema slobodi izbora.',
+    pr2tag:'Razumijevanje', pr2title:'Vidi drugu osobu — ne svoju projekciju',
+    pr2text:'Kako vidimo drugu osobu — tako reagiramo na nju. Ako je vidimo kao protivnika, reagiramo obrambeno. Ako je vidimo kao osobu koja nešto traži — reagiramo s razumijevanjem. Percepcija vodi sve.',
+    pr3tag:'Repair', pr3title:'Što radimo nakon sukoba gradi odnos',
+    pr3text:'Nije stvar u savršenoj komunikaciji — nego u tome što radimo nakon što pogriješimo. Repair je sposobnost vraćanja u kontakt nakon prekida. To je ono što gradi povjerenje, ne izostanak konflikta.',
+    repairLabel:'Repair', repairTitle:'Ono što dolazi<br><em>nakon</em> konflikta',
+    repairText:'Svi griješimo u odnosima. Svi kažemo nešto što ne bismo trebali, reagiramo iz obrasca, povučemo se kad bi trebalo ostati. Ono što razlikuje zdrave odnose nije izostanak tih trenutaka — nego što radimo s njima.',
+    rs1title:'Primijetiti — bez obrane', rs1text:'Prepoznati što se dogodilo — bez opravdavanja i bez samobičevanja.',
+    rs2title:'Ime onome što se dogodilo', rs2text:'"Reagirao/la sam iz straha, ne iz tebe." — jedna rečenica koja vraća kontakt.',
+    rs3title:'Isprika kao snaga', rs3text:'Isprika nije slabost — ona uči drugu osobu da se odnosi mogu popraviti. To gradi sigurnost.',
+    rs4title:'Povratak u kontakt', rs4text:'Ne zaboraviti i nastaviti — nego svjesno se vratiti. Mali gest, jedna rečenica, jedna gesta blizine.',
+    quoteText:'"Zdrav odnos nije onaj bez konflikta —<br><em>nego onaj koji zna kako se vratiti."</em>',
+    quoteAttr:'LUME Odnosi — temeljna misao',
+    ctaTitle:'Počni s<br><em>jednom</em> refleksijom.',
+    ctaSub:'Zapiši gdje si u odnosima sada — i LUME te vodi dalje.',
+    ctaBtn1:'Otvori dnevnik →', ctaBtn2:'← LUME Life',
+    footerHome:'Početna', footerLife:'Life', footerDnevnik:'Dnevnik', footerPregled:'Pregled',
+    footerCopy:'Regenerativni model razvoja · 2025',
+  },
+  en: {
+    langBtn:'HR', navHome:'Home', navCore:'Core', navLife:'Life', navDnevnik:'Journal', navPregled:'Overview',
+    heroEyebrow:'LUME Relationships',
+    heroTitle:'The connections<br><em>we build</em> —<br>and those that<br>build us.',
+    heroSubtitle:'Recurring conflicts, withdrawal, the inability to be heard. LUME helps you understand the patterns that govern your close relationships — and build connections that truly nourish.',
+    heroCta:'Start reflecting →',
+    dialogueLabel:'A typical pattern',
+    msg1:'"You never listen to me."', msg1name:'Her/Him',
+    msg2:'"You always overreact."', msg2name:'Partner',
+    msg3:'"Forget it, there is no point talking."',
+    dialogueInsight:'The same circle. The same sentence. The same feeling. — LUME helps you step out of the circle.',
+    sitLabel:'Does this sound familiar?',
+    sitTitle:'Situations where<br><em>LUME Relationships helps</em>',
+    sitSubtitle:'It is not that you lack good intentions. It is the patterns that activate and take over.',
+    sit1title:'The same conflicts on repeat', sit1text:'You talk about the same thing again and again — and it always ends in the same place. Someone shuts down, someone attacks, someone gives in. The circle repeats.',
+    sit2title:'The inability to be heard', sit2text:'You talk — but you do not land. You feel the other person does not understand you, or that you have to constantly explain what should be obvious.',
+    sit3title:'Withdrawal and distance', sit3text:'In conflict, one or both sides close off. A silence that lasts too long. The feeling of drifting apart — and not knowing how to stop it.',
+    sit4title:'Patterns from the past', sit4text:'You react to your partner — but you are responding to someone else from your past. Old patterns activate in present relationships.',
+    mirrorLabel:'Philosophy of relationship',
+    mirrorTitle:'A relationship is<br><em>a mirror</em> —<br>for both.',
+    mirrorText1:'In every relationship there are two mirrors. What we see in the other person — often says something about us. What bothers us about them — is sometimes what we cannot see in ourselves.',
+    mirrorText2:'But also the reverse — the other person brings their own patterns, their own history, their own perception. Understanding that distinction — whose pattern is whose — is where change begins.',
+    mirrorQuote:'"In a conflict, it is not two people taking part —<br><em>it is two histories."</em>',
+    mirrorSub:'Every conflict carries two layers: what is happening now — and what has been activated from the past. LUME helps you tell one from the other.',
+    princLabel:'Three principles', princTitle:'What LUME Relationships<br><em>works on</em>',
+    princSubtitle:'Not on communication techniques — but on understanding what is happening beneath the communication.',
+    pr1tag:'Awareness', pr1title:'Recognise your pattern in the relationship',
+    pr1text:'Each of us brings a pattern into a relationship — from childhood, from past experiences, from how we learned to deal with closeness and conflict. Recognising that pattern is the first step toward freedom of choice.',
+    pr2tag:'Understanding', pr2title:'See the other person — not your projection',
+    pr2text:'How we see the other person — is how we respond to them. If we see them as an opponent, we react defensively. If we see them as someone who needs something — we respond with understanding. Perception leads everything.',
+    pr3tag:'Repair', pr3title:'What we do after conflict builds the relationship',
+    pr3text:'It is not about perfect communication — it is about what we do after we get it wrong. Repair is the ability to return to contact after a rupture. That is what builds trust, not the absence of conflict.',
+    repairLabel:'Repair', repairTitle:'What comes<br><em>after</em> conflict',
+    repairText:'We all make mistakes in relationships. We all say something we should not, react from a pattern, withdraw when we should stay. What distinguishes healthy relationships is not the absence of those moments — but what we do with them.',
+    rs1title:'Notice — without defending', rs1text:'Recognise what happened — without justifying and without self-criticism.',
+    rs2title:'Name what happened', rs2text:'"I reacted from fear, not because of you." — one sentence that restores contact.',
+    rs3title:'Apology as strength', rs3text:'An apology is not weakness — it teaches the other person that relationships can be repaired. That builds safety.',
+    rs4title:'Return to contact', rs4text:'Not forget and move on — but consciously return. A small gesture, one sentence, one act of closeness.',
+    quoteText:'"A healthy relationship is not one without conflict —<br><em>but one that knows how to come back."</em>',
+    quoteAttr:'LUME Relationships — the core idea',
+    ctaTitle:'Start with<br><em>one</em> reflection.',
+    ctaSub:'Write where you are in your relationships right now — and LUME guides you from there.',
+    ctaBtn1:'Open journal →', ctaBtn2:'← LUME Life',
+    footerHome:'Home', footerLife:'Life', footerDnevnik:'Journal', footerPregled:'Overview',
+    footerCopy:'Regenerative development model · 2025',
+  }
+};
+
+function toggleLang() {
+  lang = lang === 'hr' ? 'en' : 'hr';
+  applyLang();
+}
+
+function applyLang() {
+  const t = T[lang];
+  const set = (id, v) => { const e = document.getElementById(id); if(e) e.textContent = v; };
+  const setH = (id, v) => { const e = document.getElementById(id); if(e) e.innerHTML = v; };
+
+  set('langBtn', t.langBtn);
+  set('navHome', t.navHome); set('navCore', t.navCore); set('navLife', t.navLife);
+  set('navDnevnik', t.navDnevnik); set('navPregled', t.navPregled);
+  set('heroEyebrow', t.heroEyebrow); setH('heroTitle', t.heroTitle);
+  set('heroSubtitle', t.heroSubtitle); set('heroCta', t.heroCta);
+  set('dialogueLabel', t.dialogueLabel);
+  set('msg1', t.msg1); set('msg1name', t.msg1name);
+  set('msg2', t.msg2); set('msg2name', t.msg2name);
+  set('msg3', t.msg3); set('dialogueInsight', t.dialogueInsight);
+  set('sitLabel', t.sitLabel); setH('sitTitle', t.sitTitle); set('sitSubtitle', t.sitSubtitle);
+  set('sit1title', t.sit1title); set('sit1text', t.sit1text);
+  set('sit2title', t.sit2title); set('sit2text', t.sit2text);
+  set('sit3title', t.sit3title); set('sit3text', t.sit3text);
+  set('sit4title', t.sit4title); set('sit4text', t.sit4text);
+  set('mirrorLabel', t.mirrorLabel); setH('mirrorTitle', t.mirrorTitle);
+  set('mirrorText1', t.mirrorText1); set('mirrorText2', t.mirrorText2);
+  setH('mirrorQuote', t.mirrorQuote); set('mirrorSub', t.mirrorSub);
+  set('princLabel', t.princLabel); setH('princTitle', t.princTitle); set('princSubtitle', t.princSubtitle);
+  set('pr1tag', t.pr1tag); set('pr1title', t.pr1title); set('pr1text', t.pr1text);
+  set('pr2tag', t.pr2tag); set('pr2title', t.pr2title); set('pr2text', t.pr2text);
+  set('pr3tag', t.pr3tag); set('pr3title', t.pr3title); set('pr3text', t.pr3text);
+  set('repairLabel', t.repairLabel); setH('repairTitle', t.repairTitle); set('repairText', t.repairText);
+  set('rs1title', t.rs1title); set('rs1text', t.rs1text);
+  set('rs2title', t.rs2title); set('rs2text', t.rs2text);
+  set('rs3title', t.rs3title); set('rs3text', t.rs3text);
+  set('rs4title', t.rs4title); set('rs4text', t.rs4text);
+  setH('quoteText', t.quoteText); set('quoteAttr', t.quoteAttr);
+  setH('ctaTitle', t.ctaTitle); set('ctaSub', t.ctaSub);
+  set('ctaBtn1', t.ctaBtn1); set('ctaBtn2', t.ctaBtn2);
+  set('footerHome', t.footerHome); set('footerLife', t.footerLife);
+  set('footerDnevnik', t.footerDnevnik); set('footerPregled', t.footerPregled);
+  set('footerCopy', t.footerCopy);
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-up:not(.visible)').forEach(el => observer.observe(el));
+
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.boxShadow =
+    window.scrollY > 40 ? '0 1px 20px rgba(28,58,42,.07)' : 'none';
+});
+</script>
+</body>
+</html>
