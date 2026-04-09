@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUME Insights — Misli i tekstovi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green-deep:  #1C3A2A;
+  --green-mid:   #2D5A3D;
+  --green-warm:  #3D7A52;
+  --green-light: #6BAF84;
+  --green-pale:  #C8E6D4;
+  --green-ghost: #EDF7F1;
+  --cream:       #F7F4EE;
+  --cream-dark:  #EDE8DF;
+  --cream-mid:   #E8E2D8;
+  --warm-white:  #FDFBF8;
+  --text-dark:   #1A2E22;
+  --text-mid:    #3D5C48;
+  --text-light:  #6B8C77;
+  --text-ghost:  #9BB8A6;
+  --gold:        #C4954A;
+  --gold-light:  #E8D5A3;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 48px; height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(247,244,238,.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(200,230,212,.3);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Fraunces', serif; font-size: 18px; font-weight: 300;
+  color: var(--green-deep); text-decoration: none;
+}
+.nav-logo svg { width: 20px; height: 20px; }
+.nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
+.nav-links a {
+  font-size: 12px; color: var(--text-light);
+  text-decoration: none; padding: 5px 12px; border-radius: 999px;
+  transition: all .2s;
+}
+.nav-links a:hover { color: var(--green-deep); background: var(--green-ghost); }
+.nav-links a.active { color: var(--green-deep); font-weight: 500; background: var(--green-ghost); }
+.nav-lang {
+  padding: 5px 14px; border-radius: 999px;
+  border: 1px solid var(--cream-mid); background: transparent;
+  font-size: 11px; font-weight: 500; color: var(--text-light);
+  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .2s;
+}
+.nav-lang:hover { border-color: var(--green-light); color: var(--green-deep); }
+
+/* ── PAGE ── */
+.page { max-width: 1100px; margin: 0 auto; padding: 96px 48px 80px; }
+
+/* ── HEADER ── */
+.page-header {
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 24px; align-items: end; margin-bottom: 64px;
+}
+.page-eyebrow {
+  font-size: 10px; font-weight: 500; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--green-warm);
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 10px;
+}
+.page-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--green-warm); }
+.page-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 300; color: var(--green-deep);
+  line-height: 1.1; letter-spacing: -.5px;
+}
+.page-title em { font-style: italic; color: var(--gold); }
+.page-subtitle {
+  font-size: 15px; color: var(--text-mid);
+  line-height: 1.7; font-weight: 300;
+  max-width: 480px; margin-top: 12px;
+}
+
+/* ── FEATURED ARTICLE ── */
+.featured {
+  background: var(--green-deep); border-radius: 24px;
+  padding: 52px; margin-bottom: 48px;
+  position: relative; overflow: hidden;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 48px; align-items: center;
+  text-decoration: none; transition: all .3s;
+}
+.featured:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(28,58,42,.2); }
+.featured-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(107,175,132,.12) 0%, transparent 60%);
+}
+.featured-inner { position: relative; z-index: 1; }
+.featured-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 999px;
+  background: rgba(107,175,132,.2); color: var(--green-pale);
+  font-size: 10px; font-weight: 500; letter-spacing: 1px;
+  text-transform: uppercase; margin-bottom: 20px;
+}
+.featured-title {
+  font-family: 'Fraunces', serif; font-size: clamp(24px, 3vw, 36px);
+  font-weight: 300; color: var(--cream); line-height: 1.3;
+  margin-bottom: 14px;
+}
+.featured-title em { font-style: italic; color: var(--green-pale); }
+.featured-excerpt {
+  font-size: 14px; color: var(--green-pale);
+  line-height: 1.75; font-weight: 300; max-width: 520px;
+  margin-bottom: 24px;
+}
+.featured-meta {
+  display: flex; align-items: center; gap: 16px;
+  font-size: 12px; color: var(--text-ghost);
+}
+.featured-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--text-ghost); }
+.featured-arrow {
+  position: relative; z-index: 1;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(200,230,212,.15);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--green-pale); font-size: 20px;
+  flex-shrink: 0; transition: all .3s;
+}
+.featured:hover .featured-arrow { background: rgba(200,230,212,.25); transform: translateX(4px); }
+
+/* ── FILTER ── */
+.filter-row {
+  display: flex; gap: 6px; margin-bottom: 32px; flex-wrap: wrap;
+}
+.filter-btn {
+  padding: 6px 16px; border-radius: 999px;
+  border: 1px solid var(--cream-dark); background: var(--warm-white);
+  font-size: 12px; color: var(--text-light);
+  cursor: pointer; transition: all .2s; font-family: 'DM Sans', sans-serif;
+}
+.filter-btn:hover { border-color: var(--green-pale); color: var(--green-deep); }
+.filter-btn.active { background: var(--green-deep); color: var(--cream); border-color: var(--green-deep); }
+
+/* ── ARTICLES GRID ── */
+.articles-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.article-card {
+  background: var(--warm-white); border-radius: 20px;
+  padding: 32px; border: 1px solid var(--cream-dark);
+  text-decoration: none; display: block;
+  transition: all .3s; position: relative; overflow: hidden;
+}
+.article-card:hover { border-color: var(--green-pale); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(28,58,42,.07); }
+
+.article-category {
+  font-size: 10px; font-weight: 500; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--green-warm);
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 6px;
+}
+.article-category::before { content: ''; width: 16px; height: 1px; background: var(--green-warm); }
+
+.article-title {
+  font-family: 'Fraunces', serif; font-size: 22px;
+  font-weight: 400; color: var(--green-deep);
+  line-height: 1.3; margin-bottom: 12px;
+}
+.article-title em { font-style: italic; }
+
+.article-excerpt {
+  font-size: 13px; color: var(--text-mid);
+  line-height: 1.75; font-weight: 300; margin-bottom: 20px;
+}
+
+.article-meta {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 11px; color: var(--text-ghost);
+}
+.article-read-more {
+  font-size: 12px; color: var(--green-warm);
+  font-weight: 500; display: flex; align-items: center; gap: 4px;
+  transition: gap .2s;
+}
+.article-card:hover .article-read-more { gap: 8px; }
+
+/* ── COMING SOON ARTICLE ── */
+.article-card.coming {
+  opacity: .6; cursor: default;
+  background: var(--cream);
+}
+.article-card.coming:hover { transform: none; box-shadow: none; border-color: var(--cream-dark); }
+.coming-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: 999px;
+  background: var(--cream-dark); color: var(--text-ghost);
+  font-size: 10px; font-weight: 500; letter-spacing: .5px;
+  margin-bottom: 14px;
+}
+
+/* ── AUTHOR ── */
+.author-section {
+  margin-top: 64px; padding-top: 48px;
+  border-top: 1px solid var(--cream-dark);
+  display: flex; gap: 32px; align-items: flex-start;
+}
+.author-avatar {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--green-ghost); border: 2px solid var(--green-pale);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; flex-shrink: 0;
+}
+.author-name {
+  font-family: 'Fraunces', serif; font-size: 18px;
+  font-weight: 400; color: var(--green-deep); margin-bottom: 4px;
+}
+.author-title {
+  font-size: 12px; color: var(--green-warm);
+  letter-spacing: .5px; margin-bottom: 12px;
+}
+.author-bio {
+  font-size: 14px; color: var(--text-mid);
+  line-height: 1.7; font-weight: 300; max-width: 560px;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--green-deep);
+  border-top: 1px solid rgba(107,175,132,.12);
+  padding: 32px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-logo { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 300; color: var(--cream); opacity: .6; }
+.footer-links { display: flex; gap: 24px; list-style: none; }
+.footer-links a { font-size: 12px; color: var(--green-light); text-decoration: none; transition: color .2s; }
+.footer-links a:hover { color: var(--cream); }
+
+/* ── ANIMATIONS ── */
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .page { padding: 80px 20px 60px; }
+  .page-header { grid-template-columns: 1fr; }
+  .featured { grid-template-columns: 1fr; gap: 24px; padding: 32px 24px; }
+  .featured-arrow { display: none; }
+  .articles-grid { grid-template-columns: 1fr; }
+  .author-section { flex-direction: column; gap: 20px; }
+  footer { flex-direction: column; gap: 20px; padding: 28px 20px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../" class="nav-logo">
+    <svg viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="9" r="5" fill="#2D5A3D"/>
+      <path d="M12 14v6" stroke="#2D5A3D" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M9 18h6" stroke="#6BAF84" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+    LUME
+  </a>
+  <ul class="nav-links">
+    <li><a href="../" id="navHome">Početna</a></li>
+    <li><a href="../core/" id="navCore">Core</a></li>
+    <li><a href="../life/" id="navLife">Life</a></li>
+    <li><a href="../dnevnik/" id="navDnevnik">Dnevnik</a></li>
+    <li><a href="../pregled/" id="navPregled">Pregled</a></li>
+    <li><a href="#" class="active" id="navInsights">Insights</a></li>
+  </ul>
+  <button class="nav-lang" onclick="toggleLang()" id="langBtn">EN</button>
+</nav>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="page-header fade-up">
+    <div>
+      <div class="page-eyebrow" id="pageEyebrow">Misli i tekstovi</div>
+      <h1 class="page-title" id="pageTitle">
+        LUME<br><em>Insights</em>
+      </h1>
+      <p class="page-subtitle" id="pageSubtitle">
+        Tekstovi o regenerativnom razvoju, obrascima
+        koji nas vode i načinima kako živjeti — svjesnije,
+        stabilnije, autentičnije.
+      </p>
+    </div>
+  </div>
+
+  <!-- FEATURED -->
+  <a href="#" class="featured fade-up">
+    <div class="featured-bg"></div>
+    <div class="featured-inner">
+      <div class="featured-badge" id="featuredBadge">
+        ✦ Istaknuto
+      </div>
+      <div class="featured-title" id="featuredTitle">
+        Zašto promjena ne dolazi<br>
+        od <em>više volje</em>
+      </div>
+      <p class="featured-excerpt" id="featuredExcerpt">
+        Godinama smo vjerovali da je promjena pitanje motivacije.
+        Da ako dovoljno snažno hoćemo — možemo. Ali regenerativna
+        ekologija nas uči nešto drugačije: promjena dolazi
+        kada se promijene uvjeti, ne kada se pojača pritisak.
+      </p>
+      <div class="featured-meta">
+        <span id="featuredCat">Regenerativni model</span>
+        <div class="featured-meta-dot"></div>
+        <span id="featuredRead">5 min čitanja</span>
+        <div class="featured-meta-dot"></div>
+        <span id="featuredDate">Uskoro</span>
+      </div>
+    </div>
+    <div class="featured-arrow">→</div>
+  </a>
+
+  <!-- FILTER -->
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="filterArticles('sve', this)" id="filterAll">Sve</button>
+    <button class="filter-btn" onclick="filterArticles('razvoj', this)" id="filterRazvoj">Razvoj</button>
+    <button class="filter-btn" onclick="filterArticles('odnosi', this)" id="filterOdnosi">Odnosi</button>
+    <button class="filter-btn" onclick="filterArticles('roditeljstvo', this)" id="filterParents">Roditeljstvo</button>
+    <button class="filter-btn" onclick="filterArticles('model', this)" id="filterModel">Model</button>
+  </div>
+
+  <!-- ARTICLES -->
+  <div class="articles-grid" id="articlesGrid">
+
+    <a href="#" class="article-card fade-up" data-cat="model">
+      <div class="article-category" id="a1cat">Regenerativni model</div>
+      <div class="article-title" id="a1title">
+        Tlo, biljka, čovjek —<br><em>isti principi</em>
+      </div>
+      <p class="article-excerpt" id="a1excerpt">
+        Što nas ekološka poljoprivreda može naučiti
+        o osobnom razvoju? Više nego što mislimo.
+        Jer isti zakoni koji vrijede za ekosustav —
+        vrijede i za nas.
+      </p>
+      <div class="article-meta">
+        <span id="a1read">4 min</span>
+        <span class="article-read-more" id="a1more">Čitaj →</span>
+      </div>
+    </a>
+
+    <a href="#" class="article-card fade-up" data-cat="razvoj">
+      <div class="article-category" id="a2cat">Osobni razvoj</div>
+      <div class="article-title" id="a2title">
+        Obrazac koji se<br><em>ponavlja</em>
+      </div>
+      <p class="article-excerpt" id="a2excerpt">
+        Zašto isti konflikti, iste situacije, iste
+        reakcije — iznova i iznova? Nije slučajnost.
+        Obrazac uvijek nosi poruku.
+      </p>
+      <div class="article-meta">
+        <span id="a2read">6 min</span>
+        <span class="article-read-more" id="a2more">Čitaj →</span>
+      </div>
+    </a>
+
+    <a href="#" class="article-card fade-up" data-cat="roditeljstvo">
+      <div class="article-category" id="a3cat">Roditeljstvo</div>
+      <div class="article-title" id="a3title">
+        Dijete kao<br><em>zrcalo</em>
+      </div>
+      <p class="article-excerpt" id="a3excerpt">
+        Dijete ne reagira na ono što namjeravamo —
+        reagira na ono što jesmo. Što to znači za
+        nas kao roditelje?
+      </p>
+      <div class="article-meta">
+        <span id="a3read">5 min</span>
+        <span class="article-read-more" id="a3more">Čitaj →</span>
+      </div>
+    </a>
+
+    <a href="#" class="article-card fade-up" data-cat="odnosi">
+      <div class="article-category" id="a4cat">Odnosi</div>
+      <div class="article-title" id="a4title">
+        U konfliktu sudjeluju<br><em>dvije historije</em>
+      </div>
+      <p class="article-excerpt" id="a4excerpt">
+        Svaki konflikt nosi u sebi dva sloja —
+        ono što se događa sada i ono što je
+        aktivirano iz prošlosti.
+      </p>
+      <div class="article-meta">
+        <span id="a4read">7 min</span>
+        <span class="article-read-more" id="a4more">Čitaj →</span>
+      </div>
+    </a>
+
+    <div class="article-card coming fade-up" data-cat="razvoj">
+      <div class="coming-badge" id="comingBadge1">✦ Uskoro</div>
+      <div class="article-category" id="a5cat">Osobni razvoj</div>
+      <div class="article-title" id="a5title">
+        Vraćanje sebi —<br><em>ne mijenjanje</em>
+      </div>
+      <p class="article-excerpt" id="a5excerpt">
+        Razlika između "postajanja boljom verzijom sebe"
+        i vraćanja onome što zapravo već jesi.
+      </p>
+      <div class="article-meta">
+        <span id="a5read">5 min</span>
+      </div>
+    </div>
+
+    <div class="article-card coming fade-up" data-cat="model">
+      <div class="coming-badge" id="comingBadge2">✦ Uskoro</div>
+      <div class="article-category" id="a6cat">Regenerativni model</div>
+      <div class="article-title" id="a6title">
+        Repair — zašto<br><em>greška gradi odnos</em>
+      </div>
+      <p class="article-excerpt" id="a6excerpt">
+        Nije stvar u tome da ne griješiš.
+        Stvar je u tome što radiš s greškom —
+        to gradi ili ruši odnos.
+      </p>
+      <div class="article-meta">
+        <span id="a6read">4 min</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- AUTHOR -->
+  <div class="author-section fade-up">
+    <div class="author-avatar">🌿</div>
+    <div>
+      <div class="author-name" id="authorName">Martina</div>
+      <div class="author-title" id="authorTitle">mag. ing. agr. · Osnivačica LUME-a</div>
+      <p class="author-bio" id="authorBio">
+        Regenerativni pristup razvoju dolazi iz moje pozadine
+        u ekološkoj poljoprivredi — ali i iz duboko osobnog iskustva.
+        Ovi tekstovi su produžetak onoga što LUME gradi:
+        razumijevanje umjesto pritiska, uvidi umjesto savjeta,
+        vraćanje sebi umjesto mijenjanja.
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">LUME</div>
+  <ul class="footer-links">
+    <li><a href="../" id="footerHome">Početna</a></li>
+    <li><a href="../life/" id="footerLife">Life</a></li>
+    <li><a href="../dnevnik/" id="footerDnevnik">Dnevnik</a></li>
+    <li><a href="../pregled/" id="footerPregled">Pregled</a></li>
+  </ul>
+  <div style="font-size:11px;color:var(--green-light)" id="footerCopy">Regenerativni model razvoja · 2025</div>
+</footer>
+
+<script>
+let lang = 'hr';
+let currentFilter = 'sve';
+
+function filterArticles(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.article-card').forEach(card => {
+    const cat = card.dataset.cat;
+    card.style.display = (filter === 'sve' || cat === filter) ? 'block' : 'none';
+  });
+}
+
+const T = {
+  hr: {
+    langBtn:'EN', navHome:'Početna', navCore:'Core', navLife:'Life',
+    navDnevnik:'Dnevnik', navPregled:'Pregled', navInsights:'Insights',
+    pageEyebrow:'Misli i tekstovi',
+    pageTitle:'LUME<br><em>Insights</em>',
+    pageSubtitle:'Tekstovi o regenerativnom razvoju, obrascima koji nas vode i načinima kako živjeti — svjesnije, stabilnije, autentičnije.',
+    featuredBadge:'✦ Istaknuto',
+    featuredTitle:'Zašto promjena ne dolazi<br>od <em>više volje</em>',
+    featuredExcerpt:'Godinama smo vjerovali da je promjena pitanje motivacije. Da ako dovoljno snažno hoćemo — možemo. Ali regenerativna ekologija nas uči nešto drugačije: promjena dolazi kada se promijene uvjeti, ne kada se pojača pritisak.',
+    featuredCat:'Regenerativni model', featuredRead:'5 min čitanja', featuredDate:'Uskoro',
+    filterAll:'Sve', filterRazvoj:'Razvoj', filterOdnosi:'Odnosi', filterParents:'Roditeljstvo', filterModel:'Model',
+    a1cat:'Regenerativni model', a1title:'Tlo, biljka, čovjek —<br><em>isti principi</em>',
+    a1excerpt:'Što nas ekološka poljoprivreda može naučiti o osobnom razvoju? Više nego što mislimo. Jer isti zakoni koji vrijede za ekosustav — vrijede i za nas.',
+    a1read:'4 min', a1more:'Čitaj →',
+    a2cat:'Osobni razvoj', a2title:'Obrazac koji se<br><em>ponavlja</em>',
+    a2excerpt:'Zašto isti konflikti, iste situacije, iste reakcije — iznova i iznova? Nije slučajnost. Obrazac uvijek nosi poruku.',
+    a2read:'6 min', a2more:'Čitaj →',
+    a3cat:'Roditeljstvo', a3title:'Dijete kao<br><em>zrcalo</em>',
+    a3excerpt:'Dijete ne reagira na ono što namjeravamo — reagira na ono što jesmo. Što to znači za nas kao roditelje?',
+    a3read:'5 min', a3more:'Čitaj →',
+    a4cat:'Odnosi', a4title:'U konfliktu sudjeluju<br><em>dvije historije</em>',
+    a4excerpt:'Svaki konflikt nosi u sebi dva sloja — ono što se događa sada i ono što je aktivirano iz prošlosti.',
+    a4read:'7 min', a4more:'Čitaj →',
+    comingBadge1:'✦ Uskoro', comingBadge2:'✦ Uskoro',
+    a5cat:'Osobni razvoj', a5title:'Vraćanje sebi —<br><em>ne mijenjanje</em>',
+    a5excerpt:'Razlika između "postajanja boljom verzijom sebe" i vraćanja onome što zapravo već jesi.',
+    a5read:'5 min',
+    a6cat:'Regenerativni model', a6title:'Repair — zašto<br><em>greška gradi odnos</em>',
+    a6excerpt:'Nije stvar u tome da ne griješiš. Stvar je u tome što radiš s greškom — to gradi ili ruši odnos.',
+    a6read:'4 min',
+    authorName:'Martina', authorTitle:'mag. ing. agr. · Osnivačica LUME-a',
+    authorBio:'Regenerativni pristup razvoju dolazi iz moje pozadine u ekološkoj poljoprivredi — ali i iz duboko osobnog iskustva. Ovi tekstovi su produžetak onoga što LUME gradi: razumijevanje umjesto pritiska, uvidi umjesto savjeta, vraćanje sebi umjesto mijenjanja.',
+    footerHome:'Početna', footerLife:'Life', footerDnevnik:'Dnevnik', footerPregled:'Pregled',
+    footerCopy:'Regenerativni model razvoja · 2025',
+  },
+  en: {
+    langBtn:'HR', navHome:'Home', navCore:'Core', navLife:'Life',
+    navDnevnik:'Journal', navPregled:'Overview', navInsights:'Insights',
+    pageEyebrow:'Thoughts and texts',
+    pageTitle:'LUME<br><em>Insights</em>',
+    pageSubtitle:'Texts on regenerative development, the patterns that guide us, and ways of living — more consciously, more stably, more authentically.',
+    featuredBadge:'✦ Featured',
+    featuredTitle:'Why change does not come<br>from <em>more willpower</em>',
+    featuredExcerpt:'For years we believed that change was a question of motivation. That if we want it strongly enough — we can. But regenerative ecology teaches us something different: change comes when conditions change, not when pressure is increased.',
+    featuredCat:'Regenerative model', featuredRead:'5 min read', featuredDate:'Coming soon',
+    filterAll:'All', filterRazvoj:'Growth', filterOdnosi:'Relationships', filterParents:'Parenting', filterModel:'Model',
+    a1cat:'Regenerative model', a1title:'Soil, plant, person —<br><em>the same principles</em>',
+    a1excerpt:'What can ecological agriculture teach us about personal development? More than we think. Because the same laws that apply to an ecosystem — apply to us.',
+    a1read:'4 min', a1more:'Read →',
+    a2cat:'Personal growth', a2title:'The pattern that<br><em>keeps repeating</em>',
+    a2excerpt:'Why the same conflicts, the same situations, the same reactions — again and again? It is not coincidence. A pattern always carries a message.',
+    a2read:'6 min', a2more:'Read →',
+    a3cat:'Parenting', a3title:'The child as<br><em>mirror</em>',
+    a3excerpt:'A child does not react to what we intend — it reacts to what we are. What does that mean for us as parents?',
+    a3read:'5 min', a3more:'Read →',
+    a4cat:'Relationships', a4title:'In conflict, two<br><em>histories take part</em>',
+    a4excerpt:'Every conflict carries two layers — what is happening now and what has been activated from the past.',
+    a4read:'7 min', a4more:'Read →',
+    comingBadge1:'✦ Coming soon', comingBadge2:'✦ Coming soon',
+    a5cat:'Personal growth', a5title:'Returning to yourself —<br><em>not changing</em>',
+    a5excerpt:'The difference between "becoming a better version of yourself" and returning to who you actually already are.',
+    a5read:'5 min',
+    a6cat:'Regenerative model', a6title:'Repair — why<br><em>mistakes build relationships</em>',
+    a6excerpt:'It is not about not making mistakes. It is about what you do with them — that is what builds or breaks a relationship.',
+    a6read:'4 min',
+    authorName:'Martina', authorTitle:'MSc Ecological Agriculture · Founder of LUME',
+    authorBio:'The regenerative approach to development comes from my background in ecological agriculture — but also from deeply personal experience. These texts are an extension of what LUME builds: understanding instead of pressure, insights instead of advice, returning to yourself instead of changing.',
+    footerHome:'Home', footerLife:'Life', footerDnevnik:'Journal', footerPregled:'Overview',
+    footerCopy:'Regenerative development model · 2025',
+  }
+};
+
+function toggleLang() {
+  lang = lang === 'hr' ? 'en' : 'hr';
+  applyLang();
+}
+
+function applyLang() {
+  const t = T[lang];
+  const set = (id, v) => { const e = document.getElementById(id); if(e) e.textContent = v; };
+  const setH = (id, v) => { const e = document.getElementById(id); if(e) e.innerHTML = v; };
+
+  set('langBtn', t.langBtn);
+  set('navHome', t.navHome); set('navCore', t.navCore); set('navLife', t.navLife);
+  set('navDnevnik', t.navDnevnik); set('navPregled', t.navPregled); set('navInsights', t.navInsights);
+  set('pageEyebrow', t.pageEyebrow); setH('pageTitle', t.pageTitle); set('pageSubtitle', t.pageSubtitle);
+  set('featuredBadge', t.featuredBadge); setH('featuredTitle', t.featuredTitle);
+  set('featuredExcerpt', t.featuredExcerpt); set('featuredCat', t.featuredCat);
+  set('featuredRead', t.featuredRead); set('featuredDate', t.featuredDate);
+  set('filterAll', t.filterAll); set('filterRazvoj', t.filterRazvoj);
+  set('filterOdnosi', t.filterOdnosi); set('filterParents', t.filterParents); set('filterModel', t.filterModel);
+  setH('a1title', t.a1title); set('a1cat', t.a1cat); set('a1excerpt', t.a1excerpt); set('a1read', t.a1read); set('a1more', t.a1more);
+  setH('a2title', t.a2title); set('a2cat', t.a2cat); set('a2excerpt', t.a2excerpt); set('a2read', t.a2read); set('a2more', t.a2more);
+  setH('a3title', t.a3title); set('a3cat', t.a3cat); set('a3excerpt', t.a3excerpt); set('a3read', t.a3read); set('a3more', t.a3more);
+  setH('a4title', t.a4title); set('a4cat', t.a4cat); set('a4excerpt', t.a4excerpt); set('a4read', t.a4read); set('a4more', t.a4more);
+  set('comingBadge1', t.comingBadge1); set('comingBadge2', t.comingBadge2);
+  setH('a5title', t.a5title); set('a5cat', t.a5cat); set('a5excerpt', t.a5excerpt); set('a5read', t.a5read);
+  setH('a6title', t.a6title); set('a6cat', t.a6cat); set('a6excerpt', t.a6excerpt); set('a6read', t.a6read);
+  set('authorName', t.authorName); set('authorTitle', t.authorTitle); set('authorBio', t.authorBio);
+  set('footerHome', t.footerHome); set('footerLife', t.footerLife);
+  set('footerDnevnik', t.footerDnevnik); set('footerPregled', t.footerPregled);
+  set('footerCopy', t.footerCopy);
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.boxShadow =
+    window.scrollY > 40 ? '0 1px 20px rgba(28,58,42,.07)' : 'none';
+});
+</script>
+</body>
+</html>
