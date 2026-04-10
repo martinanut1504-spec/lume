@@ -1026,82 +1026,73 @@ footer {
     <div class="section-label fade-up" id="productsLabel">Platforma</div>
     <h2 class="section-title fade-up" id="productsTitle">LUME ekosustav</h2>
     <p class="section-subtitle fade-up" id="productsSubtitle">
-      Isti regenerativni model vrijedi za sve
-      sfere života. Počinjemo s roditeljstvom.
+      Isti regenerativni model vrijedi za sve sfere života —
+      jer isti obrasci koji se pojavljuju u roditeljstvu,
+      pojavljuju se i svugdje drugdje.
     </p>
 
     <div class="products-grid">
-      <!-- LUME Parents - primary -->
-      <div class="product-card primary fade-up" id="parents">
-        <div class="product-badge badge-available">
-          <div class="product-badge-dot"></div>
-          Dostupno sada
+      <!-- LUME Life - primary -->
+      <div class="product-card primary fade-up" style="grid-column:span 2">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px">
+          <div style="flex:1;min-width:260px">
+            <div class="product-badge badge-available">
+              <div class="product-badge-dot"></div>
+              <span id="lifeBadge">Dostupno sada</span>
+            </div>
+            <h3 class="product-card-title" id="lifeTitle">LUME Life</h3>
+            <p class="product-card-desc" style="max-width:480px;margin-bottom:20px" id="lifeDesc">
+              Stabilnost u svim područjima života. Regenerativni model
+              primijenjen na razvoj, odnose, roditeljstvo i posao.
+            </p>
+            <a href="life/" class="product-link" id="lifeLink">
+              Uđi u LUME Life
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+            <a href="life/razvoj/" style="text-align:center;padding:16px 20px;background:rgba(255,255,255,.1);border-radius:14px;border:1px solid rgba(200,230,212,.3);text-decoration:none;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.18)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
+              <div style="font-size:20px;margin-bottom:4px">🧭</div>
+              <div style="font-family:'Fraunces',serif;font-size:15px;color:var(--cream);margin-bottom:2px" id="lifeRazvoj">Razvoj</div>
+              
+            </a>
+            <a href="life/odnosi/" style="text-align:center;padding:16px 20px;background:rgba(255,255,255,.1);border-radius:14px;border:1px solid rgba(200,230,212,.3);text-decoration:none;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.18)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
+              <div style="font-size:20px;margin-bottom:4px">🌿</div>
+              <div style="font-family:'Fraunces',serif;font-size:15px;color:var(--cream);margin-bottom:2px" id="lifeOdnosi">Odnosi</div>
+              
+            </a>
+            <a href="life/parents/" style="text-align:center;padding:16px 20px;background:rgba(255,255,255,.1);border-radius:14px;border:1px solid rgba(200,230,212,.3);text-decoration:none;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.18)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
+              <div style="font-size:20px;margin-bottom:4px">👨‍👩‍👧</div>
+              <div style="font-family:'Fraunces',serif;font-size:15px;color:var(--cream);margin-bottom:2px" id="lifeParents">Parents</div>
+              
+            </a>
+            <a href="life/posao/" style="text-align:center;padding:16px 20px;background:rgba(255,255,255,.1);border-radius:14px;border:1px solid rgba(200,230,212,.3);text-decoration:none;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.18)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
+              <div style="font-size:20px;margin-bottom:4px">💼</div>
+              <div style="font-family:'Fraunces',serif;font-size:15px;color:var(--cream);margin-bottom:2px" id="lifePosao">Posao</div>
+              
+            </a>
+          </div>
         </div>
-        <h3 class="product-card-title">LUME Parents</h3>
-        <p class="product-card-desc" id="parentsDesc">
-          Pomoć roditeljima u trenutku — i sustav koji gradi
-          svjesniji, stabilniji odnos s djetetom kroz vrijeme.
-          Personalizirani profil, situacijski savjeti,
-          simulacija razgovora i mjesečni check-in.
-        </p>
-        <a href="life/parents/" class="product-link">
-          Otvori aplikaciju
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <div class="product-bg-text">P</div>
+        <div class="product-bg-text">L</div>
       </div>
 
       <!-- LUME Core -->
-      <div class="product-card secondary fade-up">
+      <div class="product-card secondary fade-up" style="grid-column:span 2">
         <div class="product-badge badge-available">
           <div class="product-badge-dot"></div>
-          Metodologija
+          <span id="coreBadge">Metodologija</span>
         </div>
-        <h3 class="product-card-title">LUME Core</h3>
+        <h3 class="product-card-title" id="coreTitle">LUME Core</h3>
         <p class="product-card-desc" id="coreDesc">
-          Regenerativni model razvoja koji stoji iza
-          svih LUME alata. Temeljni pristup zasnovan
-          na principima regenerativne ekologije
+          Regenerativni model razvoja koji stoji iza svih LUME alata.
+          Temeljni pristup zasnovan na principima regenerativne ekologije
           primijenjen na ljudski razvoj.
         </p>
-        <a href="#model" class="product-link">
+        <a href="core/" class="product-link" id="coreLink">
           Saznaj više
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
         <div class="product-bg-text" style="color:var(--green-deep)">C</div>
-      </div>
-
-      <!-- LUME Life -->
-      <div class="product-card coming fade-up" style="grid-column:span 2">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:20px">
-          <div style="flex:1;min-width:280px">
-            <div class="product-badge badge-soon">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-              Uskoro
-            </div>
-            <h3 class="product-card-title" id="lifeTitle">LUME Life</h3>
-            <p class="product-card-desc" style="max-width:560px" id="lifeDesc">
-              Stabilnost u svim područjima života. Isti regenerativni model
-              koji vrijedi za roditelje — vrijedi i za odnose, posao i osobni razvoj.
-              Jer isti obrasci koji se pojavljuju u roditeljstvu,
-              pojavljuju se i u svemu ostalom.
-            </p>
-          </div>
-          <div style="display:flex;gap:16px;flex-wrap:wrap">
-            <div style="text-align:center;padding:20px 24px;background:white;border-radius:14px;border:1.5px solid var(--green-pale)">
-              <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--green-deep);margin-bottom:4px" id="lifeOdnosi">Odnosi</div>
-              <div style="font-size:11px;color:var(--text-light);letter-spacing:1px;text-transform:uppercase" id="lifeUskoro">U razvoju</div>
-            </div>
-            <div style="text-align:center;padding:20px 24px;background:white;border-radius:14px;border:1.5px solid var(--green-pale);opacity:.6">
-              <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--green-deep);margin-bottom:4px" id="lifePosao">Posao</div>
-              <div style="font-size:11px;color:var(--text-light);letter-spacing:1px;text-transform:uppercase" id="lifeUskoro2">Uskoro</div>
-            </div>
-            <div style="text-align:center;padding:20px 24px;background:white;border-radius:14px;border:1.5px solid var(--green-pale);opacity:.4">
-              <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--green-deep);margin-bottom:4px" id="lifeRazvoj">Razvoj</div>
-              <div style="font-size:11px;color:var(--text-light);letter-spacing:1px;text-transform:uppercase" id="lifeUskoro2">Uskoro</div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -1177,22 +1168,18 @@ footer {
 <section class="cta-section">
   <div class="cta-bg"></div>
   <div class="cta-content">
-    <h2 class="cta-title fade-up">
-      Počni s onim<br>
-      što je <em>sada</em><br>
-      dostupno.
+    <h2 class="cta-title fade-up" id="ctaTitle">
+      Gdje si<br><em>danas?</em>
     </h2>
     <p class="cta-subtitle fade-up" id="ctaSubtitle">
-      LUME Parents je tvoj ulaz u regenerativni model.
-      Profil koji te razumije. Podrška u trenutku.
-      Uvidi koji ostaju.
+      Svaki put počinje s jednim korakom — prepoznavanjem gdje si u ovom trenutku.
     </p>
     <div class="cta-actions fade-up">
-      <a href="#" class="btn-light">
-        Otvori LUME Parents
+      <a href="life/" class="btn-light" id="ctaCta1">
+        Uđi u LUME Life
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <a href="#model" class="btn-outline-light">
+      <a href="core/" class="btn-outline-light" id="ctaCta2">
         Saznaj više o modelu
       </a>
     </div>
@@ -1393,7 +1380,7 @@ const content = {
     step3label: 'Sustav', step3title: 'Promjena',
     step3text: 'Uvodi se mala, konkretna promjena u ponašanju, komunikaciji ili svakodnevnoj strukturi. Ovdje se gradi dugoročna stabilnost koja ne ovisi o motivaciji.',
     productsLabel: 'Platforma',
-    productsTitle: 'LUME ekosustav',
+    productsTitle: 'LUME ekosustav', lifeBadge: 'Dostupno sada', lifeLink: 'Uđi u LUME Life', lifeRazvoj: 'Razvoj', lifeRazvojBadge: 'Dostupno', lifeOdnosi: 'Odnosi', lifeOdnosiBadge: 'Dostupno', lifeParents: 'Parents', lifeParentsBadge: 'Dostupno', lifePosao: 'Posao', lifePosaoBadge: 'Dostupno', coreBadge: 'Metodologija', coreTitle: 'LUME Core', coreLink: 'Saznaj više',
     productsSubtitle: 'Isti regenerativni model vrijedi za sve sfere života. Počinjemo s roditeljstvom.',
     parentsBadge: 'Dostupno sada',
     parentsTitle: 'LUME Parents',
@@ -1414,8 +1401,8 @@ const content = {
     p2title: 'Sustav ispred simptoma', p2text: 'Reakcija je signal, ne problem. Pitanje nije "kako se bolje ponašati" nego "iz kojeg sustava to ponašanje nastaje."',
     p3title: 'Okolina oblikuje ponašanje', p3text: 'Kao što biljka ovisi o tlu, vodi i svjetlu — čovjek ovisi o odnosima, strukturi dana i okruženju. Mijenjamo sustav, ne osobu.',
     p4title: 'Promjena bez pritiska', p4text: 'LUME ne nudi "bolju verziju sebe." Nudi povratak sebi — kroz razumijevanje, ne kroz pritisak ili savršenstvo.',
-    ctaTitle: 'Počni s onim<br>što je <em>sada</em><br>dostupno.',
-    ctaSubtitle: 'Počni s roditeljstvom, odnosi se — i pusti model da radi ostatak.',
+    ctaTitle: 'Gdje si<br><em>danas?</em>',
+    ctaSubtitle: 'Svaki put počinje s jednim korakom — prepoznavanjem gdje si u ovom trenutku.',
     ctaCta1: 'Otvori LUME Life',
     ctaCta2: 'Saznaj više o modelu',
     footerText: 'Regenerativni model razvoja · 2025',
@@ -1462,8 +1449,8 @@ const content = {
     p2title: 'System before symptom', p2text: 'A reaction is a signal, not a problem. The question is not "how to behave better" but "what system is this behaviour coming from."',
     p3title: 'Environment shapes behaviour', p3text: 'Just as a plant depends on soil, water and light — a person depends on relationships, daily structure and environment. We change the system, not the person.',
     p4title: 'Change without pressure', p4text: 'LUME does not offer a "better version of yourself." It offers a return to yourself — through understanding, not pressure or perfection.',
-    ctaTitle: 'Start with what is<br><em>available</em><br>right now.',
-    ctaSubtitle: 'Start with parenting or relationships — and let the model do the rest. A profile that understands you. Support when you need it. Insights that stay.',
+    ctaTitle: 'Where are you<br><em>today?</em>',
+    ctaSubtitle: 'Every journey begins with one step — recognising where you are right now.',
     ctaCta1: 'Open LUME Life',
     ctaCta2: 'Learn about the model',
     footerText: 'Regenerative development model · 2025',
