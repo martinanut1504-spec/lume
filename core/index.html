@@ -459,7 +459,6 @@ footer {
   <ul class="nav-links">
     <li><a href="../" id="navHome">Početna</a></li>
     <li><a href="#" class="active" id="navCore">LUME Core</a></li>
-    <li><a href="../parents/" id="navParents">LUME Parents</a></li>
     <li><a href="../life/" id="navLife">LUME Life</a></li>
   </ul>
   <button class="nav-lang" onclick="toggleLang()" id="langBtn">EN</button>
@@ -784,7 +783,7 @@ let lang = 'hr';
 const T = {
   hr: {
     langBtn:'EN', navHome:'Početna', navCore:'LUME Core',
-    navParents:'LUME Parents', navLife:'LUME Life',
+    navLife:'LUME Life',
     heroEyebrow:'LUME Core',
     heroTitle:'Metodologija<br>koja stoji<br><em>iza svega.</em>',
     heroSubtitle:'LUME Core je regenerativni model razvoja — pristup koji ne popravlja ponašanje, nego obnavlja uvjete u kojima ono nastaje.',
@@ -839,7 +838,7 @@ const T = {
   },
   en: {
     langBtn:'HR', navHome:'Home', navCore:'LUME Core',
-    navParents:'LUME Parents', navLife:'LUME Life',
+    navLife:'LUME Life',
     heroEyebrow:'LUME Core',
     heroTitle:'The methodology<br>behind<br><em>everything.</em>',
     heroSubtitle:'LUME Core is a regenerative development model — an approach that does not fix behaviour, but restores the conditions from which it emerges.',
@@ -906,7 +905,7 @@ function applyLang() {
 
   setT('langBtn', t.langBtn);
   setT('navHome', t.navHome); setT('navCore', t.navCore);
-  setT('navParents', t.navParents); setT('navLife', t.navLife);
+  setT('navLife', t.navLife);
   setT('heroEyebrow', t.heroEyebrow);
   set('heroTitle', t.heroTitle); setT('heroSubtitle', t.heroSubtitle); setT('heroScroll', t.heroScroll);
   set('introQuote', t.introQuote); setT('introText', t.introText);
