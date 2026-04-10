@@ -146,12 +146,13 @@ nav {
   line-height: 1.75; font-weight: 300;
 }
 .hero-card-float {
-  position: absolute; top: -14px; right: -14px;
-  background: var(--green-deep); border-radius: 14px;
-  padding: 10px 16px;
-  font-size: 12px; color: var(--green-pale);
+  position: absolute; top: 16px; right: 16px;
+  background: var(--green-deep); border-radius: 10px;
+  padding: 7px 14px;
+  font-size: 11px; color: var(--green-pale);
   font-family: 'Fraunces', serif; font-style: italic;
   box-shadow: 0 4px 20px rgba(28,58,42,.2);
+  white-space: nowrap;
 }
 
 /* ── SECTION COMMON ── */
@@ -393,14 +394,14 @@ footer {
         To je o razumijevanju tko si — bez pritiska,
         bez popisa za poboljšanje, bez uspoređivanja.
       </p>
-      <a href="../../dnevnik/" class="btn-primary fade-up" id="heroCta">
-        Počni refleksiju
+      <a href="app.html" class="btn-primary fade-up" id="heroCta">
+        Počni flow →
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
     <div class="hero-visual fade-up">
       <div class="hero-card">
-        <div class="hero-card-float" id="heroFloat">Bez popisa za poboljšanje</div>
+        <div class="hero-card-float" id="heroFloat">Ovdje nema pritiska</div>
         <div class="hero-card-label" id="heroCardLabel">Temeljno pitanje</div>
         <div class="hero-card-quote" id="heroCardQuote">
           "Što me sprečava da budem ono što zapravo jesam?"
@@ -630,7 +631,7 @@ footer {
       Zapiši gdje si — i LUME te vodi dalje.
     </p>
     <div class="fade-up" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <a href="../../dnevnik/" class="btn-primary" id="ctaBtn1">
+      <a href="app.html" class="btn-primary" id="ctaBtn1">
         Otvori dnevnik →
       </a>
       <a href="../" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;border:1.5px solid var(--cream-dark);color:var(--text-mid);text-decoration:none;font-size:13px;transition:all .25s" id="ctaBtn2">
@@ -661,8 +662,8 @@ const T = {
     heroEyebrow:'LUME Razvoj',
     heroTitle:'Vraćanje<br><em>sebi</em> —<br>ne mijenjanje.',
     heroSubtitle:'LUME Razvoj nije o postajanju boljom verzijom sebe. To je o razumijevanju tko si — bez pritiska, bez popisa za poboljšanje, bez uspoređivanja.',
-    heroCta:'Počni refleksiju',
-    heroFloat:'Bez popisa za poboljšanje',
+    heroCta:'Počni flow →',
+    heroFloat:'Ovdje nema pritiska',
     heroCardLabel:'Temeljno pitanje',
     heroCardQuote:'"Što me sprečava da budem ono što zapravo jesam?"',
     heroCardText:'Ne "kako da budem bolji/a" — nego "što mi stoji na putu." Razlika je ogromna. Jedno dodaje pritisak, drugo otvara prostor.',
@@ -695,7 +696,7 @@ const T = {
     quoteAttr:'LUME Razvoj — temeljna misao',
     ctaTitle:'Počni s<br><em>jednom</em> refleksijom.',
     ctaSub:'Dnevnik svjesnosti je tvoje mjesto za početak. Zapiši gdje si — i LUME te vodi dalje.',
-    ctaBtn1:'Otvori dnevnik →', ctaBtn2:'← LUME Life',
+    ctaBtn1:'Počni flow →', ctaBtn2:'← LUME Life',
     footerHome:'Početna', footerLife:'Life', footerDnevnik:'Dnevnik', footerPregled:'Pregled',
     footerCopy:'Regenerativni model razvoja · 2025',
   },
@@ -704,8 +705,8 @@ const T = {
     heroEyebrow:'LUME Growth',
     heroTitle:'Returning<br><em>to yourself</em> —<br>not changing.',
     heroSubtitle:'LUME Growth is not about becoming a better version of yourself. It is about understanding who you are — without pressure, without improvement lists, without comparison.',
-    heroCta:'Start reflecting',
-    heroFloat:'No improvement lists',
+    heroCta:'Start flow →',
+    heroFloat:'No pressure here',
     heroCardLabel:'The core question',
     heroCardQuote:'"What is stopping me from being who I actually am?"',
     heroCardText:'Not "how do I become better" — but "what is in my way." The difference is enormous. One adds pressure, the other opens space.',
@@ -738,7 +739,7 @@ const T = {
     quoteAttr:'LUME Growth — the core idea',
     ctaTitle:'Start with<br><em>one</em> reflection.',
     ctaSub:'The awareness journal is your starting point. Write where you are — and LUME guides you from there.',
-    ctaBtn1:'Open journal →', ctaBtn2:'← LUME Life',
+    ctaBtn1:'Start flow →', ctaBtn2:'← LUME Life',
     footerHome:'Home', footerLife:'Life', footerDnevnik:'Journal', footerPregled:'Overview',
     footerCopy:'Regenerative development model · 2025',
   }
