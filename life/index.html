@@ -506,14 +506,14 @@ footer {
         </div>
         <span class="hero-module-badge badge-live" id="hmParentsBadge">Dostupno</span>
       </a>
-      <div class="hero-module coming">
+      <a href="posao/" class="hero-module">
         <div class="hero-module-icon">💼</div>
         <div>
           <div class="hero-module-name" id="hmPosao">LUME Posao</div>
           <div class="hero-module-desc" id="hmPosaoDesc">Rad, fokus i iscrpljenost</div>
         </div>
-        <span class="hero-module-badge badge-soon" id="hmPosaoBadge">Uskoro</span>
-      </div>
+        <span class="hero-module-badge badge-live" id="hmPosaoBadge">Dostupno</span>
+      </a>
     </div>
   </div>
 </section>
@@ -651,10 +651,10 @@ footer {
       </a>
 
       <!-- Posao -->
-      <div class="module-card coming fade-up">
-        <div class="module-card-badge badge-coming-light">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          <span id="mc4badge">Uskoro</span>
+      <a href="posao/" class="module-card available fade-up">
+        <div class="module-card-badge badge-available-dark">
+          <div class="badge-dot"></div>
+          <span id="mc4badge">Dostupno</span>
         </div>
         <span class="module-card-icon">💼</span>
         <div class="module-card-title" id="mc4title">LUME Posao</div>
@@ -663,11 +663,12 @@ footer {
           a postigneš malo. Pogledajmo uvjete u kojima radiš —
           ne samo što radiš.
         </p>
-        <span class="module-card-link" style="opacity:.4">
-          <span id="mc4link">Uskoro</span>
+        <span class="module-card-link" id="mc4link">
+          Otvori
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </span>
         <div class="module-card-bg">P</div>
-      </div>
+      </a>
 
     </div>
   </div>
@@ -763,7 +764,7 @@ const T = {
     heroSubtitle: 'Regenerativni model razvoja koji stoji iza LUME-a primjenjuje se na sve sfere života — jer isti obrasci koji se pojavljuju u roditeljstvu, pojavljuju se i svugdje drugdje.',
     hmParents: 'LUME Parents', hmParentsDesc: 'Svjesno roditeljstvo', hmParentsBadge: 'Dostupno',
     hmOdnosi: 'LUME Odnosi', hmOdnosiDesc: 'Bliske veze i komunikacija', hmOdnosiBadge: 'Dostupno',
-    hmPosao: 'LUME Posao', hmPosaoDesc: 'Rad, fokus i iscrpljenost', hmPosaoBadge: 'Uskoro',
+    hmPosao: 'LUME Posao', hmPosaoDesc: 'Rad, fokus i iscrpljenost', hmPosaoBadge: 'Dostupno',
     hmRazvoj: 'LUME Razvoj', hmRazvojDesc: 'Osobni rast bez pritiska', hmRazvojBadge: 'Uskoro',
     whatLabel: 'Zašto Life?',
     whatTitle: 'Obrasci se ne<br>zaustavljaju na<br><em>jednoj sferi.</em>',
@@ -784,9 +785,9 @@ const T = {
     mc3badge: 'Uskoro', mc3title: 'LUME Posao',
     mc3desc: 'Iscrpljenost, prokrastinacija, osjećaj da radiš puno a postigneš malo. Pogledajmo uvjete u kojima radiš — ne samo što radiš.',
     mc3link: 'Uskoro',
-    mc4badge: 'Uskoro', mc4title: 'LUME Razvoj',
+    mc4badge: 'Dostupno', mc4title: 'LUME Razvoj',
     mc4desc: 'Ne radi se o postajanju boljom verzijom sebe. Radi se o vraćanju sebi — kroz razumijevanje, ne kroz pritisak.',
-    mc4link: 'Uskoro',
+    mc4link: 'Otvori',
     modelLabel: 'Isti model, svuda', modelTitle: 'Tri koraka kroz<br><em>svaku sferu</em>',
     s1tag: 'Stanje — Regulacija', s1title: 'Stabilizacija',
     s1text: 'Bez obzira radi li se o roditeljstvu, poslu ili odnosima — sve počinje od smirivanja. Iscrpljena osoba ne može graditi nove obrasce.',
@@ -809,7 +810,7 @@ const T = {
     heroSubtitle: 'The regenerative development model behind LUME applies to every sphere of life — because the same patterns that appear in parenting appear everywhere else too.',
     hmParents: 'LUME Parents', hmParentsDesc: 'Conscious parenting', hmParentsBadge: 'Available',
     hmOdnosi: 'LUME Relationships', hmOdnosiDesc: 'Close connections and communication', hmOdnosiBadge: 'Available',
-    hmPosao: 'LUME Work', hmPosaoDesc: 'Work, focus and burnout', hmPosaoBadge: 'Coming soon',
+    hmPosao: 'LUME Work', hmPosaoDesc: 'Work, focus and burnout', hmPosaoBadge: 'Available',
     hmRazvoj: 'LUME Growth', hmRazvojDesc: 'Personal development without pressure', hmRazvojBadge: 'Coming soon',
     whatLabel: 'Why Life?',
     whatTitle: 'Patterns do not<br>stop at<br><em>one sphere.</em>',
@@ -830,9 +831,9 @@ const T = {
     mc3badge: 'Coming soon', mc3title: 'LUME Work',
     mc3desc: 'Exhaustion, procrastination, the feeling of doing a lot but achieving little. Let us look at the conditions you work in — not just what you do.',
     mc3link: 'Coming soon',
-    mc4badge: 'Coming soon', mc4title: 'LUME Growth',
+    mc4badge: 'Available', mc4title: 'LUME Growth',
     mc4desc: 'It is not about becoming a better version of yourself. It is about returning to yourself — through understanding, not pressure.',
-    mc4link: 'Coming soon',
+    mc4link: 'Open',
     modelLabel: 'Same model, everywhere', modelTitle: 'Three steps through<br><em>every sphere</em>',
     s1tag: 'State — Regulation', s1title: 'Stabilisation',
     s1text: 'Whether it is parenting, work or relationships — everything starts with calming down. A depleted person cannot build new patterns.',
