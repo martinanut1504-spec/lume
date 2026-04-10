@@ -80,11 +80,17 @@ nav {
     radial-gradient(ellipse 30% 40% at 5% 80%, rgba(200,230,212,.06) 0%, transparent 50%);
 }
 .hero-grid {
-  position: absolute; inset: 0; opacity: .03;
-  background-image:
-    linear-gradient(rgba(200,230,212,1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(200,230,212,1) 1px, transparent 1px);
-  background-size: 80px 80px;
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(107,175,132,.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 90% 20%, rgba(200,230,212,.06) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 40% at 50% 90%, rgba(45,90,61,.08) 0%, transparent 60%);
+  animation: shimmer 12s ease-in-out infinite alternate;
+}
+@keyframes shimmer {
+  0% { opacity: 1; }
+  50% { opacity: .6; }
+  100% { opacity: 1; }
 }
 .hero-inner {
   max-width: 1100px; margin: 0 auto; width: 100%;
@@ -343,7 +349,7 @@ nav {
   margin-bottom: 32px; position: relative; z-index: 1;
 }
 .founder-quote em { color: var(--gold-italic); }
-.founder-bio {
+.founder-bio { white-space: pre-line;
   font-size: 14px; color: var(--text-mid);
   line-height: 1.8; font-weight: 300;
   max-width: 600px; margin-bottom: 32px;
@@ -495,7 +501,7 @@ footer {
       <em>obnavljamo tlo."</em>
     </p>
     <p class="intro-text fade-up" id="introText">
-      Regenerativna ekologija uči nas da trajna promjena ne dolazi
+      Regenerativna poljoprivreda uči nas da trajna promjena ne dolazi
       kroz kontrolu simptoma, nego kroz obnovu uvjeta u kojima
       sustav živi. Isti princip — primijenjen na čovjeka.
       To je LUME Core.
@@ -586,7 +592,7 @@ footer {
         <em>u ljudski razvoj</em>
       </h2>
       <p class="section-text fade-up" id="ecoText">
-        Regenerativna ekologija proučava kako ekosustavi
+        Regenerativna poljoprivreda proučava kako ekosustavi
         obnavljaju sami sebe — ne kroz intervenciju,
         nego kroz vraćanje prirodnih uvjeta.
         LUME primjenjuje isti princip na ljude i odnose.
@@ -711,28 +717,42 @@ footer {
     <div class="section-label fade-up" id="founderLabel">Podrijetlo</div>
     <h2 class="section-title fade-up" id="founderTitle" style="margin-bottom:40px">
       Zašto regenerativna<br>
-      <em>ekologija?</em>
+      <em>poljoprivreda?</em>
     </h2>
     <div class="founder-card fade-up">
       <div class="founder-bg"></div>
       <div class="founder-eyebrow" id="founderEyebrow">O osnivačici</div>
       <p class="founder-quote" id="founderQuote">
-        "Moja pozadina u ekološkoj poljoprivredi
-        nije slučajnost — to je temelj.
-        <em>Priroda ne popravlja. Ona obnavlja."</em>
+        "Moja pozadina svega nije slučajnost — to je temelj.
+        <em>A priroda ne popravlja. Ona obnavlja."</em>
       </p>
       <p class="founder-bio" id="founderBio">
-        LUME je nastao iz spoja dvije stvari: duboko osobnog iskustva
-        s izazovima u odnosima i roditeljstvu, i akademskog znanja
-        o regenerativnim sustavima. Magistra inženjerka ekološke
-        poljoprivrede donosi pogled koji je rijedak u području
-        osobnog razvoja — razumijevanje sustava, uvjeta i
-        međusobnih utjecaja umjesto fokusa na simptome.
+        <strong>Iz tla — za ljude.</strong>
       </p>
       <p class="founder-bio" id="founderBio2" style="margin-bottom:28px">
-        To čini LUME drugačijim. Ne boljim od svega ostalog —
-        nego utemeljenim na drugačijim principima.
-        Principima koji dolaze iz prirode.
+        Već u ranom djetinjstvu počela sam postavljati pitanja koja mi nisu davala mira. Zašto se ljudi ponašaju kako se ponašaju? Zašto nekad funkcioniramo samo onako kako smo naučeni? Što je iza svega?
+
+        Ta pitanja vodila su me godinama — kroz vlastita iskustva, kroz promatranje sebe i drugih. Prije nego što sam imala formalno znanje, imala sam potrebu razumjeti.
+
+        A onda — agronomija. I tlo.
+
+        Kao agronom, imala sam priliku da kroz tlo i biljke učim. Kako tlo diše, kako se odmara, kako se obnavlja. Kako priroda čini da je sve u skladu. I odjednom — prepoznala sam iste znakove. Ono što sam godinama vidjela u ljudima, vidjela sam i u tlu.
+
+        U današnje vrijeme, zbog svih naših moranja i potreba — rijetko mu damo taj odmor. Nastavljamo ga raditi. I tako upadamo u začarani krug, dok se sve rezerve ne potroše — što danas imamo priliku vidjeti diljem svijeta.
+
+        Kad se potroše svi resursi — ostaje pustinja. Ništa ne raste, ništa ne cvjeta. Tlo postoji — ali nije živo.
+
+        Koliko nas tako živi? U sistemu, u obvezama, u ponavljanju. Kao hodajući roboti. Ljušture. Funkcioniramo u svakodnevnim obavezama, ispunjavamo razne aktivnosti — ali nismo živi.
+
+        A onda — kad daš tlu odmor — nešto se dogodi. Polako. Tiho. Bez napora. Počne disati.
+
+        U tlu se počnu događati procesi regeneracije. Ne ide to tako da pustiš pustinju da procvjeta — nego određenim metodama vraćaš život. Što možete vidjeti u raznim modelima regenerativne poljoprivrede.
+
+        I isto se dogodi s čovjekom. Kad dotakneš tu iskru — tu svjetlost koja je uvijek bila tu — vikneš iznutra: osjećam se živ.
+
+        Tama nestaje kad se svjetlo unese.
+
+        To je LUME.
       </p>
       <div class="founder-credentials">
         <span class="credential" id="cred1">mag. ing. agr. — ekološka poljoprivreda</span>
@@ -751,12 +771,11 @@ footer {
       Model u<br><em>akciji</em>
     </h2>
     <p class="cta-sub fade-up" id="ctaSub">
-      LUME Core je metodologija. LUME Parents je
-      prva primjena — dostupna odmah.
+      LUME Core je metodologija. LUME Life je primjena — dostupna odmah.
     </p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap" class="fade-up">
-      <a href="../parents/" class="btn-light" id="ctaBtn1">
-        Otvori LUME Parents
+      <a href="../life/" class="btn-light" id="ctaBtn1">
+        Otvori LUME Life
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
       <a href="../" class="btn-outline-light" id="ctaBtn2">
@@ -789,7 +808,7 @@ const T = {
     heroSubtitle:'LUME Core je regenerativni model razvoja — pristup koji ne popravlja ponašanje, nego obnavlja uvjete u kojima ono nastaje.',
     heroScroll:'Istraži model',
     introQuote:'"Ne popravljamo biljku —<br><em>obnavljamo tlo."</em>',
-    introText:'Regenerativna ekologija uči nas da trajna promjena ne dolazi kroz kontrolu simptoma, nego kroz obnovu uvjeta u kojima sustav živi. Isti princip — primijenjen na čovjeka. To je LUME Core.',
+    introText:'Regenerativna poljoprivreda uči nas da trajna promjena ne dolazi kroz kontrolu simptoma, nego kroz obnovu uvjeta u kojima sustav živi. Isti princip — primijenjen na čovjeka. To je LUME Core.',
     princLabel:'Temeljna načela',
     princTitle:'Četiri principa<br><em>regenerativnog modela</em>',
     princSubtitle:'Ovi principi nisu teorija — oni su okvir kroz koji LUME pristupa svakoj osobi i svakoj situaciji.',
@@ -807,7 +826,7 @@ const T = {
     p4quote:'"Ne trebaš postati netko drugi. Trebaš se vratiti sebi."',
     ecoLabel:'Podrijetlo modela',
     ecoTitle:'Iz ekologije<br><em>u ljudski razvoj</em>',
-    ecoText:'Regenerativna ekologija proučava kako ekosustavi obnavljaju sami sebe — ne kroz intervenciju, nego kroz vraćanje prirodnih uvjeta. LUME primjenjuje isti princip na ljude i odnose.',
+    ecoText:'Regenerativna poljoprivreda proučava kako ekosustavi obnavljaju sami sebe — ne kroz intervenciju, nego kroz vraćanje prirodnih uvjeta. LUME primjenjuje isti princip na ljude i odnose.',
     eco1title:'Tlo = uvjeti života', eco1text:'Odnosi, struktura dana, okruženje — to je tlo na kojemu raste (ili vene) ljudski potencijal.',
     eco2title:'Voda = energija i punjenje', eco2text:'Bez dovoljno energije nema rasta. Regeneracija počinje od vraćanja kapaciteta.',
     eco3title:'Svjetlo = svjesnost i uvid', eco3text:'Razumijevanje obrazaca je svjetlo koje usmjerava rast. Bez uvida nema trajne promjene.',
@@ -824,15 +843,15 @@ const T = {
     s3tag:'Sustav · Promjena', s3title:'Mala, konkretna promjena uvjeta',
     s3text:'Ne velika transformacija. Jedna stvar u okolini, komunikaciji ili strukturi koja se mijenja. Promjenom uvjeta mijenja se ponašanje — bez napora, bez pritiska, bez savršenstva.',
     founderLabel:'Podrijetlo',
-    founderTitle:'Zašto regenerativna<br><em>ekologija?</em>',
+    founderTitle:'Zašto regenerativna<br><em>poljoprivreda?</em>',
     founderEyebrow:'O osnivačici',
-    founderQuote:'"Moja pozadina u ekološkoj poljoprivredi nije slučajnost — to je temelj. <em>Priroda ne popravlja. Ona obnavlja."</em>',
-    founderBio:'LUME je nastao iz spoja dvije stvari: duboko osobnog iskustva s izazovima u odnosima i roditeljstvu, i akademskog znanja o regenerativnim sustavima. Magistra inženjerka ekološke poljoprivrede donosi pogled koji je rijedak u području osobnog razvoja — razumijevanje sustava, uvjeta i međusobnih utjecaja umjesto fokusa na simptome.',
-    founderBio2:'To čini LUME drugačijim. Ne boljim od svega ostalog — nego utemeljenim na drugačijim principima. Principima koji dolaze iz prirode.',
+    founderQuote:'"Moja pozadina svega nije slučajnost — to je temelj. <em>A priroda ne popravlja. Ona obnavlja."</em>',
+    founderBio:'Iz tla — za ljude.',
+    founderBio2:'Već u ranom djetinjstvu počela sam postavljati pitanja koja mi nisu davala mira. Zašto se ljudi ponašaju kako se ponašaju? Zašto nekad funkcioniramo samo onako kako smo naučeni? Što je iza svega? Ta pitanja vodila su me godinama — kroz vlastita iskustva, kroz promatranje sebe i drugih. Prije nego što sam imala formalno znanje, imala sam potrebu razumjeti. A onda — agronomija. I tlo. Kao agronom, imala sam priliku da kroz tlo i biljke učim. Kako tlo diše, kako se odmara, kako se obnavlja. I odjednom — prepoznala sam iste znakove. Ono što sam godinama vidjela u ljudima, vidjela sam i u tlu. U današnje vrijeme, zbog svih naših moranja i potreba — rijetko mu damo taj odmor. Nastavljamo ga raditi. I tako upadamo u začarani krug, dok se sve rezerve ne potroše. Kad se potroše svi resursi — ostaje pustinja. Ništa ne raste, ništa ne cvjeta. Tlo postoji — ali nije živo. Koliko nas tako živi? U sistemu, u obvezama, u ponavljanju. Kao hodajući roboti. Ljušture. A onda — kad daš tlu odmor — nešto se dogodi. Polako. Tiho. Bez napora. Počne disati. I isto se dogodi s čovjekom. Kad dotakneš tu iskru — vikneš iznutra: osjećam se živ. Tama nestaje kad se svjetlo unese. To je LUME.',
     cred1:'mag. ing. agr. — ekološka poljoprivreda', cred2:'Regenerativni pristup razvoju', cred3:'LUME osnivačica',
     ctaTitle:'Model u<br><em>akciji</em>',
-    ctaSub:'LUME Core je metodologija. LUME Parents je prva primjena — dostupna odmah.',
-    ctaBtn1:'Otvori LUME Parents', ctaBtn2:'Vidi cijelu platformu',
+    ctaSub:'LUME Core je metodologija. LUME Life je primjena — dostupna odmah.',
+    ctaBtn1:'Otvori LUME Life', ctaBtn2:'Vidi cijelu platformu',
     footerHome:'Početna', footerParents:'LUME Parents', footerLife:'LUME Life',
     footerCopy:'Regenerativni model razvoja · 2025',
   },
@@ -886,8 +905,8 @@ const T = {
     founderBio2:'This makes LUME different. Not better than everything else — but grounded in different principles. Principles that come from nature.',
     cred1:'MSc. Ecological Agriculture', cred2:'Regenerative approach to development', cred3:'LUME founder',
     ctaTitle:'The model in<br><em>action</em>',
-    ctaSub:'LUME Core is the methodology. LUME Parents is the first application — available now.',
-    ctaBtn1:'Open LUME Parents', ctaBtn2:'See the full platform',
+    ctaSub:'LUME Core is the methodology. LUME Life is the application — available now.',
+    ctaBtn1:'Open LUME Life', ctaBtn2:'See the full platform',
     footerHome:'Home', footerParents:'LUME Parents', footerLife:'LUME Life',
     footerCopy:'Regenerative development model · 2025',
   }
