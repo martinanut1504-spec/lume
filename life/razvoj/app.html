@@ -22,11 +22,9 @@
   --text-light:  #6B8C77;
   --text-ghost:  #9BB8A6;
   --gold:        #C4954A;
-  --gold-light:  #E8D5A3;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
 body {
   font-family: 'DM Sans', sans-serif;
   background: var(--cream);
@@ -37,8 +35,8 @@ body {
 .app {
   max-width: 480px; margin: 0 auto;
   min-height: 100vh; background: var(--warm-white);
-  position: relative;
   box-shadow: 0 0 40px rgba(28,58,42,.08);
+  position: relative;
 }
 
 .screen { display: none; }
@@ -54,7 +52,7 @@ body {
 .phase-steps { display: flex; align-items: center; }
 .phase-step {
   display: flex; flex-direction: column; align-items: center;
-  gap: 5px; flex: 1;
+  gap: 5px; flex: 1; position: relative; z-index: 1;
 }
 .phase-icon {
   width: 38px; height: 38px; border-radius: 50%;
@@ -63,365 +61,146 @@ body {
   border: 2px solid var(--cream-dark);
   background: var(--warm-white);
 }
-.phase-step.active .phase-icon {
-  background: var(--green-ghost); border-color: var(--green-light);
-  box-shadow: 0 0 0 4px rgba(107,175,132,.15);
-}
+.phase-step.active .phase-icon { background: var(--green-ghost); border-color: var(--green-light); box-shadow: 0 0 0 4px rgba(107,175,132,.15); }
 .phase-step.done .phase-icon { background: var(--green-pale); border-color: var(--green-light); }
 .phase-step.inactive .phase-icon { opacity: .4; }
-.phase-label {
-  font-size: 9px; font-weight: 500; letter-spacing: 1px;
-  text-transform: uppercase; color: var(--text-light); transition: color .4s;
-}
+.phase-label { font-size: 9px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--text-light); transition: color .4s; }
 .phase-step.active .phase-label { color: var(--green-warm); }
 .phase-step.done .phase-label { color: var(--green-light); }
-.phase-connector {
-  flex: 1; height: 1px; background: var(--cream-dark);
-  margin: 0 4px 18px; transition: background .4s;
-}
+.phase-connector { flex: 1; height: 1px; background: var(--cream-dark); margin: 0 4px 18px; transition: background .4s; }
 .phase-connector.done { background: var(--green-pale); }
 
 /* ── WELCOME ── */
-.welcome-wrap {
-  flex: 1; display: flex; flex-direction: column;
-  padding: 48px 28px 32px;
-}
-.lume-mark {
-  display: flex; align-items: center; gap: 10px; margin-bottom: 40px;
-}
-.lume-mark-icon {
-  width: 40px; height: 40px; border-radius: 50%;
-  background: var(--green-ghost); border: 1.5px solid var(--green-pale);
-  display: flex; align-items: center; justify-content: center;
-}
-.lume-mark-name {
-  font-family: 'Fraunces', serif; font-size: 22px;
-  font-weight: 300; color: var(--green-deep);
-}
-.welcome-title {
-  font-family: 'Fraunces', serif; font-size: 34px;
-  font-weight: 300; color: var(--green-deep);
-  line-height: 1.15; margin-bottom: 16px; letter-spacing: -.3px;
-}
+.welcome-wrap { flex: 1; display: flex; flex-direction: column; padding: 48px 28px 32px; }
+.lume-mark { display: flex; align-items: center; gap: 10px; margin-bottom: 40px; }
+.lume-mark-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--green-ghost); border: 1.5px solid var(--green-pale); display: flex; align-items: center; justify-content: center; }
+.lume-mark-name { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 300; color: var(--green-deep); }
+.welcome-title { font-family: 'Fraunces', serif; font-size: 34px; font-weight: 300; color: var(--green-deep); line-height: 1.15; margin-bottom: 16px; letter-spacing: -.3px; }
 .welcome-title em { font-style: italic; color: var(--gold); }
-.welcome-text {
-  font-size: 14px; color: var(--text-mid);
-  line-height: 1.8; font-weight: 300; margin-bottom: 32px;
-}
-.safe-badge {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 14px 16px; border-radius: 12px;
-  background: var(--green-ghost); border-left: 3px solid var(--green-light);
-  margin-bottom: 40px;
-}
-.safe-badge-label {
-  font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
-  text-transform: uppercase; color: var(--green-warm); margin-bottom: 4px;
-}
-.safe-badge-text {
-  font-size: 12px; color: var(--text-mid); line-height: 1.7; font-weight: 300;
-}
+.welcome-text { font-size: 14px; color: var(--text-mid); line-height: 1.8; font-weight: 300; margin-bottom: 32px; }
+.safe-badge { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-radius: 12px; background: var(--green-ghost); border-left: 3px solid var(--green-light); margin-bottom: 40px; }
+.safe-badge-label { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green-warm); margin-bottom: 4px; }
+.safe-badge-text { font-size: 12px; color: var(--text-mid); line-height: 1.7; font-weight: 300; }
 .phase-preview { display: flex; gap: 8px; margin-bottom: 40px; }
-.phase-preview-item {
-  flex: 1; padding: 14px 10px; border-radius: 12px;
-  background: var(--warm-white); border: 1px solid var(--cream-dark);
-  text-align: center;
-}
+.phase-preview-item { flex: 1; padding: 14px 10px; border-radius: 12px; background: var(--warm-white); border: 1px solid var(--cream-dark); text-align: center; }
 .phase-preview-icon { font-size: 20px; margin-bottom: 6px; }
-.phase-preview-name {
-  font-size: 10px; font-weight: 600; letter-spacing: 1px;
-  text-transform: uppercase; color: var(--text-light); margin-bottom: 3px;
-}
+.phase-preview-name { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-light); margin-bottom: 3px; }
 .phase-preview-desc { font-size: 11px; color: var(--text-ghost); line-height: 1.4; font-weight: 300; }
-.btn-start {
-  width: 100%; padding: 16px; border-radius: 14px; border: none;
-  background: var(--green-deep); color: var(--cream);
-  font-family: 'Fraunces', serif; font-size: 17px; font-weight: 300;
-  cursor: pointer; transition: all .25s;
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-}
+.btn-start { width: 100%; padding: 16px; border-radius: 14px; border: none; background: var(--green-deep); color: var(--cream); font-family: 'Fraunces', serif; font-size: 17px; font-weight: 300; cursor: pointer; transition: all .25s; display: flex; align-items: center; justify-content: center; gap: 10px; }
 .btn-start:hover { background: var(--green-mid); }
-.btn-skip {
-  display: block; text-align: center; margin-top: 14px;
-  font-size: 12px; color: var(--text-ghost); cursor: pointer;
-  transition: color .2s;
-}
-.btn-skip:hover { color: var(--text-light); }
+.btn-skip { display: block; text-align: center; margin-top: 14px; font-size: 12px; color: var(--text-ghost); cursor: pointer; }
 
-/* ── ONBOARDING ── */
-.ob-wrap { flex: 1; padding: 28px 24px 24px; display: flex; flex-direction: column; }
-.ob-progress { margin-bottom: 24px; }
-.ob-progress-top {
-  display: flex; justify-content: space-between;
-  align-items: center; margin-bottom: 8px;
-}
-.ob-progress-step { font-size: 11px; font-weight: 500; color: var(--green-warm); }
-.ob-progress-ctx { font-size: 11px; color: var(--text-ghost); font-style: italic; }
-.ob-bar { height: 3px; background: var(--cream-dark); border-radius: 2px; overflow: hidden; }
-.ob-fill { height: 100%; background: var(--green-light); border-radius: 2px; transition: width .5s ease; }
-.ob-phase-hint { font-size: 11px; color: var(--green-warm); margin-top: 6px; font-style: italic; min-height: 16px; }
-.ob-question {
-  font-family: 'Fraunces', serif; font-size: 22px;
-  font-weight: 300; color: var(--green-deep);
-  line-height: 1.4; margin-bottom: 8px;
-}
-.ob-sub { font-size: 13px; color: var(--text-light); line-height: 1.6; font-weight: 300; margin-bottom: 20px; }
-.ob-cards { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
-.ob-card {
-  padding: 13px 16px; border-radius: 12px;
-  border: 1.5px solid var(--cream-dark); background: var(--warm-white);
-  cursor: pointer; transition: all .2s; text-align: left;
-  font-size: 13px; color: var(--text-mid); font-weight: 300;
-  display: flex; align-items: center; gap: 12px; line-height: 1.4;
-}
-.ob-card:hover { border-color: var(--green-pale); background: var(--green-ghost); }
-.ob-card.sel { border-color: var(--green-light); background: var(--green-ghost); border-width: 2px; color: var(--green-deep); }
-.ob-card-icon { font-size: 20px; flex-shrink: 0; }
-.nav-row { display: flex; gap: 10px; margin-top: auto; padding-top: 16px; }
-.btn-back {
-  width: 44px; height: 44px; border-radius: 12px;
-  border: 1.5px solid var(--cream-dark); background: transparent;
-  color: var(--green-mid); font-size: 16px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all .2s; flex-shrink: 0;
-}
-.btn-back:hover { border-color: var(--green-light); background: var(--green-ghost); }
-.btn-next {
-  flex: 1; padding: 13px; border-radius: 12px;
-  background: var(--green-deep); border: none; color: var(--cream);
-  font-size: 14px; font-weight: 400; cursor: pointer;
-  font-family: 'DM Sans', sans-serif; transition: all .2s;
-}
-.btn-next:hover { background: var(--green-mid); }
-.btn-next:disabled { opacity: .3; cursor: default; }
+/* ── QUESTION ── */
+.q-wrap { flex: 1; padding: 28px 24px 24px; display: flex; flex-direction: column; }
+.q-progress { margin-bottom: 24px; }
+.q-progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.q-step { font-size: 11px; font-weight: 500; color: var(--green-warm); }
+.q-ctx { font-size: 11px; color: var(--text-ghost); font-style: italic; }
+.q-bar { height: 3px; background: var(--cream-dark); border-radius: 2px; overflow: hidden; }
+.q-fill { height: 100%; background: var(--green-light); border-radius: 2px; transition: width .5s ease; }
+.q-hint { font-size: 11px; color: var(--green-warm); margin-top: 6px; font-style: italic; min-height: 16px; }
+.q-text { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 300; color: var(--green-deep); line-height: 1.4; margin-bottom: 8px; }
+.q-sub { font-size: 13px; color: var(--text-light); line-height: 1.6; font-weight: 300; margin-bottom: 20px; }
+.q-cards { display: flex; flex-direction: column; gap: 8px; }
+.q-card { padding: 13px 16px; border-radius: 12px; border: 1.5px solid var(--cream-dark); background: var(--warm-white); cursor: pointer; transition: all .2s; text-align: left; font-size: 13px; color: var(--text-mid); font-weight: 300; display: flex; align-items: center; gap: 12px; line-height: 1.4; }
+.q-card:hover { border-color: var(--green-pale); background: var(--green-ghost); }
+.q-card.sel { border-color: var(--green-light); background: var(--green-ghost); border-width: 2px; color: var(--green-deep); }
+.q-card-icon { font-size: 20px; flex-shrink: 0; }
+
+/* ── INSTANT INSIGHT ── */
+.insight-wrap { flex: 1; padding: 32px 24px; display: flex; flex-direction: column; }
+.insight-phase { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
+.insight-phase.stanje { color: #4A90B8; }
+.insight-phase.obrazac { color: var(--gold); }
+.insight-phase.sustav { color: var(--green-warm); }
+.insight-selected { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 12px; background: var(--cream); margin-bottom: 20px; }
+.insight-selected-icon { font-size: 20px; flex-shrink: 0; }
+.insight-selected-text { font-size: 13px; color: var(--text-light); font-style: italic; }
+.insight-card { border-radius: 16px; padding: 24px 20px; margin-bottom: 20px; animation: fadeInUp .5s ease; }
+.insight-card.stanje { background: rgba(74,144,184,.08); border: 1px solid rgba(74,144,184,.2); }
+.insight-card.obrazac { background: rgba(196,149,74,.08); border: 1px solid rgba(196,149,74,.2); }
+.insight-card.sustav { background: var(--green-ghost); border: 1px solid var(--green-pale); }
+.insight-card-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+.insight-card-text { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 300; line-height: 1.7; }
+.insight-card.stanje .insight-card-text { color: #2A5A7A; }
+.insight-card.obrazac .insight-card-text { color: #7A5A1A; }
+.insight-card.sustav .insight-card-text { color: var(--green-deep); }
+@keyframes fadeInUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+
+.btn-next-insight { width: 100%; padding: 14px; border-radius: 14px; border: none; background: var(--green-deep); color: var(--cream); font-family: 'Fraunces', serif; font-size: 16px; font-weight: 300; cursor: pointer; margin-top: auto; transition: all .25s; }
+.btn-next-insight:hover { background: var(--green-mid); }
 
 /* ── BREATHING ── */
-.breathing-wrap {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 32px 28px; text-align: center;
-}
-.breathing-phase-label {
-  font-size: 10px; font-weight: 600; letter-spacing: 2px;
-  text-transform: uppercase; color: #4A90B8;
-  margin-bottom: 24px;
-}
-.breathing-title {
-  font-family: 'Fraunces', serif; font-size: 26px;
-  font-weight: 300; color: var(--green-deep); margin-bottom: 10px;
-}
-.breathing-sub {
-  font-size: 13px; color: var(--text-light); line-height: 1.7;
-  font-weight: 300; margin-bottom: 40px; max-width: 280px;
-}
+.breathing-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 28px; text-align: center; }
+.breathing-phase-label { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #4A90B8; margin-bottom: 24px; }
+.breathing-title { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 300; color: var(--green-deep); margin-bottom: 10px; }
+.breathing-sub { font-size: 13px; color: var(--text-light); line-height: 1.7; font-weight: 300; margin-bottom: 40px; max-width: 280px; }
 .breathing-circle-wrap { position: relative; width: 180px; height: 180px; margin: 0 auto 32px; }
-.breathing-ring {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-  width: 180px; height: 180px; border-radius: 50%;
-  border: 1px solid rgba(107,175,132,.2);
-  animation: breatheRing 8s ease-in-out infinite;
-}
-@keyframes breatheRing {
-  0%,100% { transform: translate(-50%,-50%) scale(1); opacity: .5; }
-  50% { transform: translate(-50%,-50%) scale(1.1); opacity: .2; }
-}
-.breathing-circle {
-  width: 120px; height: 120px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(107,175,132,.3) 0%, rgba(107,175,132,.1) 70%);
-  border: 2px solid rgba(107,175,132,.4);
-  display: flex; align-items: center; justify-content: center;
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-  transition: all 4s ease-in-out; font-size: 28px;
-}
-.breathing-circle.expand {
-  width: 160px; height: 160px;
-  background: radial-gradient(circle, rgba(107,175,132,.4) 0%, rgba(107,175,132,.15) 70%);
-  border-color: rgba(107,175,132,.6);
-}
-.breathing-instruction {
-  font-family: 'Fraunces', serif; font-size: 20px;
-  font-weight: 300; font-style: italic;
-  color: var(--green-deep); margin-bottom: 8px; min-height: 28px;
-}
+.breathing-ring { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 180px; height: 180px; border-radius: 50%; border: 1px solid rgba(107,175,132,.2); animation: breatheRing 8s ease-in-out infinite; }
+@keyframes breatheRing { 0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.5} 50%{transform:translate(-50%,-50%) scale(1.1);opacity:.2} }
+.breathing-circle { width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, rgba(107,175,132,.3) 0%, rgba(107,175,132,.1) 70%); border: 2px solid rgba(107,175,132,.4); display: flex; align-items: center; justify-content: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); transition: all 4s ease-in-out; font-size: 28px; }
+.breathing-circle.expand { width: 160px; height: 160px; background: radial-gradient(circle, rgba(107,175,132,.4) 0%, rgba(107,175,132,.15) 70%); border-color: rgba(107,175,132,.6); }
+.breathing-instruction { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 300; font-style: italic; color: var(--green-deep); margin-bottom: 8px; min-height: 28px; }
 .breathing-count { font-size: 13px; color: var(--text-light); margin-bottom: 32px; min-height: 20px; }
 .breathing-progress { width: 100%; height: 3px; background: var(--cream-dark); border-radius: 2px; overflow: hidden; margin-bottom: 24px; }
 .breathing-fill { height: 100%; background: var(--green-light); border-radius: 2px; transition: width 1s linear; width: 0%; }
-.btn-breathing-done {
-  width: 100%; padding: 15px; border-radius: 14px;
-  background: var(--green-deep); border: none; color: var(--cream);
-  font-family: 'Fraunces', serif; font-size: 16px; font-weight: 300;
-  cursor: pointer; transition: all .25s;
-}
+.btn-breathing-done { width: 100%; padding: 15px; border-radius: 14px; background: var(--green-deep); border: none; color: var(--cream); font-family: 'Fraunces', serif; font-size: 16px; font-weight: 300; cursor: pointer; transition: all .25s; display: none; }
 .btn-breathing-done:hover { background: var(--green-mid); }
 .breathing-skip { display: block; margin-top: 12px; font-size: 12px; color: var(--text-ghost); cursor: pointer; text-align: center; }
 
-/* ── AHA ── */
-.aha-wrap { flex: 1; padding: 32px 24px; display: flex; flex-direction: column; overflow-y: auto; }
-.aha-phase-label {
-  font-size: 10px; font-weight: 600; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--gold); margin-bottom: 20px;
-}
-.aha-icon { font-size: 36px; margin-bottom: 16px; display: block; }
-.aha-title {
-  font-family: 'Fraunces', serif; font-size: 26px;
-  font-weight: 300; color: var(--green-deep); line-height: 1.3; margin-bottom: 20px;
-}
-.aha-card {
-  border-radius: 14px; padding: 18px 16px; margin-bottom: 12px;
-}
-.aha-card.stanje { background: rgba(74,144,184,.08); border: 1px solid rgba(74,144,184,.2); }
-.aha-card.obrazac { background: rgba(196,149,74,.08); border: 1px solid rgba(196,149,74,.2); }
-.aha-card.sustav { background: var(--green-ghost); border: 1px solid var(--green-pale); }
-.aha-card-label {
-  font-size: 9px; font-weight: 600; letter-spacing: 2px;
-  text-transform: uppercase; margin-bottom: 8px;
-}
-.stanje .aha-card-label { color: #4A90B8; }
-.obrazac .aha-card-label { color: var(--gold); }
-.sustav .aha-card-label { color: var(--green-warm); }
-.aha-card-text {
-  font-size: 13px; color: var(--text-mid); line-height: 1.75; font-weight: 300;
-}
-.aha-next-options { display: flex; flex-direction: column; gap: 8px; margin-top: auto; padding-top: 16px; }
-.aha-opt-btn {
-  width: 100%; padding: 13px 16px; border-radius: 12px;
-  border: 1.5px solid var(--cream-dark); background: var(--warm-white);
-  font-size: 13px; color: var(--green-deep); cursor: pointer;
-  text-align: left; transition: all .2s;
-  display: flex; align-items: center; justify-content: space-between;
-  font-family: 'DM Sans', sans-serif;
-}
-.aha-opt-btn:hover { border-color: var(--green-light); background: var(--green-ghost); }
-.aha-opt-btn.primary {
-  background: var(--green-deep); color: var(--cream);
-  border-color: var(--green-deep);
-  font-family: 'Fraunces', serif; font-size: 15px; font-weight: 300;
-}
-.aha-opt-btn.primary:hover { background: var(--green-mid); }
+/* ── EXERCISE ── */
+.ex-wrap { flex: 1; padding: 28px 24px; display: flex; flex-direction: column; overflow-y: auto; }
+.ex-phase-label { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--green-warm); margin-bottom: 16px; }
+.ex-title { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 300; color: var(--green-deep); margin-bottom: 4px; }
+.ex-source { font-size: 11px; color: var(--text-ghost); font-style: italic; margin-bottom: 16px; }
+.ex-context { background: var(--green-ghost); border-left: 3px solid var(--green-light); border-radius: 0 10px 10px 0; padding: 14px 16px; font-family: 'Fraunces', serif; font-size: 14px; font-style: italic; color: var(--green-deep); line-height: 1.7; margin-bottom: 14px; }
+.ex-desc { font-size: 13px; color: var(--text-mid); line-height: 1.75; font-weight: 300; margin-bottom: 12px; }
+.ex-how-label { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); margin-bottom: 6px; }
+.ex-how { background: var(--warm-white); border-radius: 12px; padding: 12px 16px; border: 1px solid var(--cream-dark); font-size: 13px; color: var(--text-mid); line-height: 1.7; font-weight: 300; margin-bottom: 24px; }
 
-/* ── PLANT ── */
-.plant-wrap {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; padding: 32px 24px; text-align: center;
-}
-.plant-phase-label {
-  font-size: 10px; font-weight: 600; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--green-warm); margin-bottom: 20px;
-}
-.plant-title {
-  font-family: 'Fraunces', serif; font-size: 24px;
-  font-weight: 300; color: var(--green-deep); margin-bottom: 10px; line-height: 1.3;
-}
-.plant-sub { font-size: 13px; color: var(--text-light); line-height: 1.7; font-weight: 300; margin-bottom: 32px; max-width: 280px; }
-.plant-svg-wrap { position: relative; width: 160px; height: 180px; margin: 0 auto 24px; }
-.plant-svg-wrap svg { width: 100%; height: 100%; }
-.plant-stem { stroke-dasharray: 200; stroke-dashoffset: 200; transition: stroke-dashoffset 2s ease; }
-.plant-stem.grow { stroke-dashoffset: 0; }
-.plant-leaf { opacity: 0; transform-origin: bottom center; transition: opacity 1s ease, transform 1s ease; transform: scale(0); }
-.plant-leaf.show { opacity: 1; transform: scale(1); }
-.plant-task {
-  width: 100%; background: var(--warm-white); border-radius: 14px;
-  padding: 16px; margin-bottom: 10px;
-  border: 1px solid var(--cream-dark); text-align: left;
-  display: flex; align-items: center; gap: 14px;
-  cursor: pointer; transition: all .2s;
-}
-.plant-task:hover { border-color: var(--green-pale); background: var(--green-ghost); }
-.plant-task.done { border-color: var(--green-light); background: var(--green-ghost); }
-.task-check {
-  width: 28px; height: 28px; border-radius: 50%;
-  border: 2px solid var(--cream-dark); flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  transition: all .3s;
-}
-.plant-task.done .task-check { background: var(--green-light); border-color: var(--green-light); }
-.task-text { font-size: 13px; color: var(--text-mid); line-height: 1.5; font-weight: 300; }
-.plant-task.done .task-text { color: var(--green-warm); }
-.plant-done-msg {
-  display: none; margin-top: 16px; padding: 16px 20px;
-  border-radius: 14px; background: var(--green-ghost);
-  border: 1px solid var(--green-pale);
-  font-family: 'Fraunces', serif; font-size: 15px;
-  font-style: italic; color: var(--green-deep); line-height: 1.6;
-  text-align: center; animation: fadeIn .5s ease;
-}
-@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-.btn-plant-next {
-  width: 100%; padding: 15px; border-radius: 14px;
-  background: var(--green-deep); border: none; color: var(--cream);
-  font-family: 'Fraunces', serif; font-size: 16px; font-weight: 300;
-  cursor: pointer; margin-top: auto; transition: all .25s;
-}
-.btn-plant-next:hover { background: var(--green-mid); }
+/* Feeling */
+.ex-feeling-label { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 300; color: var(--green-deep); margin-bottom: 12px; text-align: center; }
+.ex-feeling-btns { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.ex-feeling-btn { width: 100%; padding: 13px 16px; border-radius: 12px; border: 1.5px solid var(--cream-dark); background: var(--warm-white); font-size: 13px; color: var(--text-mid); cursor: pointer; text-align: left; transition: all .2s; display: flex; align-items: center; gap: 10px; font-family: 'DM Sans', sans-serif; font-weight: 300; }
+.ex-feeling-btn:hover { border-color: var(--green-pale); background: var(--green-ghost); }
+.ex-feeling-response { display: none; padding: 14px 16px; border-radius: 12px; background: var(--green-ghost); border: 1px solid var(--green-pale); font-size: 13px; color: var(--text-mid); line-height: 1.7; font-weight: 300; margin-bottom: 14px; animation: fadeInUp .4s ease; }
+.ex-feeling-response.show { display: block; }
+
+/* Completion */
+.ex-completion { display: none; text-align: center; padding: 24px 20px; background: var(--green-deep); border-radius: 16px; margin-bottom: 16px; animation: fadeInUp .5s ease; }
+.ex-completion.show { display: block; }
+.ex-completion-icon { font-size: 36px; margin-bottom: 12px; display: block; }
+.ex-completion-text { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 300; color: var(--cream); line-height: 1.6; margin-bottom: 8px; }
+.ex-completion-text em { font-style: italic; color: var(--green-pale); }
+.ex-carry { font-size: 13px; color: var(--green-pale); line-height: 1.7; font-weight: 300; font-style: italic; }
+
+.btn-ex-next { width: 100%; padding: 14px; border-radius: 14px; background: var(--green-deep); border: none; color: var(--cream); font-family: 'Fraunces', serif; font-size: 16px; font-weight: 300; cursor: pointer; margin-top: auto; transition: all .25s; }
+.btn-ex-next:hover { background: var(--green-mid); }
+.ex-journal-link { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; color: var(--green-warm); margin-top: 10px; cursor: pointer; text-decoration: none; transition: color .2s; }
+.ex-journal-link:hover { color: var(--green-deep); }
+.ex-more-link { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; color: var(--text-ghost); margin-top: 6px; text-decoration: none; }
+.ex-more-link:hover { color: var(--text-light); }
 
 /* ── HOME ── */
-.home-header {
-  padding: 18px 24px 14px;
-  border-bottom: 1px solid var(--cream-dark);
-  display: flex; justify-content: space-between; align-items: center;
-}
+.home-header { padding: 18px 24px 14px; border-bottom: 1px solid var(--cream-dark); display: flex; justify-content: space-between; align-items: center; }
 .home-logo-name { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 300; color: var(--green-deep); }
 .home-logo-tag { font-size: 11px; color: var(--text-ghost); font-style: italic; }
-.lang-toggle {
-  padding: 4px 12px; border-radius: 999px;
-  border: 1px solid var(--cream-dark); background: transparent;
-  font-size: 11px; font-weight: 500; color: var(--text-light);
-  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .2s;
-}
+.lang-toggle { padding: 4px 12px; border-radius: 999px; border: 1px solid var(--cream-dark); background: transparent; font-size: 11px; font-weight: 500; color: var(--text-light); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .2s; }
 .lang-toggle:hover { border-color: var(--green-light); color: var(--green-deep); }
 .home-body { padding: 20px 24px; flex: 1; }
-.phase-status {
-  background: var(--green-ghost); border-radius: 16px;
-  padding: 18px; margin-bottom: 18px; border: 1px solid var(--green-pale);
-}
-.phase-status-label {
-  font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
-  text-transform: uppercase; color: var(--green-warm); margin-bottom: 8px;
-}
-.phase-status-text {
-  font-family: 'Fraunces', serif; font-size: 17px;
-  font-weight: 300; color: var(--green-deep); line-height: 1.3;
-}
-.btn-main-action {
-  width: 100%; padding: 18px; border-radius: 16px; border: none;
-  background: var(--green-deep); color: var(--cream);
-  font-family: 'Fraunces', serif; font-size: 17px; font-weight: 300;
-  cursor: pointer; transition: all .25s; margin-bottom: 14px;
-  text-align: left; display: flex; align-items: center; justify-content: space-between;
-}
-.btn-main-action:hover { background: var(--green-mid); }
-.today-card {
-  background: var(--warm-white); border-radius: 16px;
-  padding: 18px; margin-bottom: 14px; border: 1px solid var(--cream-dark);
-}
-.today-label {
-  font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
-  text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
-}
-.today-reminder {
-  font-family: 'Fraunces', serif; font-size: 14px;
-  font-weight: 300; font-style: italic;
-  color: var(--green-deep); line-height: 1.6; margin-bottom: 10px;
-}
-.today-tip-title { font-size: 13px; font-weight: 500; color: var(--green-deep); margin-bottom: 5px; }
-.today-tip-text { font-size: 12px; color: var(--text-mid); line-height: 1.65; font-weight: 300; }
-.nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
-.nav-btn {
-  padding: 13px 10px; border-radius: 12px;
-  border: 1px solid var(--cream-dark); background: var(--warm-white);
-  font-size: 12px; font-weight: 500; color: var(--green-deep);
-  cursor: pointer; text-align: center; transition: all .2s;
-  font-family: 'DM Sans', sans-serif;
-}
+.home-welcome { background: var(--green-ghost); border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 1px solid var(--green-pale); }
+.home-welcome-text { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 300; color: var(--green-deep); line-height: 1.4; margin-bottom: 6px; }
+.home-welcome-sub { font-size: 12px; color: var(--text-light); font-style: italic; }
+.btn-main { width: 100%; padding: 18px; border-radius: 16px; border: none; background: var(--green-deep); color: var(--cream); font-family: 'Fraunces', serif; font-size: 17px; font-weight: 300; cursor: pointer; transition: all .25s; margin-bottom: 12px; text-align: left; display: flex; align-items: center; justify-content: space-between; }
+.btn-main:hover { background: var(--green-mid); }
+.today-card { background: var(--warm-white); border-radius: 16px; padding: 18px; margin-bottom: 12px; border: 1px solid var(--cream-dark); }
+.today-label { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.today-thought { font-family: 'Fraunces', serif; font-size: 14px; font-weight: 300; font-style: italic; color: var(--green-deep); line-height: 1.6; }
+.nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.nav-btn { padding: 13px 10px; border-radius: 12px; border: 1px solid var(--cream-dark); background: var(--warm-white); font-size: 12px; font-weight: 500; color: var(--green-deep); cursor: pointer; text-align: center; transition: all .2s; font-family: 'DM Sans', sans-serif; }
 .nav-btn:hover { background: var(--green-ghost); border-color: var(--green-pale); }
-.back-link {
-  text-align: center; padding: 12px 0 20px;
-  font-size: 11px; color: var(--text-ghost); letter-spacing: .5px;
-}
+.back-link { text-align: center; padding: 12px 0 20px; font-size: 11px; color: var(--text-ghost); }
 .back-link a { color: inherit; text-decoration: none; }
-.back-link a:hover { color: var(--text-light); }
 </style>
 </head>
 <body>
@@ -441,24 +220,19 @@ body {
       <div class="lume-mark-name">Lume</div>
       <button class="lang-toggle" onclick="toggleLang()" id="welcomeLang" style="margin-left:auto">EN</button>
     </div>
-    <h1 class="welcome-title" id="wTitle">
-      Vraćanje<br><em>sebi</em> —<br>ne mijenjanje.
-    </h1>
-    <p class="welcome-text" id="wText">
-      Tri pitanja. Jedan uvid. Jedan konkretan korak.
-      Bez pritiska, bez savršenstva — samo ti.
-    </p>
+    <h1 class="welcome-title" id="wTitle">Vraćanje<br><em>sebi</em> —<br>ne mijenjanje.</h1>
+    <p class="welcome-text" id="wText">Tri pitanja. Tri uvida. Jedna vježba. Bez pritiska — samo ti.</p>
     <div class="safe-badge">
       <div>
         <div class="safe-badge-label" id="wSafeLabel">Sigurna zona</div>
-        <div class="safe-badge-text" id="wSafeText">Nema krivih odgovora, nema osude. Svaki korak prema razumijevanju sebe je hrabrost.</div>
+        <div class="safe-badge-text" id="wSafeText">Nema krivih odgovora. Svaki korak prema razumijevanju sebe je hrabrost.</div>
       </div>
     </div>
     <div class="phase-preview">
       <div class="phase-preview-item">
         <div class="phase-preview-icon">🌊</div>
         <div class="phase-preview-name" id="ppS">Stanje</div>
-        <div class="phase-preview-desc" id="ppSd">Kako si ti sada</div>
+        <div class="phase-preview-desc" id="ppSd">Kako si sada</div>
       </div>
       <div class="phase-preview-item">
         <div class="phase-preview-icon">💡</div>
@@ -471,7 +245,7 @@ body {
         <div class="phase-preview-desc" id="ppSud">Jedan mali korak</div>
       </div>
     </div>
-    <button class="btn-start" onclick="goTo('ob1')">
+    <button class="btn-start" onclick="goTo('q1')">
       <span id="wStartBtn">Počni</span>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </button>
@@ -481,172 +255,184 @@ body {
 </div>
 
 <!-- ══ Q1 — STANJE ══ -->
-<div id="ob1" class="screen">
+<div id="q1" class="screen">
   <div class="phase-bar" id="pb1"></div>
-  <div class="ob-wrap">
-    <div class="ob-progress">
-      <div class="ob-progress-top">
-        <span class="ob-progress-step" id="ob1step">1 / 3</span>
-        <span class="ob-progress-ctx" id="ob1ctx">Stanje</span>
+  <div class="q-wrap">
+    <div class="q-progress">
+      <div class="q-progress-top">
+        <span class="q-step" id="q1step">1 / 3</span>
+        <span class="q-ctx" id="q1ctx">Stanje</span>
       </div>
-      <div class="ob-bar"><div class="ob-fill" id="ob1fill" style="width:0%"></div></div>
-      <div class="ob-phase-hint" id="ob1hint">🌊 Stanje — kako si ti sada</div>
+      <div class="q-bar"><div class="q-fill" style="width:5%"></div></div>
+      <div class="q-hint" id="q1hint">🌊 Kako si ti sada</div>
     </div>
-    <div class="ob-question" id="ob1q">Kako si ti sada — ne kao uloga koju igraš, nego kao osoba?</div>
-    <div class="ob-sub" id="ob1s">Budi iskren/a. Nema krivih odgovora.</div>
-    <div class="ob-cards" id="ob1cards">
-      <div class="ob-card" onclick="obPick('stanje','stabilno',this,'ob1next')"><span class="ob-card-icon">🌿</span><span id="s1">Stvari su na svom mjestu — osjećam stabilnost</span></div>
-      <div class="ob-card" onclick="obPick('stanje','uvijek_bolje',this,'ob1next')"><span class="ob-card-icon">🔄</span><span id="s2">Uvijek može bolje — nikad dosta, nikad zadovoljno</span></div>
-      <div class="ob-card" onclick="obPick('stanje','nitko_ne_razumije',this,'ob1next')"><span class="ob-card-icon">🫥</span><span id="s3">Kao da me nitko ne razumije — ne vidi, ne shvaća</span></div>
-      <div class="ob-card" onclick="obPick('stanje','nevidljiva',this,'ob1next')"><span class="ob-card-icon">💤</span><span id="s4">Barem da sam nevidljiva — trebam odmor od svega i svih</span></div>
-      <div class="ob-card" onclick="obPick('stanje','zakocena',this,'ob1next')"><span class="ob-card-icon">🌀</span><span id="s5">Zakočena i frustrirana — razočarana svime</span></div>
-      <div class="ob-card" onclick="obPick('stanje','autopilot',this,'ob1next')"><span class="ob-card-icon">🤖</span><span id="s6">Na autopilotu — funkcioniram, ali bez pravog kontakta sa sobom</span></div>
-      <div class="ob-card" onclick="obPick('stanje','energija',this,'ob1next')"><span class="ob-card-icon">⚡</span><span id="s7">Puna energije — tražim smjer i fokus</span></div>
-      <div class="ob-card" onclick="obPick('stanje','iscrpljena',this,'ob1next')"><span class="ob-card-icon">😮‍💨</span><span id="s8">Iscrpljena iznutra — iako izvana izgledam dobro</span></div>
+    <div class="q-text" id="q1text">Kako si ti sada — ne kao uloga koju igraš, nego kao osoba?</div>
+    <div class="q-sub" id="q1sub">Budi iskren/a. Nema krivih odgovora.</div>
+    <div class="q-cards">
+      <div class="q-card" onclick="pick('stanje','stabilno',this,'i1')"><span class="q-card-icon">🌿</span><span id="s1">Stvari su na svom mjestu — osjećam stabilnost</span></div>
+      <div class="q-card" onclick="pick('stanje','uvijek_bolje',this,'i1')"><span class="q-card-icon">🔄</span><span id="s2">Uvijek može bolje — nikad dosta, nikad zadovoljno</span></div>
+      <div class="q-card" onclick="pick('stanje','nitko_ne_razumije',this,'i1')"><span class="q-card-icon">🫥</span><span id="s3">Kao da me nitko ne razumije — ne vidi, ne shvaća</span></div>
+      <div class="q-card" onclick="pick('stanje','nevidljiva',this,'i1')"><span class="q-card-icon">💤</span><span id="s4">Barem da sam nevidljiva — trebam odmor od svega i svih</span></div>
+      <div class="q-card" onclick="pick('stanje','zakocena',this,'i1')"><span class="q-card-icon">🌀</span><span id="s5">Zakočena i frustrirana — razočarana svime</span></div>
+      <div class="q-card" onclick="pick('stanje','autopilot',this,'i1')"><span class="q-card-icon">🤖</span><span id="s6">Na autopilotu — funkcioniram bez pravog kontakta sa sobom</span></div>
+      <div class="q-card" onclick="pick('stanje','energija',this,'i1')"><span class="q-card-icon">⚡</span><span id="s7">Puna energije — tražim smjer i fokus</span></div>
+      <div class="q-card" onclick="pick('stanje','iscrpljena',this,'i1')"><span class="q-card-icon">😮‍💨</span><span id="s8">Iscrpljena iznutra — iako izvana izgledam dobro</span></div>
     </div>
-    <div class="nav-row">
-      <button class="btn-back" onclick="goTo('sw')">←</button>
-      <button class="btn-next" id="ob1next" disabled onclick="goTo('ob2')"><span id="ob1nextTxt">Dalje</span></button>
+  </div>
+</div>
+
+<!-- ══ INSIGHT 1 — STANJE ══ -->
+<div id="i1" class="screen">
+  <div class="phase-bar" id="pbi1"></div>
+  <div class="insight-wrap">
+    <div class="insight-phase stanje" id="i1phase">🌊 Stanje</div>
+    <div class="insight-selected" id="i1selected">
+      <span class="insight-selected-icon" id="i1icon"></span>
+      <span class="insight-selected-text" id="i1selectedText"></span>
     </div>
+    <div class="insight-card stanje">
+      <span class="insight-card-icon">🌊</span>
+      <div class="insight-card-text" id="i1text"></div>
+    </div>
+    <button class="btn-next-insight" onclick="goTo('q2')" id="i1btn">Nastavi →</button>
   </div>
 </div>
 
 <!-- ══ Q2 — OBRAZAC ══ -->
-<div id="ob2" class="screen">
+<div id="q2" class="screen">
   <div class="phase-bar" id="pb2"></div>
-  <div class="ob-wrap">
-    <div class="ob-progress">
-      <div class="ob-progress-top">
-        <span class="ob-progress-step" id="ob2step">2 / 3</span>
-        <span class="ob-progress-ctx" id="ob2ctx">Obrazac</span>
+  <div class="q-wrap">
+    <div class="q-progress">
+      <div class="q-progress-top">
+        <span class="q-step" id="q2step">2 / 3</span>
+        <span class="q-ctx" id="q2ctx">Obrazac</span>
       </div>
-      <div class="ob-bar"><div class="ob-fill" id="ob2fill" style="width:33%"></div></div>
-      <div class="ob-phase-hint" id="ob2hint">💡 Obrazac — što se ponavlja</div>
+      <div class="q-bar"><div class="q-fill" style="width:33%"></div></div>
+      <div class="q-hint" id="q2hint">💡 Što se ponavlja</div>
     </div>
-    <div class="ob-question" id="ob2q">Kad ti je teško — što se najčešće dogodi s tobom?</div>
-    <div class="ob-sub" id="ob2s">Odaberi ono što najčešće prepoznaješ u sebi.</div>
-    <div class="ob-cards" id="ob2cards">
-      <div class="ob-card" onclick="obPick('obrazac','povlacim',this,'ob2next')"><span class="ob-card-icon">🐚</span><span id="o1">Povlačim se u sebe — tražim svoj siguran kutak</span></div>
-      <div class="ob-card" onclick="obPick('obrazac','bijes',this,'ob2next')"><span class="ob-card-icon">🔥</span><span id="o2">Bijes i očaj — osjećam da je situacija protiv mene</span></div>
-      <div class="ob-card" onclick="obPick('obrazac','paraliza',this,'ob2next')"><span class="ob-card-icon">🌀</span><span id="o3">Izgubljenost i paraliza — ne znam što napraviti</span></div>
-      <div class="ob-card" onclick="obPick('obrazac','zastanem',this,'ob2next')"><span class="ob-card-icon">🌊</span><span id="o4">Zastanem i pustim da prođe — udahnem i idem dalje</span></div>
-      <div class="ob-card" onclick="obPick('obrazac','ne_znam',this,'ob2next')"><span class="ob-card-icon">🤷</span><span id="o5">Jednostavno ne znam — prazno, bez odgovora</span></div>
-      <div class="ob-card" onclick="obPick('obrazac','krivac',this,'ob2next')"><span class="ob-card-icon">👉</span><span id="o6">Tražim krivca — u sebi ili u drugima</span></div>
-      <div class="ob-card" onclick="obPick('obrazac','hiperproduktivna',this,'ob2next')"><span class="ob-card-icon">⚡</span><span id="o7">Postajem hiperproduktivna — radim sve samo da ne osjećam</span></div>
-      <div class="ob-card" onclick="obPick('obrazac','potvrda',this,'ob2next')"><span class="ob-card-icon">🫂</span><span id="o8">Tražim potvrdu — trebam da netko kaže da sam u redu</span></div>
-    </div>
-    <div class="nav-row">
-      <button class="btn-back" onclick="goTo('ob1')">←</button>
-      <button class="btn-next" id="ob2next" disabled onclick="goTo('ob3')"><span id="ob2nextTxt">Dalje</span></button>
+    <div class="q-text" id="q2text">Kad ti je teško — što se najčešće dogodi s tobom?</div>
+    <div class="q-sub" id="q2sub">Odaberi ono što najčešće prepoznaješ u sebi.</div>
+    <div class="q-cards">
+      <div class="q-card" onclick="pick('obrazac','povlacim',this,'i2')"><span class="q-card-icon">🐚</span><span id="o1">Povlačim se u sebe — tražim svoj siguran kutak</span></div>
+      <div class="q-card" onclick="pick('obrazac','bijes',this,'i2')"><span class="q-card-icon">🔥</span><span id="o2">Bijes i očaj — osjećam da je situacija protiv mene</span></div>
+      <div class="q-card" onclick="pick('obrazac','paraliza',this,'i2')"><span class="q-card-icon">🌀</span><span id="o3">Izgubljenost i paraliza — ne znam što napraviti</span></div>
+      <div class="q-card" onclick="pick('obrazac','zastanem',this,'i2')"><span class="q-card-icon">🌊</span><span id="o4">Zastanem i pustim da prođe — udahnem i idem dalje</span></div>
+      <div class="q-card" onclick="pick('obrazac','ne_znam',this,'i2')"><span class="q-card-icon">🤷</span><span id="o5">Jednostavno ne znam — prazno, bez odgovora</span></div>
+      <div class="q-card" onclick="pick('obrazac','krivac',this,'i2')"><span class="q-card-icon">👉</span><span id="o6">Tražim krivca — u sebi ili u drugima</span></div>
+      <div class="q-card" onclick="pick('obrazac','hiperproduktivna',this,'i2')"><span class="q-card-icon">⚡</span><span id="o7">Postajem hiperproduktivna — radim sve samo da ne osjećam</span></div>
+      <div class="q-card" onclick="pick('obrazac','potvrda',this,'i2')"><span class="q-card-icon">🫂</span><span id="o8">Tražim potvrdu — trebam da netko kaže da sam u redu</span></div>
     </div>
   </div>
 </div>
 
+<!-- ══ INSIGHT 2 — OBRAZAC ══ -->
+<div id="i2" class="screen">
+  <div class="phase-bar" id="pbi2"></div>
+  <div class="insight-wrap">
+    <div class="insight-phase obrazac" id="i2phase">💡 Obrazac</div>
+    <div class="insight-selected" id="i2selected">
+      <span class="insight-selected-icon" id="i2icon"></span>
+      <span class="insight-selected-text" id="i2selectedText"></span>
+    </div>
+    <div class="insight-card obrazac">
+      <span class="insight-card-icon">💡</span>
+      <div class="insight-card-text" id="i2text"></div>
+    </div>
+    <button class="btn-next-insight" onclick="goTo('q3')" id="i2btn">Nastavi →</button>
+  </div>
+</div>
+
 <!-- ══ Q3 — SUSTAV ══ -->
-<div id="ob3" class="screen">
+<div id="q3" class="screen">
   <div class="phase-bar" id="pb3"></div>
-  <div class="ob-wrap">
-    <div class="ob-progress">
-      <div class="ob-progress-top">
-        <span class="ob-progress-step" id="ob3step">3 / 3</span>
-        <span class="ob-progress-ctx" id="ob3ctx">Sustav</span>
+  <div class="q-wrap">
+    <div class="q-progress">
+      <div class="q-progress-top">
+        <span class="q-step" id="q3step">3 / 3</span>
+        <span class="q-ctx" id="q3ctx">Sustav</span>
       </div>
-      <div class="ob-bar"><div class="ob-fill" id="ob3fill" style="width:66%"></div></div>
-      <div class="ob-phase-hint" id="ob3hint">🌱 Sustav — jedan mali korak</div>
+      <div class="q-bar"><div class="q-fill" style="width:66%"></div></div>
+      <div class="q-hint" id="q3hint">🌱 Jedan mali korak</div>
     </div>
-    <div class="ob-question" id="ob3q">Što bi ti najviše pomoglo sada? Koji korak bi volio/voljela poduzeti?</div>
-    <div class="ob-sub" id="ob3s">Nema savršenog odgovora — samo tvoj odgovor.</div>
-    <div class="ob-cards" id="ob3cards">
-      <div class="ob-card" onclick="obPick('sustav','prostor',this,'ob3next')"><span class="ob-card-icon">🪞</span><span id="su1">Malo prostora za sebe — bez uloga, bez očekivanja</span></div>
-      <div class="ob-card" onclick="obPick('sustav','zapisati',this,'ob3next')"><span class="ob-card-icon">📝</span><span id="su2">Zapisati što osjećam — samo za sebe</span></div>
-      <div class="ob-card" onclick="obPick('sustav','korak',this,'ob3next')"><span class="ob-card-icon">🚶</span><span id="su3">Jedan mali korak — u smjeru koji ja biram</span></div>
-      <div class="ob-card" onclick="obPick('sustav','razgovor',this,'ob3next')"><span class="ob-card-icon">💬</span><span id="su4">Razgovor s nekim tko me razumije</span></div>
-      <div class="ob-card" onclick="obPick('sustav','obrazac',this,'ob3next')"><span class="ob-card-icon">🌱</span><span id="su5">Razumjeti obrazac koji me koči</span></div>
-      <div class="ob-card" onclick="obPick('sustav','akcija',this,'ob3next')"><span class="ob-card-icon">⚡</span><span id="su6">Akciju odmah — riješiti, pokrenuti se</span></div>
-      <div class="ob-card" onclick="obPick('sustav','tisina',this,'ob3next')"><span class="ob-card-icon">🤫</span><span id="su7">Tišinu — samo biti, bez da moram ništa</span></div>
-      <div class="ob-card" onclick="obPick('sustav','dublje',this,'ob3next')"><span class="ob-card-icon">🔍</span><span id="su8">Razumjeti sebe dublje — što je ispod</span></div>
+    <div class="q-text" id="q3text">Što bi ti najviše pomoglo sada? Koji korak bi volio/voljela poduzeti?</div>
+    <div class="q-sub" id="q3sub">Nema savršenog odgovora — samo tvoj odgovor.</div>
+    <div class="q-cards">
+      <div class="q-card" onclick="pick('sustav','prostor',this,'i3')"><span class="q-card-icon">🪞</span><span id="su1">Malo prostora za sebe — bez uloga, bez očekivanja</span></div>
+      <div class="q-card" onclick="pick('sustav','zapisati',this,'i3')"><span class="q-card-icon">📝</span><span id="su2">Zapisati što osjećam — samo za sebe</span></div>
+      <div class="q-card" onclick="pick('sustav','korak',this,'i3')"><span class="q-card-icon">🚶</span><span id="su3">Jedan mali korak — u smjeru koji ja biram</span></div>
+      <div class="q-card" onclick="pick('sustav','razgovor',this,'i3')"><span class="q-card-icon">💬</span><span id="su4">Razgovor s nekim tko me razumije</span></div>
+      <div class="q-card" onclick="pick('sustav','obrazac',this,'i3')"><span class="q-card-icon">🌱</span><span id="su5">Razumjeti obrazac koji me koči</span></div>
+      <div class="q-card" onclick="pick('sustav','akcija',this,'i3')"><span class="q-card-icon">⚡</span><span id="su6">Akciju odmah — riješiti, pokrenuti se</span></div>
+      <div class="q-card" onclick="pick('sustav','tisina',this,'i3')"><span class="q-card-icon">🤫</span><span id="su7">Tišinu — samo biti, bez da moram ništa</span></div>
+      <div class="q-card" onclick="pick('sustav','dublje',this,'i3')"><span class="q-card-icon">🔍</span><span id="su8">Razumjeti sebe dublje — što je ispod</span></div>
     </div>
-    <div class="nav-row">
-      <button class="btn-back" onclick="goTo('ob2')">←</button>
-      <button class="btn-next" id="ob3next" disabled onclick="goBreathing()"><span id="ob3nextTxt">Nastavi</span></button>
+  </div>
+</div>
+
+<!-- ══ INSIGHT 3 — SUSTAV ══ -->
+<div id="i3" class="screen">
+  <div class="phase-bar" id="pbi3"></div>
+  <div class="insight-wrap">
+    <div class="insight-phase sustav" id="i3phase">🌱 Sustav</div>
+    <div class="insight-selected" id="i3selected">
+      <span class="insight-selected-icon" id="i3icon"></span>
+      <span class="insight-selected-text" id="i3selectedText"></span>
     </div>
+    <div class="insight-card sustav">
+      <span class="insight-card-icon">🌱</span>
+      <div class="insight-card-text" id="i3text"></div>
+    </div>
+    <button class="btn-next-insight" onclick="goBreathing()" id="i3btn">Nastavi →</button>
   </div>
 </div>
 
 <!-- ══ BREATHING ══ -->
 <div id="sbreathe" class="screen">
   <div class="breathing-wrap">
-    <div class="breathing-phase-label" id="bPhaseLabel">🌊 Stanje — regulacija</div>
+    <div class="breathing-phase-label" id="bPhaseLabel">🌊 Integracija</div>
     <h2 class="breathing-title" id="bTitle">Jedna kratka vježba</h2>
-    <p class="breathing-sub" id="bSub">Tri ciklusa disanja aktiviraju parasimpatički živčani sustav — prirodni odgovor tijela na smirenje.</p>
+    <p class="breathing-sub" id="bSub">Tri ciklusa disanja — integrira sve što si upravo čuo/la o sebi.</p>
     <div class="breathing-circle-wrap">
       <div class="breathing-ring"></div>
       <div class="breathing-circle" id="breatheCircle">🌊</div>
     </div>
     <div class="breathing-instruction" id="breatheInstr">Udahni...</div>
     <div class="breathing-count" id="breatheCount">Ciklus 1 od 3</div>
-    <div class="breathing-progress">
-      <div class="breathing-fill" id="breatheFill"></div>
-    </div>
-    <button class="btn-breathing-done" id="breatheBtn" onclick="goToAha()" style="display:none">
-      <span id="breatheDoneText">Gotovo — nastavljam →</span>
-    </button>
-    <span class="breathing-skip" onclick="goToAha()" id="breatheSkip">Preskoči →</span>
+    <div class="breathing-progress"><div class="breathing-fill" id="breatheFill"></div></div>
+    <button class="btn-breathing-done" id="breatheBtn" onclick="goExercise()"><span id="breatheDoneText">Gotovo — nastavljam →</span></button>
+    <span class="breathing-skip" onclick="goExercise()" id="breatheSkip">Preskoči →</span>
   </div>
 </div>
 
-<!-- ══ AHA ══ -->
-<div id="saha" class="screen">
-  <div class="phase-bar" id="pbAha"></div>
-  <div class="aha-wrap">
-    <div class="aha-phase-label" id="ahaPhaseLabel">💡 Obrazac — tvoj uvid</div>
-    <span class="aha-icon">🌿</span>
-    <h2 class="aha-title" id="ahaTitle">Vidimo te</h2>
-    <div class="aha-card stanje">
-      <div class="aha-card-label" id="ahaStanjeLabel">🌊 Stanje</div>
-      <div class="aha-card-text" id="ahaStanje"></div>
-    </div>
-    <div class="aha-card obrazac">
-      <div class="aha-card-label" id="ahaObrazacLabel">💡 Obrazac</div>
-      <div class="aha-card-text" id="ahaObrazac"></div>
-    </div>
-    <div class="aha-card sustav">
-      <div class="aha-card-label" id="ahaSustavLabel">🌱 Sustav</div>
-      <div class="aha-card-text" id="ahaSustav"></div>
-    </div>
-    <div class="aha-next-options">
-      <button class="aha-opt-btn primary" onclick="goPlant()">
-        <span id="ahaBtn1">Nastavi do Sustav faze 🌱</span><span>→</span>
-      </button>
-      <button class="aha-opt-btn" onclick="goTo('sh')">
-        <span id="ahaBtn2">Uđi u LUME odmah</span><span>→</span>
-      </button>
-    </div>
-  </div>
-</div>
+<!-- ══ EXERCISE ══ -->
+<div id="sex" class="screen">
+  <div class="phase-bar" id="pbEx"></div>
+  <div class="ex-wrap">
+    <div class="ex-phase-label" id="exPhaseLabel">🌱 Vježba za danas</div>
+    <div class="ex-title" id="exTitle"></div>
+    <div class="ex-source" id="exSource"></div>
+    <div class="ex-context" id="exContext"></div>
+    <div class="ex-desc" id="exDesc"></div>
+    <div class="ex-how-label" id="exHowLabel">Kako:</div>
+    <div class="ex-how" id="exHow"></div>
 
-<!-- ══ PLANT ══ -->
-<div id="splant" class="screen">
-  <div class="phase-bar" id="pbPlant"></div>
-  <div class="plant-wrap">
-    <div class="plant-phase-label" id="plantPhaseLabel">🌱 Sustav — jedan mali korak</div>
-    <h2 class="plant-title" id="plantTitle">Tvoj mali korak danas</h2>
-    <p class="plant-sub" id="plantSub">Ne velika promjena. Jedna konkretna stvar koja gradi dugoročnu stabilnost.</p>
-    <div class="plant-svg-wrap">
-      <svg viewBox="0 0 160 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="80" cy="165" rx="50" ry="8" fill="#EDE8DF"/>
-        <path id="plantStem" class="plant-stem" d="M80 160 C80 140 75 120 80 100 C85 80 78 60 80 40" stroke="#6BAF84" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-        <path id="leaf1" class="plant-leaf" d="M80 130 C65 125 55 115 60 105 C65 95 80 100 80 110" fill="#C8E6D4" stroke="#6BAF84" stroke-width="1"/>
-        <path id="leaf2" class="plant-leaf" d="M80 110 C95 105 105 95 100 85 C95 75 80 80 80 90" fill="#A8D4B8" stroke="#6BAF84" stroke-width="1"/>
-        <path id="leaf3" class="plant-leaf" d="M80 85 C65 78 58 65 65 58 C72 51 82 60 80 72" fill="#8BC4A0" stroke="#6BAF84" stroke-width="1"/>
-        <circle id="plantFlower" class="plant-leaf" cx="80" cy="38" r="8" fill="#C4954A" opacity=".8"/>
-      </svg>
+    <div class="ex-feeling-label" id="exFeelingQ">Kako si sada — u ovom trenutku?</div>
+    <div class="ex-feeling-btns">
+      <div class="ex-feeling-btn" onclick="exFeeling('lakše', this)"><span>🌊</span><span id="exF1">Lakše — nešto se odmaknulo</span></div>
+      <div class="ex-feeling-btn" onclick="exFeeling('još', this)"><span>🌀</span><span id="exF2">Još sam u tome — treba mi više</span></div>
+      <div class="ex-feeling-btn" onclick="exFeeling('jasnije', this)"><span>🌱</span><span id="exF3">Jasnije — vidim što trebam napraviti</span></div>
     </div>
-    <div id="plantTasks" style="width:100%"></div>
-    <div class="plant-done-msg" id="plantDoneMsg"></div>
-    <button class="btn-plant-next" onclick="goTo('sh')" id="plantNextBtn" style="margin-top:20px">
-      <span id="plantNextTxt">Uđi u LUME 🌿</span>
-    </button>
+    <div class="ex-feeling-response" id="exFeelingResponse"></div>
+
+    <div class="ex-completion" id="exCompletion">
+      <span class="ex-completion-icon">🌿</span>
+      <div class="ex-completion-text" id="exCompletionText">Upravo si napravio/la jedan cijeli krug —<br><em>od prepoznavanja do akcije.</em></div>
+      <div class="ex-carry" id="exCarry"></div>
+    </div>
+
+    <button class="btn-ex-next" onclick="goTo('sh')" id="exNextBtn" style="margin-top:16px">Uđi u LUME 🌿</button>
+    <a class="ex-journal-link" href="../../dnevnik/" id="exJournalLink">📝 Zapiši u dnevnik dok je svježe</a>
+    <a class="ex-more-link" href="../../life/vjezbe/" id="exMoreLink">Pogledaj sve vježbe →</a>
   </div>
 </div>
 
@@ -660,17 +446,17 @@ body {
     <button class="lang-toggle" onclick="toggleLang()" id="homeLang">EN</button>
   </div>
   <div class="home-body">
-    <div class="phase-status">
-      <div class="phase-status-label" id="phaseStatusLabel">Gdje si sada</div>
-      <div class="phase-status-text" id="phaseStatusText">Sustav — gradiš dugoročnu stabilnost</div>
+    <div class="home-welcome">
+      <div class="home-welcome-text" id="homeWelcomeText">Vrati se kad budeš spreman/na.</div>
+      <div class="home-welcome-sub" id="homeWelcomeSub">LUME pamti gdje si stao/la.</div>
     </div>
-    <button class="btn-main-action" onclick="goTo('ob1')">
+    <button class="btn-main" onclick="goTo('q1')">
       <span id="homeBtnMain">Novi flow →</span>
       <span style="font-size:20px;opacity:.6">→</span>
     </button>
     <div class="today-card">
       <div class="today-label" id="todayLabel">Misao za danas</div>
-      <div class="today-reminder" id="todayReminder">"Razvoj ne počinje od promjene — počinje od razumijevanja."</div>
+      <div class="today-thought" id="todayThought">"Razvoj ne počinje od promjene — počinje od razumijevanja."</div>
     </div>
     <div class="nav-grid">
       <button class="nav-btn" onclick="window.location.href='../../dnevnik/'" id="btnDnevnik">Dnevnik</button>
@@ -691,59 +477,89 @@ const OB = { stanje: null, obrazac: null, sustav: null };
 // ── INSIGHTS ──
 const insights = {
   stanje: {
-    stabilno: { hr: 'Stabilnost u sebi je jedan od najljepših pokazatelja zrelog življenja. Čvrsto stojiš nogama na zemlji — i biraš svoje izbore svjesno. Živjeti u skladu sa sobom nije mali podvig. Mnogi to cijeli život traže. Nadam se da to duboko osjećaš — jer zaslužuješ osjetiti koliko je to vrijedno.', en: 'Stability within yourself is one of the most beautiful signs of mature living. You stand firmly on the ground — and choose consciously. Living in alignment with yourself is no small thing. Many search for it their whole lives. I hope you feel deeply how much that is worth.' },
-    uvijek_bolje: { hr: 'Može i gore — zar ne? Perfekcionizam nas odvodi u nerealne vode gdje nikad nismo dovoljni. A upravo tamo gubimo kontakt sa zahvalnošću za ono što jest. Vježba zahvalnosti nije klišej — ona nas drži budnima i svjesnima. Budi zadovoljstvo koje smo zaboravili tražiti. Jedan mali podsjetnik za danas: jesi li se zahvalila sebi za nešto? Ne drugima — sebi.', en: 'It could be worse — right? Perfectionism takes us into unrealistic waters where we are never enough. And that is exactly where we lose touch with gratitude for what is. Gratitude practice is not a cliché — it keeps us awake and aware. A small reminder for today: have you thanked yourself for something? Not others — yourself.' },
-    nitko_ne_razumije: { hr: 'Nisi sama. Vidim te — onakvu kakva jesi, ne kakvu bi trebala biti. Osjećaj da te nitko ne vidi jako boli. I potpuno je stvaran. Ti vrijediš. Nitko izvana ti ne može reći da nisi vrijedna — ali ni potvrditi da jesi. Ta vrijednost je već u tebi. Pogledaj je.', en: 'You are not alone. I see you — as you are, not as you should be. The feeling that no one sees you hurts deeply. And it is completely real. You are worthy. No one outside can tell you that you are not — but neither can they confirm it. That worth is already inside you. Look at it.' },
-    nevidljiva: { hr: 'Slobodna si uzeti taj trenutak za sebe. Nevidljivost nije bijeg — nekad je to najdragocjeniji trenutak koji imamo. Trenutak da se razbistrimo, da čujemo sebe, da možemo dalje. Čega se bojiš? Iskoristi tu nevidljivost. Počni malo — 5 minuta prije spavanja ili nakon buđenja. Samo ti.', en: 'You are free to take that moment for yourself. Invisibility is not escape — sometimes it is the most precious moment we have. A moment to clear our head, to hear ourselves, to keep going. What are you afraid of? Use that invisibility. Start small — 5 minutes before sleep or after waking. Just you.' },
-    zakocena: { hr: 'Nisi zapala iz slabosti — zapala si jer si predugo gurala bez da si se pitala kamo i zašto. To nije neuspjeh. To je signal da malo zastaneš. Ono što se ponavlja nije situacija — nego način na koji gledaš na sebe u toj situaciji. Tražiš izlaz izvana, a ključ je unutra. Sada trebaš promijeniti način kako gledaš na sve.', en: 'You have not gotten stuck from weakness — you got stuck because you pushed for too long without asking where and why. That is not failure. That is a signal to pause. What repeats is not the situation — but the way you see yourself in it. You are looking for the exit outside, and the key is within.' },
-    autopilot: { hr: 'Na autopilotu je najlakše — isključiš se i funkcioniraš. Ali tu negdje nestaje ona unutarnja radost i zadovoljstvo koje tražimo. Život teče — a prisutnost nas vraća u njega. Ne treba puno. Jedan trenutak svjesnosti danas — jedna senzacija, jedan dah, jedan pogled oko sebe. Prisutnost se probudi — kad je pozivaš.', en: 'Autopilot is the easiest — you switch off and function. But somewhere there the inner joy and satisfaction we seek disappears. Life flows — and presence brings us back into it. It does not take much. One moment of awareness today. Presence wakes up — when you call it.' },
-    energija: { hr: 'Kad smo naenergizirani, čini se da možemo osvojiti cijeli svijet odjednom. I upravo tu energiju rasipamo na sve strane. Jedan mali korak prije akcije: udahni. Izdahni. Još jednom. Koncentracija na dah je najbrži put od kaosa do fokusa. Zatim odaberi jednu stvar. Samo jednu. I daj joj sve.', en: 'When we are energised, it feels like we can conquer the whole world at once. And that is exactly how we scatter that energy everywhere. One small step before action: breathe in. Breathe out. Once more. Concentration on the breath is the fastest path from chaos to focus. Then choose one thing. Just one.' },
-    iscrpljena: { hr: 'Za koga glumiš jakost? Nitko od tebe nije tražio da nosiš sve na svojim leđima. Samo ti taj teret možeš i skinuti — jer si sama pristala negdje tamo kad si mislila da je to jedini način. Nije sramota reći "umorna sam." Ne moraš biti jaka. Imaš pravo biti i ono drugo.', en: 'Who are you performing strength for? No one asked you to carry everything on your shoulders. Only you can put that weight down — because you agreed to it somewhere back when you thought it was the only way. It is not shameful to say "I am tired." You do not have to be strong. You have the right to be the other thing too.' }
+    stabilno: { icon:'🌿', sel:{hr:'Stvari su na svom mjestu',en:'Things are in their place'}, text:{hr:'Stabilnost u sebi je jedan od najljepših pokazatelja zrelog življenja. Čvrsto stojiš nogama na zemlji — i biraš svoje izbore svjesno. Živjeti u skladu sa sobom nije mali podvig. Nadam se da to duboko osjećaš — jer zaslužuješ osjetiti koliko je to vrijedno.',en:'Stability within yourself is one of the most beautiful signs of mature living. You stand firmly on the ground — and choose consciously. Living in alignment with yourself is no small thing. I hope you feel deeply how much that is worth.'} },
+    uvijek_bolje: { icon:'🔄', sel:{hr:'Uvijek može bolje',en:'Always can be better'}, text:{hr:'Može i gore — zar ne? Perfekcionizam nas odvodi u nerealne vode gdje nikad nismo dovoljni. Vježba zahvalnosti nije klišej — ona nas drži budnima i svjesnima. Jedno pitanje za danas: je li se nešto zahvalilo sebi? Ne drugima — sebi.',en:'It could be worse — right? Perfectionism takes us into unrealistic waters. Gratitude practice is not a cliché — it keeps us awake and aware. One question for today: has gratitude been given to yourself? Not to others — to yourself.'} },
+    nitko_ne_razumije: { icon:'🫥', sel:{hr:'Kao da me nitko ne razumije',en:'As if no one understands'}, text:{hr:'Nisi sama. Vidim te — onakvu kakva jesi, ne kakvu bi trebala biti. Osjećaj da te nitko ne vidi jako boli. I potpuno je stvaran. Ti vrijediš. Nitko izvana ti ne može reći da nisi vrijedna — ta vrijednost je već u tebi. Pogledaj je.',en:'You are not alone. I see you — as you are, not as you should be. The feeling that no one sees you hurts deeply. You are worthy. No one outside can tell you that you are not — that worth is already inside you. Look at it.'} },
+    nevidljiva: { icon:'💤', sel:{hr:'Barem da sam nevidljiva',en:'If only I could be invisible'}, text:{hr:'Slobodna si uzeti taj trenutak za sebe. Nevidljivost nije bijeg — nekad je to najdragocjeniji trenutak koji imamo. Trenutak da se razbistrimo, da čujemo sebe. Čega se bojiš? Iskoristi tu nevidljivost. Pet minuta prije spavanja ili nakon buđenja. Samo ti.',en:'You are free to take that moment for yourself. Invisibility is not escape — sometimes it is the most precious moment we have. A moment to clear our head, to hear ourselves. What is the fear? Use that invisibility. Five minutes before sleep or after waking. Just you.'} },
+    zakocena: { icon:'🌀', sel:{hr:'Zakočena i frustrirana',en:'Stuck and frustrated'}, text:{hr:'Nisi zapala iz slabosti — zapala si jer si predugo gurala bez da si se pitala kamo i zašto. To nije neuspjeh. To je signal da malo zastaneš. Tražiš izlaz izvana, a ključ je unutra. Sada trebaš promijeniti način kako gledaš na sve.',en:'You have not gotten stuck from weakness — you got stuck because you pushed for too long without asking where and why. That is not failure. That is a signal to pause. You are looking for the exit outside, and the key is within. Now is the time to shift the perspective.'} },
+    autopilot: { icon:'🤖', sel:{hr:'Na autopilotu',en:'On autopilot'}, text:{hr:'Na autopilotu je najlakše — isključiš se i funkcioniraš. Ali tu negdje nestaje ona unutarnja radost. Život teče — a prisutnost nas vraća u njega. Ne treba puno. Jedan trenutak svjesnosti danas. Prisutnost se probudi — kad je pozivaš.',en:'Autopilot is the easiest — you switch off and function. But somewhere there the inner joy disappears. Life flows — and presence brings us back into it. It does not take much. One moment of awareness today. Presence wakes up — when you call it.'} },
+    energija: { icon:'⚡', sel:{hr:'Puna energije',en:'Full of energy'}, text:{hr:'Kad smo naenergizirani, čini se da možemo sve odjednom. I upravo tu energiju rasipamo na sve strane. Jedan mali korak prije akcije: udahni. Izdahni. Koncentracija na dah je najbrži put od kaosa do fokusa. Zatim odaberi jednu stvar. Samo jednu.',en:'When we are energised, it feels like we can do everything at once. And that is exactly how we scatter that energy. One small step before action: breathe in. Breathe out. Concentration on the breath is the fastest path from chaos to focus. Then choose one thing. Just one.'} },
+    iscrpljena: { icon:'😮‍💨', sel:{hr:'Iscrpljena iznutra',en:'Exhausted inside'}, text:{hr:'Za koga se glumi jakost? Nitko nije tražio da se nosi sve na leđima. Samo taj teret može se i skinuti — jer je prihvaćen negdje tamo kad se mislilo da je to jedini način. Nije sramota reći "umorna sam." Ima se pravo biti i ono drugo.',en:'Who is the strength being performed for? No one asked for everything to be carried. Only you can put that weight down — because you agreed to it when you thought it was the only way. It is not shameful to say "I am tired." There is a right to be the other thing too.'} }
   },
   obrazac: {
-    povlacim: { hr: 'Svijet je jedno nesigurno mjesto — i teško je osjećati se zaštićenim s obzirom na sve što nas okružuje. Zauzmi taj siguran kutak. Trebaš ga. Ali nemoj bježati od sebe. Jer upravo tu — u tom kutku — trebaš si biti prijatelj. Glavni oslonac. Bijeg u samoću iz straha hrani strah koji je zapravo nerealan. Jer život nije samo crno-bijel.', en: 'The world is an uncertain place — and it is hard to feel protected given everything around us. Take that safe corner. You need it. But do not run from yourself. Because right there — in that corner — you need to be your own friend. The main support. Running into solitude from fear feeds a fear that is actually unreal. Because life is not only black and white.' },
-    bijes: { hr: 'Ono što osjećaš kao nepravdu često je zapravo nemoć — stvari nisu po tvojoj mjeri i ego se buni. Malo previše svog gledišta tražiš da i drugi imaju. Pokušaj popustiti malo. Ljutnja i bijes vode u otuđenje — zatvaraju vrata razumijevanju. Situacija nije protiv tebe. Ona te poziva da pogledaš šire.', en: 'What you feel as injustice is often powerlessness — things are not going your way and the ego rebels. You are asking others to share a bit too much of your perspective. Try to loosen up a little. Anger and rage lead to alienation — they close the door to understanding. The situation is not against you. It is inviting you to look wider.' },
-    paraliza: { hr: 'Analiza paraliza — previše razmišljanja, premalo akcije. Glava se vrti u krugu a noge stoje. Ponekad je najbolji odgovor — prestati razmišljati. Idi u šetnju. Napravi nešto fizičkim rukama. Fizički pokret ima čarobnu moć — zaokuplja te na način da nakon njega glava postane lagana, misli se razbistre. Tijelo zna izlaz iz glave. Pusti ga da te izvede.', en: 'Analysis paralysis — too much thinking, too little action. The head spins in circles while the feet stand still. Sometimes the best answer is to stop thinking. Go for a walk. Do something with your hands. Physical movement has a magical power — it occupies you in a way that afterwards the head becomes light, thoughts clear. The body knows the way out of the head. Let it lead you.' },
-    zastanem: { hr: 'To što znaš stati — nije mali dar. Mnogi ne znaju. U trenutku kad sve u tebi viče "reagiraj" — ti biraš dah. To je mudrost, ne pasivnost. To je snaga koja se gradi godinama — možda nisi ni svjesna koliko. Nastavi tako. Ne zaustavljaš se jer se predaješ. Zaustavljaš se jer znaš da iz mira dolaze bolji izbori.', en: 'Knowing how to stop is no small gift. Many do not know how. In the moment when everything inside you is shouting "react" — you choose the breath. That is wisdom, not passivity. That is strength built over years — perhaps you are not even aware of how much. Keep going. You are not stopping because you are giving up. You are stopping because you know better choices come from stillness.' },
-    ne_znam: { hr: 'Ne znati — nije neuspjeh. Ponekad je to najiskreniji odgovor koji možemo dati sebi. Praznina nije kraj — ona je prostor. Prostor u kojem nešto novo može početi rasti, ako ga ne ispunimo na silu odgovorima koje još nemamo. Ne moraš znati sad. Dovoljno je da si ovdje i da pitaš. Odgovori dolaze — kad smo spremni čuti ih.', en: 'Not knowing is not failure. Sometimes it is the most honest answer we can give ourselves. Emptiness is not an end — it is a space. A space where something new can begin to grow, if we do not force it with answers we do not yet have. You do not have to know now. It is enough to be here and to ask.' },
-    krivac: { hr: 'Dok tražiš krivca — stoj. Traženje krivca je najlakši izlaz ali najskuplji — troši energiju, zatvara vrata i ostavlja te na istom mjestu. Ni ti nisi kriva. Ni drugi nisu krivi. Situacija jest — i ona te poziva da pogledaš što možeš ti promijeniti. Odgovornost nije kazna. Ona je sloboda.', en: 'While looking for someone to blame — stop. Blame is the easiest exit but the most expensive — it drains energy, closes doors and leaves you in the same place. You are not at fault. Others are not at fault. The situation is — and it is inviting you to look at what you can change. Responsibility is not punishment. It is freedom.' },
-    hiperproduktivna: { hr: 'Aktivnost kao bijeg — najprihvatljiviji bijeg koji postoji. Svi te hvale koliko radiš, a ti znaš istinu. Čega se u sebi tako bojiš? Što je u pozadini sve te buke koju stvaraš? Strah ima moć samo ako mu daš priliku da sjedi u tami. Zaustavi se na trenutak. Ono od čega bježiš čeka te. I uvijek će čekati — dok mu se ne okreneš i ne kažeš: vidim te.', en: 'Activity as escape — the most acceptable escape that exists. Everyone praises how much you do, and you know the truth. What are you so afraid of within yourself? What is behind all that noise you are creating? Fear only has power if you let it sit in the dark. Stop for a moment. What you are running from is waiting. And it will always wait — until you turn to it and say: I see you.' },
-    potvrda: { hr: 'Vidiš li koliko energije trošiš tražeći od drugih ono što samo ti možeš sebi dati? Svaki put kad čekaš da ti netko kaže da si u redu — daješ mu ključ od sebe. Ne postoji krivi korak — postoje koraci iz kojih učiš. Ti već znaš. Duboko u sebi — znaš. Samo si se navikla ne vjerovati tom glasu jer su drugi bili glasniji. Počni slušati sebe.', en: 'Do you see how much energy you spend asking others for what only you can give yourself? Every time you wait for someone to tell you that you are okay — you give them the key to yourself. There is no wrong step — there are steps you learn from. You already know. Deep inside — you know. You have just gotten used to not trusting that voice because others were louder. Start listening to yourself.' }
+    povlacim: { icon:'🐚', sel:{hr:'Povlačim se u sebe',en:'I withdraw into myself'}, text:{hr:'Svijet je nesigurno mjesto — i teško je osjećati se zaštićenim. Zauzmi taj siguran kutak. Trebaš ga. Ali nemoj bježati od sebe. Jer upravo tu trebaš si biti prijatelj. Glavni oslonac. Bijeg u samoću iz straha hrani strah koji je zapravo nerealan. Jer život nije samo crno-bijel.',en:'The world is an uncertain place — and it is hard to feel protected. Take that safe corner. You need it. But do not run from yourself. Because right there you need to be your own friend. The main support. Running into solitude from fear feeds a fear that is actually unreal. Because life is not only black and white.'} },
+    bijes: { icon:'🔥', sel:{hr:'Bijes i očaj',en:'Rage and despair'}, text:{hr:'Ono što se osjeća kao nepravda često je zapravo nemoć — stvari nisu po mjeri i ego se buni. Malo previše vlastitog gledišta traži se od drugih. Pokušaj popustiti malo. Ljutnja i bijes vode u otuđenje. Situacija nije neprijatelj — poziva da se pogleda šire.',en:'What feels like injustice is often powerlessness — things are not going the right way and the ego rebels. A bit too much of one perspective is being asked of others. Try to loosen up. Anger and rage lead to alienation. The situation is not an enemy — it is an invitation to look wider.'} },
+    paraliza: { icon:'🌀', sel:{hr:'Izgubljenost i paraliza',en:'Lostness and paralysis'}, text:{hr:'Analiza paraliza — previše razmišljanja, premalo akcije. Glava se vrti u krugu a noge stoje. Ponekad je najbolji odgovor — prestati razmišljati. Idi u šetnju. Napravi nešto fizičkim rukama. Tijelo zna izlaz iz glave. Pusti ga da izvede.',en:'Analysis paralysis — too much thinking, too little action. The head spins in circles while the feet stand still. Sometimes the best answer is to stop thinking. Go for a walk. Do something with your hands. The body knows the way out of the head. Let it lead.'} },
+    zastanem: { icon:'🌊', sel:{hr:'Zastanem i pustim da prođe',en:'I stop and let it pass'}, text:{hr:'To što se zna stati — nije mali dar. Mnogi ne znaju. U trenutku kad sve viče "reagiraj" — bira se dah. To je mudrost, ne pasivnost. To je snaga koja se gradi godinama. Ne staje se jer se predaje. Staje se jer iz mira dolaze bolji izbori.',en:'Knowing how to stop is no small gift. Many do not know how. In the moment when everything shouts "react" — the breath is chosen. That is wisdom, not passivity. That is strength built over years. Stopping is not giving up. Stopping is knowing that better choices come from stillness.'} },
+    ne_znam: { icon:'🤷', sel:{hr:'Jednostavno ne znam',en:'I simply do not know'}, text:{hr:'Ne znati — nije neuspjeh. Ponekad je to najiskreniji odgovor koji se može dati sebi. Praznina nije kraj — ona je prostor. Prostor u kojem nešto novo može početi rasti. Ne mora se znati sad. Dovoljno je biti ovdje i pitati. Odgovori dolaze — kad smo spremni čuti ih.',en:'Not knowing is not failure. Sometimes it is the most honest answer you can give yourself. Emptiness is not an end — it is a space. A space where something new can begin to grow. You do not have to know now. It is enough to be here and to ask. Answers come — when we are ready to hear them.'} },
+    krivac: { icon:'👉', sel:{hr:'Tražim krivca',en:'I look for someone to blame'}, text:{hr:'Dok se traži krivac — stoj. Traženje krivca je najlakši izlaz ali najskuplji — troši energiju, zatvara vrata. Ni ti nisi kriva. Ni drugi nisu krivi. Situacija jest — i poziva da se pogleda što je moguće promijeniti. Odgovornost nije kazna. Ona je sloboda.',en:'While looking for someone to blame — stop. Blame is the easiest exit but the most expensive — it drains energy, closes doors. You are not at fault. Others are not at fault. The situation is — and it is inviting you to look at what can be changed. Responsibility is not punishment. It is freedom.'} },
+    hiperproduktivna: { icon:'⚡', sel:{hr:'Postajem hiperproduktivna',en:'I become hyperproductive'}, text:{hr:'Aktivnost kao bijeg — najprihvatljiviji bijeg koji postoji. Svi hvale koliko se radi, a istina je poznata iznutra. Čega se u sebi tako boji? Što je u pozadini sve te buke? Strah ima moć samo ako mu se da da sjedi u tami. Ono od čega se bježi čeka. Uvijek će čekati — dok mu se ne kaže: vidim te.',en:'Activity as escape — the most acceptable escape that exists. Everyone praises how much is being done, and the truth is known within. What is so feared within? What is behind all that noise? Fear only has power if it is left in the dark. What is being run from is waiting. It will always wait — until you turn to it and say: I see you.'} },
+    potvrda: { icon:'🫂', sel:{hr:'Tražim potvrdu',en:'I look for validation'}, text:{hr:'Vidiš li koliko energije troši traženje od drugih onoga što samo ti možeš sebi dati? Svaki put kad se čeka da netko kaže da si u redu — daje mu se ključ od sebe. Ne postoji krivi korak — postoje koraci iz kojih se uči. Već se zna. Duboko iznutra — zna se. Samo se naviklo ne vjerovati tom glasu.',en:'Do you see how much energy goes into asking others for what only you can give yourself? Every time you wait for someone to say you are okay — you give them the key to yourself. There is no wrong step — there are steps you learn from. You already know. Deep inside — you know. You have just gotten used to not trusting that voice.'} }
   },
   sustav: {
-    prostor: { hr: 'Slobodno uzmi si taj prostor — zaslužuješ ga. Počni ga graditi iznutra. Pet minuta dnevno — tišina, bez telefona, bez uloga, bez da moraš biti netko. Samo ti. Neka to postane tvoj mali ritual. Svaki dan pet minuta koje su samo tvoje. Iz tog prostora — sve ostalo postaje jasnije.', en: 'Feel free to take that space — you deserve it. Start building it from within. Five minutes a day — silence, no phone, no roles, without having to be anyone. Just you. Let it become your small ritual. Every day five minutes that are only yours. From that space — everything else becomes clearer.' },
-    zapisati: { hr: 'Vođenje dnevnika je jedan od najmoćnijih darova koje možeš dati sebi. Ne mora biti svaki dan — nekad nekoliko puta dnevno, nekad puno rjeđe. Nema pravila. Samo iskrenost prema sebi. Kad ispišeš ono što nosiš iznutra — oslobodiš se tereta. I odjednom vidiš jasnije. Uzmi olovku. Samo počni.', en: 'Keeping a journal is one of the most powerful gifts you can give yourself. It does not have to be every day — sometimes several times a day, sometimes much less often. No rules. Just honesty toward yourself. When you write out what you carry inside — you free yourself from the weight. And suddenly you see more clearly. Pick up the pen. Just start.' },
-    korak: { hr: 'Što čekaš? Nitko nema vlasnički list nad tvojim izborima. Slobodna si — i ta sloboda počinje od najmanjih stvari. Ne govorimo o radikalnim promjenama. Govorimo o jednoj maloj stvari koja te veseli. Koja te lagano pomiče. Koja je tvoja. Možda je to šetnja. Možda kava u tišini. Jedan korak. Tvoj. Danas.', en: 'What are you waiting for? No one has ownership over your choices. You are free — and that freedom starts with the smallest things. We are not talking about radical changes. We are talking about one small thing that brings you joy. That moves you gently. That is yours. Maybe it is a walk. Maybe a coffee in silence. One step. Yours. Today.' },
-    razgovor: { hr: 'Ponekad je jedan pravi razgovor sve što nam treba da se vratimo sebi. Pogledaj svoj imenik — možda je ta osoba već tu. Ona koja te sluša, koja ne sudi, koja te razumije bez da moraš sve objašnjavati. Nazovi je. Odi na kavu. Već danas. A ako se čini da te nema — LUME je tu. Počni s dnevnikom — ponekad nam papir bude prvi sugovornik.', en: 'Sometimes one real conversation is all we need to return to ourselves. Look at your contacts — maybe that person is already there. The one who listens, who does not judge, who understands without you having to explain everything. Call them. Go for coffee. Today. And if it feels like there is no one — LUME is here. Start with the journal — sometimes paper is our first companion.' },
-    obrazac: { hr: 'To što prepoznaješ da postoji obrazac — već je veliki korak. Mnogi to nikad ne vide. Ti si taj/ta koji pokreće sve oko sebe — i ta dobra volja da se razumiješ je tvoja najveća snaga. Sad ju iskoristi. Jedan mali korak: zapiši što se ponavlja. Bez osude, bez analize. Samo imenuj. Jer ono što imenujemo — prestaje imati moć nad nama.', en: 'Recognising that a pattern exists is already a big step. Many never see it. You are the one who drives everything around you — and that good will to understand yourself is your greatest strength. Now use it. One small step: write down what repeats. Without judgment, without analysis. Just name it. Because what we name — loses its power over us.' },
-    akcija: { hr: 'Ta energija da kreneš — dragocjena je. Ne gasi je. Ali prije akcije — jedno pitanje: jesi li stvarno spreman/na na ono što želiš promijeniti? Jer volja nije samo želja. Volja je odluka da izdržiš i kad bude teško. Bez volje ne možemo ništa pokrenuti. S njom — možemo sve. Odaberi jednu stvar. I daj joj svoju volju.', en: 'That energy to start — it is precious. Do not put it out. But before action — one question: are you truly ready for what you want to change? Because will is not just desire. Will is the decision to hold on even when it gets hard. Without will we cannot move anything. With it — we can move everything. Choose one thing. And give it your will.' },
-    tisina: { hr: 'Ništa ljepše od tišine. Tko kaže da išta moraš? Ne moraš. Sjedi. Budi. Uživaj. Tišina nije praznina — ona je punina. U njoj se tijelo odmara, misli se slažu same od sebe, a srce pronađe ritam koji je zaboravilo. Tišina liječi na način na koji ništa drugo ne može. Ne trebaš je zaslužiti. Samo joj se prepusti.', en: 'Nothing more beautiful than silence. Who says you have to do anything? You do not. Sit. Be. Enjoy. Silence is not emptiness — it is fullness. In it the body rests, thoughts arrange themselves, and the heart finds a rhythm it had forgotten. Silence heals in a way nothing else can. You do not need to earn it. Just surrender to it.' },
-    dublje: { hr: 'To što tražiš istinske odgovore — nije malo. Mnogi cijeli život žive na površini. Put prema sebi nije brz. Nije linearan. I nema krajnje točke. Što dublje ideš, to više otkivaš. Ne možeš sve razumjeti odjednom — i ne trebaš. Smjernica za danas: postavi si jedno pitanje — ono koje izbjegavaš. I ostani s njim. Odgovor dolazi — onima koji imaju hrabrosti čekati.', en: 'The fact that you seek genuine answers is not small. Many live on the surface their whole lives. The path toward yourself is not fast. Not linear. And has no end point. The deeper you go, the more you discover. You cannot understand everything at once — and you do not have to. One guiding question for today: ask yourself the question you keep avoiding. And stay with it. The answer comes — to those who have the courage to wait.' }
+    prostor: { icon:'🪞', sel:{hr:'Malo prostora za sebe',en:'A little space for myself'}, text:{hr:'Slobodno uzeti si taj prostor — zaslužen je. Početi ga graditi iznutra. Pet minuta dnevno — tišina, bez telefona, bez uloga, bez da se mora biti netko. Samo ti. Neka to postane mali ritual. Svaki dan pet minuta koje su samo tvoje. Iz tog prostora — sve ostalo postaje jasnije.',en:'Feel free to take that space — it is deserved. Start building it from within. Five minutes a day — silence, no phone, no roles, without having to be anyone. Just you. Let it become a small ritual. Every day five minutes that are only yours. From that space — everything else becomes clearer.'} },
+    zapisati: { icon:'📝', sel:{hr:'Zapisati što osjećam',en:'To write what I feel'}, text:{hr:'Vođenje dnevnika je jedan od najmoćnijih darova koji se mogu dati sebi. Ne mora biti svaki dan. Nema pravila. Samo iskrenost prema sebi. Kad se ispiše ono što se nosi iznutra — oslobodi se teret. I odjednom se vidi jasnije. Uzeti olovku. Samo početi.',en:'Keeping a journal is one of the most powerful gifts you can give yourself. It does not have to be every day. No rules. Just honesty toward yourself. When you write out what you carry inside — you free yourself from the weight. And suddenly you see more clearly. Pick up the pen. Just start.'} },
+    korak: { icon:'🚶', sel:{hr:'Jedan mali korak',en:'One small step'}, text:{hr:'Što se čeka? Nitko nema vlasnički list nad izborima. Sloboda počinje od najmanjih stvari. Ne govori se o radikalnim promjenama. Govori se o jednoj maloj stvari koja veseli. Koja lagano pomiče. Koja je tvoja. Možda je to šetnja. Možda kava u tišini. Jedan korak. Tvoj. Danas.',en:'What are you waiting for? No one has ownership over your choices. Freedom starts with the smallest things. We are not talking about radical changes. We are talking about one small thing that brings joy. That moves you gently. That is yours. Maybe it is a walk. Maybe a coffee in silence. One step. Yours. Today.'} },
+    razgovor: { icon:'💬', sel:{hr:'Razgovor s nekim tko me razumije',en:'A conversation with someone who understands'}, text:{hr:'Ponekad je jedan pravi razgovor sve što treba da se vrate sebi. Pogledaj imenik — možda je ta osoba već tu. Ona koja sluša, koja ne sudi. Nazovi je. Odi na kavu. Već danas. A ako se u ovom trenutku čini da nema nikoga — LUME je tu. Počni s dnevnikom.',en:'Sometimes one real conversation is all that is needed to return to yourself. Look at your contacts — maybe that person is already there. The one who listens, who does not judge. Call them. Go for coffee. Today. And if right now it feels like there is no one — LUME is here. Start with the journal.'} },
+    obrazac: { icon:'🌱', sel:{hr:'Razumjeti obrazac koji me koči',en:'To understand the pattern blocking me'}, text:{hr:'To što se prepoznaje da postoji obrazac — već je veliki korak. Mnogi to nikad ne vide. Ta dobra volja da se razumije je najveća snaga. Sad je iskoristiti. Jedan mali korak: zapisati što se ponavlja. Bez osude, bez analize. Samo imenuj. Jer ono što imenujemo — prestaje imati moć nad nama.',en:'Recognising that a pattern exists is already a big step. Many never see it. That good will to understand yourself is your greatest strength. Now use it. One small step: write down what repeats. Without judgment, without analysis. Just name it. Because what we name — loses its power over us.'} },
+    akcija: { icon:'⚡', sel:{hr:'Akciju odmah',en:'Action now'}, text:{hr:'Ta energija da se krene — dragocjena je. Ne gasiti je. Ali prije akcije — jedno pitanje: je li se stvarno spreman/na na ono što se želi promijeniti? Volja nije samo želja. Volja je odluka da se izdrži i kad bude teško. Odaberi jednu stvar. I daj joj svoju volju. Cijelu.',en:'That energy to start — it is precious. Do not put it out. But before action — one question: are you truly ready for what you want to change? Will is not just desire. Will is the decision to hold on even when it gets hard. Choose one thing. And give it your full will.'} },
+    tisina: { icon:'🤫', sel:{hr:'Tišinu',en:'Silence'}, text:{hr:'Ništa ljepše od tišine. Tko kaže da išta moraš? Ne moraš. Sjedi. Budi. Uživaj. Tišina nije praznina — ona je punina. U njoj se tijelo odmara, misli se slažu same od sebe. Tišina liječi na način na koji ništa drugo ne može. Ne treba je zaslužiti. Samo joj se prepusti.',en:'Nothing more beautiful than silence. Who says you have to do anything? You do not. Sit. Be. Enjoy. Silence is not emptiness — it is fullness. In it the body rests, thoughts arrange themselves. Silence heals in a way nothing else can. You do not need to earn it. Just surrender to it.'} },
+    dublje: { icon:'🔍', sel:{hr:'Razumjeti sebe dublje',en:'To understand myself more deeply'}, text:{hr:'To što se traže istinski odgovori — nije malo. Mnogi cijeli život žive na površini. Put prema sebi nije brz. Nije linearan. Što dublje ideš, to više otkivaš. Ne možeš sve razumjeti odjednom. Jedna smjernica za danas: postavi si jedno pitanje koje se izbjegava. I ostani s njim. Odgovor dolazi — onima koji imaju hrabrosti čekati.',en:'The fact that you seek genuine answers is not small. Many live on the surface their whole lives. The path toward yourself is not fast. Not linear. The deeper you go, the more you discover. One guiding question for today: ask yourself the question you keep avoiding. And stay with it. The answer comes — to those who have the courage to wait.'} }
   }
 };
 
-// ── TASKS ──
-const tasks = {
+// ── CARRY MESSAGES ──
+const carryMessages = {
   hr: {
-    prostor: ['Uzmi 5 minuta — bez telefona, bez uloga, samo ti.', 'Napiši jednu stvar koja ti znači mir.', 'Napravi jedan mali ritual koji je samo tvoj.'],
-    zapisati: ['Otvori dnevnik i napiši jednu rečenicu o tome kako si.', 'Zapiši jednu emociju koju nosiš danas.', 'Napiši jednu stvar koju si naučila o sebi ovaj tjedan.'],
-    korak: ['Odaberi jednu malu stvar koja te veseli — i napravi je danas.', 'Napiši jedan korak koji je samo tvoj izbor.', 'Napravi jednu stvar bez da tražiš odobrenje.'],
-    razgovor: ['Pošalji poruku osobi koja te razumije.', 'Dogovori kavu s nekim tko te sluša.', 'Ako nema nikoga — napiši sebi pismo.'],
-    obrazac: ['Napiši jedan obrazac koji prepoznaješ u sebi — bez osude.', 'Primijetiti jedan okidač danas — samo ga imenuj.', 'Zapiši što se ponavlja — i što bi htjela umjesto toga.'],
-    akcija: ['Odaberi jednu stvar i napravi jedan konkretan korak.', 'Napiši zašto ti je ta promjena važna.', 'Provjeri jesi li stvarno spremna — i ako jesi, kreni.'],
-    tisina: ['Sjedni u tišinu 5 minuta — bez cilja, bez plana.', 'Isključi sve ekrane na sat vremena.', 'Idi u šetnju bez slušalica i telefona.'],
-    dublje: ['Postavi si jedno teško pitanje — i zapiši ga.', 'Napiši što izbjegavaš pogledati u sebi.', 'Ostani s jednom neugodnom mišlju — bez da je rješavaš.']
+    prostor: 'Danas, kad se pojavi trenutak — samo budi tu. Ništa ne trebaš raditi s njim.',
+    zapisati: 'Danas, kad nešto stisne iznutra — stavi na papir. Makar jednu rečenicu.',
+    korak: 'Danas, jedan mali korak koji je samo tvoj — bez objašnjavanja i bez odobravanja.',
+    razgovor: 'Danas, pošalji jednu poruku osobi koja te razumije. Samo jednu.',
+    obrazac: 'Danas, primijetiti jedan okidač — samo ga imenuj, ne rješavaj.',
+    akcija: 'Danas, stani jednu sekundu prije impulsa. Samo jednu.',
+    tisina: 'Danas, kad se pojavi trenutak tišine — ne ispunjavaj ga. Pusti ga da bude.',
+    dublje: 'Danas, ostati s jednim pitanjem koje se izbjegava. Samo pitanje — bez odgovora.'
   },
   en: {
-    prostor: ['Take 5 minutes — no phone, no roles, just you.', 'Write one thing that means peace to you.', 'Create one small ritual that is only yours.'],
-    zapisati: ['Open the journal and write one sentence about how you are.', 'Write one emotion you are carrying today.', 'Write one thing you learned about yourself this week.'],
-    korak: ['Choose one small thing that brings you joy — and do it today.', 'Write one step that is only your choice.', 'Do one thing without asking for permission.'],
-    razgovor: ['Send a message to someone who understands you.', 'Arrange a coffee with someone who listens.', 'If there is no one — write yourself a letter.'],
-    obrazac: ['Write one pattern you recognise in yourself — without judgment.', 'Notice one trigger today — just name it.', 'Write what keeps repeating — and what you would want instead.'],
-    akcija: ['Choose one thing and take one concrete step.', 'Write why that change matters to you.', 'Check if you are truly ready — and if you are, begin.'],
-    tisina: ['Sit in silence for 5 minutes — no goal, no plan.', 'Switch off all screens for an hour.', 'Go for a walk without headphones or phone.'],
-    dublje: ['Ask yourself one hard question — and write it down.', 'Write what you avoid looking at in yourself.', 'Stay with one uncomfortable thought — without solving it.']
+    prostor: 'Today, when a moment appears — just be in it. Nothing needs to be done with it.',
+    zapisati: 'Today, when something presses from within — put it on paper. Even just one sentence.',
+    korak: 'Today, one small step that is only yours — without explaining or seeking approval.',
+    razgovor: 'Today, send one message to someone who understands you. Just one.',
+    obrazac: 'Today, notice one trigger — just name it, do not solve it.',
+    akcija: 'Today, pause one second before the impulse. Just one.',
+    tisina: 'Today, when a moment of silence appears — do not fill it. Let it be.',
+    dublje: 'Today, stay with one question you keep avoiding. Just the question — without the answer.'
   }
+};
+
+// ── EXERCISE MAPPING ──
+const exerciseMap = {
+  stabilno: 'tiny_habits', uvijek_bolje: 'free_writing', nitko_ne_razumije: 'free_writing',
+  nevidljiva: 'box_breathing', zakocena: 'tresenje', autopilot: 'grounding',
+  energija: 'implementation', iscrpljena: 'box_breathing',
+  povlacim: 'free_writing', bijes: 'tresenje', paraliza: 'crosscrawl',
+  zastanem: 'tiny_habits', ne_znam: 'hodanje', krivac: 'pet_zasto',
+  hiperproduktivna: 'tresenje', potvrda: 'free_writing',
+  prostor: 'box_breathing', zapisati: 'free_writing', korak: 'implementation',
+  razgovor: 'grounding', obrazac: 'pet_zasto', akcija: 'implementation',
+  tisina: 'box_breathing', dublje: 'pet_zasto'
+};
+
+const exercises = {
+  box_breathing: { title:{hr:'Box breathing (4-4-4-4)',en:'Box breathing (4-4-4-4)'}, source:{hr:'Dr. Herbert Benson, Harvard Medical School',en:'Dr. Herbert Benson, Harvard Medical School'}, desc:{hr:'Četiri jednaka koraka stvaraju ravnomjeran ritam koji tijelu šalje signal sigurnosti. Nije to samo disanje — to je resetiranje cijelog živčanog sustava.',en:'Four equal steps create a steady rhythm that sends your body a signal of safety. This is not just breathing — it is a reset of the entire nervous system.'}, how:{hr:'Udahni 4s → zadrži 4s → izdahni 4s → zadrži 4s. Ponovi 3-4 puta.',en:'Inhale 4s → hold 4s → exhale 4s → hold 4s. Repeat 3-4 times.'}, context:{hr:'Misli ne moraju stati — samo ih pusti da prolete. Jedan udah i postaje moguće biti mirni promatrač uma. Ne hvatati ih, ne tjerati ih. Samo gledati.',en:'Thoughts do not have to stop — just let them fly through. One breath and it becomes possible to be a calm observer of the mind.'} },
+  grounding: { title:{hr:'5-4-3-2-1 Grounding',en:'5-4-3-2-1 Grounding'}, source:{hr:'Dr. Marsha Linehan — Dialectical Behavior Therapy',en:'Dr. Marsha Linehan — Dialectical Behavior Therapy'}, desc:{hr:'Pet osjetila — pet koraka natrag u sadašnji trenutak. Vidiš, čuješ, dodiruješ, mirišeš, okusiš — i odjednom više nije u glavi, nego ovdje.',en:'Five senses — five steps back into the present moment. See, hear, touch, smell, taste — and suddenly you are not in your head anymore, but here.'}, how:{hr:'5 stvari koje vidiš → 4 koje čuješ → 3 koje možeš dotaknuti → 2 koje mirišeš → 1 koju okusiš.',en:'5 things you see → 4 you hear → 3 you can touch → 2 you smell → 1 you taste.'}, context:{hr:'Lagano ustani. Osjeti tijelo — ruke, noge, tlo pod nogama. Sad promotri oko sebe. Tijelo te je već vratilo — um slijedi.',en:'Gently stand up. Feel the body — hands, feet, ground beneath. Now look around. The body has already returned — the mind follows.'} },
+  free_writing: { title:{hr:'Free writing',en:'Free writing'}, source:{hr:'Dr. James Pennebaker, Sveučilište Texas',en:'Dr. James Pennebaker, University of Texas'}, desc:{hr:'Pisanje bez zaustavljanja — ne ispravlja se, ne razmišlja. Što god dođe — piše se. Mozak koji piše, procesira.',en:'Writing without stopping — no correcting, no thinking. Whatever comes — write it. A brain that writes, processes.'}, how:{hr:'10 minuta neprekidnog pisanja. Olovka ne staje. Ne ispravlja se. Ne čita se dok se piše.',en:'10 minutes of uninterrupted writing. Pen does not stop. No correcting. No reading while writing.'}, context:{hr:'Koje je prvo pitanje koje sada zaokuplja? Uzeti je i staviti na papir. Deset minuta. Bez lažne namjere, bez publike. Piše se sebi.',en:'What is the first question occupying you now? Take it and put it on paper. Ten minutes. No false intention, no audience. Writing for yourself.'} },
+  pet_zasto: { title:{hr:'Tehnika 5 zašto',en:'The 5 Whys'}, source:{hr:'Sakichi Toyoda — primijenjena u psihologiji',en:'Sakichi Toyoda — applied in psychology'}, desc:{hr:'Pitanje zašto — i ne stati na prvom odgovoru. Pet puta — i svaki put ide dublje. Površina nikad nije korijen.',en:'Ask why — and do not stop at the first answer. Five times — and each time going deeper. The surface is never the root.'}, how:{hr:'Napiši situaciju → pitaj "Zašto?" → napiši odgovor → pitaj "Zašto?" opet → ponovi 5 puta.',en:'Write the situation → ask "Why?" → write the answer → ask "Why?" again → repeat 5 times.'}, context:{hr:'Što se ponavlja? Uzeti tu jednu situaciju i pitati — zašto. Pa opet. Pa opet. Ne stati na prvom odgovoru — on je samo vrata.',en:'What keeps repeating? Take that one situation and ask — why. Then again. Then again. Do not stop at the first answer — it is only the door.'} },
+  tresenje: { title:{hr:'Tresenje / Spontani pokret',en:'Shaking / Spontaneous movement'}, source:{hr:'Dr. Peter Levine — Somatic Experiencing',en:'Dr. Peter Levine — Somatic Experiencing'}, desc:{hr:'Mi smo jedina vrsta koja blokira prirodno tresenje tijela. Tijelo zna kako se osloboditi — treba mu samo dopustiti.',en:'We are the only species that blocks the natural shaking of the body. The body knows how to release — it just needs to be allowed.'}, how:{hr:'Stani. Počni lagano tresti rukama → širi se na cijelo tijelo → 2-3 minute.',en:'Stand. Start gently shaking the hands → spread to the whole body → 2-3 minutes.'}, context:{hr:'Što se nosi u tijelu što um ne uspijeva riješiti? Ustati. Početi tresti rukama — lagano. Pustiti da se širi. Tijelo zna što mu treba.',en:'What is carried in the body that the mind cannot resolve? Stand up. Start shaking the hands — gently. Let it spread. The body knows what it needs.'} },
+  hodanje: { title:{hr:'Hodanje (Optic flow)',en:'Walking (Optic flow)'}, source:{hr:'Dr. Andrew Huberman — Stanford Neuroscience Lab',en:'Dr. Andrew Huberman — Stanford Neuroscience Lab'}, desc:{hr:'Kad se hoda i oči primaju slike s lijeva na desno — smanjuje se aktivnost amigdale. 10-20 minuta hodanja napolju jednako je učinkovito kao mnogi anksiolitici.',en:'When walking and the eyes receive images from left to right — activity in the amygdala decreases. 10-20 minutes of outdoor walking is as effective as many anxiolytics.'}, how:{hr:'10-20 minuta hodanja napolju. Bez slušalica. Bez telefona. Samo hodanje i gledanje oko sebe.',en:'10-20 minutes of outdoor walking. No headphones. No phone. Just walking and looking around.'}, context:{hr:'Kad se um zavrti u krugu — tijelo ima izlaz. Izaći van. Hodati. Ne razmišljati aktivno. Mozak rješava probleme dok tijelo hoda.',en:'When the mind goes in circles — the body has a way out. Go outside. Walk. No active thinking. The brain solves problems while the body walks.'} },
+  implementation: { title:{hr:'Implementation intention',en:'Implementation intention'}, source:{hr:'Dr. Peter Gollwitzer — New York University',en:'Dr. Peter Gollwitzer — New York University'}, desc:{hr:'Mozak treba konkretan signal — kad i gdje. Ne "napravit ću to" nego "kada X, napravit ću Y." Dva do tri puta veća vjerojatnost da će se zaista napraviti.',en:'The brain needs a concrete signal — when and where. Not "I will do it" but "when X, I will do Y." Two to three times greater likelihood of it actually happening.'}, how:{hr:'Dovršiti rečenicu: "Kada _______, napravit ću _______."',en:'Complete the sentence: "When _______, I will _______."'}, context:{hr:'Koji mali korak je moguć danas? Napisati: Kada _______, napravit ću _______. Što konkretniji okidač — to veća vjerojatnost.',en:'What small step is possible today? Write: When _______, I will _______. The more concrete the trigger — the greater the likelihood.'} },
+  tiny_habits: { title:{hr:'Tiny habits',en:'Tiny habits'}, source:{hr:'Dr. BJ Fogg — Stanford Behavior Design Lab',en:'Dr. BJ Fogg — Stanford Behavior Design Lab'}, desc:{hr:'Velika promjena zastrašuje. Mala — ne. Jedna mala stvar, vezana za nešto što se već radi svaki dan. Kao što biljka ne naraste preko noći — nego svaki dan malo, malo, malo.',en:'Big change is scary. Small is not. One small thing, tied to something already done every day. Just as a plant does not grow overnight — but every day a little, a little, a little.'}, how:{hr:'Odabrati postojeću rutinu → dodati jednu mikronaviku. Primjer: "Nakon jutarnje kave — jedna rečenica u dnevnik."',en:'Choose an existing routine → add one micro-habit. Example: "After morning coffee — one sentence in the journal."'}, context:{hr:'Koji mali korak prema sebi je moguće vezati za nešto što se već radi svaki dan? Jutarnja kava, večernje pranje zubi. Jedna rečenica. Svaki dan.',en:'What small step toward yourself can be tied to something already done every day? Morning coffee, evening teeth brushing. One sentence. Every day.'} },
+  crosscrawl: { title:{hr:'Cross-crawl / Bilateralne vježbe',en:'Cross-crawl / Bilateral exercises'}, source:{hr:'Dr. Carla Hannaford — "Smart Moves" / Paul Dennison',en:'Dr. Carla Hannaford — "Smart Moves" / Paul Dennison'}, desc:{hr:'Desni lakat — lijevo koljeno. Lijevi lakat — desno koljeno. Aktivira corpus callosum — most između lijeve i desne hemisfere. Blokade se otapaju.',en:'Right elbow — left knee. Left elbow — right knee. Activates the corpus callosum — the bridge between left and right hemispheres. Blockages dissolve.'}, how:{hr:'Desni lakat dotaknuti lijevo koljeno → lijevi lakat dotaknuti desno koljeno → naizmjenično, polako, 1-2 minute.',en:'Touch right elbow to left knee → touch left elbow to right knee → alternating, slowly, 1-2 minutes.'}, context:{hr:'Kad se misli zakoče — tijelo ima ključ. Desni lakat, lijevo koljeno. Lijevi lakat, desno koljeno. Polako. Dvije minute — i ono što je bilo blokirano, počne se pomicati.',en:'When thoughts get stuck — the body has the key. Right elbow, left knee. Left elbow, right knee. Slowly. Two minutes — and what was blocked begins to move.'} }
+};
+
+const feelingResponses = {
+  hr: { 'lakše':'Zapiši što se primijetilo — dok je svježe. Dnevnik čeka.', 'još':'U redu je. Možeš ponoviti vježbu ili samo ostati tu još minutu. Nema žurbe.', 'jasnije':'Koji je taj jedan korak koji se vidi? Zapiši ga — dok je jasno.' },
+  en: { 'lakše':'Write down what you noticed — while it is fresh. The journal is waiting.', 'još':'That is okay. You can repeat the exercise or just stay here for another minute. No rush.', 'jasnije':'What is that one step you can see? Write it down — while it is clear.' }
 };
 
 // ── NAVIGATION ──
@@ -754,41 +570,50 @@ function goTo(id) {
 }
 
 // ── PHASE BAR ──
-const phaseMap = { ob1:'stanje', ob2:'obrazac', ob3:'sustav', sbreathe:'stanje', saha:'obrazac', splant:'sustav', sh:'sustav' };
+const phaseMap = { q1:'stanje', i1:'stanje', q2:'obrazac', i2:'obrazac', q3:'sustav', i3:'sustav', sbreathe:'stanje', sex:'sustav', sh:'sustav' };
 
 function renderPhaseBar(screenId) {
   const phase = phaseMap[screenId] || 'stanje';
   const t = lang === 'en';
-  const html = `
-    <div class="phase-steps">
-      <div class="phase-step ${phase==='stanje'?'active':(phase==='obrazac'||phase==='sustav'?'done':'inactive')}">
-        <div class="phase-icon">🌊</div>
-        <div class="phase-label">${t?'State':'Stanje'}</div>
-      </div>
-      <div class="phase-connector ${phase==='obrazac'||phase==='sustav'?'done':''}"></div>
-      <div class="phase-step ${phase==='obrazac'?'active':(phase==='sustav'?'done':'inactive')}">
-        <div class="phase-icon">💡</div>
-        <div class="phase-label">${t?'Pattern':'Obrazac'}</div>
-      </div>
-      <div class="phase-connector ${phase==='sustav'?'done':''}"></div>
-      <div class="phase-step ${phase==='sustav'?'active':'inactive'}">
-        <div class="phase-icon">🌱</div>
-        <div class="phase-label">${t?'System':'Sustav'}</div>
-      </div>
-    </div>`;
-  ['pb1','pb2','pb3','pbAha','pbPlant'].forEach(id => {
+  const html = `<div class="phase-steps">
+    <div class="phase-step ${phase==='stanje'?'active':(phase==='obrazac'||phase==='sustav'?'done':'inactive')}">
+      <div class="phase-icon">🌊</div><div class="phase-label">${t?'State':'Stanje'}</div>
+    </div>
+    <div class="phase-connector ${phase==='obrazac'||phase==='sustav'?'done':''}"></div>
+    <div class="phase-step ${phase==='obrazac'?'active':(phase==='sustav'?'done':'inactive')}">
+      <div class="phase-icon">💡</div><div class="phase-label">${t?'Pattern':'Obrazac'}</div>
+    </div>
+    <div class="phase-connector ${phase==='sustav'?'done':''}"></div>
+    <div class="phase-step ${phase==='sustav'?'active':'inactive'}">
+      <div class="phase-icon">🌱</div><div class="phase-label">${t?'System':'Sustav'}</div>
+    </div>
+  </div>`;
+  ['pb1','pb2','pb3','pbi1','pbi2','pbi3','pbEx'].forEach(id => {
     const el = document.getElementById(id);
     if(el) el.innerHTML = html;
   });
 }
 
-// ── ONBOARDING ──
-function obPick(key, val, el, nextId) {
-  el.parentElement.querySelectorAll('.ob-card').forEach(c => c.classList.remove('sel'));
-  el.classList.add('sel');
+// ── PICK ANSWER ──
+function pick(key, val, el, nextScreen) {
   OB[key] = val;
-  const btn = document.getElementById(nextId);
-  if(btn) btn.disabled = false;
+  const data = insights[key][val];
+  const t = lang === 'en';
+  const l = t ? 'en' : 'hr';
+
+  // Highlight selected
+  el.parentElement.querySelectorAll('.q-card').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+
+  // Populate insight screen
+  const n = nextScreen.replace('i','');
+  const phaseKey = key;
+  document.getElementById(`i${n}icon`).textContent = data.icon;
+  document.getElementById(`i${n}selectedText`).textContent = data.sel[l];
+  document.getElementById(`i${n}text`).textContent = data.text[l];
+
+  // Short delay then go to insight
+  setTimeout(() => goTo(nextScreen), 300);
 }
 
 // ── BREATHING ──
@@ -838,84 +663,64 @@ function runBreatheCycle() {
   }, 1000);
 }
 
-function goToAha() {
+// ── EXERCISE ──
+function goExercise() {
   if(breatheInterval) clearInterval(breatheInterval);
-  renderAha();
-  goTo('saha');
+  renderExercise();
+  goTo('sex');
 }
 
-// ── AHA ──
-function renderAha() {
+function renderExercise() {
   const t = lang === 'en';
   const l = t ? 'en' : 'hr';
-  const stanjeKey = OB.stanje || 'stabilno';
-  const obrazacKey = OB.obrazac || 'zastanem';
-  const sustavKey = OB.sustav || 'prostor';
-
+  const exKey = exerciseMap[OB.sustav] || exerciseMap[OB.obrazac] || exerciseMap[OB.stanje] || 'box_breathing';
+  const ex = exercises[exKey];
   const set = (id, v) => { const e = document.getElementById(id); if(e) e.textContent = v; };
-  set('ahaPhaseLabel', t ? '💡 Pattern — your insight' : '💡 Obrazac — tvoj uvid');
-  set('ahaTitle', t ? 'We see you.' : 'Vidimo te');
-  set('ahaStanjeLabel', t ? '🌊 State' : '🌊 Stanje');
-  set('ahaObrazacLabel', t ? '💡 Pattern' : '💡 Obrazac');
-  set('ahaSustavLabel', t ? '🌱 System' : '🌱 Sustav');
-  set('ahaStanje', insights.stanje[stanjeKey]?.[l] || '');
-  set('ahaObrazac', insights.obrazac[obrazacKey]?.[l] || '');
-  set('ahaSustav', insights.sustav[sustavKey]?.[l] || '');
-  set('ahaBtn1', t ? 'Continue to System phase 🌱' : 'Nastavi do Sustav faze 🌱');
-  set('ahaBtn2', t ? 'Enter LUME now' : 'Uđi u LUME odmah');
+
+  set('exPhaseLabel', t ? '🌱 Exercise for today' : '🌱 Vježba za danas');
+  set('exTitle', ex.title[l]);
+  set('exSource', ex.source[l]);
+  set('exContext', ex.context[l]);
+  set('exDesc', ex.desc[l]);
+  set('exHowLabel', t ? 'How:' : 'Kako:');
+  set('exHow', ex.how[l]);
+  set('exFeelingQ', t ? 'How are you right now?' : 'Kako si sada — u ovom trenutku?');
+  set('exF1', t ? 'Lighter — something has shifted' : 'Lakše — nešto se odmaknulo');
+  set('exF2', t ? 'Still in it — I need more' : 'Još sam u tome — treba mi više');
+  set('exF3', t ? 'Clearer — I can see what I need' : 'Jasnije — vidim što trebam napraviti');
+  set('exNextBtn', t ? 'Enter LUME 🌿' : 'Uđi u LUME 🌿');
+  set('exJournalLink', t ? '📝 Write in journal while it is fresh' : '📝 Zapiši u dnevnik dok je svježe');
+  set('exMoreLink', t ? 'See all exercises →' : 'Pogledaj sve vježbe →');
+
+  // Reset
+  document.getElementById('exFeelingResponse').classList.remove('show');
+  document.getElementById('exCompletion').classList.remove('show');
+  document.querySelectorAll('.ex-feeling-btn').forEach(b => b.style.opacity = '1');
 }
 
-// ── PLANT ──
-let completedTasks = 0;
-
-function goPlant() {
-  completedTasks = 0; renderPlant(); goTo('splant');
-  setTimeout(() => { const s = document.getElementById('plantStem'); if(s) s.classList.add('grow'); }, 300);
-}
-
-function renderPlant() {
+function exFeeling(type, el) {
   const t = lang === 'en';
   const l = t ? 'en' : 'hr';
-  const sustavKey = OB.sustav || 'prostor';
-  const taskList = tasks[l][sustavKey] || tasks[l].prostor;
+  const resp = document.getElementById('exFeelingResponse');
+  const completion = document.getElementById('exCompletion');
+  const carryEl = document.getElementById('exCarry');
+  const completionText = document.getElementById('exCompletionText');
 
-  const set = (id, v) => { const e = document.getElementById(id); if(e) e.textContent = v; };
-  set('plantPhaseLabel', t ? '🌱 System — one small step' : '🌱 Sustav — jedan mali korak');
-  set('plantTitle', t ? 'Your small step today' : 'Tvoj mali korak danas');
-  set('plantSub', t ? 'Not a big transformation. One concrete thing that builds lasting stability.' : 'Ne velika promjena. Jedna konkretna stvar koja gradi dugoročnu stabilnost.');
-  set('plantNextTxt', t ? 'Enter LUME 🌿' : 'Uđi u LUME 🌿');
+  if(resp) { resp.textContent = feelingResponses[l][type]; resp.classList.add('show'); }
+  document.querySelectorAll('.ex-feeling-btn').forEach(b => b.style.opacity = '.4');
+  el.style.opacity = '1';
 
-  const el = document.getElementById('plantTasks');
-  if(el) {
-    el.innerHTML = taskList.map((task, i) => `
-      <div class="plant-task" id="ptask${i}" onclick="completeTask(${i}, ${taskList.length})">
-        <div class="task-check" id="pcheck${i}">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" style="display:none" id="psvg${i}"><path d="M20 6L9 17l-5-5"/></svg>
-        </div>
-        <div class="task-text">${task}</div>
-      </div>`).join('');
-  }
-}
-
-function completeTask(idx, total) {
-  const task = document.getElementById(`ptask${idx}`);
-  if(task && !task.classList.contains('done')) {
-    task.classList.add('done');
-    const svg = document.getElementById(`psvg${idx}`);
-    if(svg) svg.style.display = 'block';
-    completedTasks++;
-    const leaves = ['leaf1','leaf2','leaf3','plantFlower'];
-    if(completedTasks-1 < leaves.length) {
-      setTimeout(() => { const l = document.getElementById(leaves[completedTasks-1]); if(l) l.classList.add('show'); }, 300);
+  // Show completion after delay
+  setTimeout(() => {
+    if(completion) {
+      completionText.innerHTML = t
+        ? 'You have just completed a full circle —<br><em>from recognising to action.</em>'
+        : 'Upravo si napravio/la jedan cijeli krug —<br><em>od prepoznavanja do akcije.</em>';
+      const sustavKey = OB.sustav || 'prostor';
+      if(carryEl) carryEl.textContent = carryMessages[l][sustavKey] || '';
+      completion.classList.add('show');
     }
-    if(completedTasks === total) {
-      setTimeout(() => {
-        const msg = document.getElementById('plantDoneMsg');
-        const t = lang === 'en';
-        if(msg) { msg.textContent = t ? 'You have taken the first step. Every small step today — tomorrow is easier. 🌱' : 'Napravio/la si prvi korak. Svaki mali korak danas — sutra je lakše. 🌱'; msg.style.display = 'block'; }
-      }, 500);
-    }
-  }
+  }, 800);
 }
 
 // ── LANGUAGE ──
@@ -931,53 +736,46 @@ function applyLang() {
 
   set('welcomeLang', t?'HR':'EN'); set('homeLang', t?'HR':'EN');
   setH('wTitle', t?'Returning<br><em>to yourself</em> —<br>not changing.':'Vraćanje<br><em>sebi</em> —<br>ne mijenjanje.');
-  set('wText', t?'Three questions. One insight. One concrete step. No pressure, no perfection — just you.':'Tri pitanja. Jedan uvid. Jedan konkretan korak. Bez pritiska, bez savršenstva — samo ti.');
+  set('wText', t?'Three questions. Three insights. One exercise. No pressure — just you.':'Tri pitanja. Tri uvida. Jedna vježba. Bez pritiska — samo ti.');
   set('wSafeLabel', t?'Safe space':'Sigurna zona');
-  set('wSafeText', t?'No wrong answers, no judgment. Every step toward understanding yourself is courage.':'Nema krivih odgovora, nema osude. Svaki korak prema razumijevanju sebe je hrabrost.');
-  set('ppS', t?'State':'Stanje'); set('ppSd', t?'How you are now':'Kako si ti sada');
+  set('wSafeText', t?'No wrong answers. Every step toward understanding yourself is courage.':'Nema krivih odgovora. Svaki korak prema razumijevanju sebe je hrabrost.');
+  set('ppS', t?'State':'Stanje'); set('ppSd', t?'How you are now':'Kako si sada');
   set('ppO', t?'Pattern':'Obrazac'); set('ppOd', t?'What repeats':'Što se ponavlja');
   set('ppSu', t?'System':'Sustav'); set('ppSud', t?'One small step':'Jedan mali korak');
-  set('wStartBtn', t?'Begin':'Počni');
-  set('wSkip', t?'Skip →':'Preskoči →');
-  set('backToLife', t?'← LUME Life':'← LUME Life');
-  set('backToLife2', t?'← LUME Life':'← LUME Life');
-
-  // Q1
-  set('ob1step', '1 / 3'); set('ob1ctx', t?'State':'Stanje');
-  set('ob1hint', t?'🌊 State — how you are now':'🌊 Stanje — kako si ti sada');
-  set('ob1q', t?'How are you right now — not as the role you play, but as a person?':'Kako si ti sada — ne kao uloga koju igraš, nego kao osoba?');
-  set('ob1s', t?'Be honest. No wrong answers.':'Budi iskren/a. Nema krivih odgovora.');
-  set('ob1nextTxt', t?'Next':'Dalje');
+  set('wStartBtn', t?'Begin':'Počni'); set('wSkip', t?'Skip →':'Preskoči →');
+  set('backToLife', '← LUME Life'); set('backToLife2', '← LUME Life');
+  set('q1step','1 / 3'); set('q1ctx', t?'State':'Stanje');
+  set('q1hint', t?'🌊 How you are now':'🌊 Kako si ti sada');
+  set('q1text', t?'How are you right now — not as the role you play, but as a person?':'Kako si ti sada — ne kao uloga koju igraš, nego kao osoba?');
+  set('q1sub', t?'Be honest. No wrong answers.':'Budi iskren/a. Nema krivih odgovora.');
   set('s1', t?'Things are in their place — I feel stability':'Stvari su na svom mjestu — osjećam stabilnost');
-  set('s2', t?'Always can be better — never enough, never satisfied':'Uvijek može bolje — nikad dosta, nikad zadovoljno');
-  set('s3', t?'As if no one understands me — no one sees or gets it':'Kao da me nitko ne razumije — ne vidi, ne shvaća');
-  set('s4', t?'If only I could be invisible — I need rest from everyone and everything':'Barem da sam nevidljiva — trebam odmor od svega i svih');
-  set('s5', t?'Stuck and frustrated — disappointed with everything':'Zakočena i frustrirana — razočarana svime');
-  set('s6', t?'On autopilot — functioning but without real contact with myself':'Na autopilotu — funkcioniram, ali bez pravog kontakta sa sobom');
-  set('s7', t?'Full of energy — looking for direction and focus':'Puna energije — tražim smjer i fokus');
+  set('s2', t?'Always can be better — never enough':'Uvijek može bolje — nikad dosta, nikad zadovoljno');
+  set('s3', t?'As if no one understands me':'Kao da me nitko ne razumije — ne vidi, ne shvaća');
+  set('s4', t?'If only I could be invisible — I need rest':'Barem da sam nevidljiva — trebam odmor od svega i svih');
+  set('s5', t?'Stuck and frustrated — disappointed':'Zakočena i frustrirana — razočarana svime');
+  set('s6', t?'On autopilot — functioning without real contact with myself':'Na autopilotu — funkcioniram bez pravog kontakta sa sobom');
+  set('s7', t?'Full of energy — looking for direction':'Puna energije — tražim smjer i fokus');
   set('s8', t?'Exhausted inside — even though I look fine outside':'Iscrpljena iznutra — iako izvana izgledam dobro');
-
-  // Q2
-  set('ob2step', '2 / 3'); set('ob2ctx', t?'Pattern':'Obrazac');
-  set('ob2hint', t?'💡 Pattern — what repeats':'💡 Obrazac — što se ponavlja');
-  set('ob2q', t?'When things get hard — what usually happens with you?':'Kad ti je teško — što se najčešće dogodi s tobom?');
-  set('ob2s', t?'Choose what you most often recognise in yourself.':'Odaberi ono što najčešće prepoznaješ u sebi.');
-  set('ob2nextTxt', t?'Next':'Dalje');
+  set('i1phase', t?'🌊 State':'🌊 Stanje');
+  set('i1btn', t?'Continue →':'Nastavi →');
+  set('q2step','2 / 3'); set('q2ctx', t?'Pattern':'Obrazac');
+  set('q2hint', t?'💡 What repeats':'💡 Što se ponavlja');
+  set('q2text', t?'When things get hard — what usually happens with you?':'Kad ti je teško — što se najčešće dogodi s tobom?');
+  set('q2sub', t?'Choose what you most often recognise in yourself.':'Odaberi ono što najčešće prepoznaješ u sebi.');
   set('o1', t?'I withdraw into myself — I look for my safe corner':'Povlačim se u sebe — tražim svoj siguran kutak');
   set('o2', t?'Rage and despair — I feel the situation is against me':'Bijes i očaj — osjećam da je situacija protiv mene');
   set('o3', t?'Lostness and paralysis — I do not know what to do':'Izgubljenost i paraliza — ne znam što napraviti');
   set('o4', t?'I stop and let it pass — I breathe and move on':'Zastanem i pustim da prođe — udahnem i idem dalje');
   set('o5', t?'I simply do not know — empty, no answer':'Jednostavno ne znam — prazno, bez odgovora');
   set('o6', t?'I look for someone to blame — in myself or others':'Tražim krivca — u sebi ili u drugima');
-  set('o7', t?'I become hyperproductive — I do everything just to not feel':'Postajem hiperproduktivna — radim sve samo da ne osjećam');
+  set('o7', t?'I become hyperproductive — doing everything just to not feel':'Postajem hiperproduktivna — radim sve samo da ne osjećam');
   set('o8', t?'I look for validation — I need someone to say I am okay':'Tražim potvrdu — trebam da netko kaže da sam u redu');
-
-  // Q3
-  set('ob3step', '3 / 3'); set('ob3ctx', t?'System':'Sustav');
-  set('ob3hint', t?'🌱 System — one small step':'🌱 Sustav — jedan mali korak');
-  set('ob3q', t?'What would help you most right now? What step would you like to take?':'Što bi ti najviše pomoglo sada? Koji korak bi volio/voljela poduzeti?');
-  set('ob3s', t?'No perfect answer — just your answer.':'Nema savršenog odgovora — samo tvoj odgovor.');
-  set('ob3nextTxt', t?'Continue':'Nastavi');
+  set('i2phase', t?'💡 Pattern':'💡 Obrazac');
+  set('i2btn', t?'Continue →':'Nastavi →');
+  set('q3step','3 / 3'); set('q3ctx', t?'System':'Sustav');
+  set('q3hint', t?'🌱 One small step':'🌱 Jedan mali korak');
+  set('q3text', t?'What would help you most right now? What step would you like to take?':'Što bi ti najviše pomoglo sada? Koji korak bi volio/voljela poduzeti?');
+  set('q3sub', t?'No perfect answer — just your answer.':'Nema savršenog odgovora — samo tvoj odgovor.');
   set('su1', t?'A little space for myself — no roles, no expectations':'Malo prostora za sebe — bez uloga, bez očekivanja');
   set('su2', t?'To write what I feel — just for myself':'Zapisati što osjećam — samo za sebe');
   set('su3', t?'One small step — in the direction I choose':'Jedan mali korak — u smjeru koji ja biram');
@@ -985,22 +783,20 @@ function applyLang() {
   set('su5', t?'To understand the pattern blocking me':'Razumjeti obrazac koji me koči');
   set('su6', t?'Action now — resolve it, get moving':'Akciju odmah — riješiti, pokrenuti se');
   set('su7', t?'Silence — just to be, without having to do anything':'Tišinu — samo biti, bez da moram ništa');
-  set('su8', t?'To understand myself more deeply — what is underneath':'Razumjeti sebe dublje — što je ispod');
-
-  // Breathing
-  set('bPhaseLabel', t?'🌊 State — regulation':'🌊 Stanje — regulacija');
+  set('su8', t?'To understand myself more deeply':'Razumjeti sebe dublje — što je ispod');
+  set('i3phase', t?'🌱 System':'🌱 Sustav');
+  set('i3btn', t?'Continue →':'Nastavi →');
+  set('bPhaseLabel', t?'🌊 Integration':'🌊 Integracija');
   set('bTitle', t?'One short practice':'Jedna kratka vježba');
-  set('bSub', t?'Three breathing cycles activate the parasympathetic nervous system — your body\'s natural calming response.':'Tri ciklusa disanja aktiviraju parasimpatički živčani sustav — prirodni odgovor tijela na smirenje.');
+  set('bSub', t?'Three breathing cycles — integrating everything you just heard about yourself.':'Tri ciklusa disanja — integrira sve što si upravo čuo/la o sebi.');
   set('breatheDoneText', t?'Done — continuing →':'Gotovo — nastavljam →');
   set('breatheSkip', t?'Skip →':'Preskoči →');
-
-  // Home
   set('homeTag', t?'returning to yourself — not changing':'vraćanje sebi — ne mijenjanje');
-  set('phaseStatusLabel', t?'Where you are now':'Gdje si sada');
-  set('phaseStatusText', t?'System — building long-term stability':'Sustav — gradiš dugoročnu stabilnost');
+  set('homeWelcomeText', t?'Come back when you are ready.':'Vrati se kad budeš spreman/na.');
+  set('homeWelcomeSub', t?'LUME remembers where you left off.':'LUME pamti gdje si stao/la.');
   set('homeBtnMain', t?'New flow →':'Novi flow →');
   set('todayLabel', t?'Thought for today':'Misao za danas');
-  set('todayReminder', t?'"Development does not start from change — it starts from understanding."':'"Razvoj ne počinje od promjene — počinje od razumijevanja."');
+  set('todayThought', t?'"Development does not start from change — it starts from understanding."':'"Razvoj ne počinje od promjene — počinje od razumijevanja."');
   set('btnDnevnik', t?'Journal':'Dnevnik');
   set('btnPregled', t?'Overview':'Pregled');
 
