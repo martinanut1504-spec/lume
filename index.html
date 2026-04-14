@@ -5,30 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LUME — Regenerativni model razvoja</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --green-deep:    #1C3A2A;
-  --green-mid:     #2D5A3D;
-  --green-warm:    #3D7A52;
-  --green-light:   #6BAF84;
-  --green-pale:    #C8E6D4;
-  --green-ghost:   #EDF7F1;
-  --cream:         #F7F4EE;
-  --cream-dark:    #EDE8DF;
-  --warm-white:    #FDFBF8;
-  --text-dark:     #1A2E22;
-  --text-mid:      #3D5C48;
-  --text-light:    #6B8C77;
-  --text-ghost:    #9BB8A6;
-  --gold:          #C4954A;
-  --gold-light:    #E8C98A;
+  --green-deep:  #1C3A2A;
+  --green-mid:   #2D5A3D;
+  --green-warm:  #3D7A52;
+  --green-light: #6BAF84;
+  --green-pale:  #C8E6D4;
+  --green-ghost: #EDF7F1;
+  --cream:       #F2EDE4;
+  --cream-dark:  #E8E0D4;
+  --cream-mid:   #EDE8DF;
+  --warm-white:  #FAF7F2;
+  --text-dark:   #1A2E22;
+  --text-mid:    #3D5C48;
+  --text-light:  #6B8C77;
+  --text-ghost:  #9BB8A6;
+  --gold:        #C4954A;
+  --gold-light:  #E8D5A3;
+  --gold-pale:   #F5EDD8;
+  --symbol:      #2D5A3D;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-
 body {
   font-family: 'DM Sans', sans-serif;
   background: var(--warm-white);
@@ -36,1163 +37,1002 @@ body {
   overflow-x: hidden;
 }
 
-/* ── TYPOGRAPHY ── */
-.font-display { font-family: 'Fraunces', Georgia, serif; }
-
-h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 300; }
-
 /* ── NAV ── */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 20px 40px;
+  height: 52px; padding: 0 48px;
   display: flex; align-items: center; justify-content: space-between;
-  background: rgba(253,251,248,.92);
+  background: rgba(250,247,242,.96);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(200,230,212,.4);
+  border-bottom: 1px solid rgba(200,180,140,.15);
+  transition: box-shadow .3s;
 }
-
 .nav-logo {
   display: flex; align-items: center; gap: 10px;
-  font-family: 'Fraunces', serif; font-size: 22px; font-weight: 400;
-  color: var(--green-deep); letter-spacing: .5px;
   text-decoration: none;
 }
-
-.nav-logo-mark {
-  width: 32px; height: 32px; border-radius: 50%;
-  background: var(--green-deep);
-  display: flex; align-items: center; justify-content: center;
+.nav-logo-symbol {
+  width: 28px; height: 28px; opacity: .85;
 }
-
-.nav-links {
-  display: flex; align-items: center; gap: 32px;
-  list-style: none;
+.nav-logo-name {
+  font-family: 'Fraunces', serif;
+  font-size: 17px; font-weight: 300;
+  color: var(--green-deep); letter-spacing: 3px;
+  text-transform: uppercase;
 }
-
+.nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
 .nav-links a {
-  font-size: 13px; font-weight: 400; color: var(--text-mid);
-  text-decoration: none; letter-spacing: .3px;
-  transition: color .2s;
+  font-size: 12px; color: var(--text-light);
+  text-decoration: none; padding: 5px 14px; border-radius: 999px;
+  transition: all .2s; letter-spacing: .3px;
 }
-.nav-links a:hover { color: var(--green-deep); }
-
+.nav-links a:hover { color: var(--green-deep); background: var(--green-ghost); }
+.nav-right { display: flex; align-items: center; gap: 8px; }
 .nav-cta {
-  padding: 9px 22px; border-radius: 999px;
-  background: var(--green-deep); color: var(--cream) !important;
-  font-weight: 500 !important;
-  transition: background .2s !important;
+  padding: 7px 20px; border-radius: 999px;
+  background: var(--green-deep); color: var(--cream);
+  font-size: 12px; text-decoration: none;
+  transition: all .2s; letter-spacing: .3px;
 }
-.nav-cta:hover { background: var(--green-mid) !important; }
+.nav-cta:hover { background: var(--green-mid); }
+.nav-lang {
+  padding: 5px 12px; border-radius: 999px;
+  border: 1px solid var(--cream-dark); background: transparent;
+  font-size: 11px; font-weight: 500; color: var(--text-light);
+  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .2s;
+}
+.nav-lang:hover { border-color: var(--green-light); color: var(--green-deep); }
 
 /* ── HERO ── */
 .hero {
   min-height: 100vh;
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 120px 40px 80px;
+  background: var(--cream);
+  display: grid; grid-template-columns: 1fr 1fr;
+  padding-top: 52px;
   position: relative; overflow: hidden;
 }
 
-.hero-bg {
-  position: absolute; inset: 0; z-index: 0;
-  background:
-    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(107,175,132,.12) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(45,90,61,.08) 0%, transparent 50%);
+/* Subtle texture */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(45,90,61,.04) 1px, transparent 0);
+  background-size: 32px 32px;
+  pointer-events: none;
 }
 
-.hero-grid {
-  position: absolute; inset: 0; z-index: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(107,175,132,.07) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 80% at 90% 20%, rgba(200,230,212,.06) 0%, transparent 50%),
-    radial-gradient(ellipse 40% 40% at 50% 90%, rgba(45,90,61,.08) 0%, transparent 60%);
-  animation: shimmer 12s ease-in-out infinite alternate;
-}
-
-@keyframes shimmer {
-  0% {
-    background:
-      radial-gradient(ellipse 80% 60% at 20% 50%, rgba(107,175,132,.07) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 80% at 90% 20%, rgba(200,230,212,.06) 0%, transparent 50%),
-      radial-gradient(ellipse 40% 40% at 50% 90%, rgba(45,90,61,.08) 0%, transparent 60%);
-  }
-  50% {
-    background:
-      radial-gradient(ellipse 70% 70% at 60% 30%, rgba(107,175,132,.09) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 50% at 10% 70%, rgba(200,230,212,.05) 0%, transparent 50%),
-      radial-gradient(ellipse 50% 60% at 80% 80%, rgba(45,90,61,.06) 0%, transparent 60%);
-  }
-  100% {
-    background:
-      radial-gradient(ellipse 60% 80% at 40% 60%, rgba(107,175,132,.08) 0%, transparent 60%),
-      radial-gradient(ellipse 80% 40% at 70% 10%, rgba(200,230,212,.07) 0%, transparent 50%),
-      radial-gradient(ellipse 60% 50% at 20% 40%, rgba(45,90,61,.07) 0%, transparent 60%);
-  }
-}
-
-.hero-content {
+.hero-left {
   position: relative; z-index: 1;
-  max-width: 1100px; margin: 0 auto; width: 100%;
+  padding: 72px 56px 72px 48px;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center;
+  border-right: 1px solid rgba(200,180,140,.2);
 }
+
+/* Decorative corner line */
+.hero-left::before { display: none; }
+.hero-left::after { display: none; }
 
 .hero-eyebrow {
-  font-size: 11px; font-weight: 500; letter-spacing: 2.5px;
-  text-transform: uppercase; color: var(--green-warm);
-  margin-bottom: 28px;
-  display: flex; align-items: center; gap: 10px;
+  font-size: 9px; font-weight: 600; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 20px; padding-left: 2px;
+  display: flex; align-items: center; gap: 12px;
+  justify-content: center;
+  opacity: 0; animation: fadeUp .7s ease .1s forwards;
 }
-
-.hero-eyebrow::before {
-  content: '';
-  display: block; width: 32px; height: 1px;
-  background: var(--green-warm);
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: ''; width: 24px; height: 1px; background: var(--gold); opacity: .6;
 }
 
 .hero-title {
-  font-size: clamp(52px, 8vw, 110px);
-  font-weight: 300; line-height: 1.0;
-  color: var(--green-deep);
-  margin-bottom: 32px;
-  letter-spacing: -1px;
+  font-family: 'Fraunces', serif;
+  font-size: clamp(44px, 5.8vw, 82px);
+  font-weight: 200; line-height: 1.02;
+  color: var(--green-deep); letter-spacing: -1px;
+  margin-bottom: 20px;
+  opacity: 0; animation: fadeUp .8s ease .2s forwards;
 }
-
 .hero-title em {
-  font-style: italic; color: var(--green-warm);
+  font-style: italic; font-weight: 200;
+  display: block; color: var(--green-mid);
 }
 
-.hero-subtitle {
-  font-size: clamp(16px, 2vw, 19px);
-  color: var(--text-mid); line-height: 1.7;
-  max-width: 540px; margin-bottom: 48px;
-  font-weight: 300;
+.hero-divider {
+  width: 80px; height: 1.5px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  margin: 0 auto 28px;
+  opacity: 0; animation: fadeUp .8s ease .3s forwards;
+}
+
+.hero-sub {
+  font-size: 14px; color: var(--text-mid);
+  line-height: 1.8; font-weight: 300; max-width: 380px;
+  margin-bottom: 40px; text-align: center;
+  opacity: 0; animation: fadeUp .8s ease .35s forwards;
 }
 
 .hero-actions {
-  display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+  display: flex; flex-direction: column; gap: 12px;
+  opacity: 0; animation: fadeUp .8s ease .45s forwards;
 }
-
 .btn-primary {
-  padding: 14px 32px; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 32px; border-radius: 4px;
   background: var(--green-deep); color: var(--cream);
-  font-size: 14px; font-weight: 500; letter-spacing: .3px;
+  font-size: 13px; font-weight: 400; letter-spacing: .5px;
   text-decoration: none; border: none; cursor: pointer;
-  transition: all .25s;
-  display: inline-flex; align-items: center; gap: 8px;
+  transition: all .25s; font-family: 'DM Sans', sans-serif;
+  width: fit-content;
+  box-shadow: 0 0 0 1px var(--gold-light), 0 4px 20px rgba(28,58,42,.15);
 }
-.btn-primary:hover { background: var(--green-mid); transform: translateY(-1px); }
+.btn-primary:hover { background: var(--green-mid); transform: translateY(-2px); box-shadow: 0 0 0 1px var(--gold-light), 0 8px 28px rgba(28,58,42,.2); }
+.btn-primary svg { transition: transform .25s; }
+.btn-primary:hover svg { transform: translateX(3px); }
+.hero-duration { font-size: 11px; color: var(--text-ghost); font-style: italic; letter-spacing: .3px; }
 
-.btn-ghost {
-  padding: 14px 28px; border-radius: 999px;
-  background: transparent; color: var(--text-mid);
-  font-size: 14px; font-weight: 400;
-  text-decoration: none; border: 1.5px solid var(--cream-dark);
-  cursor: pointer; transition: all .25s;
-  display: inline-flex; align-items: center; gap: 8px;
+.hero-hint {
+  display: flex; align-items: center; gap: 12px;
+  margin-top: 4px; padding: 12px 16px;
+  background: rgba(250,247,242,.7); border-radius: 4px;
+  border: 1px solid rgba(200,180,140,.25);
+  max-width: 360px; margin: 0 auto;
+  opacity: 0; animation: fadeUp .8s ease .55s forwards;
 }
-.btn-ghost:hover { border-color: var(--green-light); color: var(--green-deep); }
+.hero-hint-text { font-size: 12px; color: var(--text-mid); line-height: 1.5; font-weight: 300; }
+.btn-journal {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 6px 12px; border-radius: 4px;
+  border: 1px solid var(--green-pale); background: transparent;
+  color: var(--green-warm); font-size: 11px;
+  text-decoration: none; white-space: nowrap; transition: all .2s;
+  font-family: 'DM Sans', sans-serif; flex-shrink: 0; letter-spacing: .3px;
+}
+.btn-journal:hover { background: var(--green-ghost); }
 
-.hero-scroll {
-  position: absolute; bottom: 40px; left: 50%;
-  transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  color: var(--text-ghost); font-size: 11px; letter-spacing: 1.5px;
-  text-transform: uppercase; z-index: 1;
-  animation: float 3s ease-in-out infinite;
+/* Hero right — symbol */
+.hero-right {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  padding: 52px 40px 52px 20px;
+}
+.symbol-wrap {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.symbol-wrap svg {
+  width: min(480px, 48vw);
+  height: auto;
+  opacity: 0;
+  animation: symbolReveal 2s ease .4s forwards;
+}
+@keyframes symbolReveal {
+  from { opacity: 0; transform: scale(.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(-6px); }
+/* Symbol lines draw in */
+.sym-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+.sym-line-1 { animation: drawLine 2s ease .6s forwards; }
+.sym-line-2 { animation: drawLine 2s ease .8s forwards; }
+.sym-line-3 { animation: drawLine 1.8s ease 1s forwards; }
+.sym-line-4 { animation: drawLine 1.8s ease 1.1s forwards; }
+.sym-line-5 { animation: drawLine 1.5s ease 1.2s forwards; }
+.sym-line-6 { animation: drawLine 1.5s ease 1.3s forwards; }
+.sym-spiral-1 { animation: drawLine 2.5s ease .7s forwards; }
+.sym-spiral-2 { animation: drawLine 2.5s ease 1s forwards; }
+.sym-spiral-3 { animation: drawLine 2s ease 1.4s forwards; }
+.sym-dots { opacity: 0; animation: fadeIn .8s ease 1.8s forwards; }
+.sym-gold { opacity: 0; animation: fadeIn .8s ease 2s forwards; }
+
+@keyframes drawLine {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── PROCESS BAR ── */
+.process-bar {
+  padding: 32px 48px;
+  background: var(--warm-white);
+  border-top: 1px solid var(--cream-dark);
+  border-bottom: 1px solid var(--cream-dark);
+  text-align: center;
+}
+.process-bar-label {
+  font-size: 10px; font-weight: 500; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--text-ghost);
+  margin-bottom: 20px;
+}
+.process-flow {
+  display: flex; align-items: center; justify-content: center; gap: 0;
+  max-width: 900px; margin: 0 auto;
+}
+.pf-step {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 24px 16px; border-radius: 4px;
+  border: 1px solid var(--cream-dark); background: var(--warm-white);
+  transition: all .3s; cursor: default; text-align: center;
+  position: relative;
+}
+.pf-step::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: transparent; transition: background .3s; border-radius: 4px 4px 0 0;
+}
+.pf-step:hover { border-color: var(--green-pale); background: var(--green-ghost); }
+.pf-step:hover::before { background: var(--gold); }
+.pf-icon-wrap {
+  width: 52px; height: 52px; display: flex; align-items: center; justify-content: center;
+}
+.pf-icon-wrap svg { width: 100%; height: 100%; }
+.pf-phase {
+  font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--gold);
+}
+.pf-title {
+  font-family: 'Fraunces', serif; font-size: 15px;
+  font-weight: 400; color: var(--green-deep); text-align: center;
+}
+.pf-sub { font-size: 11px; color: var(--text-light); font-weight: 300; text-align: center; }
+.pf-arrow {
+  padding: 0 20px; color: var(--cream-dark); font-size: 16px; flex-shrink: 0;
 }
 
-.scroll-line {
-  width: 1px; height: 40px;
-  background: linear-gradient(to bottom, var(--green-light), transparent);
+/* ── DISCLAIMER ── */
+.disclaimer {
+  padding: 11px 48px; background: var(--green-ghost);
+  border-bottom: 1px solid var(--green-pale);
+}
+.disclaimer-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: flex-start; gap: 8px; }
+.disclaimer-text { font-size: 11px; color: var(--text-light); line-height: 1.6; font-weight: 300; }
+
+/* ── SECTION BASE ── */
+.section { padding: 72px 48px; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+
+.s-eyebrow {
+  font-size: 9px; font-weight: 700; letter-spacing: 3.5px;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+}
+.s-eyebrow::before { content: ''; width: 28px; height: 1.5px; background: var(--gold); flex-shrink: 0; }
+.s-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(32px, 4.2vw, 56px);
+  font-weight: 200; color: var(--green-deep);
+  line-height: 1.05; letter-spacing: -.5px; margin-bottom: 14px;
+}
+.s-title em { font-style: italic; font-weight: 300; color: var(--gold); }
+.s-sub {
+  font-size: 13px; color: var(--text-light);
+  line-height: 1.7; font-weight: 300; font-style: italic;
 }
 
-/* ── MANTRA ── */
-.mantra-section {
-  padding: 100px 40px;
+/* ── DEMO ── */
+.demo-section { background: var(--cream); padding: 72px 48px; }
+.demo-inner { max-width: 680px; margin: 0 auto; }
+
+.d-progress { display: flex; align-items: center; margin: 28px 0 20px; }
+.d-step { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.d-circle {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid var(--cream-dark); background: var(--warm-white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; transition: all .4s;
+}
+.d-step.active .d-circle { border-color: var(--green-light); background: var(--green-ghost); box-shadow: 0 0 0 4px rgba(107,175,132,.1); }
+.d-step.done .d-circle { border-color: var(--green-light); background: var(--green-pale); }
+.d-label { font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-ghost); transition: color .4s; }
+.d-step.active .d-label { color: var(--green-warm); }
+.d-step.done .d-label { color: var(--green-light); }
+.d-line { flex: 1; height: 1px; background: var(--cream-dark); margin: 0 8px 20px; transition: background .4s; }
+.d-line.done { background: var(--green-pale); }
+
+.demo-card {
+  background: var(--warm-white); border-radius: 4px;
+  border: 1px solid var(--cream-dark); overflow: hidden;
+  box-shadow: 0 2px 24px rgba(28,58,42,.04);
+}
+.dq { display: none; padding: 32px 36px; animation: fadeUp .4s ease; }
+.dq.active { display: block; }
+.dq-phase { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.dq-text { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 300; color: var(--green-deep); line-height: 1.35; margin-bottom: 6px; }
+.dq-sub { font-size: 12px; color: var(--text-light); margin-bottom: 22px; font-weight: 300; font-style: italic; }
+.dq-opts { display: flex; flex-direction: column; gap: 6px; }
+.dq-opt {
+  padding: 12px 16px; border-radius: 4px;
+  border: 1px solid var(--cream-dark); background: var(--warm-white);
+  cursor: pointer; text-align: left; transition: all .2s;
+  font-size: 13px; color: var(--text-mid);
+  font-family: 'DM Sans', sans-serif; font-weight: 300;
+  display: flex; align-items: center; gap: 10px; line-height: 1.4;
+}
+.dq-opt:hover { border-color: var(--green-pale); background: var(--green-ghost); color: var(--green-deep); }
+.dq-opt.sel { border-color: var(--green-light); background: var(--green-ghost); color: var(--green-deep); border-width: 1.5px; }
+.dq-opt-icon { font-size: 16px; flex-shrink: 0; }
+
+.d-result { display: none; padding: 32px 36px; animation: fadeUp .5s ease; }
+.d-result.show { display: block; }
+.d-result-top { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.d-result-symbol { width: 40px; height: 40px; opacity: .7; flex-shrink: 0; }
+.d-result-title { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 300; color: var(--green-deep); }
+.d-result-sub { font-size: 12px; color: var(--text-light); font-style: italic; }
+
+.d-insights { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 22px; }
+.d-insight { border-radius: 4px; padding: 16px 14px; }
+.d-insight.s { background: rgba(74,144,184,.06); border: 1px solid rgba(74,144,184,.18); }
+.d-insight.o { background: rgba(196,149,74,.06); border: 1px solid rgba(196,149,74,.18); }
+.d-insight.su { background: var(--green-ghost); border: 1px solid var(--green-pale); }
+.d-insight-phase { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+.d-insight.s .d-insight-phase { color: #4A90B8; }
+.d-insight.o .d-insight-phase { color: var(--gold); }
+.d-insight.su .d-insight-phase { color: var(--green-warm); }
+.d-insight-icon { font-size: 16px; margin-bottom: 5px; display: block; }
+.d-insight-text { font-size: 12px; color: var(--text-mid); line-height: 1.65; font-weight: 300; }
+
+.d-ctas { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn-dp { display: inline-flex; align-items: center; gap: 6px; padding: 11px 22px; border-radius: 4px; background: var(--green-deep); color: var(--cream); font-size: 13px; text-decoration: none; border: none; cursor: pointer; transition: all .2s; font-family: 'DM Sans', sans-serif; letter-spacing: .3px; }
+.btn-dp:hover { background: var(--green-mid); }
+.btn-dg { display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; border-radius: 4px; border: 1px solid var(--cream-dark); background: transparent; color: var(--text-mid); font-size: 13px; text-decoration: none; cursor: pointer; transition: all .2s; font-family: 'DM Sans', sans-serif; }
+.btn-dg:hover { border-color: var(--green-light); color: var(--green-deep); }
+.btn-restart { font-size: 11px; color: var(--text-ghost); cursor: pointer; background: none; border: none; font-family: 'DM Sans', sans-serif; margin-top: 12px; display: block; letter-spacing: .5px; }
+.btn-restart:hover { color: var(--text-light); }
+
+/* ── DIFFERENCE ── */
+.diff-section { background: var(--cream); }
+.diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; margin-top: 36px; }
+.diff-quote { font-family: 'Fraunces', serif; font-size: clamp(19px, 2.5vw, 27px); font-weight: 300; color: var(--green-deep); line-height: 1.4; margin-bottom: 14px; }
+.diff-quote-sub { font-size: 13px; color: var(--text-mid); line-height: 1.75; font-weight: 300; }
+.diff-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.diff-col-lbl { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; margin-bottom: 14px; display: inline-block; }
+.diff-col-lbl.bad { background: #FFF0F0; color: #C0726B; }
+.diff-col-lbl.good { background: var(--green-ghost); color: var(--green-warm); }
+.diff-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-size: 12px; color: var(--text-mid); line-height: 1.55; font-weight: 300; }
+.di-x { color: #C0726B; font-size: 10px; flex-shrink: 0; margin-top: 3px; }
+.di-ch { color: var(--green-warm); font-size: 10px; flex-shrink: 0; margin-top: 3px; }
+
+/* ── PILLARS ── */
+.pillars-section { background: var(--warm-white); }
+.pillars-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 32px; }
+.pillar {
+  background: var(--warm-white); border-radius: 4px;
+  padding: 28px 22px; border: 1px solid var(--cream-dark);
+  transition: all .25s; position: relative;
+}
+.pillar::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: transparent;
+  transition: background .25s; border-radius: 4px 4px 0 0;
+}
+.pillar:hover { border-color: var(--green-pale); transform: translateY(-2px); }
+.pillar::before { background: var(--gold-light) !important; }
+.pillar:hover::before { background: var(--gold) !important; }
+.pillar-num {
+  font-family: 'Fraunces', serif; font-size: 11px;
+  color: var(--gold); letter-spacing: 1px; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.pillar-num::after { content: ''; flex: 1; height: 1px; background: var(--gold-light); }
+.pillar-icon-wrap { width: 40px; height: 40px; margin-bottom: 12px; }
+.pillar-icon-wrap svg { width: 100%; height: 100%; }
+.pillar-title { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 400; color: var(--green-deep); margin-bottom: 8px; }
+.pillar-text { font-size: 12px; color: var(--text-mid); line-height: 1.75; font-weight: 300; }
+.pillar-quote { margin-top: 14px; font-family: 'Fraunces', serif; font-size: 12px; font-style: italic; color: var(--gold); line-height: 1.5; border-left: 2px solid var(--gold-light); padding-left: 12px; }
+
+/* ── MODEL ── */
+.model-section { background: var(--warm-white); }
+.model-list { margin-top: 28px; border: 1px solid var(--cream-dark); border-radius: 4px; overflow: hidden; }
+.model-item { display: grid; grid-template-columns: 190px 1fr; border-bottom: 1px solid var(--cream-dark); transition: background .2s; }
+.model-item:last-child { border-bottom: none; }
+.model-item:hover { background: rgba(237,247,241,.5); }
+.model-item-l { padding: 22px 24px; border-right: 1px solid var(--cream-dark); display: flex; align-items: flex-start; gap: 12px; }
+.mi-circle { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; font-family: 'DM Sans', sans-serif; }
+.mi-circle.s { background: rgba(74,144,184,.1); color: #4A90B8; }
+.mi-circle.o { background: rgba(196,149,74,.1); color: var(--gold); }
+.mi-circle.su { background: var(--green-ghost); color: var(--green-warm); }
+.mi-phase { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-ghost); margin-bottom: 3px; }
+.mi-title { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 400; color: var(--green-deep); }
+.model-item-r { padding: 22px 26px; font-size: 13px; color: var(--text-mid); line-height: 1.75; font-weight: 300; }
+
+/* ── QUOTE ── */
+.quote-section {
+  padding: 96px 48px; text-align: center;
   background: var(--green-deep);
   position: relative; overflow: hidden;
 }
-
-.mantra-bg {
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(107,175,132,.1) 0%, transparent 70%);
+.quote-symbol {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+  opacity: .04; pointer-events: none;
 }
-
-.mantra-content {
-  max-width: 900px; margin: 0 auto;
-  text-align: center; position: relative; z-index: 1;
-}
-
-.mantra-quote {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(28px, 5vw, 54px);
-  font-weight: 300; font-style: italic;
-  color: var(--cream); line-height: 1.3;
+.quote-symbol svg { width: 500px; height: 500px; }
+.quote-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+.quote-ornament {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
   margin-bottom: 32px;
 }
-
-.mantra-quote span { color: var(--green-pale); }
-
-.mantra-attr {
-  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--green-light); font-weight: 400;
-}
-
-/* ── MODEL SECTION ── */
-.model-section {
-  padding: 120px 40px;
-  background: var(--cream);
-}
-
-.section-label {
-  font-size: 11px; font-weight: 500; letter-spacing: 2.5px;
-  text-transform: uppercase; color: var(--green-warm);
-  margin-bottom: 16px;
-  display: flex; align-items: center; gap: 10px;
-}
-
-.section-label::before {
-  content: ''; display: block;
-  width: 24px; height: 1px; background: var(--green-warm);
-}
-
-.section-title {
-  font-size: clamp(36px, 5vw, 64px);
-  font-weight: 300; color: var(--green-deep);
-  line-height: 1.1; margin-bottom: 20px;
-}
-
-.section-title em { font-style: italic; color: var(--green-warm); }
-
-.section-subtitle {
-  font-size: 16px; color: var(--text-mid);
-  line-height: 1.7; max-width: 520px;
-  font-weight: 300; margin-bottom: 72px;
-}
-
-.model-grid {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1fr 1fr;
-  gap: 2px; background: var(--cream-dark);
-  border: 2px solid var(--cream-dark);
-  border-radius: 20px; overflow: hidden;
-}
-
-.model-card {
-  background: var(--warm-white);
-  padding: 48px 40px;
-  position: relative;
-  transition: background .3s;
-}
-
-.model-card:hover { background: var(--green-ghost); }
-
-.model-number {
+.quote-ornament-line { width: 48px; height: 1px; background: rgba(200,230,212,.2); }
+.quote-ornament-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
+.quote-text {
   font-family: 'Fraunces', serif;
-  font-size: 72px; font-weight: 300;
-  color: var(--green-pale); line-height: 1;
-  margin-bottom: 20px;
-  transition: color .3s;
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 200; font-style: italic;
+  color: var(--cream); line-height: 1.3; margin-bottom: 28px;
 }
+.quote-text em { color: var(--gold-light); font-style: normal; font-weight: 300; }
+.quote-attr { font-size: 10px; color: var(--green-light); letter-spacing: 2.5px; text-transform: uppercase; }
 
-.model-card:hover .model-number { color: var(--green-light); }
-
-.model-card-label {
-  font-size: 11px; font-weight: 500; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--green-warm);
-  margin-bottom: 10px;
+/* ── CTA ── */
+.cta-section { padding: 80px 48px; background: var(--warm-white); position: relative; }
+.cta-section::before {
+  content: '';
+  position: absolute; top: 0; left: 48px; right: 48px; height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold-light), transparent);
 }
-
-.model-card-title {
-  font-family: 'Fraunces', serif;
-  font-size: 28px; font-weight: 400;
-  color: var(--green-deep); margin-bottom: 16px;
-}
-
-.model-card-text {
-  font-size: 14px; color: var(--text-mid);
-  line-height: 1.75; font-weight: 300;
-}
-
-.model-card-accent {
-  position: absolute; bottom: 32px; right: 32px;
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--green-pale);
-  transition: background .3s;
-}
-
-.model-card:hover .model-card-accent { background: var(--green-warm); }
-
-/* ── PRODUCTS ── */
-.products-section {
-  padding: 120px 40px;
-  background: var(--warm-white);
-}
-
-.products-grid {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 24px;
-}
-
-.product-card {
-  border-radius: 20px; padding: 48px;
-  position: relative; overflow: hidden;
-  transition: transform .3s;
-}
-
-.product-card:hover { transform: translateY(-4px); }
-
-.product-card.primary {
-  background: var(--green-deep); color: var(--cream);
-  grid-row: span 1;
-}
-
-.product-card.secondary {
-  background: var(--cream); border: 1.5px solid var(--cream-dark);
-}
-
-.product-card.coming {
-  background: var(--green-ghost); border: 1.5px solid var(--green-pale);
-  opacity: .8;
-}
-
-.product-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 5px 14px; border-radius: 999px;
-  font-size: 11px; font-weight: 500; letter-spacing: 1px;
-  text-transform: uppercase; margin-bottom: 28px;
-}
-
-.badge-available {
-  background: rgba(107,175,132,.2); color: var(--green-pale);
-}
-
-.product-card.secondary .badge-available {
-  background: rgba(45,90,61,.1); color: var(--green-warm);
-}
-
-.badge-soon {
-  background: rgba(200,230,212,.3); color: var(--text-light);
-}
-
-.product-badge-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: currentColor;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: .4; }
-}
-
-.product-card-title {
-  font-family: 'Fraunces', serif;
-  font-size: 36px; font-weight: 300;
-  margin-bottom: 14px; line-height: 1.1;
-}
-
-.product-card.primary .product-card-title { color: var(--cream); }
-.product-card.secondary .product-card-title { color: var(--green-deep); }
-.product-card.coming .product-card-title { color: var(--text-mid); }
-
-.product-card-desc {
-  font-size: 15px; line-height: 1.7; font-weight: 300;
-  margin-bottom: 36px;
-}
-
-.product-card.primary .product-card-desc { color: var(--green-pale); }
-.product-card.secondary .product-card-desc { color: var(--text-mid); }
-.product-card.coming .product-card-desc { color: var(--text-light); }
-
-.product-link {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 13px; font-weight: 500;
-  text-decoration: none; letter-spacing: .3px;
-  transition: gap .2s;
-}
-
-.product-link:hover { gap: 12px; }
-
-.product-card.primary .product-link { color: var(--green-pale); }
-.product-card.secondary .product-link { color: var(--green-deep); }
-
-.product-bg-text {
-  position: absolute; bottom: -20px; right: -10px;
-  font-family: 'Fraunces', serif; font-size: 120px;
-  font-weight: 300; font-style: italic;
-  opacity: .06; color: var(--cream);
-  pointer-events: none; line-height: 1; user-select: none;
-}
-
-.product-card.secondary .product-bg-text { color: var(--green-deep); }
-
-/* ── PHILOSOPHY ── */
-.philosophy-section {
-  padding: 120px 40px;
-  background: var(--green-ghost);
-}
-
-.philosophy-inner {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 80px; align-items: center;
-}
-
-.philosophy-text { }
-
-.philosophy-principles {
-  display: flex; flex-direction: column; gap: 0;
-}
-
-.principle {
-  padding: 28px 0;
-  border-bottom: 1px solid var(--green-pale);
-  display: grid; grid-template-columns: 40px 1fr;
-  gap: 20px; align-items: start;
-  transition: all .2s;
-}
-
-.principle:first-child { padding-top: 0; }
-.principle:last-child { border-bottom: none; }
-
-.principle-num {
-  font-family: 'Fraunces', serif; font-size: 20px;
-  font-weight: 300; color: var(--green-light);
-  padding-top: 2px;
-}
-
-.principle-title {
-  font-family: 'Fraunces', serif; font-size: 20px;
-  font-weight: 400; color: var(--green-deep);
-  margin-bottom: 8px;
-}
-
-.principle-text {
-  font-size: 14px; color: var(--text-mid);
-  line-height: 1.7; font-weight: 300;
-}
-
-/* ── CTA SECTION ── */
-.cta-section {
-  padding: 120px 40px;
-  background: var(--green-deep);
-  text-align: center;
-  position: relative; overflow: hidden;
-}
-
-.cta-bg {
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(circle 400px at 20% 50%, rgba(107,175,132,.12) 0%, transparent 70%),
-    radial-gradient(circle 300px at 80% 30%, rgba(200,230,212,.08) 0%, transparent 60%);
-}
-
-.cta-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
-
-.cta-title {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(36px, 5vw, 64px);
-  font-weight: 300; color: var(--cream);
-  line-height: 1.15; margin-bottom: 20px;
-}
-
-.cta-title em { font-style: italic; color: var(--green-pale); }
-
-.cta-subtitle {
-  font-size: 16px; color: var(--green-pale);
-  line-height: 1.7; font-weight: 300;
-  margin-bottom: 48px; max-width: 480px; margin-left: auto; margin-right: auto;
-}
-
-.cta-actions {
-  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
-}
-
-.btn-light {
-  padding: 14px 32px; border-radius: 999px;
-  background: var(--cream); color: var(--green-deep);
-  font-size: 14px; font-weight: 500;
-  text-decoration: none; border: none; cursor: pointer;
-  transition: all .25s;
-  display: inline-flex; align-items: center; gap: 8px;
-}
-.btn-light:hover { background: var(--warm-white); transform: translateY(-1px); }
-
-.btn-outline-light {
-  padding: 14px 28px; border-radius: 999px;
-  background: transparent; color: var(--green-pale);
-  font-size: 14px; font-weight: 400;
-  text-decoration: none; border: 1.5px solid rgba(200,230,212,.4);
-  cursor: pointer; transition: all .25s;
-  display: inline-flex; align-items: center; gap: 8px;
-}
-.btn-outline-light:hover { border-color: var(--green-pale); color: var(--cream); }
+.cta-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: center; }
+.cta-eyebrow { font-size: 9px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+.cta-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+.cta-title { font-family: 'Fraunces', serif; font-size: clamp(28px, 3.5vw, 48px); font-weight: 200; color: var(--green-deep); line-height: 1.1; margin-bottom: 12px; letter-spacing: -.3px; }
+.cta-title em { font-style: italic; font-weight: 300; color: var(--gold); }
+.cta-sub { font-size: 14px; color: var(--text-mid); line-height: 1.75; font-weight: 300; max-width: 440px; }
+.cta-btns { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+.btn-cta-p { display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; border-radius: 4px; background: var(--green-deep); color: var(--cream); font-size: 13px; font-weight: 400; text-decoration: none; transition: all .25s; white-space: nowrap; letter-spacing: .3px; }
+.btn-cta-p:hover { background: var(--green-mid); transform: translateY(-1px); }
+.btn-cta-g { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 4px; border: 1px solid var(--cream-dark); background: transparent; color: var(--text-mid); font-size: 13px; text-decoration: none; transition: all .25s; white-space: nowrap; font-family: 'DM Sans', sans-serif; }
+.btn-cta-g:hover { border-color: var(--green-light); color: var(--green-deep); }
+.cta-hint { font-size: 11px; color: var(--text-ghost); font-style: italic; text-align: right; letter-spacing: .3px; }
 
 /* ── FOOTER ── */
 footer {
-  padding: 48px 40px;
   background: var(--green-deep);
-  border-top: 1px solid rgba(107,175,132,.15);
+  border-top: 1px solid rgba(107,175,132,.08);
+  padding: 28px 48px;
   display: flex; align-items: center; justify-content: space-between;
 }
+.footer-logo { font-family: 'Fraunces', serif; font-size: 14px; font-weight: 300; color: var(--cream); opacity: .4; letter-spacing: 3px; text-transform: uppercase; }
+.footer-links { display: flex; gap: 24px; list-style: none; }
+.footer-links a { font-size: 11px; color: var(--green-light); text-decoration: none; transition: color .2s; letter-spacing: .5px; }
+.footer-links a:hover { color: var(--cream); }
+.footer-copy { font-size: 10px; color: rgba(200,230,212,.25); letter-spacing: .5px; }
 
-.footer-logo {
-  font-family: 'Fraunces', serif; font-size: 20px;
-  font-weight: 300; color: var(--cream); opacity: .7;
-}
-
-.footer-text {
-  font-size: 12px; color: var(--green-light);
-  letter-spacing: .5px;
-}
-
-/* ── ANIMATIONS ── */
-.fade-up {
-  opacity: 0; transform: translateY(30px);
-  transition: opacity .7s ease, transform .7s ease;
-}
-
-.fade-up.visible {
-  opacity: 1; transform: translateY(0);
-}
-
-.fade-up:nth-child(2) { transition-delay: .1s; }
-.fade-up:nth-child(3) { transition-delay: .2s; }
-.fade-up:nth-child(4) { transition-delay: .3s; }
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal:nth-child(2) { transition-delay: .08s; }
+.reveal:nth-child(3) { transition-delay: .16s; }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 900px) {
-  nav { padding: 16px 20px; }
+@media (max-width: 960px) {
+  nav { padding: 0 20px; }
   .nav-links { display: none; }
-  .hero { padding: 100px 20px 60px; }
-  .mantra-section, .model-section, .products-section,
-  .philosophy-section, .cta-section { padding: 80px 20px; }
-  .model-grid { grid-template-columns: 1fr; gap: 1px; }
-  .products-grid { grid-template-columns: 1fr; }
-  .philosophy-inner { grid-template-columns: 1fr; gap: 48px; }
-  footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 20px; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-left { padding: 56px 24px 40px; border-right: none; }
+  .hero-right { padding: 40px 24px 56px; border-top: 1px solid var(--cream-dark); }
+  .symbol-wrap svg { width: 220px; }
+  .process-bar, .disclaimer { padding: 24px 20px; }
+  .process-flow { flex-direction: column; align-items: stretch; gap: 8px; }
+  .pf-arrow { display: none; }
+  .section, .demo-section, .diff-section, .pillars-section, .model-section, .quote-section, .cta-section { padding: 56px 20px; }
+  .diff-grid { grid-template-columns: 1fr; gap: 32px; }
+  .diff-cols { grid-template-columns: 1fr; }
+  .pillars-grid { grid-template-columns: 1fr; }
+  .model-item { grid-template-columns: 1fr; }
+  .model-item-l { border-right: none; border-bottom: 1px solid var(--cream-dark); }
+  .cta-inner { grid-template-columns: 1fr; }
+  .cta-btns { align-items: flex-start; }
+  .cta-hint { text-align: left; }
+  .d-insights { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 20px; padding: 24px 20px; text-align: center; }
 }
-
-/* ── DEMO SECTION ── */
-.demo-section {
-  padding: 100px 48px;
-  background: var(--warm-white);
-}
-.demo-inner {
-  max-width: 760px; margin: 0 auto;
-}
-.demo-steps {
-  display: flex; gap: 0; margin-bottom: 40px;
-  position: relative;
-}
-.demo-steps::before {
-  content: ''; position: absolute;
-  top: 20px; left: 20px; right: 20px; height: 1px;
-  background: var(--cream-dark); z-index: 0;
-}
-.demo-step-indicator {
-  display: flex; flex-direction: column; align-items: center;
-  gap: 8px; flex: 1; position: relative; z-index: 1;
-}
-.demo-step-circle {
-  width: 40px; height: 40px; border-radius: 50%;
-  background: var(--warm-white); border: 2px solid var(--cream-dark);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; transition: all .4s;
-}
-.demo-step-indicator.active .demo-step-circle {
-  border-color: var(--green-light);
-  background: var(--green-ghost);
-  box-shadow: 0 0 0 4px rgba(107,175,132,.15);
-}
-.demo-step-indicator.done .demo-step-circle {
-  border-color: var(--green-light);
-  background: var(--green-pale);
-}
-.demo-step-label {
-  font-size: 10px; font-weight: 500; letter-spacing: 1px;
-  text-transform: uppercase; color: var(--text-ghost);
-  transition: color .4s;
-}
-.demo-step-indicator.active .demo-step-label { color: var(--green-warm); }
-.demo-step-indicator.done .demo-step-label { color: var(--green-light); }
-
-.demo-card {
-  background: var(--warm-white); border-radius: 20px;
-  border: 1px solid var(--cream-dark);
-  overflow: hidden;
-}
-.demo-q {
-  display: none; padding: 36px 40px;
-  animation: fadeInUp .4s ease;
-}
-.demo-q.active { display: block; }
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.demo-q-label {
-  font-size: 10px; font-weight: 600; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--green-warm);
-  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
-}
-.demo-q-text {
-  font-family: 'Fraunces', serif; font-size: 24px;
-  font-weight: 300; color: var(--green-deep);
-  line-height: 1.4; margin-bottom: 8px;
-}
-.demo-q-sub {
-  font-size: 13px; color: var(--text-light);
-  margin-bottom: 24px; font-weight: 300; line-height: 1.6;
-}
-.demo-options {
-  display: flex; flex-direction: column; gap: 8px;
-}
-.demo-opt {
-  padding: 14px 18px; border-radius: 12px;
-  border: 1.5px solid var(--cream-dark);
-  background: var(--warm-white);
-  cursor: pointer; text-align: left; transition: all .2s;
-  font-size: 14px; color: var(--text-mid);
-  font-family: 'DM Sans', sans-serif; font-weight: 300;
-  display: flex; align-items: center; gap: 12px;
-  line-height: 1.4;
-}
-.demo-opt:hover { border-color: var(--green-pale); background: var(--green-ghost); color: var(--green-deep); }
-.demo-opt.sel { border-color: var(--green-light); background: var(--green-ghost); color: var(--green-deep); border-width: 2px; }
-.demo-opt-icon { font-size: 20px; flex-shrink: 0; }
-
-/* Result */
-.demo-result {
-  display: none; padding: 40px;
-  animation: fadeInUp .5s ease;
-}
-.demo-result.show { display: block; }
-
-.demo-result-header {
-  display: flex; align-items: center; gap: 12px;
-  margin-bottom: 24px;
-}
-.demo-result-icon { font-size: 32px; }
-.demo-result-title {
-  font-family: 'Fraunces', serif; font-size: 24px;
-  font-weight: 300; color: var(--green-deep);
-}
-.demo-result-sub {
-  font-size: 13px; color: var(--text-light);
-  font-style: italic;
-}
-
-.demo-model-row {
-  display: grid; grid-template-columns: 1fr 1fr 1fr;
-  gap: 12px; margin-bottom: 24px;
-}
-.demo-model-card {
-  border-radius: 14px; padding: 20px 16px;
-  position: relative;
-}
-.demo-model-card.stanje { background: rgba(74,144,184,.08); border: 1px solid rgba(74,144,184,.2); }
-.demo-model-card.obrazac { background: rgba(196,149,74,.08); border: 1px solid rgba(196,149,74,.2); }
-.demo-model-card.sustav { background: var(--green-ghost); border: 1px solid var(--green-pale); }
-
-.demo-model-phase {
-  font-size: 9px; font-weight: 600; letter-spacing: 2px;
-  text-transform: uppercase; margin-bottom: 8px;
-}
-.stanje .demo-model-phase { color: #4A90B8; }
-.obrazac .demo-model-phase { color: var(--gold); }
-.sustav .demo-model-phase { color: var(--green-warm); }
-
-.demo-model-icon { font-size: 20px; margin-bottom: 8px; display: block; }
-.demo-model-text {
-  font-size: 13px; color: var(--text-mid);
-  line-height: 1.65; font-weight: 300;
-}
-
-.demo-result-cta {
-  display: flex; gap: 10px; flex-wrap: wrap;
-}
-.demo-btn-primary {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 12px 24px; border-radius: 999px;
-  background: var(--green-deep); color: var(--cream);
-  font-size: 13px; font-weight: 400;
-  text-decoration: none; border: none; cursor: pointer;
-  transition: all .25s; font-family: 'DM Sans', sans-serif;
-}
-.demo-btn-primary:hover { background: var(--green-mid); }
-.demo-btn-ghost {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 12px 20px; border-radius: 999px;
-  background: transparent; color: var(--text-mid);
-  font-size: 13px; border: 1px solid var(--cream-dark);
-  cursor: pointer; transition: all .25s; font-family: 'DM Sans', sans-serif;
-  text-decoration: none;
-}
-.demo-btn-ghost:hover { border-color: var(--green-light); color: var(--green-deep); }
-
-.demo-restart {
-  display: flex; justify-content: center; margin-top: 16px;
-}
-.demo-restart-btn {
-  font-size: 12px; color: var(--text-ghost);
-  cursor: pointer; background: none; border: none;
-  font-family: 'DM Sans', sans-serif; transition: color .2s;
-}
-.demo-restart-btn:hover { color: var(--text-light); }
-
-@media (max-width: 900px) {
-  .demo-section { padding: 80px 20px; }
-  .demo-q, .demo-result { padding: 28px 20px; }
-  .demo-model-row { grid-template-columns: 1fr; }
-  .demo-steps::before { display: none; }
-}
-
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
+<nav id="mainNav">
   <a href="#" class="nav-logo">
-    <div class="nav-logo-mark">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="9" r="5" fill="#C8E6D4"/>
-        <path d="M12 14v6" stroke="#C8E6D4" stroke-width="1.8" stroke-linecap="round"/>
-        <path d="M9 18h6" stroke="#6BAF84" stroke-width="1.4" stroke-linecap="round"/>
-      </svg>
-    </div>
-    LUME
+    <!-- Mini symbol in nav -->
+    <svg class="nav-logo-symbol" viewBox="0 0 28 28" fill="none">
+      <path d="M14 2 C14 2 12 8 14 12 C16 16 14 22 14 26" stroke="#2D5A3D" stroke-width="1" stroke-linecap="round"/>
+      <path d="M14 12 C10 10 7 11 6 14 C5 17 8 19 14 18" stroke="#2D5A3D" stroke-width=".8" fill="none"/>
+      <path d="M14 12 C18 10 21 11 22 14 C23 17 20 19 14 18" stroke="#2D5A3D" stroke-width=".8" fill="none"/>
+      <polygon points="14,22 10,28 18,28" stroke="#2D5A3D" stroke-width=".8" fill="none"/>
+      <path d="M11 5 C12 3 13 2 14 2 C15 2 16 3 15 5 C14.5 6 13.5 6 14 5 C14.5 4 14 3 14 3" stroke="#C4954A" stroke-width=".7" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span class="nav-logo-name" id="navLogoName">LUME</span>
   </a>
   <ul class="nav-links">
     <li><a href="core/" id="navCore">Core</a></li>
     <li><a href="life/" id="navLife">Life</a></li>
-    <li><a href="dnevnik/" id="navDnevnik">Dnevnik</a></li>
-    <li><a href="pregled/" id="navPregled">Pregled</a></li>
     <li><a href="insights/" id="navInsights">Insights</a></li>
-    <li><a href="life/" class="nav-cta" id="navCta">Počni →</a></li>
-    <li><button onclick="toggleLang()" id="langBtn" style="padding:7px 16px;border-radius:999px;border:1.5px solid var(--cream-dark);background:transparent;font-size:12px;font-weight:500;color:var(--text-mid);cursor:pointer;letter-spacing:.5px;transition:all .2s;">EN</button></li>
   </ul>
+  <div class="nav-right">
+    <button class="nav-lang" onclick="toggleLang()" id="langBtn">EN</button>
+    <a href="life/" class="nav-cta" id="navCta">Počni →</a>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-content">
-    <div class="hero-eyebrow fade-up visible" id="heroEyebrow">Regenerativni model razvoja</div>
-    <h1 class="hero-title fade-up visible">
-      Svjetlo u<br>
-      <em>trenutku</em> —<br>
-      i sustav koji<br>traje.
+
+  <div class="hero-left">
+    <div class="hero-eyebrow" id="heroEyebrow">Regenerativni model razvoja</div>
+    <h1 class="hero-title" id="heroTitle">
+      Vraćanje<br>sebi —<br>
+      <em>ne mijenjanje.</em>
     </h1>
-    <p class="hero-subtitle fade-up">
-      LUME nije samo pomoć u teškim trenucima.
-      To je platforma koja te vodi od reakcije
-      prema razumijevanju — i od razumijevanja
-      prema stvarnoj promjeni.
+    <div class="hero-divider"></div>
+    <p class="hero-sub" id="heroSub">
+      LUME te ne pita da budeš bolja verzija sebe. Pita što ti stoji na putu — i vodi te korak po korak natrag k sebi.
     </p>
-    <div class="hero-actions fade-up">
-      <a href="life/" class="btn-primary">
-        Počni s LUME Life
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <div class="hero-actions">
+      <a href="life/" class="btn-primary" id="heroCta">
+        <span id="heroCtaText">Počni s LUME Life</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <a href="#model" class="btn-ghost">
-        Saznaj više o modelu
-      </a>
+      <div class="hero-duration" id="heroDuration">Flow traje 2 – 3 minute</div>
+    </div>
+    <div class="hero-hint">
+      <div class="hero-hint-text" id="heroHintText">Ne moraš odmah u proces.<br>Možeš prvo zapisati gdje si.</div>
+      <a href="dnevnik/" class="btn-journal" id="btnJournal">✏ Dnevnik</a>
     </div>
   </div>
-  <div class="hero-scroll">
-    <div class="scroll-line"></div>
-    <span id="scrollText">Skrolaj</span>
+
+  <!-- SACRED GEOMETRY SYMBOL -->
+  <div class="hero-right">
+    <div class="symbol-wrap">
+      <svg viewBox="0 0 400 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Background grid lines (subtle) -->
+        <line class="sym-line sym-line-1" x1="200" y1="20" x2="200" y2="540" stroke="#2D5A3D" stroke-width=".4" stroke-dasharray="2,4" opacity=".3"/>
+        <line class="sym-line sym-line-1" x1="40" y1="280" x2="360" y2="280" stroke="#2D5A3D" stroke-width=".4" stroke-dasharray="2,4" opacity=".3"/>
+        <line class="sym-line sym-line-2" x1="80" y1="60" x2="320" y2="500" stroke="#2D5A3D" stroke-width=".3" stroke-dasharray="2,6" opacity=".2"/>
+        <line class="sym-line sym-line-2" x1="320" y1="60" x2="80" y2="500" stroke="#2D5A3D" stroke-width=".3" stroke-dasharray="2,6" opacity=".2"/>
+
+        <!-- Outer diagonal lines (like in drawing) -->
+        <line class="sym-line sym-line-3" x1="60" y1="100" x2="180" y2="220" stroke="#2D5A3D" stroke-width=".5" opacity=".25"/>
+        <line class="sym-line sym-line-3" x1="340" y1="100" x2="220" y2="220" stroke="#2D5A3D" stroke-width=".5" opacity=".25"/>
+        <line class="sym-line sym-line-4" x1="60" y1="460" x2="180" y2="340" stroke="#2D5A3D" stroke-width=".5" opacity=".25"/>
+        <line class="sym-line sym-line-4" x1="340" y1="460" x2="220" y2="340" stroke="#2D5A3D" stroke-width=".5" opacity=".25"/>
+
+        <!-- Small circles along diagonals -->
+        <g class="sym-dots" opacity=".35">
+          <circle cx="90" cy="130" r="3" stroke="#2D5A3D" stroke-width=".8" fill="none"/>
+          <circle cx="130" cy="170" r="2" stroke="#2D5A3D" stroke-width=".8" fill="none"/>
+          <circle cx="310" cy="130" r="3" stroke="#2D5A3D" stroke-width=".8" fill="none"/>
+          <circle cx="270" cy="170" r="2" stroke="#2D5A3D" stroke-width=".8" fill="none"/>
+          <circle cx="90" cy="430" r="3" stroke="#2D5A3D" stroke-width=".8" fill="none"/>
+          <circle cx="130" cy="390" r="2" stroke="#2D5A3D" stroke-width=".8" fill="none"/>
+          <circle cx="310" cy="430" r="3" stroke="#2D5A3D" stroke-width=".8" fill="none"/>
+          <circle cx="270" cy="390" r="2" stroke="#2D5A3D" stroke-width=".8" fill="none"/>
+          <!-- Cross marks -->
+          <line x1="68" y1="108" x2="76" y2="116" stroke="#2D5A3D" stroke-width=".7"/>
+          <line x1="76" y1="108" x2="68" y2="116" stroke="#2D5A3D" stroke-width=".7"/>
+          <line x1="318" y1="108" x2="326" y2="116" stroke="#2D5A3D" stroke-width=".7"/>
+          <line x1="326" y1="108" x2="318" y2="116" stroke="#2D5A3D" stroke-width=".7"/>
+        </g>
+
+        <!-- TOP SPIRAL -->
+        <path class="sym-spiral-1"
+          d="M200 48
+             C220 48 236 60 236 76
+             C236 96 220 110 200 110
+             C176 110 156 94 156 72
+             C156 46 178 28 200 28
+             C226 28 248 46 248 72
+             C248 100 228 120 200 120"
+          stroke="#2D5A3D" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        <!-- Spiral continuation down -->
+        <path class="sym-line sym-line-5" d="M200 120 L200 148" stroke="#2D5A3D" stroke-width="1" stroke-linecap="round"/>
+
+        <!-- Circle nodes on central line -->
+        <circle class="sym-line sym-line-5" cx="200" cy="155" r="16" stroke="#2D5A3D" stroke-width=".9" fill="none"/>
+        <!-- Inner circle cross -->
+        <g class="sym-dots" opacity=".5">
+          <line x1="192" y1="155" x2="208" y2="155" stroke="#2D5A3D" stroke-width=".6"/>
+          <line x1="200" y1="147" x2="200" y2="163" stroke="#2D5A3D" stroke-width=".6"/>
+        </g>
+
+        <path class="sym-line sym-line-5" d="M200 171 L200 196" stroke="#2D5A3D" stroke-width="1" stroke-linecap="round"/>
+
+        <!-- MIDDLE COMPLEX — flower + triangle geometry -->
+        <!-- Outer flower circles -->
+        <circle class="sym-line sym-line-3" cx="165" cy="225" r="30" stroke="#2D5A3D" stroke-width=".7" fill="none" opacity=".5"/>
+        <circle class="sym-line sym-line-3" cx="235" cy="225" r="30" stroke="#2D5A3D" stroke-width=".7" fill="none" opacity=".5"/>
+        <circle class="sym-line sym-line-4" cx="165" cy="305" r="30" stroke="#2D5A3D" stroke-width=".7" fill="none" opacity=".5"/>
+        <circle class="sym-line sym-line-4" cx="235" cy="305" r="30" stroke="#2D5A3D" stroke-width=".7" fill="none" opacity=".5"/>
+
+        <!-- Central circles -->
+        <circle class="sym-line sym-line-2" cx="200" cy="245" r="38" stroke="#2D5A3D" stroke-width=".9" fill="none"/>
+        <circle class="sym-line sym-line-2" cx="200" cy="285" r="38" stroke="#2D5A3D" stroke-width=".9" fill="none"/>
+
+        <!-- Triangle pointing up -->
+        <path class="sym-line sym-line-3"
+          d="M200 210 L240 275 L160 275 Z"
+          stroke="#2D5A3D" stroke-width="1.1" fill="none"/>
+
+        <!-- Triangle pointing down (Star of David like) -->
+        <path class="sym-line sym-line-4"
+          d="M200 320 L160 255 L240 255 Z"
+          stroke="#2D5A3D" stroke-width="1.1" fill="none"/>
+
+        <!-- CENTER SPIRAL -->
+        <path class="sym-spiral-2"
+          d="M200 265
+             C212 265 220 270 220 278
+             C220 287 212 294 200 294
+             C186 294 176 285 176 272
+             C176 257 187 248 200 248
+             C215 248 226 258 226 272
+             C226 288 215 298 200 298"
+          stroke="#2D5A3D" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+
+        <!-- Connection line down -->
+        <path class="sym-line sym-line-5" d="M200 325 L200 358" stroke="#2D5A3D" stroke-width="1" stroke-linecap="round"/>
+
+        <!-- Lower circle node -->
+        <circle class="sym-line sym-line-5" cx="200" cy="368" r="18" stroke="#2D5A3D" stroke-width=".9" fill="none"/>
+        <circle class="sym-line sym-line-6" cx="200" cy="368" r="10" stroke="#2D5A3D" stroke-width=".7" fill="none"/>
+        <circle cx="200" cy="368" r="3" fill="#2D5A3D" class="sym-dots"/>
+
+        <!-- Line to bottom triangle -->
+        <path class="sym-line sym-line-5" d="M200 386 L200 418" stroke="#2D5A3D" stroke-width="1" stroke-linecap="round"/>
+
+        <!-- BOTTOM TRIANGLE with spiral -->
+        <path class="sym-line sym-line-6"
+          d="M200 480 L148 418 L252 418 Z"
+          stroke="#2D5A3D" stroke-width="1.3" fill="none"/>
+
+        <!-- Spiral inside triangle -->
+        <path class="sym-spiral-3"
+          d="M200 448
+             C208 448 214 452 214 458
+             C214 464 208 469 200 469
+             C191 469 185 463 185 455
+             C185 446 192 440 200 440
+             C209 440 216 447 216 455"
+          stroke="#2D5A3D" stroke-width="1" stroke-linecap="round" fill="none"/>
+
+        <!-- Bottom baseline -->
+        <line class="sym-line sym-line-6" x1="130" y1="492" x2="270" y2="492" stroke="#2D5A3D" stroke-width=".8" opacity=".4"/>
+        <g class="sym-dots">
+          <circle cx="130" cy="492" r="3" fill="#2D5A3D" opacity=".4"/>
+          <circle cx="183" cy="492" r="2" fill="#2D5A3D" opacity=".4"/>
+          <circle cx="217" cy="492" r="2" fill="#2D5A3D" opacity=".4"/>
+          <circle cx="270" cy="492" r="3" fill="#2D5A3D" opacity=".4"/>
+        </g>
+
+        <!-- GOLD ACCENTS — key points -->
+        <g class="sym-gold">
+          <!-- Top spiral center dot -->
+          <circle cx="200" cy="72" r="3" fill="#C4954A" opacity=".8"/>
+          <!-- Mid connection dots -->
+          <circle cx="200" cy="148" r="2.5" fill="#C4954A" opacity=".7"/>
+          <circle cx="200" cy="325" r="2.5" fill="#C4954A" opacity=".7"/>
+          <!-- Triangle vertices hint -->
+          <circle cx="200" cy="210" r="2" fill="#C4954A" opacity=".5"/>
+          <circle cx="240" cy="275" r="2" fill="#C4954A" opacity=".5"/>
+          <circle cx="160" cy="275" r="2" fill="#C4954A" opacity=".5"/>
+        </g>
+
+        <!-- LUME text at bottom -->
+        <text x="200" y="520" text-anchor="middle"
+          font-family="'DM Sans', sans-serif"
+          font-size="10" font-weight="400"
+          letter-spacing="6" fill="#2D5A3D" opacity=".5"
+          class="sym-dots">
+          L U M E
+        </text>
+
+      </svg>
+    </div>
   </div>
 </section>
 
+<!-- PROCESS BAR -->
+<div class="process-bar">
+  <div class="process-bar-label" id="processLabel">Kako izgleda proces?</div>
+  <div class="process-flow">
 
-<!-- DISCLAIMER STRIP -->
-<div style="background:var(--green-ghost);border-top:1px solid var(--green-pale);border-bottom:1px solid var(--green-pale);padding:16px 48px">
-  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:flex-start;gap:12px">
-    <span style="font-size:16px;flex-shrink:0;margin-top:2px">🌿</span>
-    <p style="font-size:13px;color:var(--text-mid);line-height:1.7;font-weight:300" id="disclaimerText">
-      LUME je alat za samorazumijevanje i osobni razvoj. Pomaže u razumijevanju obrazaca — ne dijagnosticira ni liječi. Ne zamjenjuje stručnu psihološku ili psihijatrijsku pomoć. Ako osjećaš da trebaš više podrške od alata — potraži je. To je znak snage, ne slabosti.
-    </p>
+    <div class="pf-step">
+      <div class="pf-icon-wrap">
+        <!-- State icon: expanding circles -->
+        <svg viewBox="0 0 52 52" fill="none">
+          <circle cx="26" cy="26" r="6" stroke="#2D5A3D" stroke-width="1.2"/>
+          <circle cx="26" cy="26" r="13" stroke="#2D5A3D" stroke-width=".8" opacity=".5"/>
+          <circle cx="26" cy="26" r="20" stroke="#2D5A3D" stroke-width=".5" opacity=".3"/>
+          <circle cx="26" cy="26" r="3" fill="#C4954A" opacity=".7"/>
+        </svg>
+      </div>
+      <div class="pf-phase">STANJE</div>
+      <div class="pf-title" id="pf1t">Smiri tijelo</div>
+      <div class="pf-sub" id="pf1s">vrati kapacitet</div>
+    </div>
+
+    <div class="pf-arrow">→</div>
+
+    <div class="pf-step">
+      <div class="pf-icon-wrap">
+        <!-- Pattern icon: interconnected circles -->
+        <svg viewBox="0 0 52 52" fill="none">
+          <circle cx="20" cy="22" r="10" stroke="#2D5A3D" stroke-width=".9"/>
+          <circle cx="32" cy="22" r="10" stroke="#2D5A3D" stroke-width=".9"/>
+          <circle cx="26" cy="32" r="10" stroke="#2D5A3D" stroke-width=".9"/>
+          <circle cx="26" cy="24" r="2" fill="#C4954A" opacity=".6"/>
+        </svg>
+      </div>
+      <div class="pf-phase">OBRAZAC</div>
+      <div class="pf-title" id="pf2t">Vidi što se ponavlja</div>
+      <div class="pf-sub" id="pf2s">bez osude</div>
+    </div>
+
+    <div class="pf-arrow">→</div>
+
+    <div class="pf-step">
+      <div class="pf-icon-wrap">
+        <!-- System icon: triangle with upward growth -->
+        <svg viewBox="0 0 52 52" fill="none">
+          <path d="M26 10 L44 42 L8 42 Z" stroke="#2D5A3D" stroke-width="1.1"/>
+          <line x1="26" y1="10" x2="26" y2="4" stroke="#2D5A3D" stroke-width="1" stroke-linecap="round"/>
+          <path d="M22 7 L26 4 L30 7" stroke="#2D5A3D" stroke-width=".9" fill="none" stroke-linecap="round"/>
+          <circle cx="26" cy="32" r="4" stroke="#2D5A3D" stroke-width=".8" fill="none"/>
+          <circle cx="26" cy="32" r="1.5" fill="#C4954A" opacity=".7"/>
+        </svg>
+      </div>
+      <div class="pf-phase">SUSTAV</div>
+      <div class="pf-title" id="pf3t">Jedan mali korak</div>
+      <div class="pf-sub" id="pf3s">stvarna promjena</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer">
+  <div class="disclaimer-inner">
+    <span style="font-size:12px;flex-shrink:0;opacity:.6">◇</span>
+    <p class="disclaimer-text" id="disclaimerText">LUME je alat za samorazumijevanje i osobni razvoj. Pomaže u razumijevanju obrazaca — ne dijagnosticira ni liječi. Ne zamjenjuje stručnu psihološku ili psihijatrijsku pomoć. Ako osjećaš da trebaš više podrške od alata — potraži je. To je znak snage, ne slabosti.</p>
   </div>
 </div>
 
 <!-- DEMO -->
 <section class="demo-section">
   <div class="demo-inner">
-    <div style="text-align:center;margin-bottom:40px">
-      <div class="section-label fade-up" id="demoLabel" style="justify-content:center">Isproba LUME</div>
-      <h2 style="font-family:Fraunces,serif;font-size:clamp(28px,4vw,48px);font-weight:300;color:var(--green-deep);line-height:1.15;margin-bottom:12px" class="fade-up" id="demoTitle">
-        Tri pitanja.<br>Jedan uvid.
-      </h2>
-      <p style="font-size:15px;color:var(--text-mid);font-weight:300;line-height:1.7" class="fade-up" id="demoSubtitle">
-        Bez registracije. Samo okusi kako LUME razmišlja.
-      </p>
+    <div class="reveal">
+      <div class="s-eyebrow" id="demoEyebrow">Isproba LUME</div>
+      <h2 class="s-title" id="demoTitle">Tri pitanja. <em>Jedan uvid.</em></h2>
+      <p class="s-sub" id="demoSub">Bez registracije. Samo osjetiti kako LUME razmišlja.</p>
     </div>
-
-    <!-- Progress indicators -->
-    <div class="demo-steps fade-up" id="demoSteps">
-      <div class="demo-step-indicator active" id="dsi1">
-        <div class="demo-step-circle">🌊</div>
-        <div class="demo-step-label" id="dsl1">Stanje</div>
-      </div>
-      <div class="demo-step-indicator" id="dsi2">
-        <div class="demo-step-circle">💡</div>
-        <div class="demo-step-label" id="dsl2">Obrazac</div>
-      </div>
-      <div class="demo-step-indicator" id="dsi3">
-        <div class="demo-step-circle">🌱</div>
-        <div class="demo-step-label" id="dsl3">Sustav</div>
-      </div>
+    <div class="d-progress reveal">
+      <div class="d-step active" id="ds1"><div class="d-circle">🌊</div><div class="d-label" id="dl1">Stanje</div></div>
+      <div class="d-line" id="dl12"></div>
+      <div class="d-step" id="ds2"><div class="d-circle">💡</div><div class="d-label" id="dl2">Obrazac</div></div>
+      <div class="d-line" id="dl23"></div>
+      <div class="d-step" id="ds3"><div class="d-circle">🌱</div><div class="d-label" id="dl3">Sustav</div></div>
     </div>
-
-    <div class="demo-card fade-up">
-
-      <!-- Q1: Stanje -->
-      <div class="demo-q active" id="dq1">
-        <div class="demo-q-label">🌊 <span id="dq1phase">Stanje — Regulacija</span></div>
-        <div class="demo-q-text" id="dq1text">Kako si ti sada — kao osoba, ne kao roditelj/radnik?</div>
-        <div class="demo-q-sub" id="dq1sub">Budi iskren/a. Nema krivih odgovora.</div>
-        <div class="demo-options">
-          <div class="demo-opt" onclick="demoPickQ1('prazno', this)">
-            <span class="demo-opt-icon">🪫</span>
-            <span id="dq1o1">Prazna baterija — nema prostora za sebe</span>
-          </div>
-          <div class="demo-opt" onclick="demoPickQ1('pola', this)">
-            <span class="demo-opt-icon">🔋</span>
-            <span id="dq1o2">Na pola — imam nešto, ali nije dovoljno</span>
-          </div>
-          <div class="demo-opt" onclick="demoPickQ1('solidno', this)">
-            <span class="demo-opt-icon">✅</span>
-            <span id="dq1o3">Solidno — tražim alate za konkretne situacije</span>
-          </div>
+    <div class="demo-card reveal">
+      <div class="dq active" id="dq1">
+        <div class="dq-phase" id="dq1p">🌊 Stanje — Regulacija</div>
+        <div class="dq-text" id="dq1t">Kako si ti sada — ne kao uloga koju igraš, nego kao osoba?</div>
+        <div class="dq-sub" id="dq1s">Budi iskren/a. Nema krivih odgovora.</div>
+        <div class="dq-opts">
+          <div class="dq-opt" onclick="p1('prazno',this)"><span class="dq-opt-icon">🪫</span><span id="o1a">Prazna baterija — nema prostora za sebe</span></div>
+          <div class="dq-opt" onclick="p1('pola',this)"><span class="dq-opt-icon">🔋</span><span id="o1b">Na pola — imam nešto, ali nije dovoljno</span></div>
+          <div class="dq-opt" onclick="p1('solidno',this)"><span class="dq-opt-icon">✅</span><span id="o1c">Solidno — tražim alate za konkretne situacije</span></div>
+          <div class="dq-opt" onclick="p1('iscrpljena',this)"><span class="dq-opt-icon">😮‍💨</span><span id="o1d">Iscrpljena iznutra — iako izvana izgledam dobro</span></div>
         </div>
       </div>
-
-      <!-- Q2: Obrazac -->
-      <div class="demo-q" id="dq2">
-        <div class="demo-q-label">💡 <span id="dq2phase">Obrazac — Razumijevanje</span></div>
-        <div class="demo-q-text" id="dq2text">Što se najčešće ponavlja?</div>
-        <div class="demo-q-sub" id="dq2sub">Odaberi ono što najčešće prepoznaješ u sebi.</div>
-        <div class="demo-options">
-          <div class="demo-opt" onclick="demoPickQ2('eksplodira', this)">
-            <span class="demo-opt-icon">🔥</span>
-            <span id="dq2o1">Eksplodiram — a onda se osjećam loše zbog toga</span>
-          </div>
-          <div class="demo-opt" onclick="demoPickQ2('zamrzne', this)">
-            <span class="demo-opt-icon">🧊</span>
-            <span id="dq2o2">Zamrznem se — ne znam što reći ni napraviti</span>
-          </div>
-          <div class="demo-opt" onclick="demoPickQ2('povlaci', this)">
-            <span class="demo-opt-icon">🐚</span>
-            <span id="dq2o3">Povlačim se — zatvaram se dok ne prođe</span>
-          </div>
-          <div class="demo-opt" onclick="demoPickQ2('kontrolira', this)">
-            <span class="demo-opt-icon">🎯</span>
-            <span id="dq2o4">Preuzimam kontrolu — radim sve sam/a da bude kako treba</span>
-          </div>
+      <div class="dq" id="dq2">
+        <div class="dq-phase" id="dq2p">💡 Obrazac — Razumijevanje</div>
+        <div class="dq-text" id="dq2t">Što se najčešće ponavlja?</div>
+        <div class="dq-sub" id="dq2s">Odaberi ono što najčešće prepoznaješ u sebi.</div>
+        <div class="dq-opts">
+          <div class="dq-opt" onclick="p2('eksplodira',this)"><span class="dq-opt-icon">🔥</span><span id="o2a">Eksplodiram — a onda se osjećam loše zbog toga</span></div>
+          <div class="dq-opt" onclick="p2('zamrzne',this)"><span class="dq-opt-icon">🧊</span><span id="o2b">Zamrznem se — ne znam što reći ni napraviti</span></div>
+          <div class="dq-opt" onclick="p2('povlaci',this)"><span class="dq-opt-icon">🐚</span><span id="o2c">Povlačim se — zatvaram se dok ne prođe</span></div>
+          <div class="dq-opt" onclick="p2('kontrolira',this)"><span class="dq-opt-icon">🎯</span><span id="o2d">Preuzimam kontrolu — radim sve sam/a da bude kako treba</span></div>
         </div>
       </div>
-
-      <!-- Q3: Sustav -->
-      <div class="demo-q" id="dq3">
-        <div class="demo-q-label">🌱 <span id="dq3phase">Sustav — Promjena</span></div>
-        <div class="demo-q-text" id="dq3text">Što bi ti najviše pomoglo sada?</div>
-        <div class="demo-q-sub" id="dq3sub">Nema savršenog odgovora — samo tvoj odgovor.</div>
-        <div class="demo-options">
-          <div class="demo-opt" onclick="demoPickQ3('alat', this)">
-            <span class="demo-opt-icon">🔧</span>
-            <span id="dq3o1">Konkretan alat za sljedeći put kad eskalira</span>
-          </div>
-          <div class="demo-opt" onclick="demoPickQ3('razumjeti', this)">
-            <span class="demo-opt-icon">🔍</span>
-            <span id="dq3o2">Razumjeti zašto se ovaj obrazac ponavlja</span>
-          </div>
-          <div class="demo-opt" onclick="demoPickQ3('mir', this)">
-            <span class="demo-opt-icon">🌊</span>
-            <span id="dq3o3">Malo mira i prostora samo za sebe</span>
-          </div>
+      <div class="dq" id="dq3">
+        <div class="dq-phase" id="dq3p">🌱 Sustav — Promjena</div>
+        <div class="dq-text" id="dq3t">Što bi ti najviše pomoglo sada?</div>
+        <div class="dq-sub" id="dq3s">Nema savršenog odgovora — samo tvoj odgovor.</div>
+        <div class="dq-opts">
+          <div class="dq-opt" onclick="p3('alat',this)"><span class="dq-opt-icon">🔧</span><span id="o3a">Konkretan alat za sljedeći put kad eskalira</span></div>
+          <div class="dq-opt" onclick="p3('razumjeti',this)"><span class="dq-opt-icon">🔍</span><span id="o3b">Razumjeti zašto se ovaj obrazac ponavlja</span></div>
+          <div class="dq-opt" onclick="p3('mir',this)"><span class="dq-opt-icon">🌊</span><span id="o3c">Malo mira i prostora samo za sebe</span></div>
         </div>
       </div>
-
-      <!-- RESULT -->
-      <div class="demo-result" id="demoResult">
-        <div class="demo-result-header">
-          <div class="demo-result-icon">🌿</div>
+      <div class="d-result" id="dResult">
+        <div class="d-result-top">
+          <svg class="d-result-symbol" viewBox="0 0 40 40" fill="none">
+            <path d="M20 4 C20 4 18 10 20 14 C22 18 20 26 20 36" stroke="#2D5A3D" stroke-width=".8" stroke-linecap="round"/>
+            <path d="M20 14 C16 12 13 13 12 16 C11 19 14 21 20 20" stroke="#2D5A3D" stroke-width=".7" fill="none"/>
+            <path d="M20 14 C24 12 27 13 28 16 C29 19 26 21 20 20" stroke="#2D5A3D" stroke-width=".7" fill="none"/>
+            <polygon points="20,28 14,36 26,36" stroke="#2D5A3D" stroke-width=".7" fill="none"/>
+            <circle cx="20" cy="8" r="2" fill="#C4954A" opacity=".8"/>
+          </svg>
           <div>
-            <div class="demo-result-title" id="drTitle">Vidimo te</div>
-            <div class="demo-result-sub" id="drSub">Tvoj LUME uvid</div>
+            <div class="d-result-title" id="drT">Vidimo te</div>
+            <div class="d-result-sub" id="drS">Tvoj LUME uvid</div>
           </div>
         </div>
-        <div class="demo-model-row">
-          <div class="demo-model-card stanje">
-            <div class="demo-model-phase" id="drPhase1">🌊 Stanje</div>
-            <span class="demo-model-icon">🌊</span>
-            <div class="demo-model-text" id="drStanje"></div>
-          </div>
-          <div class="demo-model-card obrazac">
-            <div class="demo-model-phase" id="drPhase2">💡 Obrazac</div>
-            <span class="demo-model-icon">💡</span>
-            <div class="demo-model-text" id="drObrazac"></div>
-          </div>
-          <div class="demo-model-card sustav">
-            <div class="demo-model-phase" id="drPhase3">🌱 Sustav</div>
-            <span class="demo-model-icon">🌱</span>
-            <div class="demo-model-text" id="drSustav"></div>
-          </div>
+        <div class="d-insights">
+          <div class="d-insight s"><div class="d-insight-phase" id="drP1">🌊 Stanje</div><span class="d-insight-icon">🌊</span><div class="d-insight-text" id="drSt"></div></div>
+          <div class="d-insight o"><div class="d-insight-phase" id="drP2">💡 Obrazac</div><span class="d-insight-icon">💡</span><div class="d-insight-text" id="drOb"></div></div>
+          <div class="d-insight su"><div class="d-insight-phase" id="drP3">🌱 Sustav</div><span class="d-insight-icon">🌱</span><div class="d-insight-text" id="drSu"></div></div>
         </div>
-        <div class="demo-result-cta">
-          <a href="life/" class="demo-btn-primary" id="drCta1">
-            Uđi u LUME →
-          </a>
-          <a href="dnevnik/" class="demo-btn-ghost" id="drCta2">
-            Zapiši u dnevnik
-          </a>
+        <div class="d-ctas">
+          <a href="life/" class="btn-dp" id="drC1">Uđi u LUME →</a>
+          <a href="dnevnik/" class="btn-dg" id="drC2">Zapiši u dnevnik</a>
         </div>
-        <div class="demo-restart">
-          <button class="demo-restart-btn" onclick="demoRestart()" id="drRestart">↺ Počni iznova</button>
-        </div>
+        <button class="btn-restart" onclick="demoRestart()" id="drR">↺ Počni iznova</button>
       </div>
-
     </div>
   </div>
 </section>
 
+<!-- DIFFERENCE -->
+<section class="section diff-section">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="s-eyebrow" id="diffEyebrow">Razlika</div>
+      <h2 class="s-title" id="diffTitle">Što LUME <em>nije</em></h2>
+    </div>
+    <div class="diff-grid reveal">
+      <div>
+        <div class="diff-quote" id="diffQ">"Što me sprečava da budem ono što zapravo jesam?"</div>
+        <p class="diff-quote-sub" id="diffQS">Ne "kako da budem bolji/a" — nego "što mi stoji na putu." Razlika je ogromna. Jedno dodaje pritisak, drugo otvara prostor.</p>
+      </div>
+      <div class="diff-cols">
+        <div>
+          <div class="diff-col-lbl bad" id="dBadL">Klasični pristup</div>
+          <div class="diff-item"><span class="di-x">✕</span><span id="db1">"Postani bolja verzija sebe"</span></div>
+          <div class="diff-item"><span class="di-x">✕</span><span id="db2">Fokus na nedostatke i slabosti</span></div>
+          <div class="diff-item"><span class="di-x">✕</span><span id="db3">Motivacija kroz pritisak i usporedbu</span></div>
+          <div class="diff-item"><span class="di-x">✕</span><span id="db4">Generički savjeti koji ne uzimaju tvoj kontekst</span></div>
+          <div class="diff-item"><span class="di-x">✕</span><span id="db5">Brzinska transformacija bez dubljeg razumijevanja</span></div>
+        </div>
+        <div>
+          <div class="diff-col-lbl good" id="dGoodL">LUME pristup</div>
+          <div class="diff-item"><span class="di-ch">✓</span><span id="dg1">"Vrati se sebi — razumij tko zapravo jesi"</span></div>
+          <div class="diff-item"><span class="di-ch">✓</span><span id="dg2">Fokus na obrasce i uvjete koji blokiraju</span></div>
+          <div class="diff-item"><span class="di-ch">✓</span><span id="dg3">Promjena kroz razumijevanje, ne kroz napor</span></div>
+          <div class="diff-item"><span class="di-ch">✓</span><span id="dg4">Personalizirani uvidi na temelju tvojih obrazaca</span></div>
+          <div class="diff-item"><span class="di-ch">✓</span><span id="dg5">Trajna promjena kroz male, konkretne korake</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- MANTRA -->
-<section class="mantra-section">
-  <div class="mantra-bg"></div>
-  <div class="mantra-content">
-    <p class="mantra-quote">
-      "Pomažemo ti u trenutku —<br>
-      <span>ali te ne ostavljamo tamo."</span>
-    </p>
-    <p class="mantra-attr" id="mantraAttr">LUME — temeljno obećanje</p>
+<!-- PILLARS -->
+<section class="section pillars-section">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="s-eyebrow" id="pillarsEyebrow">Tri stupa</div>
+      <h2 class="s-title" id="pillarsTitle">Na čemu se LUME <em>temelji</em></h2>
+      <p class="s-sub" id="pillarsSub">Regenerativni model primijenjen na osobni razvoj — ne dodajemo novo, nego obnavljamo ono što već jest.</p>
+    </div>
+    <div class="pillars-grid reveal">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <div class="pillar-icon-wrap">
+          <svg viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="5" stroke="#2D5A3D" stroke-width="1"/>
+            <circle cx="20" cy="20" r="11" stroke="#2D5A3D" stroke-width=".7" opacity=".5"/>
+            <circle cx="20" cy="20" r="17" stroke="#2D5A3D" stroke-width=".4" opacity=".3"/>
+            <circle cx="20" cy="20" r="2" fill="#C4954A" opacity=".8"/>
+          </svg>
+        </div>
+        <div class="pillar-title" id="p1t">Svjesnost bez osude</div>
+        <p class="pillar-text" id="p1x">Razvoj počinje od razumijevanja — ne od samokritike. Svjesnost o obrascu je već pola puta. Osuda zatvara, razumijevanje otvara.</p>
+        <div class="pillar-quote" id="p1q">"Vidiš sebe jasno — bez filtera i bez osude."</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <div class="pillar-icon-wrap">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M20 6 C20 6 18 12 20 16 C22 20 20 28 20 34" stroke="#2D5A3D" stroke-width="1" stroke-linecap="round"/>
+            <path d="M20 16 C16 14 13 16 13 20 C13 24 16 25 20 23" stroke="#2D5A3D" stroke-width=".8" fill="none"/>
+            <path d="M20 16 C24 14 27 16 27 20 C27 24 24 25 20 23" stroke="#2D5A3D" stroke-width=".8" fill="none"/>
+            <circle cx="20" cy="9" r="2" fill="#C4954A" opacity=".7"/>
+          </svg>
+        </div>
+        <div class="pillar-title" id="p2t">Mali koraci, trajne promjene</div>
+        <p class="pillar-text" id="p2x">Velika transformacija se ne događa odjednom. Događa se kroz male, konkretne promjene koje se grade jedna na drugu — bez napora, bez savršenstva.</p>
+        <div class="pillar-quote" id="p2q">"Jedan mali korak danas — drugačiji sustav za tjedan."</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <div class="pillar-icon-wrap">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M20 8 L34 32 L6 32 Z" stroke="#2D5A3D" stroke-width="1"/>
+            <path d="M16 22 C17 19 19 18 20 18 C21 18 23 19 24 22" stroke="#2D5A3D" stroke-width=".8" fill="none"/>
+            <circle cx="20" cy="26" r="3" stroke="#2D5A3D" stroke-width=".7" fill="none"/>
+            <circle cx="20" cy="26" r="1.2" fill="#C4954A" opacity=".7"/>
+          </svg>
+        </div>
+        <div class="pillar-title" id="p3t">Obrazac kao informacija</div>
+        <p class="pillar-text" id="p3x">Ono što se ponavlja — ponavlja se s razlogom. LUME ne tretira obrasce kao mane — nego kao informacije o tome što trebaš.</p>
+        <div class="pillar-quote" id="p3q">"Svaki obrazac nosi poruku. Pitanje je slušaš li je."</div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- MODEL -->
-<section class="model-section" id="model">
-  <div style="max-width:1100px;margin:0 auto">
-    <div class="section-label fade-up" id="modelLabel">Regenerativni model</div>
-    <h2 class="section-title fade-up" id="modelTitle">Tri koraka.<br><em>Jedna promjena.</em></h2>
-    <p class="section-subtitle fade-up" id="modelSubtitle">
-      Kao što biljka ovisi o tlu, vodi i svjetlu —
-      čovjek ovisi o uvjetima u kojima živi.
-      LUME mijenja uvjete, ne samo ponašanje.
+<section class="section model-section">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="s-eyebrow" id="modelEyebrow">Model u praksi</div>
+      <h2 class="s-title" id="modelTitle">Kako izgledaju <em>tri koraka</em></h2>
+      <p class="s-sub" id="modelSub">Isti model. Primijenjen na tebe — ne na situaciju.</p>
+    </div>
+    <div class="model-list reveal">
+      <div class="model-item">
+        <div class="model-item-l">
+          <div class="mi-circle s">01</div>
+          <div><div class="mi-phase" id="mi1p">STANJE</div><div class="mi-title" id="mi1t">Stabilizacija</div></div>
+        </div>
+        <div class="model-item-r" id="mi1x">Razvoj ne može početi iz iscrpljenosti. Prije uvida — dolazi smirivanje. Prije promjene — dolazi vraćanje kapaciteta. LUME te pita: <strong>kako si ti sada — kao osoba?</strong></div>
+      </div>
+      <div class="model-item">
+        <div class="model-item-l">
+          <div class="mi-circle o">02</div>
+          <div><div class="mi-phase" id="mi2p">OBRAZAC</div><div class="mi-title" id="mi2t">Prepoznaj što se ponavlja</div></div>
+        </div>
+        <div class="model-item-r" id="mi2x">Koji obrasci te prate godinama? Gdje se ista frustracija javlja iznova? Ovdje dolazi uvid koji mijenja perspektivu.</div>
+      </div>
+      <div class="model-item">
+        <div class="model-item-l">
+          <div class="mi-circle su">03</div>
+          <div><div class="mi-phase" id="mi3p">SUSTAV</div><div class="mi-title" id="mi3t">Jedan konkretan korak</div></div>
+        </div>
+        <div class="model-item-r" id="mi3x">Ne cijeli novi život. Jedna stvar koja se mijenja. <strong>Promjena sustava, ne kontrola simptoma.</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote-section">
+  <div class="quote-symbol">
+    <svg viewBox="0 0 400 560" fill="none">
+      <path d="M200 80 C220 80 236 92 236 108 C236 128 218 142 200 142 C178 142 158 126 158 104 C158 78 180 60 200 60 C226 60 248 78 248 104" stroke="rgba(200,230,212,.8)" stroke-width="1.5" fill="none"/>
+      <path d="M200 200 L240 270 L160 270 Z" stroke="rgba(200,230,212,.6)" stroke-width="1.2" fill="none"/>
+      <path d="M200 380 L148 440 L252 440 Z" stroke="rgba(200,230,212,.5)" stroke-width="1.2" fill="none"/>
+    </svg>
+  </div>
+  <div class="quote-inner reveal">
+    <div class="quote-ornament">
+      <div class="quote-ornament-line"></div>
+      <div class="quote-ornament-dot"></div>
+      <div class="quote-ornament-line"></div>
+    </div>
+    <p class="quote-text" id="quoteText">
+      Ne popravljamo biljku —<br>
+      <em>obnavljamo tlo.</em>
     </p>
-  </div>
-
-  <div class="model-grid">
-    <div class="model-card fade-up">
-      <div class="model-number">01</div>
-      <div class="model-card-label" id="step1label">Stanje</div>
-      <h3 class="model-card-title" id="step1title">Regulacija</h3>
-      <p class="model-card-text" id="step1text">
-        Osoba ne može dugoročno mijenjati ponašanje ako je iscrpljena.
-        Prvi korak je stabilizacija — smirivanje tijela i živčanog sustava
-        u trenutku kada je preplavljena.
-      </p>
-      <div class="model-card-accent"></div>
-    </div>
-    <div class="model-card fade-up">
-      <div class="model-number">02</div>
-      <div class="model-card-label" id="step2label">Obrazac</div>
-      <h3 class="model-card-title" id="step2title">Razumijevanje</h3>
-      <p class="model-card-text" id="step2text">
-        Reakcije nisu problem — one su signal.
-        Ovdje osoba uči prepoznati što se ponavlja
-        i zašto reagira na određeni način.
-        Dolazi do uvida i svjesnosti.
-      </p>
-      <div class="model-card-accent"></div>
-    </div>
-    <div class="model-card fade-up">
-      <div class="model-number">03</div>
-      <div class="model-card-label" id="step3label">Sustav</div>
-      <h3 class="model-card-title" id="step3title">Promjena</h3>
-      <p class="model-card-text" id="step3text">
-        Uvodi se mala, konkretna promjena u ponašanju,
-        komunikaciji ili svakodnevnoj strukturi.
-        Ovdje se gradi dugoročna stabilnost
-        koja ne ovisi o motivaciji.
-      </p>
-      <div class="model-card-accent"></div>
-    </div>
+    <div class="quote-attr" id="quoteAttr">LUME Core — temeljna misao</div>
   </div>
 </section>
-
-<!-- PRODUCTS -->
-<section class="products-section" id="proizvodi">
-  <div style="max-width:1100px;margin:0 auto">
-    <div class="section-label fade-up" id="productsLabel">Platforma</div>
-    <h2 class="section-title fade-up" id="productsTitle">LUME ekosustav</h2>
-    <p class="section-subtitle fade-up" id="productsSubtitle">
-      Isti regenerativni model vrijedi za sve sfere života —
-      jer isti obrasci koji se pojavljuju u roditeljstvu,
-      pojavljuju se i svugdje drugdje.
-    </p>
-
-    <div class="products-grid">
-      <!-- LUME Life - primary -->
-      <div class="product-card primary fade-up" style="grid-column:span 2">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px">
-          <div style="flex:1;min-width:260px">
-            <div class="product-badge badge-available">
-              <div class="product-badge-dot"></div>
-              <span id="lifeBadge">Dostupno sada</span>
-            </div>
-            <h3 class="product-card-title" id="lifeTitle">LUME Life</h3>
-            <p class="product-card-desc" style="max-width:480px;margin-bottom:20px" id="lifeDesc">
-              Stabilnost u svim područjima života. Regenerativni model
-              primijenjen na razvoj, odnose, roditeljstvo i posao.
-            </p>
-            <a href="life/" class="product-link" id="lifeLink">
-              Uđi u LUME Life
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-            <a href="life/razvoj/" style="text-align:center;padding:16px 20px;background:rgba(255,255,255,.1);border-radius:14px;border:1px solid rgba(200,230,212,.3);text-decoration:none;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.18)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
-              <div style="font-size:20px;margin-bottom:4px">🧭</div>
-              <div style="font-family:'Fraunces',serif;font-size:15px;color:var(--cream);margin-bottom:2px" id="lifeRazvoj">Razvoj</div>
-              
-            </a>
-            <a href="life/odnosi/" style="text-align:center;padding:16px 20px;background:rgba(255,255,255,.1);border-radius:14px;border:1px solid rgba(200,230,212,.3);text-decoration:none;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.18)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
-              <div style="font-size:20px;margin-bottom:4px">🌿</div>
-              <div style="font-family:'Fraunces',serif;font-size:15px;color:var(--cream);margin-bottom:2px" id="lifeOdnosi">Odnosi</div>
-              
-            </a>
-            <a href="life/parents/" style="text-align:center;padding:16px 20px;background:rgba(255,255,255,.1);border-radius:14px;border:1px solid rgba(200,230,212,.3);text-decoration:none;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.18)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
-              <div style="font-size:20px;margin-bottom:4px">👨‍👩‍👧</div>
-              <div style="font-family:'Fraunces',serif;font-size:15px;color:var(--cream);margin-bottom:2px" id="lifeParents">Parents</div>
-              
-            </a>
-            <a href="life/posao/" style="text-align:center;padding:16px 20px;background:rgba(255,255,255,.1);border-radius:14px;border:1px solid rgba(200,230,212,.3);text-decoration:none;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.18)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
-              <div style="font-size:20px;margin-bottom:4px">💼</div>
-              <div style="font-family:'Fraunces',serif;font-size:15px;color:var(--cream);margin-bottom:2px" id="lifePosao">Posao</div>
-              
-            </a>
-          </div>
-        </div>
-        <div class="product-bg-text">L</div>
-      </div>
-
-      <!-- LUME Core -->
-      <div class="product-card secondary fade-up" style="grid-column:span 2">
-        <div class="product-badge badge-available">
-          <div class="product-badge-dot"></div>
-          <span id="coreBadge">Metodologija</span>
-        </div>
-        <h3 class="product-card-title" id="coreTitle">LUME Core</h3>
-        <p class="product-card-desc" id="coreDesc">
-          Regenerativni model razvoja koji stoji iza svih LUME alata.
-          Temeljni pristup zasnovan na principima regenerativne ekologije
-          primijenjen na ljudski razvoj.
-        </p>
-        <a href="core/" class="product-link" id="coreLink">
-          Saznaj više
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <div class="product-bg-text" style="color:var(--green-deep)">C</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PHILOSOPHY -->
-<section class="philosophy-section" id="filozofija">
-  <div class="philosophy-inner">
-    <div class="philosophy-text">
-      <div class="section-label fade-up" id="philLabel">Filozofija</div>
-      <h2 class="section-title fade-up">
-        Ne popravljamo<br>
-        biljku —<br>
-        <em>obnavljamo tlo.</em>
-      </h2>
-      <p class="section-subtitle fade-up" style="margin-bottom:0" id="philSubtitle">
-        Regenerativna ekologija uči nas da promjena
-        ne dolazi kroz kontrolu simptoma, nego kroz
-        obnovu uvjeta u kojima sustav živi.
-        LUME primjenjuje taj princip na čovjeka.
-      </p>
-    </div>
-    <div class="philosophy-principles fade-up">
-      <div class="principle">
-        <div class="principle-num">1</div>
-        <div>
-          <div class="principle-title" id="p1title">Regeneracija prije promjene</div>
-          <p class="principle-text">
-            Iscrpljena osoba ne može graditi nove obrasce.
-            Stabilizacija je preduvjet — ne opcija.
-          </p>
-        </div>
-      </div>
-      <div class="principle">
-        <div class="principle-num">2</div>
-        <div>
-          <div class="principle-title" id="p2title">Sustav ispred simptoma</div>
-          <p class="principle-text">
-            Reakcija je signal, ne problem. Pitanje nije
-            "kako se bolje ponašati" nego "iz kojeg sustava
-            to ponašanje nastaje."
-          </p>
-        </div>
-      </div>
-      <div class="principle">
-        <div class="principle-num">3</div>
-        <div>
-          <div class="principle-title" id="p3title">Okolina oblikuje ponašanje</div>
-          <p class="principle-text">
-            Kao što biljka ovisi o tlu, vodi i svjetlu —
-            čovjek ovisi o odnosima, strukturi dana
-            i okruženju. Mijenjamo sustav, ne osobu.
-          </p>
-        </div>
-      </div>
-      <div class="principle">
-        <div class="principle-num">4</div>
-        <div>
-          <div class="principle-title" id="p4title">Promjena bez pritiska</div>
-          <p class="principle-text">
-            LUME ne nudi "bolju verziju sebe."
-            Nudi povratak sebi — kroz razumijevanje,
-            ne kroz pritisak ili savršenstvo.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 
 <!-- CTA -->
 <section class="cta-section">
-  <div class="cta-bg"></div>
-  <div class="cta-content">
-    <h2 class="cta-title fade-up" id="ctaTitle">
-      Gdje si<br><em>danas?</em>
-    </h2>
-    <p class="cta-subtitle fade-up" id="ctaSubtitle">
-      Svaki put počinje s jednim korakom — prepoznavanjem gdje si u ovom trenutku.
-    </p>
-    <div class="cta-actions fade-up">
-      <a href="life/" class="btn-light" id="ctaCta1">
-        Uđi u LUME Life
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <a href="core/" class="btn-outline-light" id="ctaCta2">
-        Saznaj više o modelu
-      </a>
+  <div class="cta-inner">
+    <div class="reveal">
+      <div class="cta-eyebrow" id="ctaEyebrow">Gdje si danas</div>
+      <h2 class="cta-title" id="ctaTitle">Gdje si<br><em>danas?</em></h2>
+      <p class="cta-sub" id="ctaSub">Svaki put počinje s jednim korakom — prepoznavanjem gdje si u ovom trenutku.</p>
+    </div>
+    <div class="cta-btns reveal">
+      <a href="life/" class="btn-cta-p" id="ctaB1">Uđi u LUME Life →</a>
+      <a href="dnevnik/" class="btn-cta-g" id="ctaB2">✏ Otvori dnevnik →</a>
+      <div class="cta-hint" id="ctaHint">Flow traje 2 – 3 minute</div>
     </div>
   </div>
 </section>
@@ -1200,332 +1040,138 @@ footer {
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">LUME</div>
-  <div class="footer-text" id="footerText">Regenerativni model razvoja · 2025</div>
+  <ul class="footer-links">
+    <li><a href="core/" id="fCore">Core</a></li>
+    <li><a href="life/" id="fLife">Life</a></li>
+    <li><a href="dnevnik/" id="fDnevnik">Dnevnik</a></li>
+    <li><a href="pregled/" id="fPregled">Pregled</a></li>
+    <li><a href="insights/" id="fInsights">Insights</a></li>
+  </ul>
+  <div class="footer-copy" id="fCopy">Regenerativni model razvoja · 2025</div>
 </footer>
 
 <script>
-
-// ── DEMO ──
-const demoState = { energija: null, obrazac: null, potreba: null };
-
-const demoContent = {
-  hr: {
-    stanje: {
-      prazno: 'Prepoznajemo tu praznoću. Kada smo iscrpljeni, reagiramo iz ostataka — ne iz snage. Regeneracija počinje ovdje.',
-      pola: 'Na pola puta — ali tu si. To je dovoljno za početak. LUME radi s onim što imaš.',
-      solidno: 'Imaš resurse. Sada ih možemo usmjeriti na konkretne obrasce koji te ometaju.'
-    },
-    obrazac: {
-      eksplodira: 'Eksplozija dolazi iz mjesta brige — ne loše namjere. Intenzitet nije problem, on je energija. Pitanje je samo gdje ide.',
-      zamrzne: 'Zamrzavanje je tijelo koje kaže "ne znam što da radim." To nije slabost — to je signal da trebaš konkretan alat.',
-      povlaci: 'Povlačenje je stara zaštita. Funkcionirala je nekad — ali sada te izolira upravo kad trebaš kontakt.',
-      kontrolira: 'Preuzimanje kontrole dolazi iz straha da će bez tebe sve propasti. To iscrpljuje — i sprečava druge da rastu.'
-    },
-    sustav: {
-      alat: 'Jedan konkretan korak: sljedeći put kad osjetiš da eskalira — napravi fizički korak unazad. Tijelo šalje mozgu signal da se situacija promijenila.',
-      razumjeti: 'Obrazac se ponavlja jer ga nismo razumjeli. LUME te vodi kroz to razumijevanje — korak po korak, bez pritiska.',
-      mir: 'Mir nije luksuz — on je preduvjet. Bez prostora za sebe, ne možeš dati ono što hoćeš dati drugima.'
-    }
-  },
-  en: {
-    stanje: {
-      prazno: 'We recognise that emptiness. When we are depleted, we react from what is left — not from strength. Regeneration starts here.',
-      pola: 'Running on half a tank — but you are here. That is enough to start. LUME works with what you have.',
-      solidno: 'You have resources. Now we can direct them toward the specific patterns that get in your way.'
-    },
-    obrazac: {
-      eksplodira: 'The explosion comes from a place of care — not bad intent. The intensity is not the problem, it is energy. The question is only where it goes.',
-      zamrzne: 'Freezing is your body saying "I do not know what to do." That is not weakness — it is a signal that you need a concrete tool.',
-      povlaci: 'Withdrawal is an old protection. It worked once — but now it isolates you at exactly the moment you need connection.',
-      kontrolira: 'Taking control comes from fear that things will fall apart without you. That depletes — and prevents others from growing.'
-    },
-    sustav: {
-      alat: 'One concrete step: next time you feel it escalating — take one physical step back. Your body sends your brain a signal that the situation has shifted.',
-      razumjeti: 'The pattern repeats because we have not understood it. LUME guides you through that understanding — step by step, without pressure.',
-      mir: 'Peace is not a luxury — it is a prerequisite. Without space for yourself, you cannot give what you want to give to others.'
-    }
-  }
-};
-
-function demoPickQ1(val, el) {
-  document.querySelectorAll('#dq1 .demo-opt').forEach(o => o.classList.remove('sel'));
-  el.classList.add('sel');
-  demoState.energija = val;
-  setTimeout(() => {
-    document.getElementById('dq1').classList.remove('active');
-    document.getElementById('dq2').classList.add('active');
-    document.getElementById('dsi1').classList.remove('active');
-    document.getElementById('dsi1').classList.add('done');
-    document.getElementById('dsi2').classList.add('active');
-  }, 400);
-}
-
-function demoPickQ2(val, el) {
-  document.querySelectorAll('#dq2 .demo-opt').forEach(o => o.classList.remove('sel'));
-  el.classList.add('sel');
-  demoState.obrazac = val;
-  setTimeout(() => {
-    document.getElementById('dq2').classList.remove('active');
-    document.getElementById('dq3').classList.add('active');
-    document.getElementById('dsi2').classList.remove('active');
-    document.getElementById('dsi2').classList.add('done');
-    document.getElementById('dsi3').classList.add('active');
-  }, 400);
-}
-
-function demoPickQ3(val, el) {
-  document.querySelectorAll('#dq3 .demo-opt').forEach(o => o.classList.remove('sel'));
-  el.classList.add('sel');
-  demoState.potreba = val;
-  setTimeout(() => {
-    document.getElementById('dq3').classList.remove('active');
-    document.getElementById('dsi3').classList.remove('active');
-    document.getElementById('dsi3').classList.add('done');
-    showDemoResult();
-  }, 400);
-}
-
-function showDemoResult() {
-  const t = currentLang === 'en' ? 'en' : 'hr';
-  const c = demoContent[t];
-  const isEN = currentLang === 'en';
-
-  document.getElementById('drStanje').textContent = c.stanje[demoState.energija] || '';
-  document.getElementById('drObrazac').textContent = c.obrazac[demoState.obrazac] || '';
-  document.getElementById('drSustav').textContent = c.sustav[demoState.potreba] || '';
-
-  document.getElementById('drTitle').textContent = isEN ? 'We see you.' : 'Vidimo te';
-  document.getElementById('drSub').textContent = isEN ? 'Your LUME insight' : 'Tvoj LUME uvid';
-  document.getElementById('drPhase1').textContent = isEN ? '🌊 State' : '🌊 Stanje';
-  document.getElementById('drPhase2').textContent = isEN ? '💡 Pattern' : '💡 Obrazac';
-  document.getElementById('drPhase3').textContent = isEN ? '🌱 System' : '🌱 Sustav';
-  document.getElementById('drCta1').textContent = isEN ? 'Enter LUME →' : 'Uđi u LUME →';
-  document.getElementById('drCta2').textContent = isEN ? 'Write in journal' : 'Zapiši u dnevnik';
-  document.getElementById('drRestart').textContent = isEN ? '↺ Start again' : '↺ Počni iznova';
-
-  document.getElementById('demoResult').classList.add('show');
-}
-
-function demoRestart() {
-  demoState.energija = null; demoState.obrazac = null; demoState.potreba = null;
-  document.querySelectorAll('.demo-q').forEach(q => q.classList.remove('active'));
-  document.getElementById('dq1').classList.add('active');
-  document.getElementById('demoResult').classList.remove('show');
-  ['dsi1','dsi2','dsi3'].forEach(id => {
-    document.getElementById(id).classList.remove('active','done');
-  });
-  document.getElementById('dsi1').classList.add('active');
-  document.querySelectorAll('.demo-opt').forEach(o => o.classList.remove('sel'));
-}
-
-function translateDemo() {
-  const t = currentLang === 'en';
-  const set = (id, v) => { const e = document.getElementById(id); if(e) e.textContent = v; };
-
-  set('demoLabel', t ? 'Try LUME' : 'Isproba LUME');
-  set('demoTitle', t ? 'Three questions.\nOne insight.' : 'Tri pitanja.\nJedan uvid.');
-  document.getElementById('demoTitle').innerHTML = t ? 'Three questions.<br>One insight.' : 'Tri pitanja.<br>Jedan uvid.';
-  set('demoSubtitle', t ? 'No registration. Just feel how LUME thinks.' : 'Bez registracije. Samo okusi kako LUME razmišlja.');
-
-  set('dsl1', t ? 'State' : 'Stanje');
-  set('dsl2', t ? 'Pattern' : 'Obrazac');
-  set('dsl3', t ? 'System' : 'Sustav');
-
-  set('dq1phase', t ? 'State — Regulation' : 'Stanje — Regulacija');
-  set('dq1text', t ? 'How are you right now — as a person, not a parent/worker?' : 'Kako si ti sada — kao osoba, ne kao roditelj/radnik?');
-  set('dq1sub', t ? 'Be honest. No wrong answers.' : 'Budi iskren/a. Nema krivih odgovora.');
-  set('dq1o1', t ? 'Empty tank — no space for myself' : 'Prazna baterija — nema prostora za sebe');
-  set('dq1o2', t ? 'Half tank — something there, but not enough' : 'Na pola — imam nešto, ali nije dovoljno');
-  set('dq1o3', t ? 'Solid — looking for tools for specific situations' : 'Solidno — tražim alate za konkretne situacije');
-
-  set('dq2phase', t ? 'Pattern — Understanding' : 'Obrazac — Razumijevanje');
-  set('dq2text', t ? 'What keeps repeating most often?' : 'Što se najčešće ponavlja?');
-  set('dq2sub', t ? 'Choose what you most often recognise in yourself.' : 'Odaberi ono što najčešće prepoznaješ u sebi.');
-  set('dq2o1', t ? 'I explode — and then feel bad about it' : 'Eksplodiram — a onda se osjećam loše zbog toga');
-  set('dq2o2', t ? 'I freeze — I do not know what to say or do' : 'Zamrznem se — ne znam što reći ni napraviti');
-  set('dq2o3', t ? 'I withdraw — I close off until it passes' : 'Povlačim se — zatvaram se dok ne prođe');
-  set('dq2o4', t ? 'I take control — I do everything myself so it goes right' : 'Preuzimam kontrolu — radim sve sam/a da bude kako treba');
-
-  set('dq3phase', t ? 'System — Change' : 'Sustav — Promjena');
-  set('dq3text', t ? 'What would help you most right now?' : 'Što bi ti najviše pomoglo sada?');
-  set('dq3sub', t ? 'No perfect answer — just your answer.' : 'Nema savršenog odgovora — samo tvoj odgovor.');
-  set('dq3o1', t ? 'A concrete tool for next time it escalates' : 'Konkretan alat za sljedeći put kad eskalira');
-  set('dq3o2', t ? 'To understand why this pattern keeps repeating' : 'Razumjeti zašto se ovaj obrazac ponavlja');
-  set('dq3o3', t ? 'A little peace and space just for myself' : 'Malo mira i prostora samo za sebe');
-}
-
-// Scroll animations
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.fade-up:not(.visible)').forEach(el => {
-  observer.observe(el);
-});
-
-// ── BILINGUAL CONTENT ──
 let currentLang = 'hr';
-
-const content = {
+const DS = { s:null, o:null, su:null };
+const DC = {
   hr: {
-    langBtn: 'EN',
-    navCore: 'Core', navLife: 'Life', navDnevnik: 'Dnevnik', navPregled: 'Pregled', navInsights: 'Insights', navCta: 'Počni →',
-    heroEyebrow: 'Regenerativni model razvoja',
-    heroTitle: 'Svjetlo u<br><em>trenutku</em> —<br>i sustav koji<br>traje.',
-    heroSubtitle: 'LUME nije samo pomoć u teškim trenucima. To je platforma koja te vodi od reakcije prema razumijevanju — i od razumijevanja prema stvarnoj promjeni.',
-    heroCta1: 'Počni s LUME Life',
-    heroCta2: 'Saznaj više o modelu',
-    mantraQuote: '"Pomažemo ti u trenutku —<br><span>ali te ne ostavljamo tamo."</span>',
-    mantraAttr: 'LUME — temeljno obećanje',
-    modelLabel: 'Regenerativni model',
-    modelTitle: 'Tri koraka.<br><em>Jedna promjena.</em>',
-    modelSubtitle: 'Kao što biljka ovisi o tlu, vodi i svjetlu — čovjek ovisi o uvjetima u kojima živi. LUME mijenja uvjete, ne samo ponašanje.',
-    step1label: 'Stanje', step1title: 'Regulacija',
-    step1text: 'Osoba ne može dugoročno mijenjati ponašanje ako je iscrpljena. Prvi korak je stabilizacija — smirivanje tijela i živčanog sustava u trenutku kada je preplavljena.',
-    step2label: 'Obrazac', step2title: 'Razumijevanje',
-    step2text: 'Reakcije nisu problem — one su signal. Ovdje osoba uči prepoznati što se ponavlja i zašto reagira na određeni način. Dolazi do uvida i svjesnosti.',
-    step3label: 'Sustav', step3title: 'Promjena',
-    step3text: 'Uvodi se mala, konkretna promjena u ponašanju, komunikaciji ili svakodnevnoj strukturi. Ovdje se gradi dugoročna stabilnost koja ne ovisi o motivaciji.',
-    productsLabel: 'Platforma',
-    productsTitle: 'LUME ekosustav', lifeBadge: 'Dostupno sada', lifeLink: 'Uđi u LUME Life', lifeRazvoj: 'Razvoj', lifeRazvojBadge: 'Dostupno', lifeOdnosi: 'Odnosi', lifeOdnosiBadge: 'Dostupno', lifeParents: 'Parents', lifeParentsBadge: 'Dostupno', lifePosao: 'Posao', lifePosaoBadge: 'Dostupno', coreBadge: 'Metodologija', coreTitle: 'LUME Core', coreLink: 'Saznaj više',
-    productsSubtitle: 'Isti regenerativni model vrijedi za sve sfere života. Počinjemo s roditeljstvom.',
-    parentsBadge: 'Dostupno sada',
-    parentsTitle: 'LUME Parents',
-    parentsDesc: 'Pomoć roditeljima u trenutku — i sustav koji gradi svjesniji, stabilniji odnos s djetetom kroz vrijeme. Personalizirani profil, situacijski savjeti, simulacija razgovora i mjesečni check-in.',
-    parentsLink: 'Otvori aplikaciju',
-    coreBadge: 'Metodologija',
-    coreTitle: 'LUME Core',
-    coreDesc: 'Regenerativni model razvoja koji stoji iza svih LUME alata. Temeljni pristup zasnovan na principima regenerativne ekologije primijenjen na ljudski razvoj.',
-    coreLink: 'Saznaj više',
-    lifeBadge: 'Uskoro',
-    lifeTitle: 'LUME Life',
-    lifeDesc: 'Stabilnost u svim područjima života. Isti regenerativni model koji vrijedi za roditelje — vrijedi i za odnose, posao i osobni razvoj. Jer isti obrasci koji se pojavljuju u roditeljstvu, pojavljuju se i u svemu ostalom.',
-    lifeOdnosi: 'Odnosi', lifePosao: 'Posao', lifeRazvoj: 'Razvoj', lifeUskoro: 'U razvoju', lifeUskoro2: 'Uskoro',
-    philLabel: 'Filozofija',
-    philTitle: 'Ne popravljamo<br>biljku —<br><em>obnavljamo tlo.</em>',
-    philSubtitle: 'Regenerativna ekologija uči nas da promjena ne dolazi kroz kontrolu simptoma, nego kroz obnovu uvjeta u kojima sustav živi. LUME primjenjuje taj princip na čovjeka.',
-    p1title: 'Regeneracija prije promjene', p1text: 'Iscrpljena osoba ne može graditi nove obrasce. Stabilizacija je preduvjet — ne opcija.',
-    p2title: 'Sustav ispred simptoma', p2text: 'Reakcija je signal, ne problem. Pitanje nije "kako se bolje ponašati" nego "iz kojeg sustava to ponašanje nastaje."',
-    p3title: 'Okolina oblikuje ponašanje', p3text: 'Kao što biljka ovisi o tlu, vodi i svjetlu — čovjek ovisi o odnosima, strukturi dana i okruženju. Mijenjamo sustav, ne osobu.',
-    p4title: 'Promjena bez pritiska', p4text: 'LUME ne nudi "bolju verziju sebe." Nudi povratak sebi — kroz razumijevanje, ne kroz pritisak ili savršenstvo.',
-    ctaTitle: 'Gdje si<br><em>danas?</em>',
-    ctaSubtitle: 'Svaki put počinje s jednim korakom — prepoznavanjem gdje si u ovom trenutku.',
-    ctaCta1: 'Otvori LUME Life',
-    ctaCta2: 'Saznaj više o modelu',
-    footerText: 'Regenerativni model razvoja · 2025',
-    scrollText: 'Skrolaj',
+    stanje: { prazno:'Prepoznajemo tu praznoću. Kada smo iscrpljeni, reagiramo iz ostataka — ne iz snage. Regeneracija počinje ovdje.', pola:'Na pola puta — ali tu si. To je dovoljno za početak. LUME radi s onim što imaš.', solidno:'Imaš resurse. Sada ih možemo usmjeriti na konkretne obrasce koji te ometaju.', iscrpljena:'Za koga glumiš jakost? Nitko nije tražio da se nosi sve na leđima. Možeš skinuti taj teret.' },
+    obrazac: { eksplodira:'Eksplozija dolazi iz mjesta brige — ne loše namjere. Intenzitet nije problem, on je energija. Pitanje je samo gdje ide.', zamrzne:'Zamrzavanje je tijelo koje kaže "ne znam što da radim." To nije slabost — to je signal da trebaš konkretan alat.', povlaci:'Povlačenje je stara zaštita. Funkcionirala je nekad — ali sada te izolira upravo kad trebaš kontakt.', kontrolira:'Preuzimanje kontrole dolazi iz straha da će bez tebe sve propasti. To iscrpljuje — i sprečava druge da rastu.' },
+    sustav: { alat:'Jedan konkretan korak: sljedeći put kad osjeti da eskalira — napravi fizički korak unazad. Tijelo šalje mozgu signal da se situacija promijenila.', razumjeti:'Obrazac se ponavlja jer ga nismo razumjeli. LUME te vodi kroz to razumijevanje — korak po korak, bez pritiska.', mir:'Mir nije luksuz — on je preduvjet. Bez prostora za sebe, ne možeš dati ono što hoćeš dati drugima.' }
   },
   en: {
-    langBtn: 'HR',
-    navCore: 'Core', navLife: 'Life', navDnevnik: 'Dnevnik', navPregled: 'Pregled', navInsights: 'Insights', navCta: 'Počni →',
-    heroEyebrow: 'Regenerative development model',
-    heroTitle: 'Light in the<br><em>moment</em> —<br>and a system<br>that lasts.',
-    heroSubtitle: 'LUME is not just support in hard moments. It is a platform that guides you from reaction to understanding — and from understanding to real change.',
-    heroCta1: 'Start with LUME Life',
-    heroCta2: 'Learn about the model',
-    mantraQuote: '"We meet you in the moment —<br><span>and we do not leave you there."</span>',
-    mantraAttr: 'LUME — core promise',
-    modelLabel: 'Regenerative model',
-    modelTitle: 'Three steps.<br><em>One change.</em>',
-    modelSubtitle: 'Just as a plant depends on soil, water and light — a person depends on the conditions they live in. LUME changes the conditions, not just the behaviour.',
-    step1label: 'State', step1title: 'Regulation',
-    step1text: 'A person cannot build lasting change when depleted. The first step is stabilisation — calming the body and nervous system in the moment of overwhelm.',
-    step2label: 'Pattern', step2title: 'Understanding',
-    step2text: 'Reactions are not the problem — they are a signal. Here the person learns to recognise what repeats and why they respond the way they do. Insight arrives.',
-    step3label: 'System', step3title: 'Change',
-    step3text: 'A small, concrete change is introduced in behaviour, communication or daily structure. This is where lasting stability is built — one that does not depend on willpower.',
-    productsLabel: 'Platform',
-    productsTitle: 'The LUME ecosystem',
-    productsSubtitle: 'The same regenerative model applies across all areas of life. We start with parenting.',
-    parentsBadge: 'Available now',
-    parentsTitle: 'LUME Parents',
-    parentsDesc: 'Support for parents in the moment — and a system that builds a more conscious, stable relationship with your child over time. Personalised profile, situational guidance, conversation practice and monthly check-in.',
-    parentsLink: 'Open the app',
-    coreBadge: 'Methodology',
-    coreTitle: 'LUME Core',
-    coreDesc: 'The regenerative development model behind all LUME tools. A foundational approach rooted in the principles of regenerative ecology, applied to human development.',
-    coreLink: 'Learn more',
-    lifeBadge: 'Coming soon',
-    lifeTitle: 'LUME Life',
-    lifeDesc: 'Stability across all areas of life. The same regenerative model that works for parents — works for relationships, work and personal development. Because the same patterns that appear in parenting appear everywhere else too.',
-    lifeOdnosi: 'Relationships', lifePosao: 'Work', lifeRazvoj: 'Growth', lifeUskoro: 'In development', lifeUskoro2: 'Coming soon',
-    philLabel: 'Philosophy',
-    philTitle: 'We do not fix<br>the plant —<br><em>we restore the soil.</em>',
-    philSubtitle: 'Regenerative ecology teaches us that change does not come through controlling symptoms, but through restoring the conditions in which the system lives. LUME applies that principle to people.',
-    p1title: 'Regeneration before change', p1text: 'A depleted person cannot build new patterns. Stabilisation is a prerequisite — not an option.',
-    p2title: 'System before symptom', p2text: 'A reaction is a signal, not a problem. The question is not "how to behave better" but "what system is this behaviour coming from."',
-    p3title: 'Environment shapes behaviour', p3text: 'Just as a plant depends on soil, water and light — a person depends on relationships, daily structure and environment. We change the system, not the person.',
-    p4title: 'Change without pressure', p4text: 'LUME does not offer a "better version of yourself." It offers a return to yourself — through understanding, not pressure or perfection.',
-    ctaTitle: 'Where are you<br><em>today?</em>',
-    ctaSubtitle: 'Every journey begins with one step — recognising where you are right now.',
-    ctaCta1: 'Open LUME Life',
-    ctaCta2: 'Learn about the model',
-    footerText: 'Regenerative development model · 2025',
-    scrollText: 'Scroll',
+    stanje: { prazno:'We recognise that emptiness. When we are depleted, we react from what is left — not from strength. Regeneration starts here.', pola:'Running on half a tank — but you are here. That is enough to start. LUME works with what you have.', solidno:'You have resources. Now we can direct them toward the specific patterns that get in your way.', iscrpljena:'Who are you performing strength for? No one asked for everything to be carried. You can put that weight down.' },
+    obrazac: { eksplodira:'The explosion comes from a place of care — not bad intent. The intensity is not the problem, it is energy. The question is only where it goes.', zamrzne:'Freezing is your body saying "I do not know what to do." That is not weakness — it is a signal that you need a concrete tool.', povlaci:'Withdrawal is an old protection. It worked once — but now it isolates you at exactly the moment you need connection.', kontrolira:'Taking control comes from fear that things will fall apart without you. That depletes — and prevents others from growing.' },
+    sustav: { alat:'One concrete step: next time you feel it escalating — take one physical step back. Your body sends your brain a signal that the situation has shifted.', razumjeti:'The pattern repeats because we have not understood it. LUME guides you through that understanding — step by step, without pressure.', mir:'Peace is not a luxury — it is a prerequisite. Without space for yourself, you cannot give what you want to give to others.' }
   }
 };
 
-function toggleLang() {
-  currentLang = currentLang === 'hr' ? 'en' : 'hr';
-  applyLang();
+function p1(v,el){ document.querySelectorAll('#dq1 .dq-opt').forEach(o=>o.classList.remove('sel')); el.classList.add('sel'); DS.s=v; setTimeout(()=>{ document.getElementById('dq1').classList.remove('active'); document.getElementById('dq2').classList.add('active'); document.getElementById('ds1').classList.remove('active'); document.getElementById('ds1').classList.add('done'); document.getElementById('dl12').classList.add('done'); document.getElementById('ds2').classList.add('active'); },350); }
+function p2(v,el){ document.querySelectorAll('#dq2 .dq-opt').forEach(o=>o.classList.remove('sel')); el.classList.add('sel'); DS.o=v; setTimeout(()=>{ document.getElementById('dq2').classList.remove('active'); document.getElementById('dq3').classList.add('active'); document.getElementById('ds2').classList.remove('active'); document.getElementById('ds2').classList.add('done'); document.getElementById('dl23').classList.add('done'); document.getElementById('ds3').classList.add('active'); },350); }
+function p3(v,el){ document.querySelectorAll('#dq3 .dq-opt').forEach(o=>o.classList.remove('sel')); el.classList.add('sel'); DS.su=v; setTimeout(()=>{ document.getElementById('dq3').classList.remove('active'); document.getElementById('ds3').classList.remove('active'); document.getElementById('ds3').classList.add('done'); showResult(); },350); }
+
+function showResult(){
+  const l=currentLang==='en'?'en':'hr'; const c=DC[l]; const t=currentLang==='en';
+  document.getElementById('drSt').textContent=c.stanje[DS.s]||'';
+  document.getElementById('drOb').textContent=c.obrazac[DS.o]||'';
+  document.getElementById('drSu').textContent=c.sustav[DS.su]||'';
+  document.getElementById('drT').textContent=t?'We see you.':'Vidimo te';
+  document.getElementById('drS').textContent=t?'Your LUME insight':'Tvoj LUME uvid';
+  document.getElementById('drP1').textContent=t?'🌊 State':'🌊 Stanje';
+  document.getElementById('drP2').textContent=t?'💡 Pattern':'💡 Obrazac';
+  document.getElementById('drP3').textContent=t?'🌱 System':'🌱 Sustav';
+  document.getElementById('drC1').textContent=t?'Enter LUME →':'Uđi u LUME →';
+  document.getElementById('drC2').textContent=t?'Write in journal':'Zapiši u dnevnik';
+  document.getElementById('drR').textContent=t?'↺ Start again':'↺ Počni iznova';
+  document.getElementById('dResult').classList.add('show');
 }
 
-function applyLang() {
-  translateDemo();
-  const t = content[currentLang];
-  const set = (id, html) => { const el = document.getElementById(id); if(el) el.innerHTML = html; };
-  const setT = (id, text) => { const el = document.getElementById(id); if(el) el.textContent = text; };
-
-  setT('langBtn', t.langBtn);
-  setT('navCta', t.navCta);
-  set('heroEyebrow', t.heroEyebrow);
-  set('heroTitle', t.heroTitle);
-  set('heroSubtitle', t.heroSubtitle);
-  setT('heroCta1', t.heroCta1);
-  setT('heroCta2', t.heroCta2);
-  set('mantraQuote', t.mantraQuote);
-  setT('mantraAttr', t.mantraAttr);
-  setT('modelLabel', t.modelLabel);
-  set('modelTitle', t.modelTitle);
-  setT('modelSubtitle', t.modelSubtitle);
-  setT('step1label', t.step1label); setT('step1title', t.step1title); setT('step1text', t.step1text);
-  setT('step2label', t.step2label); setT('step2title', t.step2title); setT('step2text', t.step2text);
-  setT('step3label', t.step3label); setT('step3title', t.step3title); setT('step3text', t.step3text);
-  setT('productsLabel', t.productsLabel);
-  set('productsTitle', t.productsTitle);
-  setT('productsSubtitle', t.productsSubtitle);
-  setT('parentsBadge', t.parentsBadge); setT('parentsTitle', t.parentsTitle);
-  setT('parentsDesc', t.parentsDesc); setT('parentsLink', t.parentsLink);
-  setT('coreBadge', t.coreBadge); setT('coreTitle', t.coreTitle);
-  setT('coreDesc', t.coreDesc); setT('coreLink', t.coreLink);
-  setT('lifeBadge', t.lifeBadge); setT('lifeTitle', t.lifeTitle); setT('lifeDesc', t.lifeDesc);
-  setT('lifeOdnosi', t.lifeOdnosi); setT('lifePosao', t.lifePosao); setT('lifeRazvoj', t.lifeRazvoj);
-  setT('lifeUskoro', t.lifeUskoro); setT('lifeUskoro2', t.lifeUskoro2);
-  setT('philLabel', t.philLabel);
-  set('philTitle', t.philTitle); setT('philSubtitle', t.philSubtitle);
-  setT('p1title', t.p1title); setT('p1text', t.p1text);
-  setT('p2title', t.p2title); setT('p2text', t.p2text);
-  setT('p3title', t.p3title); setT('p3text', t.p3text);
-  setT('p4title', t.p4title); setT('p4text', t.p4text);
-  set('ctaTitle', t.ctaTitle); setT('ctaSubtitle', t.ctaSubtitle);
-  setT('ctaCta1', t.ctaCta1); setT('ctaCta2', t.ctaCta2);
-  setT('footerText', t.footerText);
-  setT('scrollText', t.scrollText);
+function demoRestart(){
+  DS.s=null;DS.o=null;DS.su=null;
+  document.querySelectorAll('.dq').forEach(q=>q.classList.remove('active'));
+  document.getElementById('dq1').classList.add('active');
+  document.getElementById('dResult').classList.remove('show');
+  ['ds1','ds2','ds3'].forEach(id=>{document.getElementById(id).classList.remove('active','done');});
+  document.getElementById('ds1').classList.add('active');
+  document.getElementById('dl12').classList.remove('done');
+  document.getElementById('dl23').classList.remove('done');
+  document.querySelectorAll('.dq-opt').forEach(o=>o.classList.remove('sel'));
 }
 
-// Smooth nav background on scroll
-window.addEventListener('scroll', () => {
-  const nav = document.querySelector('nav');
-  if (window.scrollY > 50) {
-    nav.style.boxShadow = '0 1px 20px rgba(28,58,42,.08)';
-  } else {
-    nav.style.boxShadow = 'none';
-  }
-});
+function toggleLang(){ currentLang=currentLang==='hr'?'en':'hr'; applyLang(); }
+function applyLang(){
+  const t=currentLang==='en';
+  const s=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  const h=(id,v)=>{const e=document.getElementById(id);if(e)e.innerHTML=v;};
+  s('langBtn',t?'HR':'EN');
+  s('navCore','Core');s('navLife','Life');s('navInsights','Insights');s('navCta',t?'Begin →':'Počni →');
+  s('heroEyebrow',t?'Regenerative development model':'Regenerativni model razvoja');
+  h('heroTitle',t?'Returning<br>to yourself —<br><em>not changing.</em>':'Vraćanje<br>sebi —<br><em>ne mijenjanje.</em>');
+  s('heroSub',t?'LUME does not ask you to become a better version of yourself. It asks what stands in your way — and guides you step by step back to yourself.':'LUME te ne pita da budeš bolja verzija sebe. Pita što ti stoji na putu — i vodi te korak po korak natrag k sebi.');
+  s('heroCtaText',t?'Start with LUME Life':'Počni s LUME Life');
+  s('heroDuration',t?'Flow takes 2 – 3 minutes':'Flow traje 2 – 3 minute');
+  s('heroHintText',t?'No need to jump in right away.\nYou can write where you are first.':'Ne moraš odmah u proces.\nMožeš prvo zapisati gdje si.');
+  s('btnJournal',t?'✏ Journal':'✏ Dnevnik');
+  s('processLabel',t?'How does the process look?':'Kako izgleda proces?');
+  s('pf1t',t?'Calm the body':'Smiri tijelo');s('pf1s',t?'restore capacity':'vrati kapacitet');
+  s('pf2t',t?'See what repeats':'Vidi što se ponavlja');s('pf2s',t?'without judgment':'bez osude');
+  s('pf3t',t?'One small step':'Jedan mali korak');s('pf3s',t?'real change':'stvarna promjena');
+  s('disclaimerText',t?'LUME is a tool for self-understanding and personal development. It helps in understanding patterns — it does not diagnose or treat. It does not replace professional psychological or psychiatric help. If you feel you need more support than a tool can offer — seek it. That is a sign of strength, not weakness.':'LUME je alat za samorazumijevanje i osobni razvoj. Pomaže u razumijevanju obrazaca — ne dijagnosticira ni liječi. Ne zamjenjuje stručnu psihološku ili psihijatrijsku pomoć. Ako osjećaš da trebaš više podrške od alata — potraži je. To je znak snage, ne slabosti.');
+  s('demoEyebrow',t?'Try LUME':'Isproba LUME');
+  h('demoTitle',t?'Three questions. <em>One insight.</em>':'Tri pitanja. <em>Jedan uvid.</em>');
+  s('demoSub',t?'No registration. Just feel how LUME thinks.':'Bez registracije. Samo osjetiti kako LUME razmišlja.');
+  s('dl1',t?'State':'Stanje');s('dl2',t?'Pattern':'Obrazac');s('dl3',t?'System':'Sustav');
+  s('dq1p',t?'🌊 State — Regulation':'🌊 Stanje — Regulacija');
+  s('dq1t',t?'How are you right now — not as the role you play, but as a person?':'Kako si ti sada — ne kao uloga koju igraš, nego kao osoba?');
+  s('dq1s',t?'Be honest. No wrong answers.':'Budi iskren/a. Nema krivih odgovora.');
+  s('o1a',t?'Empty tank — no space for myself':'Prazna baterija — nema prostora za sebe');
+  s('o1b',t?'Half tank — something there, but not enough':'Na pola — imam nešto, ali nije dovoljno');
+  s('o1c',t?'Solid — looking for tools for specific situations':'Solidno — tražim alate za konkretne situacije');
+  s('o1d',t?'Exhausted inside — even though I look fine outside':'Iscrpljena iznutra — iako izvana izgledam dobro');
+  s('dq2p',t?'💡 Pattern — Understanding':'💡 Obrazac — Razumijevanje');
+  s('dq2t',t?'What keeps repeating most often?':'Što se najčešće ponavlja?');
+  s('dq2s',t?'Choose what you most often recognise in yourself.':'Odaberi ono što najčešće prepoznaješ u sebi.');
+  s('o2a',t?'I explode — and then feel bad about it':'Eksplodiram — a onda se osjećam loše zbog toga');
+  s('o2b',t?'I freeze — I do not know what to say or do':'Zamrznem se — ne znam što reći ni napraviti');
+  s('o2c',t?'I withdraw — I close off until it passes':'Povlačim se — zatvaram se dok ne prođe');
+  s('o2d',t?'I take control — I do everything myself so it goes right':'Preuzimam kontrolu — radim sve sam/a da bude kako treba');
+  s('dq3p',t?'🌱 System — Change':'🌱 Sustav — Promjena');
+  s('dq3t',t?'What would help you most right now?':'Što bi ti najviše pomoglo sada?');
+  s('dq3s',t?'No perfect answer — just your answer.':'Nema savršenog odgovora — samo tvoj odgovor.');
+  s('o3a',t?'A concrete tool for next time it escalates':'Konkretan alat za sljedeći put kad eskalira');
+  s('o3b',t?'To understand why this pattern keeps repeating':'Razumjeti zašto se ovaj obrazac ponavlja');
+  s('o3c',t?'A little peace and space just for myself':'Malo mira i prostora samo za sebe');
+  s('diffEyebrow',t?'The difference':'Razlika');
+  h('diffTitle',t?'What LUME <em>is not</em>':'Što LUME <em>nije</em>');
+  s('diffQ',t?'"What is stopping me from being who I actually am?"':'"Što me sprečava da budem ono što zapravo jesam?"');
+  s('diffQS',t?'Not "how to become better" — but "what is in my way." The difference is enormous.':'Ne "kako da budem bolji/a" — nego "što mi stoji na putu." Razlika je ogromna. Jedno dodaje pritisak, drugo otvara prostor.');
+  s('dBadL',t?'Conventional approach':'Klasični pristup');s('dGoodL',t?'LUME approach':'LUME pristup');
+  s('db1',t?'"Become a better version of yourself"':'"Postani bolja verzija sebe"');s('db2',t?'Focus on flaws and weaknesses':'Fokus na nedostatke i slabosti');s('db3',t?'Motivation through pressure and comparison':'Motivacija kroz pritisak i usporedbu');s('db4',t?'Generic advice that ignores your context':'Generički savjeti koji ne uzimaju tvoj kontekst');s('db5',t?'Quick transformation without deeper understanding':'Brzinska transformacija bez dubljeg razumijevanja');
+  s('dg1',t?'"Return to yourself — understand who you actually are"':'"Vrati se sebi — razumij tko zapravo jesi"');s('dg2',t?'Focus on patterns and conditions that block':'Fokus na obrasce i uvjete koji blokiraju');s('dg3',t?'Change through understanding, not effort':'Promjena kroz razumijevanje, ne kroz napor');s('dg4',t?'Personalised insights based on your patterns':'Personalizirani uvidi na temelju tvojih obrazaca');s('dg5',t?'Lasting change through small, concrete steps':'Trajna promjena kroz male, konkretne korake');
+  s('pillarsEyebrow',t?'Three pillars':'Tri stupa');
+  h('pillarsTitle',t?'What LUME is <em>built on</em>':'Na čemu se LUME <em>temelji</em>');
+  s('pillarsSub',t?'The regenerative model applied to personal development — we do not add new, we restore what is already there.':'Regenerativni model primijenjen na osobni razvoj — ne dodajemo novo, nego obnavljamo ono što već jest.');
+  s('p1t',t?'Awareness without judgment':'Svjesnost bez osude');s('p1x',t?'Development begins with understanding — not self-criticism. Awareness of a pattern is already halfway. Judgment closes, understanding opens.':'Razvoj počinje od razumijevanja — ne od samokritike. Svjesnost o obrascu je već pola puta. Osuda zatvara, razumijevanje otvara.');s('p1q',t?'"You see yourself clearly — without filters and without judgment."':'"Vidiš sebe jasno — bez filtera i bez osude."');
+  s('p2t',t?'Small steps, lasting change':'Mali koraci, trajne promjene');s('p2x',t?'Big transformation does not happen all at once. It happens through small, concrete changes that build on each other.':'Velika transformacija se ne događa odjednom. Događa se kroz male, konkretne promjene koje se grade jedna na drugu — bez napora, bez savršenstva.');s('p2q',t?'"One small step today — a different system in a week."':'"Jedan mali korak danas — drugačiji sustav za tjedan."');
+  s('p3t',t?'Patterns as information':'Obrazac kao informacija');s('p3x',t?'What repeats — repeats for a reason. LUME does not treat patterns as flaws — but as information about what you need.':'Ono što se ponavlja — ponavlja se s razlogom. LUME ne tretira obrasce kao mane — nego kao informacije o tome što trebaš.');s('p3q',t?'"Every pattern carries a message. The question is whether you are listening."':'"Svaki obrazac nosi poruku. Pitanje je slušaš li je."');
+  s('modelEyebrow',t?'Model in practice':'Model u praksi');
+  h('modelTitle',t?'How the <em>three steps</em> look':'Kako izgledaju <em>tri koraka</em>');
+  s('modelSub',t?'The same model. Applied to you — not to the situation.':'Isti model. Primijenjen na tebe — ne na situaciju.');
+  s('mi1p',t?'STATE':'STANJE');s('mi1t',t?'Stabilisation':'Stabilizacija');s('mi1x',t?'Development cannot begin from depletion. Before insight — comes calming. Before change — comes restoring capacity. LUME asks: how are you right now — as a person?':'Razvoj ne može početi iz iscrpljenosti. Prije uvida — dolazi smirivanje. Prije promjene — dolazi vraćanje kapaciteta. LUME te pita: kako si ti sada — kao osoba?');
+  s('mi2p',t?'PATTERN':'OBRAZAC');s('mi2t',t?'Recognise what repeats':'Prepoznaj što se ponavlja');s('mi2x',t?'Which patterns have followed you for years? Where does the same frustration appear again? Here comes the insight that shifts perspective.':'Koji obrasci te prate godinama? Gdje se ista frustracija javlja iznova? Ovdje dolazi uvid koji mijenja perspektivu.');
+  s('mi3p',t?'SYSTEM':'SUSTAV');s('mi3t',t?'One concrete step':'Jedan konkretan korak');s('mi3x',t?'Not a whole new life. One thing that changes. Change the system, not control the symptom.':'Ne cijeli novi život. Jedna stvar koja se mijenja. Promjena sustava, ne kontrola simptoma.');
+  h('quoteText',t?'We do not fix the plant —<br><em>we restore the soil.</em>':'Ne popravljamo biljku —<br><em>obnavljamo tlo.</em>');
+  s('quoteAttr',t?'LUME Core — the core idea':'LUME Core — temeljna misao');
+  s('ctaEyebrow',t?'Where are you today':'Gdje si danas');
+  h('ctaTitle',t?'Where are you<br><em>today?</em>':'Gdje si<br><em>danas?</em>');
+  s('ctaSub',t?'Every journey begins with one step — recognising where you are right now.':'Svaki put počinje s jednim korakom — prepoznavanjem gdje si u ovom trenutku.');
+  s('ctaB1',t?'Enter LUME Life →':'Uđi u LUME Life →');s('ctaB2',t?'✏ Open journal →':'✏ Otvori dnevnik →');s('ctaHint',t?'Flow takes 2 – 3 minutes':'Flow traje 2 – 3 minute');
+  s('fCore','Core');s('fLife','Life');s('fDnevnik',t?'Journal':'Dnevnik');s('fPregled',t?'Overview':'Pregled');s('fInsights','Insights');s('fCopy',t?'Regenerative development model · 2025':'Regenerativni model razvoja · 2025');
+}
+
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+window.addEventListener('scroll',()=>{document.getElementById('mainNav').style.boxShadow=window.scrollY>40?'0 2px 20px rgba(28,58,42,.06)':'none';});
 </script>
 </body>
 </html>
