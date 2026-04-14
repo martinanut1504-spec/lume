@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUME — Kreni prema sebi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--green-deep:#1C3A2A;--green-mid:#2D5A3D;--green-warm:#3D7A52;--green-light:#6BAF84;--green-pale:#C8E6D4;--green-ghost:#EDF7F1;--cream:#F2EDE4;--cream-dark:#E5DDD0;--warm-white:#FAF7F2;--text-dark:#1A2E22;--text-mid:#3D5C48;--text-light:#6B8C77;--text-ghost:#9BB8A6;--gold:#C4954A;--gold-light:#E8D5A3}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:"DM Sans",sans-serif;background:var(--cream);color:var(--text-dark);min-height:100vh}
+.page{min-height:100vh;max-width:900px;margin:0 auto;background:var(--warm-white);box-shadow:0 0 80px rgba(28,58,42,.07)}
+.top-bar{padding:18px 48px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;background:rgba(250,247,242,.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(229,221,208,.5)}
+.top-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.top-logo svg{width:22px;height:22px}
+.top-logo-name{font-family:"Fraunces",serif;font-size:16px;font-weight:300;color:var(--green-deep);letter-spacing:3px;text-transform:uppercase}
+.top-skip{font-size:13px;color:var(--text-light);cursor:pointer;background:none;border:none;font-family:"DM Sans",sans-serif;transition:color .2s;display:flex;align-items:center;gap:6px}
+.top-skip:hover{color:var(--green-deep)}
+.progress-section{padding:32px 48px 0}
+.progress-track{display:flex;align-items:center;background:var(--cream);border-radius:20px;padding:20px 32px;border:1px solid var(--cream-dark)}
+.pt-step{display:flex;flex-direction:column;align-items:center;gap:8px}
+.pt-circle{width:60px;height:60px;border-radius:50%;border:1.5px solid var(--cream-dark);background:var(--warm-white);display:flex;align-items:center;justify-content:center;transition:all .4s}
+.pt-step.active .pt-circle{border-color:var(--green-light);background:var(--green-ghost);box-shadow:0 0 0 6px rgba(107,175,132,.1)}
+.pt-step.done .pt-circle{border-color:var(--green-light);background:var(--green-pale)}
+.pt-step.inactive .pt-circle{opacity:.4}
+.pt-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-ghost);transition:color .4s}
+.pt-step.active .pt-label{color:var(--green-warm)}
+.pt-step.done .pt-label{color:var(--green-light)}
+.pt-line{flex:1;height:1.5px;background:var(--cream-dark);margin:0 12px 20px;transition:background .4s}
+.pt-line.done{background:var(--green-pale)}
+.screen{display:none}.screen.on{display:block;animation:sIn .3s ease}
+@keyframes sIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.q-body{padding:40px 48px 48px;text-align:center}
+.q-eyebrow{display:flex;align-items:center;justify-content:center;gap:10px;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.q-eyebrow-line{width:24px;height:1px;background:var(--gold)}
+.q-heading{font-family:"Fraunces",serif;font-size:clamp(28px,4vw,44px);font-weight:300;color:var(--green-deep);line-height:1.2;margin-bottom:8px;letter-spacing:-.3px}
+.q-hint{font-size:13px;color:var(--text-light);font-style:italic;font-weight:300;margin-bottom:36px}
+.q-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px}
+.q-card{padding:24px 20px;border-radius:18px;border:1.5px solid var(--cream-dark);background:var(--warm-white);cursor:pointer;transition:all .25s;display:flex;flex-direction:column;gap:14px;position:relative}
+.q-card:hover{border-color:var(--green-pale);background:var(--green-ghost);transform:translateY(-2px);box-shadow:0 8px 28px rgba(28,58,42,.08)}
+.q-card.sel{border-color:var(--green-light);background:var(--green-ghost);box-shadow:0 6px 24px rgba(107,175,132,.14)}
+.q-card-top{display:flex;align-items:flex-start;justify-content:space-between}
+.q-card-icon{width:48px;height:48px;border-radius:12px;background:var(--cream);display:flex;align-items:center;justify-content:center;transition:background .25s;flex-shrink:0}
+.q-card:hover .q-card-icon,.q-card.sel .q-card-icon{background:rgba(200,230,212,.5)}
+.q-card-radio{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--cream-dark);background:var(--warm-white);display:flex;align-items:center;justify-content:center;transition:all .25s;flex-shrink:0}
+.q-card.sel .q-card-radio{border-color:var(--green-deep);background:var(--green-deep)}
+.q-card.sel .q-card-radio::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--cream)}
+.q-card-title{font-family:"Fraunces",serif;font-size:17px;font-weight:400;color:var(--green-deep);line-height:1.2;margin-bottom:3px;text-align:left}
+.q-card-sub{font-size:12px;color:var(--text-light);font-weight:300;line-height:1.4;text-align:left}
+.btn-continue{display:flex;align-items:center;gap:10px;padding:15px 36px;border-radius:999px;background:var(--green-deep);color:var(--cream);border:none;font-family:"Fraunces",serif;font-size:17px;font-weight:300;cursor:pointer;transition:all .3s;letter-spacing:.2px;box-shadow:0 4px 20px rgba(28,58,42,.18);opacity:0;pointer-events:none;transform:translateY(6px)}
+.btn-continue.show{opacity:1;pointer-events:all;transform:translateY(0)}
+.btn-continue:hover{background:var(--green-mid);transform:translateY(-2px);box-shadow:0 8px 28px rgba(28,58,42,.22)}
+.q-motivation{margin-top:24px;padding:16px 20px;border-radius:14px;background:var(--cream);border:1px solid var(--cream-dark);display:flex;align-items:flex-start;gap:12px;text-align:left}
+.q-mot-icon{flex-shrink:0;margin-top:1px}
+.q-mot-title{font-size:13px;font-weight:500;color:var(--green-deep);margin-bottom:3px;font-style:italic}
+.q-mot-text{font-size:12px;color:var(--text-light);font-weight:300;line-height:1.5}
+.insight-body{padding:40px 48px 48px;text-align:center}
+.insight-phase{display:flex;align-items:center;justify-content:center;gap:10px;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px}
+.insight-phase.s{color:#4A90B8}.insight-phase.s .ipl{background:#4A90B8}
+.insight-phase.o{color:var(--gold)}.insight-phase.o .ipl{background:var(--gold)}
+.ipl{width:24px;height:1px}
+.insight-chip{display:inline-flex;justify-content:center;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:var(--cream);margin-bottom:24px;font-size:13px;color:var(--text-light);font-style:italic;border:1px solid var(--cream-dark)}
+.ichip-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.insight-card{border-radius:20px;padding:36px 32px;margin-bottom:28px;position:relative;overflow:hidden}
+.insight-card.s{background:linear-gradient(145deg,rgba(74,144,184,.08) 0%,rgba(74,144,184,.03) 100%);border:1px solid rgba(74,144,184,.2)}
+.insight-card.o{background:linear-gradient(145deg,rgba(196,149,74,.08) 0%,rgba(196,149,74,.03) 100%);border:1px solid rgba(196,149,74,.2)}
+.insight-card-sym{margin-bottom:20px}
+.insight-card-text{font-family:"Fraunces",serif;font-size:20px;font-weight:300;line-height:1.75;text-align:left}
+.insight-card.s .insight-card-text{color:#2A5A7A}
+.insight-card.o .insight-card-text{color:#7A5020}
+.breathe-body{padding:60px 48px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.breathe-eyebrow{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green-warm);margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.breathe-eyebrow::before,.breathe-eyebrow::after{content:"";width:24px;height:1px;background:var(--green-warm);opacity:.4}
+.breathe-title{font-family:"Fraunces",serif;font-size:42px;font-weight:200;color:var(--green-deep);margin-bottom:10px}
+.breathe-title em{font-style:italic;color:var(--gold)}
+.breathe-sub{font-size:14px;color:var(--text-light);font-weight:300;margin-bottom:52px;line-height:1.7;max-width:340px}
+.b-wrap{position:relative;width:200px;height:200px;margin:0 auto 32px}
+.b-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(107,175,132,.12)}
+.b-ring-1{width:200px;height:200px;animation:bR 8s ease-in-out infinite}
+.b-ring-2{width:160px;height:160px;animation:bR 8s ease-in-out infinite .4s}
+@keyframes bR{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:.1;transform:translate(-50%,-50%) scale(1.1)}}
+.b-core{width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(107,175,132,.18) 0%,rgba(107,175,132,.05) 70%);border:1.5px solid rgba(107,175,132,.3);display:flex;align-items:center;justify-content:center;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transition:all 4s ease-in-out;font-size:28px}
+.b-core.exp{width:154px;height:154px;background:radial-gradient(circle,rgba(107,175,132,.26) 0%,rgba(107,175,132,.1) 70%);border-color:rgba(107,175,132,.45)}
+.b-gold{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:9px;height:9px;border-radius:50%;background:var(--gold);opacity:.5;animation:gP 4s ease-in-out infinite}
+@keyframes gP{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:.9;transform:translate(-50%,-50%) scale(1.5)}}
+.b-instr{font-family:"Fraunces",serif;font-size:24px;font-weight:300;font-style:italic;color:var(--green-deep);min-height:32px;margin-bottom:6px}
+.b-count{font-size:12px;color:var(--text-ghost);min-height:20px;margin-bottom:24px;letter-spacing:.5px}
+.b-bar{width:200px;height:2px;background:var(--cream-dark);border-radius:2px;overflow:hidden;margin:0 auto 32px}
+.b-fill{height:100%;background:linear-gradient(to right,var(--green-light),var(--gold));transition:width 1s linear;width:0%}
+.btn-b-done{padding:15px 40px;border-radius:999px;border:none;background:var(--green-deep);color:var(--cream);font-family:"Fraunces",serif;font-size:17px;font-weight:300;cursor:pointer;display:none;transition:all .25s;box-shadow:0 4px 20px rgba(28,58,42,.18)}
+.btn-b-done:hover{background:var(--green-mid);transform:translateY(-1px)}
+.b-skip{font-size:12px;color:var(--text-ghost);cursor:pointer;background:none;border:none;font-family:"DM Sans",sans-serif;margin-top:16px;transition:color .2s}
+.b-skip:hover{color:var(--text-light)}
+.route-body{padding:40px 48px 48px;text-align:center}
+.route-eyebrow{display:flex;align-items:center;justify-content:center;gap:10px;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green-warm);margin-bottom:20px}
+.rel{width:24px;height:1px;background:var(--green-warm)}
+.route-heading{font-family:"Fraunces",serif;font-size:clamp(28px,4vw,44px);font-weight:300;color:var(--green-deep);line-height:1.2;margin-bottom:8px;letter-spacing:-.3px}
+.route-sub{font-size:13px;color:var(--text-light);font-style:italic;margin-bottom:32px}
+.done-banner{padding:16px 20px;border-radius:14px;background:var(--green-ghost);border:1px solid var(--green-pale);display:flex;align-items:flex-start;gap:12px;margin-bottom:28px;animation:sIn .5s ease}
+.done-banner.hidden{display:none}
+.done-banner-text{font-family:"Fraunces",serif;font-size:16px;font-weight:300;color:var(--green-deep);line-height:1.5}
+.route-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.route-card{padding:24px 20px;border-radius:18px;border:1.5px solid var(--cream-dark);background:var(--warm-white);cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:14px;text-decoration:none;position:relative;overflow:hidden}
+.route-card::after{content:"";position:absolute;bottom:0;left:0;right:0;height:2px;background:transparent;transition:background .25s}
+.route-card:hover{border-color:var(--green-pale);background:var(--green-ghost);transform:translateY(-3px);box-shadow:0 10px 32px rgba(28,58,42,.09)}
+.route-card:hover::after{background:var(--gold)}
+.route-card-icon{width:52px;height:52px;border-radius:12px;background:var(--cream);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .25s}
+.route-card:hover .route-card-icon{background:rgba(200,230,212,.5)}
+.route-card-body{flex:1}
+.route-card-title{font-family:"Fraunces",serif;font-size:17px;font-weight:400;color:var(--green-deep);margin-bottom:4px;text-align:left}
+.route-card-sub{font-size:12px;color:var(--text-light);font-weight:300;line-height:1.4;text-align:left}
+.route-card-arrow{color:var(--text-ghost);transition:all .25s}
+.route-card:hover .route-card-arrow{color:var(--green-warm);transform:translateX(4px)}
+@media(max-width:640px){
+  .top-bar{padding:14px 20px}
+  .progress-section{padding:20px 20px 0}
+  .progress-track{padding:14px 16px}
+  .pt-circle{width:44px;height:44px}
+  .q-body,.insight-body,.breathe-body,.route-body{padding:28px 20px 36px}
+  .q-grid,.route-grid{grid-template-columns:1fr}
+  .breathe-title{font-size:32px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="top-bar">
+  <a href="../" class="top-logo">
+    <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="5" fill="#2D5A3D"/><path d="M12 14v6" stroke="#2D5A3D" stroke-width="1.6" stroke-linecap="round"/><path d="M9 18h6" stroke="#6BAF84" stroke-width="1.4" stroke-linecap="round"/></svg>
+    <span class="top-logo-name">LUME</span>
+  </a>
+  <button class="top-skip" onclick="goTo('sroute')">
+    Preskoči <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </button>
+</div>
+
+<div class="progress-section">
+  <div class="progress-track">
+    <div class="pt-step active" id="ps1">
+      <div class="pt-circle">
+        <svg viewBox="0 0 40 40" fill="none" width="28" height="28">
+          <circle cx="20" cy="20" r="7" stroke="#2D5A3D" stroke-width="1.3"/>
+          <circle cx="20" cy="20" r="14" stroke="#2D5A3D" stroke-width=".7" opacity=".35"/>
+          <circle cx="20" cy="20" r="3" fill="#C4954A" opacity=".9"/>
+        </svg>
+      </div>
+      <div class="pt-label" id="pl1">Stanje</div>
+    </div>
+    <div class="pt-line" id="ptl12"></div>
+    <div class="pt-step inactive" id="ps2">
+      <div class="pt-circle">
+        <svg viewBox="0 0 40 40" fill="none" width="28" height="28">
+          <circle cx="16" cy="16" r="9" stroke="#2D5A3D" stroke-width=".9"/>
+          <circle cx="24" cy="16" r="9" stroke="#2D5A3D" stroke-width=".9"/>
+          <circle cx="20" cy="23" r="9" stroke="#2D5A3D" stroke-width=".9"/>
+          <circle cx="20" cy="18" r="2.5" fill="#C4954A" opacity=".7"/>
+        </svg>
+      </div>
+      <div class="pt-label" id="pl2">Obrazac</div>
+    </div>
+    <div class="pt-line" id="ptl23"></div>
+    <div class="pt-step inactive" id="ps3">
+      <div class="pt-circle">
+        <svg viewBox="0 0 40 40" fill="none" width="28" height="28">
+          <path d="M20 5 L36 34 L4 34 Z" stroke="#2D5A3D" stroke-width="1.2"/>
+          <circle cx="20" cy="24" r="3" fill="#C4954A" opacity=".9"/>
+          <line x1="20" y1="5" x2="20" y2="1" stroke="#2D5A3D" stroke-width="1" stroke-linecap="round"/>
+          <path d="M17 3 L20 0.5 L23 3" stroke="#2D5A3D" stroke-width=".9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="pt-label" id="pl3">Smjer</div>
+    </div>
+  </div>
+</div>
+
+<!-- Q1 -->
+<div id="sq1" class="screen on">
+  <div class="q-body">
+    <div class="q-eyebrow"><div class="q-eyebrow-line"></div><span id="q1ey">Stanje — Regulacija</span></div>
+    <h2 class="q-heading" id="q1h">Kako si sada —<br>ne kao uloga, nego kao osoba?</h2>
+    <p class="q-hint" id="q1hint">Nema krivih odgovora. Samo tvoj.</p>
+    <div class="q-grid">
+      <div class="q-card" onclick="pick1('prazno',this)">
+        <div class="q-card-top">
+          <div class="q-card-icon"><svg viewBox="0 0 24 24" fill="none" width="26" height="26"><rect x="2" y="7" width="17" height="10" rx="2" stroke="#2D5A3D" stroke-width="1.1"/><rect x="19" y="10" width="3" height="4" rx="1.5" stroke="#2D5A3D" stroke-width="1"/><line x1="5" y1="12" x2="7" y2="12" stroke="#C4954A" stroke-width="1.5" stroke-linecap="round" opacity=".6"/></svg></div>
+          <div class="q-card-radio"></div>
+        </div>
+        <div><div class="q-card-title" id="q1at">Preplavljeno</div><div class="q-card-sub" id="q1as">baterija na nuli</div></div>
+      </div>
+      <div class="q-card" onclick="pick1('zbunjen',this)">
+        <div class="q-card-top">
+          <div class="q-card-icon"><svg viewBox="0 0 24 24" fill="none" width="26" height="26"><path d="M12 13C14 11 16 10 16 8C16 5.8 14.2 4 12 4C9.8 4 8 5.8 8 8" stroke="#2D5A3D" stroke-width="1.1" stroke-linecap="round"/><circle cx="12" cy="16" r="1.3" fill="#2D5A3D"/><circle cx="12" cy="20" r="1.3" fill="#C4954A" opacity=".8"/></svg></div>
+          <div class="q-card-radio"></div>
+        </div>
+        <div><div class="q-card-title" id="q1bt">Zbunjen/a</div><div class="q-card-sub" id="q1bs">ne znam odakle početi</div></div>
+      </div>
+      <div class="q-card" onclick="pick1('napon',this)">
+        <div class="q-card-top">
+          <div class="q-card-icon"><svg viewBox="0 0 24 24" fill="none" width="26" height="26"><path d="M13 2L5 13H11L11 22L19 11H13L13 2Z" stroke="#2D5A3D" stroke-width="1.1" stroke-linejoin="round" fill="none"/></svg></div>
+          <div class="q-card-radio"></div>
+        </div>
+        <div><div class="q-card-title" id="q1ct">Pod naponom</div><div class="q-card-sub" id="q1cs">sve odjednom</div></div>
+      </div>
+      <div class="q-card" onclick="pick1('jasnoća',this)">
+        <div class="q-card-top">
+          <div class="q-card-icon"><svg viewBox="0 0 24 24" fill="none" width="26" height="26"><circle cx="11" cy="11" r="7" stroke="#2D5A3D" stroke-width="1.1"/><circle cx="11" cy="11" r="3" stroke="#2D5A3D" stroke-width=".7" opacity=".4"/><line x1="16" y1="16" x2="21" y2="21" stroke="#2D5A3D" stroke-width="1.1" stroke-linecap="round"/><circle cx="11" cy="11" r="1.3" fill="#C4954A" opacity=".9"/></svg></div>
+          <div class="q-card-radio"></div>
+        </div>
+        <div><div class="q-card-title" id="q1dt">Ok, tražim jasnoću</div><div class="q-card-sub" id="q1ds">ima nešto što traži pažnju</div></div>
+      </div>
+    </div>
+    <button class="btn-continue" id="btnQ1" onclick="goInsight1()">
+      <span id="q1btnT">Nastavi</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+    <div class="q-motivation">
+      <div class="q-mot-icon"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><path d="M12 20C8 20 5 17 5 13C5 9 8 6 10 4C10 8 13 9 13 9C13 9 16 7 16 4C18 7 19 10 19 13C19 17 16 20 12 20Z" stroke="#3D7A52" stroke-width="1" fill="rgba(107,175,132,.1)"/><circle cx="12" cy="15" r="1.5" fill="#C4954A" opacity=".8"/></svg></div>
+      <div><div class="q-mot-title" id="q1motT">Iskrenost je početak.</div><div class="q-mot-text" id="q1motS">Ovo nije test. Ovo je prostor da se čuješ.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- INSIGHT 1 -->
+<div id="si1" class="screen">
+  <div class="insight-body">
+    <div class="insight-phase s"><div class="ipl"></div><span id="ip1">🌊 Stanje</span></div>
+    <div class="insight-chip"><div class="ichip-dot"></div><span id="isel1"></span></div>
+    <div class="insight-card s">
+      <div class="insight-card-sym"><svg viewBox="0 0 44 44" fill="none" width="44" height="44"><circle cx="22" cy="22" r="6" stroke="#4A90B8" stroke-width="1.3"/><circle cx="22" cy="22" r="13" stroke="#4A90B8" stroke-width=".8" opacity=".4"/><circle cx="22" cy="22" r="19" stroke="#4A90B8" stroke-width=".4" opacity=".2"/><circle cx="22" cy="22" r="2.5" fill="#C4954A" opacity=".9"/></svg></div>
+      <div class="insight-card-text" id="it1"></div>
+    </div>
+    <button class="btn-continue show" onclick="goTo('sq2')" style="margin-top:0"><span id="ib1t">Nastavi</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+  </div>
+</div>
+
+<!-- Q2 -->
+<div id="sq2" class="screen">
+  <div class="q-body">
+    <div class="q-eyebrow"><div class="q-eyebrow-line"></div><span id="q2ey">Obrazac — Razumijevanje</span></div>
+    <h2 class="q-heading" id="q2h">Kad ti je teško —<br>što se najčešće dogodi?</h2>
+    <p class="q-hint" id="q2hint">Odaberi ono što najčešće prepoznaješ u sebi.</p>
+    <div class="q-grid">
+      <div class="q-card" onclick="pick2('eksplodira',this)">
+        <div class="q-card-top">
+          <div class="q-card-icon"><svg viewBox="0 0 24 24" fill="none" width="26" height="26"><path d="M12 21C8 21 5 18 5 14C5 10 8 7 10 5C10 8.5 13 9.5 13 9.5C13 9.5 16 7.5 16 5C18 7.5 19 10.5 19 14C19 18 16 21 12 21Z" stroke="#2D5A3D" stroke-width="1.1" fill="none"/><circle cx="12" cy="16" r="1.5" fill="#C4954A" opacity=".8"/></svg></div>
+          <div class="q-card-radio"></div>
+        </div>
+        <div><div class="q-card-title" id="q2at">Eksplodiram</div><div class="q-card-sub" id="q2as">pa se osjećam loše zbog toga</div></div>
+      </div>
+      <div class="q-card" onclick="pick2('zamrzne',this)">
+        <div class="q-card-top">
+          <div class="q-card-icon"><svg viewBox="0 0 24 24" fill="none" width="26" height="26"><line x1="12" y1="2" x2="12" y2="22" stroke="#2D5A3D" stroke-width="1.1" stroke-linecap="round"/><line x1="2" y1="12" x2="22" y2="12" stroke="#2D5A3D" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="5" x2="19" y2="19" stroke="#2D5A3D" stroke-width=".7" stroke-linecap="round" opacity=".4"/><line x1="19" y1="5" x2="5" y2="19" stroke="#2D5A3D" stroke-width=".7" stroke-linecap="round" opacity=".4"/><circle cx="12" cy="12" r="1.8" fill="#C4954A" opacity=".8"/></svg></div>
+          <div class="q-card-radio"></div>
+        </div>
+        <div><div class="q-card-title" id="q2bt">Zamrznem se</div><div class="q-card-sub" id="q2bs">ne znam što napraviti</div></div>
+      </div>
+      <div class="q-card" onclick="pick2('povlaci',this)">
+        <div class="q-card-top">
+          <div class="q-card-icon"><svg viewBox="0 0 24 24" fill="none" width="26" height="26"><path d="M12 12C14 9 17 8 18 10C19 12 17 15 15 16C12 18 9 17 8 15C6.5 12 7.5 9 10 8C12.5 7 15.5 8.5 16.5 11" stroke="#2D5A3D" stroke-width="1.1" stroke-linecap="round" fill="none"/><circle cx="12" cy="12" r="1.5" fill="#C4954A" opacity=".8"/></svg></div>
+          <div class="q-card-radio"></div>
+        </div>
+        <div><div class="q-card-title" id="q2ct">Povlačim se</div><div class="q-card-sub" id="q2cs">zatvaram se dok ne prođe</div></div>
+      </div>
+      <div class="q-card" onclick="pick2('kontrolira',this)">
+        <div class="q-card-top">
+          <div class="q-card-icon"><svg viewBox="0 0 24 24" fill="none" width="26" height="26"><circle cx="12" cy="12" r="9" stroke="#2D5A3D" stroke-width="1.1"/><circle cx="12" cy="12" r="5" stroke="#2D5A3D" stroke-width=".8" opacity=".5"/><circle cx="12" cy="12" r="1.8" fill="#C4954A" opacity=".9"/></svg></div>
+          <div class="q-card-radio"></div>
+        </div>
+        <div><div class="q-card-title" id="q2dt">Preuzimam kontrolu</div><div class="q-card-sub" id="q2ds">radim sve sam/a da bude kako treba</div></div>
+      </div>
+    </div>
+    <button class="btn-continue" id="btnQ2" onclick="goInsight2()">
+      <span id="q2btnT">Nastavi</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+    <div class="q-motivation">
+      <div class="q-mot-icon"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><circle cx="12" cy="10" r="5" stroke="#3D7A52" stroke-width="1" fill="none"/><circle cx="12" cy="10" r="2" fill="#C4954A" opacity=".7"/><path d="M7 20C7 17.2 9.2 15 12 15C14.8 15 17 17.2 17 20" stroke="#3D7A52" stroke-width="1" fill="none" stroke-linecap="round"/></svg></div>
+      <div><div class="q-mot-title" id="q2motT">Nema krivih odgovora.</div><div class="q-mot-text" id="q2motS">Svaki obrazac nosi informaciju. LUME te uči što s njom.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- INSIGHT 2 -->
+<div id="si2" class="screen">
+  <div class="insight-body">
+    <div class="insight-phase o"><div class="ipl"></div><span id="ip2">💡 Obrazac</span></div>
+    <div class="insight-chip"><div class="ichip-dot"></div><span id="isel2"></span></div>
+    <div class="insight-card o">
+      <div class="insight-card-sym"><svg viewBox="0 0 44 44" fill="none" width="44" height="44"><circle cx="16" cy="18" r="10" stroke="#C4954A" stroke-width="1"/><circle cx="28" cy="18" r="10" stroke="#C4954A" stroke-width="1"/><circle cx="22" cy="27" r="10" stroke="#C4954A" stroke-width="1"/><circle cx="22" cy="21" r="2.5" fill="#C4954A" opacity=".8"/></svg></div>
+      <div class="insight-card-text" id="it2"></div>
+    </div>
+    <button class="btn-continue show" onclick="goTo('sbreathe')" style="margin-top:0"><span id="ib2t">Nastavi</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+  </div>
+</div>
+
+<!-- BREATHING -->
+<div id="sbreathe" class="screen">
+  <div class="breathe-body">
+    <div class="breathe-eyebrow" id="bEy">Integracija</div>
+    <div class="breathe-title" id="bTi">Tri <em>daha.</em></div>
+    <div class="breathe-sub" id="bSu">Jedan trenutak da se sve složi — prije nego nastaviš.</div>
+    <div class="b-wrap"><div class="b-ring b-ring-1"></div><div class="b-ring b-ring-2"></div><div class="b-core" id="bCore">🌊</div><div class="b-gold"></div></div>
+    <div class="b-instr" id="bIn">Udahni...</div>
+    <div class="b-count" id="bCo">Ciklus 1 od 3</div>
+    <div class="b-bar"><div class="b-fill" id="bFi"></div></div>
+    <button class="btn-b-done" id="bBtn" onclick="goTo('sroute')"><span id="bBt">Nastavljam →</span></button>
+    <button class="b-skip" onclick="goTo('sroute')" id="bSk">Preskoči →</button>
+  </div>
+</div>
+
+<!-- ROUTING -->
+<div id="sroute" class="screen">
+  <div class="route-body">
+    <div class="route-eyebrow"><div class="rel"></div><span id="rEy">Smjer</span></div>
+    <h2 class="route-heading" id="rH">Gdje se ovo<br>najčešće pojavljuje?</h2>
+    <p class="route-sub" id="rS">LUME te vodi u pravi flow — ovisno o tome što nosiš.</p>
+    <div class="done-banner hidden" id="doneBanner">
+      <svg viewBox="0 0 24 24" fill="none" width="20" height="20" style="flex-shrink:0;margin-top:2px"><path d="M12 20C8 20 5 17 5 13C5 9 8 6 10 4C10 8 13 9 13 9C16 7 16 4C18 7 19 10 19 13C19 17 16 20 12 20Z" stroke="#3D7A52" stroke-width="1" fill="rgba(107,175,132,.12)"/><circle cx="12" cy="14" r="1.5" fill="#C4954A" opacity=".8"/></svg>
+      <div class="done-banner-text" id="doneTxt">Napravio/la si prvi krug. Sad odaberi gdje to nosiš.</div>
+    </div>
+    <div class="route-grid">
+      <a href="../life/razvoj/app.html" class="route-card">
+        <div class="route-card-icon"><svg viewBox="0 0 24 24" fill="none" width="26" height="26"><circle cx="12" cy="7" r="4" stroke="#2D5A3D" stroke-width="1.1"/><path d="M12 11v10" stroke="#2D5A3D" stroke-width="1.1" stroke-linecap="round"/><path d="M9 18l3 3 3-3" stroke="#2D5A3D" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="7" r="1.5" fill="#C4954A" opacity=".7"/></svg></div>
+        <div class="route-card-body"><div class="route-card-title" id="rc1t">U meni</div><div class="route-card-sub" id="rc1s">Osobni razvoj, obrasci, razumijevanje sebe</div></div>
+        <div class="route-card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+      <a href="../life/odnosi/app.html" class="route-card">
+        <div class="route-card-icon"><svg viewBox="0 0 24 24" fill="none" width="26" height="26"><circle cx="9" cy="8" r="4" stroke="#2D5A3D" stroke-width="1.1"/><circle cx="15" cy="8" r="4" stroke="#2D5A3D" stroke-width="1.1"/><path d="M5 20c0-2.8 1.8-5 4-5s3 1 3 1 1-1 3-1 4 2.2 4 5" stroke="#2D5A3D" stroke-width="1" stroke-linecap="round" fill="none"/><circle cx="12" cy="9" r="1.3" fill="#C4954A" opacity=".7"/></svg></div>
+        <div class="route-card-body"><div class="route-card-title" id="rc2t">U odnosu</div><div class="route-card-sub" id="rc2s">Bliske veze, konflikti, komunikacija</div></div>
+        <div class="route-card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+      <a href="../life/parents/app.html" class="route-card">
+        <div class="route-card-icon"><svg viewBox="0 0 24 24" fill="none" width="26" height="26"><circle cx="12" cy="5" r="3" stroke="#2D5A3D" stroke-width="1.1"/><path d="M8 21v-6c0-2 1.8-3 4-3s4 1 4 3v6" stroke="#2D5A3D" stroke-width="1" stroke-linecap="round" fill="none"/><circle cx="7" cy="9" r="2" stroke="#2D5A3D" stroke-width=".9" opacity=".5"/><circle cx="17" cy="9" r="2" stroke="#2D5A3D" stroke-width=".9" opacity=".5"/><circle cx="12" cy="5" r="1.3" fill="#C4954A" opacity=".7"/></svg></div>
+        <div class="route-card-body"><div class="route-card-title" id="rc3t">S djetetom</div><div class="route-card-sub" id="rc3s">Roditeljstvo, reakcije, prisutnost</div></div>
+        <div class="route-card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+      <a href="../life/posao/app.html" class="route-card">
+        <div class="route-card-icon"><svg viewBox="0 0 24 24" fill="none" width="26" height="26"><rect x="3" y="8" width="18" height="13" rx="2" stroke="#2D5A3D" stroke-width="1.1"/><path d="M8 8V6c0-1 .9-2 2-2h4c1.1 0 2 1 2 2v2" stroke="#2D5A3D" stroke-width="1" fill="none"/><line x1="3" y1="13" x2="21" y2="13" stroke="#2D5A3D" stroke-width=".7" opacity=".4"/><circle cx="12" cy="13" r="1.8" fill="#C4954A" opacity=".8"/></svg></div>
+        <div class="route-card-body"><div class="route-card-title" id="rc4t">Na poslu</div><div class="route-card-sub" id="rc4s">Iscrpljenost, pritisak, granice</div></div>
+        <div class="route-card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+let lang='hr',bInt=null,bCyc=0;
+const ins={s:{hr:{prazno:{sel:'Preplavljeno — baterija na nuli',txt:'Prepoznajemo tu praznoću. Kad smo iscrpljeni, reagiramo iz ostataka — ne iz snage. Regeneracija počinje ovdje — s jednim dahom.'},zbunjen:{sel:'Zbunjen/a — ne znam odakle početi',txt:'Ne znati odakle početi nije slabost. To je signal da je previše toga odjednom. Jedan korak. Samo jedan — i sve ostalo slijedi.'},napon:{sel:'Pod naponom — sve odjednom',txt:'Kad sve odjednom pritišće — tijelo to osjeti prije uma. Jedan dah vraća centar. Iz tog mjesta sve postaje lakše.'},'jasnoća':{sel:'Ok, ali tražim jasnoću',txt:'Tražiti jasnoću znači da si već napravila najteži korak — odlučila si pogledati iznutra. LUME te vodi dalje.'}},en:{prazno:{sel:'Overwhelmed — battery on zero',txt:'We recognise that emptiness. When depleted, we react from what is left — not from strength. Regeneration starts here.'},zbunjen:{sel:'Confused — I do not know where to start',txt:'Not knowing where to start is not weakness. It is a signal that too much is happening at once. One step. Just one.'},napon:{sel:'Under pressure — everything at once',txt:'When everything presses at once — the body feels it before the mind. One breath restores the centre.'},'jasnoća':{sel:'Ok, but looking for clarity',txt:'Looking for clarity means you have already taken the hardest step — you decided to look within.'}}},o:{hr:{eksplodira:{sel:'Eksplodiram — pa se osjećam loše',txt:'Eksplozija dolazi iz mjesta brige — ne loše namjere. Intenzitet nije problem. On je energija koja traži smjer.'},zamrzne:{sel:'Zamrznem se — ne znam što napraviti',txt:'Zamrzavanje je tijelo koje kaže "previše je." To nije slabost — to je signal. I LUME te uči što s tim signalom.'},povlaci:{sel:'Povlačim se — zatvaram se',txt:'Povlačenje je stara zaštita. Funkcionirala je nekad — ali sada te izolira upravo kad trebaš kontakt.'},kontrolira:{sel:'Preuzimam kontrolu — radim sve sam/a',txt:'Preuzimanje kontrole dolazi iz straha. To iscrpljuje — i sprečava druge da rastu.'}},en:{eksplodira:{sel:'I explode — and then feel bad',txt:'The explosion comes from care — not bad intent. The intensity is energy looking for direction.'},zamrzne:{sel:'I freeze — I do not know what to do',txt:'Freezing is the body saying "too much." That is not weakness — it is a signal.'},povlaci:{sel:'I withdraw — I close off',txt:'Withdrawal is an old protection. It worked once — but now it isolates you when you need connection.'},kontrolira:{sel:'I take control — I do everything myself',txt:'Taking control comes from fear. That depletes — and prevents others from growing.'}}}};
+
+function goTo(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));const el=document.getElementById(id);if(el){el.classList.add('on');window.scrollTo(0,0)}updateProgress(id);if(id==='sbreathe')startB();if(id==='sroute')setTimeout(()=>{const b=document.getElementById('doneBanner');if(b)b.classList.remove('hidden')},400)}
+function updateProgress(id){const map={sq1:'s',si1:'s',sq2:'o',si2:'o',sbreathe:'su',sroute:'su'};const phase=map[id]||'s';const s1=document.getElementById('ps1'),s2=document.getElementById('ps2'),s3=document.getElementById('ps3'),l12=document.getElementById('ptl12'),l23=document.getElementById('ptl23');[s1,s2,s3].forEach(s=>{if(s)s.className='pt-step inactive'});if(phase==='s'){if(s1)s1.className='pt-step active'}else if(phase==='o'){if(s1)s1.className='pt-step done';if(s2)s2.className='pt-step active';if(l12)l12.classList.add('done')}else if(phase==='su'){if(s1)s1.className='pt-step done';if(s2)s2.className='pt-step done';if(s3)s3.className='pt-step active';if(l12)l12.classList.add('done');if(l23)l23.classList.add('done')}}
+function pick1(v,el){document.querySelectorAll('#sq1 .q-card').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');const l=lang==='en'?'en':'hr';const d=ins.s[l][v];document.getElementById('isel1').textContent=d.sel;document.getElementById('it1').textContent=d.txt;const btn=document.getElementById('btnQ1');if(btn)btn.classList.add('show')}
+function pick2(v,el){document.querySelectorAll('#sq2 .q-card').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');const l=lang==='en'?'en':'hr';const d=ins.o[l][v];document.getElementById('isel2').textContent=d.sel;document.getElementById('it2').textContent=d.txt;const btn=document.getElementById('btnQ2');if(btn)btn.classList.add('show')}
+function goInsight1(){goTo('si1')}
+function goInsight2(){goTo('si2')}
+function startB(){bCyc=0;document.getElementById('bFi').style.width='0%';document.getElementById('bBtn').style.display='none';runB()}
+function runB(){if(bInt)clearInterval(bInt);const core=document.getElementById('bCore'),instr=document.getElementById('bIn'),count=document.getElementById('bCo'),fill=document.getElementById('bFi');const t=lang==='en';const ph=t?['Breathe in...','Hold...','Breathe out...']:['Udahni...','Zadrži...','Izdahni...'];const dur=[4,1,3];let pi=0,el=0,pe=0;if(instr)instr.textContent=ph[0];if(count)count.textContent=`${t?'Cycle':'Ciklus'} ${bCyc+1} ${t?'of':'od'} 3`;if(core)core.classList.add('exp');bInt=setInterval(()=>{el++;pe++;if(fill)fill.style.width=Math.min((bCyc*8+el)/24*100,100)+'%';if(pe>=dur[pi]){pe=0;pi=(pi+1)%3;if(instr)instr.textContent=ph[pi];if(core){if(pi===0)core.classList.add('exp');else core.classList.remove('exp')}}if(el>=8){clearInterval(bInt);bCyc++;if(bCyc<3){setTimeout(runB,500)}else{if(fill)fill.style.width='100%';if(instr)instr.textContent=t?'Done.':'Gotovo.';if(count)count.textContent='';const btn=document.getElementById('bBtn');if(btn)btn.style.display='block'}}},1000)}
+</script>
+</body>
+</html>
